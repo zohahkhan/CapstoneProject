@@ -8,8 +8,8 @@ event_title		VARCHAR(50)         NOT NULL,
 event_desc		TEXT		        NOT NULL, 
 event_location	VARCHAR(250)		NOT NULL, 
 event_date		DATETIME			NOT NULL, 
-recurring		ENUM('Daily', 'Weekly', 'Monthly', 'Annually')		NOT NULL, 
-iterations		INT					NOT NULL, 
+recurring		ENUM('Daily', 'Weekly', 'Monthly', 'Annually'),
+iterations		INT	,
 created_at		TIMESTAMP			NOT NULL, 
 updated_at		TIMESTAMP,
 deleted_at		TIMESTAMP,
@@ -362,5 +362,6 @@ role_id
 )
 VALUES
 (1, 1, 1);
+
 
 
