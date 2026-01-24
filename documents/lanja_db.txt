@@ -339,7 +339,8 @@ created_at
 )
 VALUES
 (1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'); 
+(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', NULL, NULL, '2026-01-08 14:48:31'),
+(3, 'Team Meeting', 'Discuss progress and plans.', 'Zoom', '2026-01-30 22:15:00', NULL, NULL, '2026-01-08 22:34:05'); 
 
 
 INSERT INTO Permission 
@@ -481,6 +482,7 @@ GRANT SELECT, INSERT, UPDATE
 ON *
 TO mgs_user@localhost
 IDENTIFIED BY 'pa55word';
+
 
 
 
