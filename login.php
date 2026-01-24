@@ -91,8 +91,10 @@ if (isset($login))
 			<label for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="Enter your password" required/>
 		</div>
+		<p><a href="reset.php"></a>Password Reset</p>
 		<button type="submit" name="submit">Submit</button>
 		</form>
 	</div>
 </body>
+
 </html>
