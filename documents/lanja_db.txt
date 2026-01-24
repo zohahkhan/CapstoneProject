@@ -351,7 +351,61 @@ perm_resource,
 perm_crud
 )
 VALUES
-(1, 'Oversee all member accounts', 'placeholder text', 'User', 'Read');
+// president only permissions
+			// pres only -- user 
+(1, 'Create User Account', 'Create a new member account by entering required credentials and assigning an initial active status.', 'User', 'Create'),
+(2, 'Update User Account Status', 'Freeze or reactivate user accounts, immediately revoking or restoring login access while preserving data.', 'User', 'Update'), 
+(3, 'View User Accounts', 'View all user accounts and related metadata for monitoring and management.', 'User', 'Read'),
+(4, 'View User Activity Logs', 'View user engagement metrics including login frequency, last login time, and site activity.', 'User', 'Read'),
+			// pres only -- suggestion
+(5, 'Receive Message Requests', 'Receive and view membership requests submitted by visitors via contact form.', 'Suggestion', 'Read'),
+(6, 'Respond to Requests', 'Accept or decline visitor membership requests.', 'Suggestion', 'Update'),
+			// pres only -- event
+(7, 'Cancel Calendar Event', 'Cancel any calendar event or recurring series across the organization.', 'Calendar Event', 'Update'),
+
+// leadership = pres & dept head perm 
+			// leader -- docs
+(8, 'Upload Document', 'Upload documents (PDF/DOCX) to the system within size and performance constraints.', 'Document', 'Create'),
+(9, 'Set Document Visibility', 'Define which roles or departments can view and download a document.', 'Document', 'Update'),
+(10, 'View Documents', 'View and download documents based on assigned visibility permissions.', 'Document', 'Read'),
+(11, 'Archive Document', 'Archive documents so they are no longer active but retained for historical reference.', 'Document', 'Update'),
+			// leader -- events
+(12, 'Create Calendar Event', 'Create calendar events that are visible to selected roles within seconds of posting.', 'Calendar Event', 'Create'),
+(13, 'Update Calendar Event', 'Edit calendar events according to defined modification permissions, overwriting displayed versions while logging changes.', 'Calendar Event', 'Update'),
+			// leader -- announce
+(14, 'Publish Announcement', 'Create and publish announcements with title, body, and expiry date.', 'Announcement', 'Create'),
+(15, 'Update Announcement', 'Edit active announcements; expired announcements auto-hide while status updates accordingly.', 'Announcement', 'Update'),
+(16, 'View Announcement Archive', 'Archive any announcement across the organization to preserve history without deletion.', 'Announcement', 'Update'),
+			// leader -- other 
+(17, 'View Reports', 'View monthly aggregated reports with visualizations and qualitative interpretations.', 'Form Response', 'Read'),
+
+// dept head only
+(18, 'Cancel Calendar Event', 'Cancel calendar events they created or in their department only.', 'Calendar Event', 'Update'),
+
+// regular member only
+(19, 'View Own Profile', 'View personal profile information including name, contact details, role, and available navigation options.', 'User', 'Read'),
+(20, 'Update Own Profile', 'Update personal profile information such as name, email, phone number, and address.', 'User', 'Update'),
+(21, 'Submit Form Response', 'Complete and submit a survey or form related to member involvement.', 'Form Response', 'Create'),
+(22, 'Update Own Form Response', 'Edit a previously submitted survey response before the submission deadline to correct errors.', 'Form Response', 'Update'),
+(23, 'View Own Form Responses', 'View a list of previously submitted form responses and open individual submissions in read-only mode.', 'Form Response', 'Read'),
+(24, 'View Member Announcements', 'View published announcements intended for members.', 'Announcement', 'Read'),
+
+// applies to everyone 
+(25, 'Submit Message Suggestions', 'Visitors and all members can send membership requests and/or suggestions via contact form.', 'Suggestion', 'Create'),
+(26, 'Reset Password', 'Reset account password using a time-limited, tokenized email link with enforced password strength rules.', 'User', 'Update'),
+			// all member levels, excludes admins
+(27, 'View Calendar Events', 'View all calendar events across roles with consistent formatting.', 'Calendar Event', 'Read'), 
+(28, 'View Announcements', 'View announcements and their current status (active/expired).', 'Announcement', 'Read'), 
+
+// admin only
+(29, 'View System Logs', 'View system log entries for monitoring and troubleshooting.', 'Audit Log', 'Read'),
+(30, 'Export System Logs', 'Generate and export system logs as CSV or PDF files using scheduled scripts for auditing and archival purposes.', 'Audit Log', 'Read'),
+(31, 'Assign User Roles', 'Assign or change user roles (President, Dept Head, Member, Admin) with immediate effect and audit logging of changes.', 'User Role', 'Update'),
+(32, 'Grant Role Permissions', 'Grant or modify CRUD permissions associated with roles to control system access.', 'Role Permission', 'Update'),
+(33, 'View Performance Metrics', 'View system performance metrics and operational data through an administrative dashboard.', 'Audit Log', 'Read'),
+(34, 'View System Alerts', 'View system alerts and notifications related to failures or downtime within the past 90 days.', 'Audit Log', 'Read');
+
+
 
 
 INSERT INTO RolePermission 
@@ -362,6 +416,7 @@ role_id
 )
 VALUES
 (1, 1, 1);
+
 
 
 
