@@ -477,10 +477,12 @@ VALUES
 (54, 34, 4);
 
 /* to access the database */
+CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
+IDENTIFIED BY 'pa55word';
+
 GRANT SELECT, INSERT, UPDATE
 ON lanja_db.*
-TO mgs_user@localhost
-IDENTIFIED BY 'pa55word';
+TO 'mgs_user'@'localhost';
 
 
 
