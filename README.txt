@@ -3,7 +3,7 @@ The new feature branches that were created were homepages, loginpages, password-
 
 
 Login-pages branch: 
-As a User (President/Head/Member/Admin), I want my login experience to be secure and authenticated so that my account role is only available to authorized personnel. - High Priority, Kah
+As a User (President/Head/Member/Admin), I want my login experience to be secure and authenticated so that my account role is only available to authorized personnel. - High Priority, Shannon and Kah
 o   Acceptance Criteria:
 - Login verification that matches the unique email to stored password.
 -  Error handling that lets the user know if their login attempt was successful or not, but not specifically whether the user/password was correct/incorrect (to deter hacking).
