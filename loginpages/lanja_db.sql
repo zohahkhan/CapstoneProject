@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS lanja_db;
 CREATE DATABASE IF NOT EXISTS lanja_db;
 USE lanja_db;
 
