@@ -1,4 +1,5 @@
-<!--homepage.php the homepage / user landing page-->
+
+<!--homepage.php the homepage / user landing page, edit-->
 <?php
 // connects to database script
 require_once './include/db_connect.php';
