@@ -259,16 +259,16 @@ Annapolis, MD 21403', '$2y$10$1Ck3Dmd3lE7drK/MIomR0.WEl9Wzo6aj2ec0vP5PBwWPwVAJiY
 (16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive
 Annapolis, MD 21403', '$2y$10$yeNHHp5i25BeyAcXPyQvMuG/l4ib0opBdsff9ES50Dd3PLQF/Ufk2', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45'),
 
-(17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive
+(17, 'Zoha', 'K', 'kha27882@pennwest.edu', '(406) 555-0117', '155 Golden Meadow Drive
 Bozeman, MT 59718', '$2y$10$hugC3ImjPgD9yz4Xw.ZqTO0bHkj1P1MkzdREMnH7c/xVF.vCec3L2', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50'),
      
-(18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road
+(18, 'JJ', 'G', 'gil42134@pennwest.edu', '(941) 555-0118', '880 Cypress Hollow Road
 Sarasota, FL 34232', '$2y$10$ocq4zYQSUKbqVXvY/GZeWOfBWslM09JPpgXokfiJ8RJqWPPy28Tke', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40'),
     
-(19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane
+(19, 'Kah', 'O', 'ong92990@pennwest.edu', '(970) 555-0119', '602 Juniper Ridge Lane
 Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25'),  
      
-(20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing
+(20, 'Shan', 'K', 'kat44977@pennwest.edu', '(859) 555-0120', '2173 Bluebird Crossing
 Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10');
    
 
