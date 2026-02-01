@@ -1,5 +1,4 @@
-DROP DATABASE IF EXISTS lanja_db;
-CREATE DATABASE lanja_db;
+CREATE DATABASE IF NOT EXISTS lanja_db;
 USE lanja_db;
 
 CREATE TABLE CalendarEvent (
@@ -478,10 +477,13 @@ VALUES
 (54, 34, 4);
 
 /* to access the database */
-GRANT SELECT, INSERT, UPDATE
-ON *
-TO mgs_user@localhost
+CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
 IDENTIFIED BY 'pa55word';
+
+GRANT SELECT, INSERT, UPDATE
+ON lanja_db.*
+TO 'mgs_user'@'localhost';
+
 
 
 
