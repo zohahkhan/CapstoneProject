@@ -16,6 +16,14 @@ if (isset($_SESSION['user']))
 	header('Location: index.php'); 
 	exit();
 }
+
+// Create a secure-ish session cookie that still works on localhost (HTTP)
+// CHANGE: on localhost (HTTP), cookie("secure"=>true) will NOT be set by the browser.
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443);
+
+$error_message = null;
+
 	// check if the login form was submitted
 	$login = filter_input(INPUT_POST, 'submit');
 
@@ -46,6 +54,40 @@ if (isset($login))
 				'first_name' => $user['first_name'],
 				'last_name' => $user['last_name']
 			);
+		                    // CHANGE: DB-backed session token stored in Session table + HttpOnly cookie
+                    // Added a table to db.sql: Session(session_id, user_id, expires_at [, created_at, last_seen_at])
+                    $token = bin2hex(random_bytes(32)); // 64 hex chars
+                    $expiresAt = (new DateTime('+7 days'))->format('Y-m-d H:i:s');
+
+                    try {
+                        $ins = $db->prepare('INSERT INTO `Session` (session_id, user_id, expires_at)
+                                             VALUES (:session_id, :user_id, :expires_at)');
+                        $ins->execute([
+                            ':session_id' => $token,
+                            ':user_id' => $user['user_id'],
+                            ':expires_at' => $expiresAt
+                        ]);
+                    } catch (PDOException $e) {
+                        // CHANGE: fail open for class project demo if Session table isn't deployed yet
+                    }
+
+                    // CHANGE: Update last_login 
+                    try {
+                        $upd = $db->prepare('UPDATE `User` SET last_login = NOW() WHERE user_id = :user_id');
+                        $upd->execute([':user_id' => $user['user_id']]);
+                    } catch (PDOException $e) {
+                        // Same note as above: ignore if column doesn't exist in a dev schema.
+                    }
+
+                    // CHANGE: Set cookie for DB-backed session token
+                    // - Secure is enabled only when HTTPS is detected
+                    setcookie('session', $token, [
+                        'expires' => time() + 7 * 24 * 60 * 60,
+                        'path' => '/',
+                        'secure' => $isHttps,
+                        'httponly' => true,
+                        'samesite' => 'Lax'
+                    ]);	
 			header('Location: index.php'); // successful login
 			exit();
 		} else 
