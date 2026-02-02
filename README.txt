@@ -19,7 +19,7 @@ o   Acceptance Criteria:
 -  Passwords are hashed when stored in the database.
 
 Session Management System Branch: 
-As a User (President/Head/Member/Admin), I want to terminate my account’s session by logging out so that I can protect my information from the outside, especially if I use an untrusted device. - High Priority, Shannon
+As a User (President/Head/Member/Admin), I want to terminate my account’s session by logging out so that I can protect my information from the outside, especially if I use an untrusted device. - High Priority, Shannon and Kah
 o   Acceptance Criteria:
 - Display message that lets the user know the session has successfully ended.
 - Redirects to main menu page with the option to log in again.
