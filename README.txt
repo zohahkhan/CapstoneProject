@@ -15,7 +15,7 @@ As a User (President/Head/Member/Admin), I might forget or lose my password and 
 o   Acceptance Criteria:
 -A tokenized link is sent to the user’s email, prompting the user to enter and confirm their new password.
 -  User must enter the token in a box after opening the link in email to verify they match, expires after 3 minutes.
--  Strong passwords use regular expressions (regex) to set security criteria (i.e., length min 8 characters, min of 2 numbers, min of 1 special character symbol, must start with a capital letter).
+-  Strong passwords use regular expressions (regex) to set security criteria (min of 8 characters in length and must contain at least 2 numbers).
 -  Passwords are hashed when stored in the database.
 
 Session Management System Branch: 
