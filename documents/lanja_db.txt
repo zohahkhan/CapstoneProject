@@ -27,6 +27,8 @@ password_hash	VARCHAR(50)			NOT NULL,
 is_active		BOOLEAN				NOT NULL, 
 joined_on		TIMESTAMP			NOT NULL, 
 last_login		TIMESTAMP			NOT NULL, 
+last_updated	TIMESTAMP,
+updated_by		INT,
 PRIMARY KEY (user_id), 
 UNIQUE INDEX user_email (user_email)
 );
@@ -481,6 +483,7 @@ GRANT SELECT, INSERT, UPDATE
 ON *
 TO mgs_user@localhost
 IDENTIFIED BY 'pa55word';
+
 
 
 
