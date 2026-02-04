@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS lanja_db;
 CREATE DATABASE IF NOT EXISTS lanja_db;
 USE lanja_db;
 
@@ -26,6 +27,8 @@ password_hashed	VARCHAR(60)			NOT NULL,
 is_active		BOOLEAN				NOT NULL, 
 joined_on		TIMESTAMP			NOT NULL, 
 last_login		TIMESTAMP			NOT NULL, 
+last_updated	TIMESTAMP,
+updated_by		INT,
 PRIMARY KEY (user_id), 
 UNIQUE INDEX user_email (user_email)
 );
@@ -195,6 +198,18 @@ created_at		TIMESTAMP			NOT NULL,
 PRIMARY KEY (suggestion_id)
 );
 
+CREATE TABLE Session (
+  session_id       CHAR(64)        NOT NULL,
+  user_id          INT             NOT NULL,
+  created_at       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_seen_at     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  expires_at       TIMESTAMP       NOT NULL,
+  revoked_at       TIMESTAMP       NULL,
+  PRIMARY KEY (session_id),
+  INDEX (user_id),
+  INDEX (expires_at),
+  FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
 
 
 /* adding values to the database, personal info altered for privacy */ 
@@ -210,65 +225,72 @@ user_address,
 password_hashed, 
 is_active, 
 joined_on, 
-last_login 
+last_login, 
+last_updated,
+updated_by
 )
 
 VALUES
 
-(1, 'Carie', 'Baig', 'carie_b0009@email.com', '(217) 555-0101', '101 Maple Grove Drive Springfield, IL 62704', '$2y$10$kw5f0o4KGqtRwysU8o.Qn.HJIKgDfkctvyII75mYbsOKrJ9VFc7Rm', 1, '2022-03-15 08:12:45', '2023-07-21 14:55:12'), 
+(1, 'Carie', 'Baig', 'carie_b0009@email.com', '(217) 555-0101', '101 Maple Grove Drive 
+	Springfield, IL 62704', '$2y$10$kw5f0o4KGqtRwysU8o.Qn.HJIKgDfkctvyII75mYbsOKrJ9VFc7Rm', 1, '2022-03-15 08:12:45', '2023-07-21 14:55:12', NULL, NULL), 
 
-(2, 'Aliyah', 'Salah', 'sal11390@email.com', '(608) 555-0102', '245 Oak Valley Road Madison, WI 53711', '$2y$10$5LJs/YsrRj66QCORnDyNsOK.58J7p95UAc.FqnjVRccjgPlpl3pHy', 1, '2021-11-02 16:45:30', '2023-01-18 09:23:50'),
+(2, 'Aliyah', 'Salah', 'sal11390@email.com', '(608) 555-0102', '245 Oak Valley Road 
+	Madison, WI 53711', '$2y$10$5LJs/YsrRj66QCORnDyNsOK.58J7p95UAc.FqnjVRccjgPlpl3pHy', 1, '2021-11-02 16:45:30', '2023-01-18 09:23:50', NULL, NULL),
 
-(3, 'Kamila', 'Nawaz', 'kamkam13506@email.com', '(919) 555-0103', '389 Pine Hill Lane Raleigh, NC 27607', '$2y$10$kBqOL5e1wDheS8DHTBl6bOKkpzjXM2hRWDqNM.KWjr/wifbhFYQni', 1, '2020-06-10 12:05:10', '2022-12-22 18:40:05'),
+(3, 'Kamila', 'Nawaz', 'kamkam13506@email.com', '(919) 555-0103', '389 Pine Hill 
+	Lane Raleigh, NC 27607', '$2y$10$kBqOL5e1wDheS8DHTBl6bOKkpzjXM2hRWDqNM.KWjr/wifbhFYQni', 1, '2020-06-10 12:05:10', '2022-12-22 18:40:05', NULL, NULL),
 
-(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue
-Pasadena, CA 91105', '$2y$10$ps9ws6TzOeIV6pBZZDeEZOOBQnYIvDtDIsfE5cj.V6LNaPtH16.pS', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45'), 
+(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue 
+	Pasadena, CA 91105', '$2y$10$ps9ws6TzOeIV6pBZZDeEZOOBQnYIvDtDIsfE5cj.V6LNaPtH16.pS', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45', NULL, NULL), 
 
 (5, 'Roxanne', 'Sumar', 'rsumar@email.com', '(802) 555-0105', '76 Riverstone Court
-Burlington, VT 05401', '$2y$10$0d4cPeCkCZhybZ6S1Dc.Q.gjAShuancxpzwDoWJkvch4znII/ftCi', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12'),
+Burlington, VT 05401', '$2y$10$0d4cPeCkCZhybZ6S1Dc.Q.gjAShuancxpzwDoWJkvch4znII/ftCi', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12' , NULL, NULL),
 
-(6, 'Mina', 'Hashim', 'minahashim@email.com', '(972) 555-0106', '834 Willow Bend Way Plano, TX 75024', '$2y$10$QjUoa70XLel3.7dMehpBAOw.eazg.8udTQh8WVGP1336K.w70ANRG', 1, '2022-02-28 09:12:15', '2023-08-09 21:15:35'),
+(6, 'Mina', 'Hashim', 'minahashim@email.com', '(972) 555-0106', '834 Willow Bend Way 
+	Plano, TX 75024', '$2y$10$QjUoa70XLel3.7dMehpBAOw.eazg.8udTQh8WVGP1336K.w70ANRG', 1, '2022-02-28 09:12:15', '2023-08-09 21:15:35', NULL, NULL),
 
-(7, 'Mariam', 'Latif', 'latimari@email.com', '(425) 555-0107', '690 Cedar Ridge Drive Bellevue, WA 98008', '$2y$10$S.8/Vr3.yfNkG3QApZoO1e.GtM7nfRJRalqGhTJAkeLKjdqZ1o1I6', 1, '2020-12-15 22:10:50', '2022-10-30 08:05:25'),
+(7, 'Mariam', 'Latif', 'latimari@email.com', '(425) 555-0107', '690 Cedar Ridge Drive 
+	Bellevue, WA 98008', '$2y$10$S.8/Vr3.yfNkG3QApZoO1e.GtM7nfRJRalqGhTJAkeLKjdqZ1o1I6', 1, '2020-12-15 22:10:50', '2022-10-30 08:05:25', NULL, NULL),
 
 (8, 'Nadia', 'Maroon', 'mar00nn@email.com', '(614) 555-0108', '918 Meadowbrook Lane
-Columbus, OH 43221', '$2y$10$YlawsO6QyO5qO0ezFK6H6OTkulwtUYsj8hJxSApG.S4gNyTsG.7Je', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50'), 
+Columbus, OH 43221', '$2y$10$YlawsO6QyO5qO0ezFK6H6OTkulwtUYsj8hJxSApG.S4gNyTsG.7Je', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50', NULL, NULL), 
 
 (9, 'Lula', 'Mirza', 'mirza_lu@email.com', '(847) 555-0109', '207 Lakeside Parkway
-Evanston, IL 60202', '$2y$10$LLmgwqQ9NDqQKVu/ax3oaOgfmbSuQ62kg0Quuvxs46PCMPILGYPXq', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20'),
+Evanston, IL 60202', '$2y$10$LLmgwqQ9NDqQKVu/ax3oaOgfmbSuQ62kg0Quuvxs46PCMPILGYPXq', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20', NULL, NULL),
 
 (10, 'Inaya', 'Sheikh', 'sheikh2005@email.com', '(480) 555-0110', '561 Highland Park Drive
-Scottsdale, AZ 85255', '$2y$10$mUr9yZwVvkUoUwlqzmP4ieKXGH8b1kHqmsovCFo2UXzYcHR1/LHvq', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00'), 
+Scottsdale, AZ 85255', '$2y$10$mUr9yZwVvkUoUwlqzmP4ieKXGH8b1kHqmsovCFo2UXzYcHR1/LHvq', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00', NULL, NULL), 
 
 (11, 'Jasmine', 'Taha', 'jazzy0267@email.com', '(919) 555-0111', '744 Brookhaven Road
-Chapel Hill, NC 27516', '$2y$10$IZfz/u/54SqWzcb0otAq2eQb5uwOJm/X0jmJhrD3I21AlXnO3d3Bq', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10'), 
+Chapel Hill, NC 27516', '$2y$10$IZfz/u/54SqWzcb0otAq2eQb5uwOJm/X0jmJhrD3I21AlXnO3d3Bq', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10', NULL, NULL), 
 
 (12, 'Malay', 'Usami', 'musami89@email.com', '(707) 555-0112', '1205 Redwood Springs Circle
-Santa Rosa, CA 95404', '$2y$10$PmNOQP2FrN50jE4ghiWCcuqI.FBsqto1syRl9TblNRZMtu6q6Ouz2', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25'), 
+Santa Rosa, CA 95404', '$2y$10$PmNOQP2FrN50jE4ghiWCcuqI.FBsqto1syRl9TblNRZMtu6q6Ouz2', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25', NULL, NULL), 
 
 (13, 'Farah', 'Amin', 'faraha@email.com', '(828) 555-0113', '967 Autumn Crest Lane
-Asheville, NC 28803', '$2y$10$tmhVscmPDY.eymVx1fAcbepfGLyI.aEOphCWBQ.vi0Bu4Qb2JnUEi', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15'),
+Asheville, NC 28803', '$2y$10$tmhVscmPDY.eymVx1fAcbepfGLyI.aEOphCWBQ.vi0Bu4Qb2JnUEi', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15', NULL, NULL),
  
 (14, 'Sofie', 'Nasser', 'sofiebee23@email.com', '(609) 555-0114', '29 Stonegate Boulevard
-Princeton, NJ 08540', '$2y$10$ncUkQZ.UpLK98sgHSx8iuemii1YVZcK3phdYkRdTh0G6Hs3kowcim', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35'), 
+Princeton, NJ 08540', '$2y$10$ncUkQZ.UpLK98sgHSx8iuemii1YVZcK3phdYkRdTh0G6Hs3kowcim', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35', NULL, NULL), 
 
 (15, 'Fatima', 'Noore', 'f_noore3342@email.com', '(410) 555-0115', '392 Harbor Point Drive
-Annapolis, MD 21403', '$2y$10$1Ck3Dmd3lE7drK/MIomR0.WEl9Wzo6aj2ec0vP5PBwWPwVAJiYqlm', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55'), 
+Annapolis, MD 21403', '$2y$10$1Ck3Dmd3lE7drK/MIomR0.WEl9Wzo6aj2ec0vP5PBwWPwVAJiYqlm', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55', NULL, NULL), 
  
 (16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive
-Annapolis, MD 21403', '$2y$10$yeNHHp5i25BeyAcXPyQvMuG/l4ib0opBdsff9ES50Dd3PLQF/Ufk2', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45'),
+Annapolis, MD 21403', '$2y$10$yeNHHp5i25BeyAcXPyQvMuG/l4ib0opBdsff9ES50Dd3PLQF/Ufk2', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45', NULL, NULL),
 
 (17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive
-Bozeman, MT 59718', '$2y$10$hugC3ImjPgD9yz4Xw.ZqTO0bHkj1P1MkzdREMnH7c/xVF.vCec3L2', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50'),
+Bozeman, MT 59718', '$2y$10$hugC3ImjPgD9yz4Xw.ZqTO0bHkj1P1MkzdREMnH7c/xVF.vCec3L2', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50', NULL, NULL),
      
 (18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road
-Sarasota, FL 34232', '$2y$10$ocq4zYQSUKbqVXvY/GZeWOfBWslM09JPpgXokfiJ8RJqWPPy28Tke', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40'),
+Sarasota, FL 34232', '$2y$10$ocq4zYQSUKbqVXvY/GZeWOfBWslM09JPpgXokfiJ8RJqWPPy28Tke', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40', NULL, NULL),
     
 (19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane
-Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25'),  
+Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25', NULL, NULL),  
      
 (20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing
-Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10');
+Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10', NULL, NULL);
    
 
 INSERT INTO Role 
@@ -338,8 +360,7 @@ created_at
 )
 VALUES
 (1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', NULL, NULL, '2026-01-08 14:48:31'),
-(3, 'Team Meeting', 'Discuss progress and plans.', 'Zoom', '2026-01-30 22:15:00', NULL, NULL, '2026-01-08 22:34:05'); 
+(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'); 
 
 
 INSERT INTO Permission 
@@ -483,8 +504,6 @@ IDENTIFIED BY 'pa55word';
 GRANT SELECT, INSERT, UPDATE
 ON lanja_db.*
 TO 'mgs_user'@'localhost';
-
-
 
 
 
