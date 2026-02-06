@@ -1,0 +1,154 @@
+body {
+	margin: 0;
+	min-height: 100vh;
+	background-image: url("images/background.png"); 
+	font-family: 'Poppins', Arial, Helvetica, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/*the one big box, on the login page*/
+.box {
+	background-color: #faf5f0;
+	width: 80%;
+	min-height: 75vh;
+	max-width: 1400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+	text-align: center;
+}
+
+/*the container for both boxes */
+.boxes {
+	width: 95%;
+	max-width: 1400px;
+	margin-top: 40px;
+	display: flex;
+	gap: 30px; /*for the space between the two boxes */
+	align-items: stretch; /*makes left and right boxes same height*/
+}
+
+/*Left side box */
+.left-box {
+	background-color: #faf5f0;
+	flex: 1;
+	padding: 40px;
+	border-radius: 16px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	min-height: 65vh;
+}
+
+/*right box container*/
+.right-box {
+	display: grid;
+	grid-template-columns: 1fr 1fr; /*2 columns */
+	grid-template-rows: 1fr 1fr; /*2 rows, equally split */
+	gap: 20px; /*the space between sub-boxes */
+	background-color: transparent; /*so the background image shows through between the four boxes*/
+	padding: 0;
+	flex: 1;
+	min-height: 75vh; /* matches the left-box's height */
+}
+
+/*individual right sub-boxes*/
+.right-sub-box {
+	background-color: #faf5f0;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	text-align: center;
+}
+/*login form*/
+.login-form {
+	width: 100%;
+	max-width: 450px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.form-group label {
+	font-size: 1.05em;
+	margin-bottom: 6px;
+	display: block;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 16px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #c4a484;
+}
+
+button {
+	margin-top: 16px;
+	padding: 14px;
+	border-radius: 12px;
+	border: none;
+	background-color: #c4a484;
+	color: white;
+	font-size: 1.05em;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #b39578;
+}
+
+/*headers*/
+h1 {
+	text-align: center;
+	font-size: 2.0em;
+	margin-bottom: 5px;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 0;
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+h3 {
+	text-align: center;
+	font-size: 1.2em;
+	margin-bottom: 5px;
+}
+
+.corner-img {
+	position: fixed; /* stays in the viewport even when scrolling */
+	width: clamp(100px, 20%, 350px); /* doubled min, scaling, and max */
+	height: auto;
+}
+
+.corner-img.top-left {
+	top: 5vh; /* 5% of viewport height */
+	left: 5vw; /* 5% of viewport width */
+}
+
+.corner-img.bottom-right {
+	bottom: 5vh;
+	right: 5vw;
+}

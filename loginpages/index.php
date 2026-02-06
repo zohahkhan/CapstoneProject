@@ -60,10 +60,12 @@ if ($status == PHP_SESSION_NONE)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
+
 	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
-		
+	
 	<!--this section is the default home screen when logged out-->
     <?php 
 		} else {
