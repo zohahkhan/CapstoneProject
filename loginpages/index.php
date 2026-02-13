@@ -1,247 +1,154 @@
-<!--homepage.php the homepage / user landing page-->
+<!--login.php the login entry page-->
 <?php
 // connects to database script
 require_once './include/db_connect.php';
 
-// check for an existing session
+$successMsg = '';
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $successMsg = "Account successfully created!";
+}
+
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
 
-if (isset($_SESSION['user']['user_id'])) 
+if (isset($_SESSION['user'])) 
 {
-	if (!isset($user_id)) 
+	// redirect to homepage if the login is successful
+	header('Location: index.php'); 
+	exit();
+}
+
+// Create a secure-ish session cookie that still works on localhost (HTTP)
+// CHANGE: on localhost (HTTP), cookie("secure"=>true) will NOT be set by the browser.
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443);
+
+$error_message = null;
+
+	// check if the login form was submitted
+	$login = filter_input(INPUT_POST, 'submit');
+
+if (isset($login)) 
+{
+	// retrieve login credentials from input
+	$email = filter_input(INPUT_POST, 'email');
+	$password = filter_input(INPUT_POST,'password');
+
+	// check if the provided email is found in the database
+	// retrieve needed variables for session
+	
+	// ***********added join for session switch
+	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, Role.role_id, Role.role_name
+						FROM `User`						
+						JOIN UserRole ON User.user_id = UserRole.user_id
+						JOIN Role ON UserRole.role_id = Role.role_id
+						WHERE user_email = :email';
+	$statement = $db->prepare($queryVerifyUser);
+	$statement->bindParam(':email', $email);
+	$statement->execute();
+	$user = $statement->fetch();	
+	
+	
+	if (!is_null($user)) 
 	{
-		$user_id = $_SESSION['user']['user_id'];	
+		// verify user password against stored hashed value
+		if (password_verify($password, $user['password_hashed'])) 
+		{
+			$_SESSION['user'] = array(
+				'user_id' => $user['user_id'],
+				'user_email' => $user['user_email'],
+				'first_name' => $user['first_name'],
+				'last_name' => $user['last_name'],
+				'role_id' => $user['role_id'],
+				'role_name' => $user['role_name']
+			);
+		                    // CHANGE: DB-backed session token stored in Session table + HttpOnly cookie
+                    // Added a table to db.sql: Session(session_id, user_id, expires_at [, created_at, last_seen_at])
+                    $token = bin2hex(random_bytes(32)); // 64 hex chars
+                    $expiresAt = (new DateTime('+7 days'))->format('Y-m-d H:i:s');
+
+                    try {
+                        $ins = $db->prepare('INSERT INTO `Session` (session_id, user_id, expires_at)
+                                             VALUES (:session_id, :user_id, :expires_at)');
+                        $ins->execute([
+                            ':session_id' => $token,
+                            ':user_id' => $user['user_id'],
+                            ':expires_at' => $expiresAt
+                        ]);
+                    } catch (PDOException $e) {
+                        // CHANGE: fail open for class project demo if Session table isn't deployed yet
+                    }
+
+                    // CHANGE: Update last_login 
+                    try {
+                        $upd = $db->prepare('UPDATE `User` SET last_login = NOW() WHERE user_id = :user_id');
+                        $upd->execute([':user_id' => $user['user_id']]);
+                    } catch (PDOException $e) {
+                        // Same note as above: ignore if column doesn't exist in a dev schema.
+                    }
+
+                    // CHANGE: Set cookie for DB-backed session token
+                    // - Secure is enabled only when HTTPS is detected
+                    setcookie('session', $token, [
+                        'expires' => time() + 7 * 24 * 60 * 60,
+                        'path' => '/',
+                        'secure' => $isHttps,
+                        'httponly' => true,
+                        'samesite' => 'Lax'
+                    ]);	
+			header('Location: index.php'); // successful login
+			exit();
+		} else 
+		{
+			$error_message = 'Login failed. Please try again 1.';	
+		}
+	} else 
+	{
+		$error_message = 'Login failed. Please try again 2.'; 
 	}
 }
-
-if (isset($_POST['role'])) 
-{
-    $_SESSION['user']['role_id'] = $_POST['role'];
-}
-
-$queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
-						FROM Role					
-						JOIN UserRole ON Role.role_id = UserRole.role_id
-						WHERE UserRole.user_id = :user_id';
-	$statement = $db->prepare($queryAllUserRoles);
-	$statement->bindParam(':user_id', $user_id);
-	$statement->execute();
-	$role = $statement->fetchAll();
-
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Homepage</title>
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!--display user session information-->
-    <?php
-        if (isset($_SESSION['user'])) 
-		{
-			echo "<h1>Hello, ";
-			echo $_SESSION['user']['first_name']." ";
-			echo $_SESSION['user']['last_name']."!</h1>";
-			echo "\n<h2>";
-	?>
-	<label>Current Role: </label>
-	<form method="POST">
-		<select name="role" onchange="this.form.submit()">
-			<?php foreach ($role as $r): ?>
-				<option value="<?= $r['role_id']; ?>"
-					<?= (isset($_SESSION['user']['role_id']) && 
-						$_SESSION['user']['role_id'] == $r['role_id']) 
-						? 'selected' : ''; ?>>
-					<?= $r['role_name']; ?>
-				</option>
-			<?php endforeach; ?>
-		</select> 
-	</form>
-	<?php echo "</h2>";	?>		
-	<!-- emergency logout link for testing purposes 
-	    <p><a href="logout.php">Logout</a></p> -->
-
+	<!--images-->
+	<img src="images/topLeft.png" alt="" class="corner-img top-left">
+	<img src="images/bottomRight.png" alt="" class="corner-img bottom-right">
 	
-	<!---- PRES HOMEPAGE 
-	$_SESSION['user']['role_name'] == "President" || 
-	---->
-	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
-	<div class="boxes">
-		<!-- left box split horizontally into 2 -->
-		<div class="left-box">
-			<div class="left-sub-box top-box">
-				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-			</div>
-			<div class="left-sub-box bottom-box">
-				<h2>Monthly Report</h2>
-				<p>Description</p>
-			</div>
+	<div class="box">
+	<h1>Lajna Pittsburgh</h1>
+	<h3>Please login:</h3>
+		<?php 
+			if (isset($error_message)) 
+			{ 
+				echo $error_message;
+			}	
+			if ($successMsg):
+				echo "<p>".$successMsg."</p>";
+			endif; 
+		?>
+		<!--username and password -->
+		<form class="login-form" action="" method="POST" >
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" id="username" name="email"placeholder="Enter your username" required/>
 		</div>
 
-		<!--the right box with four separate boxes inside-->
-		<div class="right-box">
-			<div class="right-sub-box">
-				<h2>Create a new Reminder</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Calendar</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Review Suggestions</h2>
-				<p>Description</p>
-			</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" placeholder="Enter your password" required/>
 		</div>
+		<p><a href="forgot_password.html" style="color: #c4a484; text-decoration: none;">Forgot Password?</a></p>
+		<button type="submit" name="submit">Submit</button>
+		</form>
 	</div>
-	</br></br>
-	<!--if the user is logged in, display a logout link-->
-    <p><a href="logout.php">Logout</a></p>
-	<!----- END OF PRES HOMEPAGE --->
-
-
-	<!---- DEPT HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Department Head" ||
-	----->
-	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
-	<br><br>
-	<div class="boxes">
-		<!-- left box, split horizontally into 2 -->
-		<div class="left-box">
-			<div class="left-sub-box top-box">
-				<h2>Department Report</h2>
-				<p>Description</p>
-			</div>
-			<div class="left-sub-box bottom-box">
-				<h2>Monthly Report</h2>
-				<p>Description</p>
-			</div>
-		</div>
-
-		<!--the right box with four separate boxes inside-->
-		<div class="right-box">
-			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Calendar</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Suggestions</h2>
-				<p>Description</p>
-			</div>
-		</div>
-	</div>
-	</br></br>
-	<!--if the user is logged in, display a logout link-->
-    <p><a href="logout.php">Logout</a></p>
-	<!----- END OF DEPT HOMEPAGE --->
-	
-	
-	<!--- MEMBER HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Member" ||
-	--->
-	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
-	<br><br>
-	<div class="boxes">
-		<!--the left side big box-->
-		<div class="box left-box">
-			<h2>Monthly Report</h2>
-			<p>Description</p>
-		</div>
-
-		<!--the right box with four separate boxes inside-->
-		<div class="right-box">
-			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Calendar</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-			</div>
-
-			<div class="right-sub-box">
-				<h2>Suggestions</h2>
-				<p>Description</p>
-			</div>
-		</div>
-	</div>
-	</br></br>
-	<!--if the user is logged in, display a logout link-->
-    <p><a href="logout.php">Logout</a></p>
-	<!----- END OF MEMBER HOMEPAGE --->
-		
-	
-	<!--- ADMIN HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Admin" || 
-	---->
-	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<br><br>
-	 <div class="homepage-boxes">
-        <!-- the top row with two boxes -->
-        <div class="homepage-top">
-            <div class="homepage-top-box">
-                <h2>View Logs</h2>
-                <p>Description</p>
-            </div>
-            <div class="homepage-top-box">
-                <h2>View Compiled Monthly Report</h2>
-                <p>Description</p>
-            </div>
-        </div>
-        <!--bottom box -->
-        <div class="homepage-bottom-box">
-            <h2>Members</h2>
-            <p>Description</p>
-        </div>
-    </div>
-	<br><br>
-	<!--if the user is logged in, display a logout link-->
-    <p><a href="logout.php">Logout</a></p>
-	<!----- END OF ADMIN HOMEPAGE --->
-		
-	
-	<!--this section is the default home screen when logged out-->
-    <?php 
-	}} else {
-			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
-	?>
-	<!--if the user is not logged in, display a login link-->
-	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
-			<p><a href="newUser.php" style="text-decoration: none;">Sign up Here</a></p>
-
-    <?php } ?>
 </body>
 </html>
