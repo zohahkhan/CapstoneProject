@@ -3,11 +3,6 @@
 // connects to database script
 require_once './include/db_connect.php';
 
-$successMsg = '';
-if (isset($_GET['success']) && $_GET['success'] == 1) {
-    $successMsg = "Account successfully created!";
-}
-
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
@@ -131,9 +126,6 @@ if (isset($login))
 			{ 
 				echo $error_message;
 			}	
-			if ($successMsg):
-				echo "<p>".$successMsg."</p>";
-			endif; 
 		?>
 		<!--username and password -->
 		<form class="login-form" action="" method="POST" >
