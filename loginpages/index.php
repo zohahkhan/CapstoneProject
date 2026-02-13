@@ -3,6 +3,17 @@
 // connects to database script
 require_once './include/db_connect.php';
 
+// alert for if a new member is added
+if (isset($_GET['success']) && $_GET['success'] == 1) 
+{
+    echo "<script>alert('Account successfully created!');</script>";
+
+    // redirect to same page without get query string 
+    $url = strtok($_SERVER["REQUEST_URI"], '?'); 
+    echo "<script>window.location.href='$url';</script>";
+    exit();
+}
+
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
 {
@@ -44,7 +55,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 
 <body>
     <!--display user session information-->
-    <?php
+    <?php		
         if (isset($_SESSION['user'])) 
 		{
 			echo "<h1>Hello, ";
@@ -85,6 +96,8 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 				<h2>Monthly Report</h2>
 				<p>Description</p>
 			</div>
+			
+		<p><a href="newUser.php" style="color: #c4a484; text-decoration: none;">Add new member</a></p>	
 		</div>
 
 		<!--the right box with four separate boxes inside-->
@@ -240,8 +253,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	?>
 	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
-	<p><a href="newUser.php" style="text-decoration: none;">Sign up Here</a></p>
-
     <?php } ?>
 </body>
 </html>
