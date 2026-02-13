@@ -238,7 +238,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
 	<!--if the user is not logged in, display a login link-->
-	<p><a href="login.php">Login</a></p> 
+	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
     <?php } ?>
 </body>
 </html>
