@@ -3,9 +3,12 @@
 // connects to database script
 require_once './include/db_connect.php';
 
-// check if the user is already logged in
-$status = session_status();
-if ($status == PHP_SESSION_NONE) 
+$successMsg = '';
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $successMsg = "Account successfully created!";
+}
+
+if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
@@ -35,16 +38,18 @@ if (isset($login))
 
 	// check if the provided email is found in the database
 	// retrieve needed variables for session
-	// CHANGE: added join for session switch
-	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, Role.role_name
-						FROM `User`
+	
+	// ***********added join for session switch
+	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, Role.role_id, Role.role_name
+						FROM `User`						
 						JOIN UserRole ON User.user_id = UserRole.user_id
 						JOIN Role ON UserRole.role_id = Role.role_id
 						WHERE user_email = :email';
 	$statement = $db->prepare($queryVerifyUser);
 	$statement->bindParam(':email', $email);
 	$statement->execute();
-	$user = $statement->fetch();
+	$user = $statement->fetch();	
+	
 	
 	if (!is_null($user)) 
 	{
@@ -55,7 +60,9 @@ if (isset($login))
 				'user_id' => $user['user_id'],
 				'user_email' => $user['user_email'],
 				'first_name' => $user['first_name'],
-				'last_name' => $user['last_name']
+				'last_name' => $user['last_name'],
+				'role_id' => $user['role_id'],
+				'role_name' => $user['role_name']
 			);
 		                    // CHANGE: DB-backed session token stored in Session table + HttpOnly cookie
                     // Added a table to db.sql: Session(session_id, user_id, expires_at [, created_at, last_seen_at])
@@ -123,7 +130,10 @@ if (isset($login))
 			if (isset($error_message)) 
 			{ 
 				echo $error_message;
-			}
+			}	
+			if ($successMsg):
+				echo "<p>".$successMsg."</p>";
+			endif; 
 		?>
 		<!--username and password -->
 		<form class="login-form" action="" method="POST" >
