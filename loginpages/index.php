@@ -28,7 +28,102 @@ if ($status == PHP_SESSION_NONE)
 			echo "<h1>Hello, ";
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
+			echo "\n<h2>";
+			echo "Role: ".$_SESSION['user']['role_name'];
+			echo "</h2>";			
 	?>		
+	
+	<!---- PRES HOMEPAGE ---->
+	<?php if ($_SESSION['user']['role_name'] == "President") { ?>
+	<div class="boxes">
+		<!-- left box split horizontally into 2 -->
+		<div class="left-box">
+			<div class="left-sub-box top-box">
+				<h2>Compiled Monthly Report</h2>
+				<p>Description</p>
+			</div>
+			<div class="left-sub-box bottom-box">
+				<h2>Monthly Report</h2>
+				<p>Description</p>
+			</div>
+		</div>
+
+		<!--the right box with four separate boxes inside-->
+		<div class="right-box">
+			<div class="right-sub-box">
+				<h2>Create a new Reminder</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Calendar</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Meeting Attendance</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Review Suggestions</h2>
+				<p>Description</p>
+			</div>
+		</div>
+	</div>
+	</br></br>
+	<!--if the user is logged in, display a logout link-->
+    <p><a href="logout.php">Logout</a></p>
+	<!----- END OF PRES HOMEPAGE --->
+	
+	
+	<!---- DEPT HOMEPAGE ----->
+	<?php } else if ($_SESSION['user']['role_name'] == "Department Head") { ?>
+	<br><br>
+	<div class="boxes">
+		<!-- left box, split horizontally into 2 -->
+		<div class="left-box">
+			<div class="left-sub-box top-box">
+				<h2>Department Report</h2>
+				<p>Description</p>
+			</div>
+			<div class="left-sub-box bottom-box">
+				<h2>Monthly Report</h2>
+				<p>Description</p>
+			</div>
+		</div>
+
+		<!--the right box with four separate boxes inside-->
+		<div class="right-box">
+			<div class="right-sub-box">
+				<h2>Important Reminders</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Calendar</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Meeting Attendance</h2>
+				<p>Description</p>
+			</div>
+
+			<div class="right-sub-box">
+				<h2>Suggestions</h2>
+				<p>Description</p>
+			</div>
+		</div>
+	</div>
+	</br></br>
+	<!--if the user is logged in, display a logout link-->
+    <p><a href="logout.php">Logout</a></p>
+	<!----- END OF DEPT HOMEPAGE --->
+	
+	
+	<!--- MEMBER HOMEPAGE --->
+	<?php } else if ($_SESSION['user']['role_name'] == "Member") { ?>
 	<br><br>
 	<div class="boxes">
 		<!--the left side big box-->
@@ -63,10 +158,39 @@ if ($status == PHP_SESSION_NONE)
 	</br></br>
 	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
+	<!----- END OF MEMBER HOMEPAGE --->
+			
+		
+	<!--- ADMIN HOMEPAGE ---->
+	<?php } else if ($_SESSION['user']['role_name'] == "Admin") { ?>	
+	<br><br>
+	 <div class="homepage-boxes">
+        <!-- the top row with two boxes -->
+        <div class="homepage-top">
+            <div class="homepage-top-box">
+                <h2>View Logs</h2>
+                <p>Description</p>
+            </div>
+            <div class="homepage-top-box">
+                <h2>View Compiled Monthly Report</h2>
+                <p>Description</p>
+            </div>
+        </div>
+        <!--bottom box -->
+        <div class="homepage-bottom-box">
+            <h2>Members</h2>
+            <p>Description</p>
+        </div>
+    </div>
+	<br><br>
+	<!--if the user is logged in, display a logout link-->
+    <p><a href="logout.php">Logout</a></p>
+	<!----- END OF ADMIN HOMEPAGE --->
+		
 		
 	<!--this section is the default home screen when logged out-->
     <?php 
-		} else {
+	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
 	<!--if the user is not logged in, display a login link-->
