@@ -303,7 +303,7 @@ VALUES
 (1, 'President', 'Oversees the entire organization, makes final decisions, and ensures overall system and organizational integrity.'),
 (2, 'Department Head', 'Manages the department’s operations, reporting, and member activities, and serves as the primary liaison to the President.'),
 (3, 'Member', 'Participates in organizational activities, submits required forms, engages with events and communications.'),
-(4, 'Admin/Maintenance', 'Maintains the technical health, security, and configuration of the system without participating in organizational decision-making.');
+(4, 'Admin', 'Maintains the technical health, security, and configuration of the system without participating in organizational decision-making.');
 
 
 INSERT INTO UserRole 
