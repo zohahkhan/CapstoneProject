@@ -105,8 +105,8 @@ if (isset($register))
 					':role_id' => $roleId
 				]);
 			
-            // if successful, redirect to login page		
-			header('Location: login.php?success=1');
+            // redirect to president's profile for feedback		
+			header('Location: index.php?success=1');
             exit();
         } else {
             // if failed, display error message
@@ -115,7 +115,6 @@ if (isset($register))
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -128,62 +127,67 @@ if (isset($register))
 	<header>
 		<h1>Member Registration</h1>
 	</header>
-
+<br><br>
     <main>
-		<p><?php echo $msg; ?></p>
         <?php if (isset($errors['registration'])) : ?>
             <p class="error"><?php echo $errors['registration']; ?></p>
         <?php endif; ?>
         <form method="POST" action="newUser.php">
-		<table>
-			<tr>
-				<td><label for="email">Email:</label></td>
-				<td><input type="email" name="email" id="email" value="<?php echo $email; ?>"></td>
-					<?php if (isset($errors['email'])) : ?>
-					<p class="error"><?php echo $errors['email']; ?></p>
-					<?php endif; ?>
-			</tr>
-			<tr>
-				<td><label for="password">Password:</label></td>
-				<td><input type="password" name="temp_password" id="temp_password"></td>
-					<?php if (isset($errors['temp_password'])) : ?>
-					<p class="error"><?php echo $errors['temp_password']; ?></p>
-					<?php endif; ?>
-			</tr>
-            <tr>
-				<td><label for="first_name">first_name:</label></td>
-				<td><input type="text" name="first_name" id="first_name" value="<?php echo $first_name; ?>"></td>
-					<?php if (isset($errors['first_name'])) : ?>
-					<p class="error"><?php echo $errors['first_name']; ?></p>
-					<?php endif; ?>	
-			</tr>
-            <tr>
-				<td><label for="last_name">last_name:</label></td>
-				<td><input type="text" name="last_name" id="last_name" value="<?php echo $last_name; ?>"></td>
-					<?php if (isset($errors['last_name'])) : ?>
-					<p class="error"><?php echo $errors['last_name']; ?></p>
-					<?php endif; ?>
-            </tr>
-			<tr>
-				<td><label for="phone">phone:</label></td>
-				<td><input type="text" name="phone" id="phone" value="<?php echo $phone; ?>"></td>
-				<?php if (isset($errors['phone'])) : ?>
-					<p class="error"><?php echo $errors['phone']; ?></p>
-					<?php endif; ?>
-			</tr>
-            <tr>
-				<td><label for="address">address:</label></td>
-				<td><input type="text" name="address" id="address" value="<?php echo $address; ?>"></td>
-				<?php if (isset($errors['address'])) : ?>
-					<p class="error"><?php echo $errors['address']; ?></p>
-					<?php endif; ?>
-            </tr>
-		</table>
-        <br>
-		<div style="text-align: center;">
-            <button type="submit" name="register">Register</button>
-			<p><a href="index.php">Back to home</a></p>
-        </div>
+         
+			<div class="form-group" style="width: 320px;">
+				<div>
+					<label for="first_name" style="";>First Name: </label>
+					<input type="text" name="first_name" id="first_name" value="<?php echo $first_name; ?>">
+						<?php if (isset($errors['first_name'])) : ?>
+							<p class="error"><?php echo $errors['first_name']; ?></p>
+						<?php endif; ?>	
+				</div>	
+					
+				<div >
+					<label for="last_name">Last Name: </label>
+					<input type="text" name="last_name" id="last_name" value="<?php echo $last_name; ?>">
+						<?php if (isset($errors['last_name'])) : ?>
+							<p class="error"><?php echo $errors['last_name']; ?></p>
+						<?php endif; ?>		
+				</div>
+			
+				<div >
+					<label for="email">Member Email: </label>
+					<input type="email" name="email" id="email" value="<?php echo $email; ?>">
+						<?php if (isset($errors['email'])) : ?>
+							<p class="error"><?php echo $errors['email']; ?></p>
+						<?php endif; ?>
+				</div>
+				
+				<div >
+					<label for="phone">Phone Number: </label>
+					<input type="text" name="phone" id="phone" value="<?php echo $phone; ?>">
+						<?php if (isset($errors['phone'])) : ?>
+							<p class="error"><?php echo $errors['phone']; ?></p>
+						<?php endif; ?>
+				</div>
+				
+				<div>
+					<label for="address">Home Address: </label>
+					<input type="text" name="address" id="address" value="<?php echo $address; ?>">
+						<?php if (isset($errors['address'])) : ?>
+							<p class="error"><?php echo $errors['address']; ?></p>
+						<?php endif; ?>
+				</div>	
+				
+				<div >
+					<label for="password">Password: </label>
+					<input type="password" name="temp_password" id="temp_password">
+						<?php if (isset($errors['temp_password'])) : ?>
+							<p class="error"><?php echo $errors['temp_password']; ?></p>
+						<?php endif; ?>
+				</div>
+				<br>
+				<div style="text-align: center;">
+					<button type="submit" name="register">Submit</button>
+					<p><a href="index.php">Back to home</a></p>
+				</div>
+			</div>
 		</form>
     </main>
 </body>
