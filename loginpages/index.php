@@ -4,8 +4,7 @@
 require_once './include/db_connect.php';
 
 // check for an existing session
-$status = session_status();
-if ($status == PHP_SESSION_NONE) 
+if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
@@ -20,7 +19,7 @@ if (isset($_SESSION['user']['user_id']))
 
 if (isset($_POST['role'])) 
 {
-    $_SESSION['user']['role_id'] = $_POST['role']; 	
+    $_SESSION['user']['role_id'] = $_POST['role'];
 }
 
 $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
@@ -67,7 +66,9 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		</select> 
 	</form>
 	<?php echo "</h2>";	?>		
-	
+	<!-- emergency logout link for testing purposes 
+	    <p><a href="logout.php">Logout</a></p> -->
+
 	
 	<!---- PRES HOMEPAGE 
 	$_SESSION['user']['role_name'] == "President" || 
@@ -239,6 +240,8 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	?>
 	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
+			<p><a href="newUser.php" style="text-decoration: none;">Sign up Here</a></p>
+
     <?php } ?>
 </body>
 </html>
