@@ -10,14 +10,17 @@ if ($status == PHP_SESSION_NONE)
     session_start();
 }
 
-if (!isset($user_id)) 
+if (isset($_SESSION['user']['user_id'])) 
 {
-	$user_id = $_SESSION['user']['user_id'];	
+	if (!isset($user_id)) 
+	{
+		$user_id = $_SESSION['user']['user_id'];	
+	}
 }
 
 if (isset($_POST['role'])) 
 {
-    $_SESSION['user']['role_id'] = $_POST['role'];  
+    $_SESSION['user']['role_id'] = $_POST['role']; 	
 }
 
 $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
@@ -58,7 +61,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 					<?= (isset($_SESSION['user']['role_id']) && 
 						$_SESSION['user']['role_id'] == $r['role_id']) 
 						? 'selected' : ''; ?>>
-					<?php echo $r['role_name']; ?>
+					<?= $r['role_name']; ?>
 				</option>
 			<?php endforeach; ?>
 		</select> 
@@ -66,8 +69,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<?php echo "</h2>";	?>		
 	
 	
-	<!---- PRES HOMEPAGE ---->
-	<?php if ($_SESSION['user']['role_name'] == "President" || $_SESSION['user']['role_id'] == 1) { ?>
+	<!---- PRES HOMEPAGE 
+	$_SESSION['user']['role_name'] == "President" || 
+	---->
+	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
 		<!-- left box split horizontally into 2 -->
 		<div class="left-box">
@@ -110,8 +115,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<!----- END OF PRES HOMEPAGE --->
 
 
-	<!---- DEPT HOMEPAGE ----->
-	<?php } else if ($_SESSION['user']['role_name'] == "Department Head" || $_SESSION['user']['role_id'] == 2) { ?>
+	<!---- DEPT HOMEPAGE 
+	$_SESSION['user']['role_name'] == "Department Head" ||
+	----->
+	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<br><br>
 	<div class="boxes">
 		<!-- left box, split horizontally into 2 -->
@@ -155,9 +162,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<!----- END OF DEPT HOMEPAGE --->
 	
 	
-	
-	<!--- MEMBER HOMEPAGE --->
-	<?php } else if ($_SESSION['user']['role_name'] == "Member" || $_SESSION['user']['role_id'] == 3) { ?>
+	<!--- MEMBER HOMEPAGE 
+	$_SESSION['user']['role_name'] == "Member" ||
+	--->
+	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<br><br>
 	<div class="boxes">
 		<!--the left side big box-->
@@ -195,8 +203,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<!----- END OF MEMBER HOMEPAGE --->
 		
 	
-	<!--- ADMIN HOMEPAGE ---->
-	<?php } else if ($_SESSION['user']['role_name'] == "Admin" || $_SESSION['user']['role_id'] == 4) { ?>	
+	<!--- ADMIN HOMEPAGE 
+	$_SESSION['user']['role_name'] == "Admin" || 
+	---->
+	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
 	<br><br>
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
