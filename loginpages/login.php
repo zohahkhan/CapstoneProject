@@ -35,8 +35,11 @@ if (isset($login))
 
 	// check if the provided email is found in the database
 	// retrieve needed variables for session
-	$queryVerifyUser = 'SELECT user_id, first_name, last_name, user_email, password_hashed
+	// CHANGE: added join for session switch
+	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, Role.role_name
 						FROM `User`
+						JOIN UserRole ON User.user_id = UserRole.user_id
+						JOIN Role ON UserRole.role_id = Role.role_id
 						WHERE user_email = :email';
 	$statement = $db->prepare($queryVerifyUser);
 	$statement->bindParam(':email', $email);
