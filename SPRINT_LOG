@@ -1,27 +1,20 @@
-Sprint #1: Jan 20 - Feb 1, Web Wizards, JJ Gilbert, Kah Guan Ong, Shannon Katolsky, Zoha Khan 
+Sprint #2: Feb 2 - Feb 15, Web Wizards, JJ Gilbert, Kah Guan Ong, Shannon Katolsky, Zoha Khan 
 
 Planned User Stories & Tasks: 
-As a User (President/Head/Member/Admin), I want my login experience to be secure and authenticated so that my account role is only available to authorized personnel.
-As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
-As a User (President/Head/Member/Admin), I want to terminate my account’s session by logging out so that I can protect my information from the outside, especially if I use an untrusted device.
-As a User (President/Head/Member/Admin), after I log in, I want to see a personalized dashboard so that I can quickly navigate relevant functions for my role and to know at first glance what the platform offers.
-Set up user database tables *Users, Roles, Permissions)
-Implement password hashing and secure storage
-Build a login page with username/password form
-Create session management system
-Implement logout functionality 
+As President, I want to manage users (freeze the accounts of former members or create accounts for new members) so that I can preserve the system integrity of the site. As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
+As President, I want to receive request from visitors to join our organization so that we can expand our horizons
+As a Member, I want to view and update my personal profile so that my contact information and preferences are correct. Set up user database tables *Users, Roles, Permissions)
+As an Admin, I want to assign user roles and grant permissions so that access is properly controlled. Build a login page with username/password form.
+Implement role-based access control (President, Dept Head, Member, Admin)
+Build account request submission form
+Create presidential approval workflow
+Develop member management CRUD operations
+Build member profile pages 
 
 Completed User Stories & Tasks: 
-As a User (President/Head/Member/Admin), I want my login experience to be secure and authenticated so that my account role is only available to authorized personnel.
-As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
-As a User (President/Head/Member/Admin), I want to terminate my account’s session by logging out so that I can protect my information from the outside, especially if I use an untrusted device.
-As a User (President/Head/Member/Admin), after I log in, I want to see a personalized dashboard so that I can quickly navigate relevant functions for my role and to know at first glance what the platform offers.
-Set up user database tables *Users, Roles, Permissions)
-Implement password hashing and secure storage
-Build a login page with username/password form
-Create session management system
-Implement logout functionality 
+Build member profile pages 
+As a Member, I want to view and update my personal profile so that my contact information and preferences are correct. Set up user database tables *Users, Roles, Permissions)
 
-Tests: Tests were done for pull requests. We ran into a few issues when setting up the database. When we changed the username to ‘root’ and the password to ‘’, the db_connect file was able to work; however, before that, XAMPP was giving an issue when attempting to connect. 
+Tests: Tests were done for pull requests.
 
-Bug Tracking: No bugs to record this sprint
+Bug Tracking: 
