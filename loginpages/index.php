@@ -97,7 +97,8 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 				<p>Description</p>
 			</div>
 			
-		<p><a href="newUser.php" style="color: #c4a484; text-decoration: none;">Add new member</a></p>	
+		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>	
+
 		</div>
 
 		<!--the right box with four separate boxes inside-->
