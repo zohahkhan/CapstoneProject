@@ -12,4 +12,4 @@ Usage Instructions: The new files created were updateProfile and updateProfileFo
 -  Profile must show “last updated” timestamp and logs user ID for changes.
 -  If the update is successful, the system must display the changes within 2 seconds of clicking the button to confirm changes (page auto refreshes)
 -  If the update is unsuccessful, such as if the session times out prior to confirming changes or invalid field input, the system must display an error message that states what went wrong. 
-Test Credentials: Username: kha27882@email.com Password: kha27882
+Test Credentials: Username: kha27882@email.com Password: kha27882 or any username/password already the database
