@@ -35,7 +35,7 @@ if (isset($login))
 	// retrieve needed variables for session
 	
 	// ***********added join for session switch
-	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, Role.role_id, Role.role_name
+	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, User.is_active, Role.role_id, Role.role_name
 						FROM `User`						
 						JOIN UserRole ON User.user_id = UserRole.user_id
 						JOIN Role ON UserRole.role_id = Role.role_id
@@ -46,11 +46,19 @@ if (isset($login))
 	$user = $statement->fetch();	
 	
 	
-	if (!is_null($user)) 
+	if ($user) 
 	{
+			
 		// verify user password against stored hashed value
 		if (password_verify($password, $user['password_hashed'])) 
 		{
+			// check is account is still active 
+			if ($user['is_active'] == 0) 
+			{
+				$error_message = "Error 1: invalid credentials."; // restricted user access
+			} else 
+			{
+			
 			$_SESSION['user'] = array(
 				'user_id' => $user['user_id'],
 				'user_email' => $user['user_email'],
@@ -59,7 +67,7 @@ if (isset($login))
 				'role_id' => $user['role_id'],
 				'role_name' => $user['role_name']
 			);
-		                    // CHANGE: DB-backed session token stored in Session table + HttpOnly cookie
+		            // CHANGE: DB-backed session token stored in Session table + HttpOnly cookie
                     // Added a table to db.sql: Session(session_id, user_id, expires_at [, created_at, last_seen_at])
                     $token = bin2hex(random_bytes(32)); // 64 hex chars
                     $expiresAt = (new DateTime('+7 days'))->format('Y-m-d H:i:s');
@@ -93,15 +101,17 @@ if (isset($login))
                         'httponly' => true,
                         'samesite' => 'Lax'
                     ]);	
-			header('Location: index.php'); // successful login
-			exit();
+				header('Location: index.php'); // successful login
+				exit();
+			} 
+		
 		} else 
 		{
-			$error_message = 'Login failed. Please try again 1.';	
-		}
+			$error_message = 'Error 2: invalid credentials. Please try again.';	// incorrect password 
+		} 
 	} else 
 	{
-		$error_message = 'Login failed. Please try again 2.'; 
+		$error_message = 'Error 3: invalid credentials. Please try again.'; // incorrect email
 	}
 }
 ?>
@@ -124,7 +134,7 @@ if (isset($login))
 		<?php 
 			if (isset($error_message)) 
 			{ 
-				echo $error_message;
+				echo "<p style='color: red;'>".$error_message."</p>";
 			}	
 		?>
 		<!--username and password -->
