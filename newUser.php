@@ -24,9 +24,9 @@ if (isset($register))
     $temp_password = filter_input(INPUT_POST, 'temp_password');
 	
 	// set default values
-	$is_active = true;
-	$joined_on = date("Y-m-d H:i:s", time());
-	$last_login = date("Y-m-d H:i:s", time());
+	$is_active = 1;
+	$joined_on = date("Y-m-d H:i:s");
+	$last_login = date("Y-m-d H:i:s");
 
 	// make sure email hasn't been used already
 	$queryCheckEmail = 'SELECT COUNT(*) FROM `User` 
