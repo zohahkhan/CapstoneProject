@@ -1,31 +1,14 @@
-Sprint #1: 
-The new feature branches that were created were homepages, loginpages, password-recovery, and session-management-system. Connect to XAMPP, and configure the file in htdocs. A user should be able to login securely, logout securely, view different pages, and reset their password. Each branch correlates with the following user stories: 
+Sprint #2: 
+The new feature branches that were created were profile, edit-login, and new-user. To run these branches, you must connect to XAMPP, and configure the file in htdocs and ensure the database connection.
+Each branch correlates with the following user stories: 
 
 
-Login-pages branch: 
-As a User (President/Head/Member/Admin), I want my login experience to be secure and authenticated so that my account role is only available to authorized personnel. - High Priority, Shannon and Kah
-o   Acceptance Criteria:
-- Login verification that matches the unique email to stored password.
--  Error handling that lets the user know if their login attempt was successful or not, but not specifically whether the user/password was correct/incorrect (to deter hacking).
-- If successful, the roles are automatically routed from the server-side based on credentials entered in the login page.
--  If unsuccessful, users are temporarily locked out after 5 failed attempts and must wait 2 hours before trying again.
-
-Password-Recovery branch: 
-As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account. - High Priority, JJ
-o   Acceptance Criteria:
--A tokenized link is sent to the user’s email, prompting the user to enter and confirm their new password.
--  User must enter the token in a box after opening the link in email to verify they match, expires after 3 minutes.
--  Strong passwords use regular expressions (regex) to set security criteria (min of 8 characters in length and must contain at least 2 numbers).
--  Passwords are hashed when stored in the database.
-
-Session Management System Branch: 
-As a User (President/Head/Member/Admin), I want to terminate my account’s session by logging out so that I can protect my information from the outside, especially if I use an untrusted device. - High Priority, Shannon and Kah
-o   Acceptance Criteria:
-- Display message that lets the user know the session has successfully ended.
-- Redirects to main menu page with the option to log in again.
-
-Homepages: 
-As a User (President/Head/Member/Admin), after I log in, I want to see a personalized dashboard so that I can quickly navigate relevant functions for my role and to know at first glance what the platform offers. - High Priority, Zoha
-o   Acceptance Criteria:
--  The user is welcomed with their name and role in the top banner.
--  Organized list of links to easily access what the user wants to do.
+Profile branch:
+User Story: As a Member, I want to view and update my personal profile so that my contact information and preferences are correct.
+Usage Instructions: The new files created were updateProfile and updateProfileForm. You should be able to log in with any credentials, and at the bottom of your homepage, there should be an 'update profile' hyperlink. That should take you to the screen where you can edit information. Click the 'update profile' button and then it should take you to a screen where it tells you if it was successful or not. If it was not successful, you will need to click the back arrow and make the necessary changes to your profile information. If it was successful, after two seconds, it should take you back to your homepage. 
+ Acceptance Criteria:
+-  Required fields: first name, last name, email, phone number, street address.
+-  Users can only view and update their own profile.
+-  Profile must show “last updated” timestamp and logs user ID for changes.
+-  If the update is successful, the system must display the changes within 2 seconds of clicking the button to confirm changes (page auto refreshes)
+-  If the update is unsuccessful, such as if the session times out prior to confirming changes or invalid field input, the system must display an error message that states what went wrong. 
