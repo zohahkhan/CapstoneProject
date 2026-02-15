@@ -194,7 +194,7 @@ contact_email	VARCHAR(50)			NOT NULL,
 visitor_msg		TEXT				NOT NULL, 
 msg_status		ENUM('Pending', 'Reviewed', 'Finalized')			NOT NULL, 
 session_id		VARCHAR(50)			NOT NULL, 
-created_at		TIMESTAMP			NOT NULL, 
+created_at       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 PRIMARY KEY (suggestion_id)
 );
 
