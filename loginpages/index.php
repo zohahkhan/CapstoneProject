@@ -70,7 +70,9 @@ if ($status == PHP_SESSION_NONE)
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
 	<!--if the user is not logged in, display a login link-->
-	<p><a href="login.php">Login</a></p> 
+	<p><a href="login.php">Login</a>
+	<a href="contact.php">Join Us</a>
+	</p> 
     <?php } ?>
 </body>
 </html>
