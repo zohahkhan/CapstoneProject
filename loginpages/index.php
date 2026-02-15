@@ -255,5 +255,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
     <?php } ?>
+	<a href="contact.php" style="text-decoration: none;">Join Us</a>
 </body>
 </html>
