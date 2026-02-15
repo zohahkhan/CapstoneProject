@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $full_name = trim($first_name . " " . $last_name);
         $visitor_session_id = session_id();
 
-        // NOTE: change $pdo -> $db if your db_connect.php uses $db
         $stmt = $pdo->prepare("
             INSERT INTO Suggestion
               (full_name, contact_email, visitor_msg, msg_status, session_id, created_at)
@@ -106,4 +105,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <a href="index.php">Back to home</a>
 </body>
 </html>
+
 
