@@ -28,6 +28,61 @@ INDEX user_id (user_id),
 FOREIGN KEY (user_id) REFERENCES User (user_id)
 );
 
+CREATE TABLE IF NOT EXISTS Role (
+role_id			INT					NOT NULL AUTO_INCREMENT,
+role_name		VARCHAR(50)			NOT NULL,
+PRIMARY KEY (role_id),
+UNIQUE INDEX role_name (role_name)
+);
+
+CREATE TABLE IF NOT EXISTS UserRole (
+user_role_id	INT					NOT NULL AUTO_INCREMENT,
+user_id			INT					NOT NULL,
+role_id			INT					NOT NULL,
+assigned_at		TIMESTAMP			NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (user_role_id),
+INDEX user_id (user_id),
+INDEX role_id (role_id),
+FOREIGN KEY (user_id) REFERENCES User (user_id),
+FOREIGN KEY (role_id) REFERENCES Role (role_id),
+UNIQUE INDEX user_role_unique (user_id, role_id)
+);
+
+CREATE TABLE IF NOT EXISTS Permission (
+permission_id	INT					NOT NULL AUTO_INCREMENT,
+permission_name	VARCHAR(50)			NOT NULL,
+PRIMARY KEY (permission_id),
+UNIQUE INDEX permission_name (permission_name)
+);
+
+CREATE TABLE IF NOT EXISTS RolePermission (
+role_permission_id	INT				NOT NULL AUTO_INCREMENT,
+role_id			INT					NOT NULL,
+permission_id	INT					NOT NULL,
+PRIMARY KEY (role_permission_id),
+INDEX role_id (role_id),
+INDEX permission_id (permission_id),
+FOREIGN KEY (role_id) REFERENCES Role (role_id),
+FOREIGN KEY (permission_id) REFERENCES Permission (permission_id),
+UNIQUE INDEX role_permission_unique (role_id, permission_id)
+);
+
+CREATE TABLE IF NOT EXISTS RoleChangeLog (
+log_id			INT					NOT NULL AUTO_INCREMENT,
+user_id			INT					NOT NULL,
+admin_id		INT					NOT NULL,
+old_role_id		INT,
+new_role_id		INT					NOT NULL,
+changed_at		TIMESTAMP			NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (log_id),
+INDEX user_id (user_id),
+INDEX admin_id (admin_id),
+FOREIGN KEY (user_id) REFERENCES User (user_id),
+FOREIGN KEY (admin_id) REFERENCES User (user_id),
+FOREIGN KEY (old_role_id) REFERENCES Role (role_id),
+FOREIGN KEY (new_role_id) REFERENCES Role (role_id)
+);
+
 INSERT INTO User 
 (user_id, first_name, last_name, user_email, user_phone, user_address, password_hashed, is_active, joined_on, last_login)
 VALUES
@@ -37,4 +92,33 @@ VALUES
 (19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25'),  
 (20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10');
 
-GRANT SELECT, INSERT, UPDATE ON lanja_db.* TO 'mgs_user'@'localhost' IDENTIFIED BY 'pa55word';
+INSERT INTO Role (role_id, role_name)
+VALUES
+(1, 'President'),
+(2, 'Dept Head'),
+(3, 'Member'),
+(4, 'Admin');
+
+INSERT INTO Permission (permission_id, permission_name)
+VALUES
+(1, 'Create'),
+(2, 'Read'),
+(3, 'Update'),
+(4, 'Delete');
+
+INSERT INTO RolePermission (role_id, permission_id)
+VALUES
+(1, 1), (1, 2), (1, 3), (1, 4),
+(2, 1), (2, 2), (2, 3),
+(3, 2),
+(4, 1), (4, 2), (4, 3), (4, 4);
+
+INSERT INTO UserRole (user_id, role_id)
+VALUES
+(1, 4),
+(17, 4),
+(18, 4),
+(19, 4),
+(20, 4);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON lanja_db.* TO 'mgs_user'@'localhost' IDENTIFIED BY 'pa55word';
