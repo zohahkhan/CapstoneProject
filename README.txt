@@ -22,3 +22,19 @@ Acceptance Criteria:
 - Role changes will log the before and after status of the user, user ID, admin ID, and timestamp.
 - Updates to roles/permissions take effect immediately.
 Test Credentials: Username: carie_b0009@email.com Password: password (or any admin account - all test users default to Admin role)
+
+
+New-user branch & edit-login branch:
+User story: As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry. - High Priority, Shannon
+ Acceptance Criteria: 
+▪ Ability to answer the questions with appropriate answers.
+▪ Contain all relevant questions in one place.
+▪ Data should be collected and stored for summary and reporting use.
+Test Credentials: KAT44977@email.com, password: KAT44977 -- all the user accounts' passwords match the username of their respective email.
+My goals for this sprint were focused on 3 main tasks
+Task 1 ✅: If/else to switch roles that the user has access to 
+Task 2 ✅: Create a new account with required user fields / Add new member
+Task 3 ✅: List view all member accounts. Active = 1 by default, inactive = 0 by president 
+
+
+
