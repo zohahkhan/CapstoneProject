@@ -36,5 +36,12 @@ Task 1 ✅: If/else to navigate through the roles that the user has access to
 Task 2 ✅: Create a new account with required user fields / Add new member
 Task 3 ✅: List view all member accounts. Active = 1 by default, inactive = 0 by president 
 
+Add files via upload branch:
+As President, I want to receive request from visitors to join our organization so that we can expand 
+our horizons. - Medium Priority, Kah 
+o   Acceptance Criteria:
+-  Visitors can fill out a contact form that includes basic sign-up info (full name, email) and a text box for a personal statement on why they want to join.
+-   Only the president can accept/decline these requests.
+  The request should be received within 3 minutes from the sent time. 
 
 
