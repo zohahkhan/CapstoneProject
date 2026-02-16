@@ -12,13 +12,19 @@ Develop member management CRUD operations
 Build member profile pages 
 
 Completed User Stories & Tasks: 
-Build member profile pages 
+As President, I want to manage users (freeze the accounts of former members or create accounts for new members) so that I can preserve the system integrity of the site. As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
+As President, I want to receive request from visitors to join our organization so that we can expand our horizons
 As a Member, I want to view and update my personal profile so that my contact information and preferences are correct. Set up user database tables *Users, Roles, Permissions)
+As an Admin, I want to assign user roles and grant permissions so that access is properly controlled. Build a login page with username/password form.
+Implement role-based access control (President, Dept Head, Member, Admin)
+Build account request submission form
+Create presidential approval workflow
+Develop member management CRUD operations
+Build member profile pages 
 
-Tests: 
+Tests: Tests were done for pull requests, see comments pertaining to each specific one. 
 
 Bug Tracking: 
-
 JJ:
 - Issue: Files disappeared after branch switching; manage_roles.php, assign_role_process.php, and include/db_connect.php were not found after switching between branches in GitHub Desktop. 
   Resolution: Recreated missing files in the feature/user-roles branch and verified all paths were correct.
