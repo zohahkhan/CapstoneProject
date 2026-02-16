@@ -8,7 +8,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $errors = [];
-$success = false;
 
 $first_name = "";
 $last_name = "";
@@ -39,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $full_name = trim($first_name . " " . $last_name);
         $visitor_session_id = session_id();
 
-        $stmt = $pdo->prepare("
+        $stmt = $db->prepare("
             INSERT INTO Suggestion
               (full_name, contact_email, visitor_msg, msg_status, session_id, created_at)
             VALUES
@@ -53,8 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ":session_id" => $visitor_session_id
         ]);
 
-        $success = true;
-        $first_name = $last_name = $email = $statement = "";
+$_SESSION['submitted'] = true;
+header("Location: thank_you.php");
+exit;
+
     }
 }
 ?>
@@ -69,41 +70,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <h1>Join Us</h1>
 
-<?php if ($success): ?>
-<p style="color:green;">Submission successful!</p>
-<?php endif; ?>
+<form class="login-form" method="post" action="contact.php">
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" name="first_name" value="<?= htmlspecialchars($first_name) ?>" required>
+  </div>
 
-<?php if (!empty($errors)): ?>
-<ul style="color:red;">
-<?php foreach ($errors as $error): ?>
-<li><?= htmlspecialchars($error) ?></li>
-<?php endforeach; ?>
-</ul>
-<?php endif; ?>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" name="last_name" value="<?= htmlspecialchars($last_name) ?>" required>
+  </div>
 
-<form class="login-form" method="post">
-    <div class="form-group">
-	<div>
-<label>First Name</label>
-<input type="text" name="first_name" value="<?= htmlspecialchars($first_name) ?>" required>
-</div>
-	<div>
-<label>Last Name</label>
-<input type="text" name="last_name" value="<?= htmlspecialchars($last_name) ?>" required>
-</div>
-	<div>
-<label>Email</label>
-<input type="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
-</div>
-	<div>
-<label>Why do you want to join us?</label>
-<textarea name="statement" required><?= htmlspecialchars($statement) ?></textarea>
-<div>
-<button type="submit">Submit</button>
-</div></form>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
+  </div>
+
+  <div class="form-group">
+    <label>Why do you want to join us?</label>
+    <textarea name="statement" required><?= htmlspecialchars($statement) ?></textarea>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
 <br><br>
 <a href="index.php">Back to home</a>
 </body>
 </html>
-
 
