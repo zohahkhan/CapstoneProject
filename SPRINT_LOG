@@ -34,3 +34,11 @@ JJ:
   
 - Issue: Admin link not appearing on homepage despite correct role assignment in database.
   Resolution: Added debug logging to verify session and role query execution, confirmed link displays correctly for users with Admin role (role_id = 4).
+
+
+Shan:
+- Issue: When implementing the active/inactive code, I ran into the bug of having to click on the button twice for it to display as 'false' for the status and 'activate' for the button label. 
+         I noticed that it updated in the database with one click and that when I clicked a lower role to view and then switch back to president, it would update. 
+- I had an sql query to update the is_active attribute inside a line that verifies the variable is not empty/false. If I had the exact same query outside of the scope too, the active/inactive feature worked perfectly.
+               However, when I removed either one of them, the code no longer worked as intended.
+- Resolution: The solution was to have the update qury block inside the verification and then add a fetch qury below it so that it can execute globally on refresh.
