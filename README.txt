@@ -32,7 +32,7 @@ User story: As a User, I want access to a monthly report where we can input data
 ▪ Data should be collected and stored for summary and reporting use.
 Test Credentials: KAT44977@email.com, password: KAT44977 -- all the user accounts' passwords match the username of their respective email.
 My goals for this sprint were focused on 3 main tasks
-Task 1 ✅: If/else to switch roles that the user has access to 
+Task 1 ✅: If/else to navigate through the roles that the user has access to 
 Task 2 ✅: Create a new account with required user fields / Add new member
 Task 3 ✅: List view all member accounts. Active = 1 by default, inactive = 0 by president 
 
