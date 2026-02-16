@@ -13,3 +13,12 @@ Usage Instructions: The new files created were updateProfile and updateProfileFo
 -  If the update is successful, the system must display the changes within 2 seconds of clicking the button to confirm changes (page auto refreshes)
 -  If the update is unsuccessful, such as if the session times out prior to confirming changes or invalid field input, the system must display an error message that states what went wrong. 
 Test Credentials: Username: kha27882@email.com Password: kha27882 or any username/password already the database
+
+User-roles branch:
+User Story: As an Admin, I want to assign user roles and grant permissions so that access is properly controlled.
+Usage Instructions: The new files created were manage_roles.php and assign_role_process.php, along with database schema updates (Role, UserRole, Permission, RolePermission, and RoleChangeLog tables). Log in with admin credentials, and on the homepage, you should see a '⚙ Manage User Roles & Permissions' hyperlink. Click it to access the role management interface where you can view all active users and their current roles. Select a role from the dropdown menu next to any user and click 'Assign Role' to update their role. The system will display a success message and log the change in the RoleChangeLog table with timestamp, admin ID, and before/after role status. The page also displays the permissions associated with each role (Create, Read, Update, Delete) in the Role Permissions table.
+Acceptance Criteria:
+- Assign user roles (President/Dept Head/Member/Admin) and grant permissions to these roles (Create/Read/Update/Delete).
+- Role changes will log the before and after status of the user, user ID, admin ID, and timestamp.
+- Updates to roles/permissions take effect immediately.
+Test Credentials: Username: carie_b0009@email.com Password: password (or any admin account - all test users default to Admin role)
