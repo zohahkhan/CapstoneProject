@@ -18,3 +18,13 @@ As a Member, I want to view and update my personal profile so that my contact in
 Tests: 
 
 Bug Tracking: 
+
+JJ:
+- Issue: Files disappeared after branch switching; manage_roles.php, assign_role_process.php, and include/db_connect.php were not found after switching between branches in GitHub Desktop. 
+  Resolution: Recreated missing files in the feature/user-roles branch and verified all paths were correct.
+  
+- Issue: Database permission error; "DELETE command denied to user 'mgs_user'" when attempting to change user roles.
+  Resolution: Updated database grants to include DELETE permission and modified assign_role_process.php to use UPDATE instead of DELETE/INSERT for role changes.
+  
+- Issue: Admin link not appearing on homepage despite correct role assignment in database.
+  Resolution: Added debug logging to verify session and role query execution, confirmed link displays correctly for users with Admin role (role_id = 4).
