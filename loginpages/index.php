@@ -39,10 +39,23 @@ if ($status == PHP_SESSION_NONE)
 
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
-			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
-				<p>Description</p>
-			</div>
+<div class="right-sub-box">
+  <h2>Important Reminders</h2>
+
+  <?php if ($isPresident): ?>
+    <?php
+      $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
+      $stmt->execute([':status' => 'Pending']);
+      $pendingCount = (int)$stmt->fetchColumn();
+    ?>
+    <p>
+      You have <b><?= $pendingCount ?></b> pending request(s).<br>
+      <a href="president_requests.php">View Visitor Requests</a>
+    </p>
+  <?php else: ?>
+    <p>Description</p>
+  <?php endif; ?>
+</div>
 
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
