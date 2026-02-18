@@ -214,9 +214,18 @@ created_at		TIMESTAMP			NOT NULL,
 PRIMARY KEY (suggestion_id)
 );
 
+CREATE TABLE Session (
+session_id		VARCHAR(64)			NOT NULL,
+user_id			INT					NOT NULL,
+expires_at		TIMESTAMP			NOT NULL,
+created_at		TIMESTAMP			NOT NULL DEFAULT CURRENT_TIMESTAMP,
+last_seen_at	TIMESTAMP,
+revoked_at		TIMESTAMP,
+PRIMARY KEY (session_id),
+INDEX user_id (user_id),
+FOREIGN KEY (user_id) REFERENCES User (user_id)
+);
 
-
-/* adding values to the database, personal info altered for privacy */ 
 
 INSERT INTO User 
 (
@@ -240,54 +249,39 @@ VALUES
 
 (3, 'Kamila', 'Nawaz', 'kamkam13506@email.com', '(919) 555-0103', '389 Pine Hill Lane Raleigh, NC 27607', 'e0b38d39df70f519eec195b5865249e29d208c4d', 1, '2020-06-10 12:05:10', '2022-12-22 18:40:05'),
 
-(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue
-Pasadena, CA 91105', 'd44a646c242a7de4dfd318d92170f9250859f4bf', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45'), 
+(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue Pasadena, CA 91105', 'd44a646c242a7de4dfd318d92170f9250859f4bf', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45'), 
 
-(5, 'Roxanne', 'Sumar', 'rsumar@email.com', '(802) 555-0105', '76 Riverstone Court
-Burlington, VT 05401', '5fce5e4f146b95ac6417eadee8a74b75b2a3b386', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12'),
+(5, 'Roxanne', 'Sumar', 'rsumar@email.com', '(802) 555-0105', '76 Riverstone Court Burlington, VT 05401', '5fce5e4f146b95ac6417eadee8a74b75b2a3b386', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12'),
 
 (6, 'Mina', 'Hashim', 'minahashim@email.com', '(972) 555-0106', '834 Willow Bend Way Plano, TX 75024', '7a0066282501c336828d003175bdb54661f57353', 1, '2022-02-28 09:12:15', '2023-08-09 21:15:35'),
 
 (7, 'Mariam', 'Latif', 'latimari@email.com', '(425) 555-0107', '690 Cedar Ridge Drive Bellevue, WA 98008', '11e2574e9a33efb39ceb3f9d046030d05ea13940', 1, '2020-12-15 22:10:50', '2022-10-30 08:05:25'),
 
-(8, 'Nadia', 'Maroon', 'mar00nn@email.com', '(614) 555-0108', '918 Meadowbrook Lane
-Columbus, OH 43221', '058255ad1f0a570e8175783ad49429107c2c8c06', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50'), 
+(8, 'Nadia', 'Maroon', 'mar00nn@email.com', '(614) 555-0108', '918 Meadowbrook Lane Columbus, OH 43221', '058255ad1f0a570e8175783ad49429107c2c8c06', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50'), 
 
-(9, 'Lula', 'Mirza', 'mirza_lu@email.com', '(847) 555-0109', '207 Lakeside Parkway
-Evanston, IL 60202', '01c0ff841cb2055f53dd1a5f22bf6afd02048ed9', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20'),
+(9, 'Lula', 'Mirza', 'mirza_lu@email.com', '(847) 555-0109', '207 Lakeside Parkway Evanston, IL 60202', '01c0ff841cb2055f53dd1a5f22bf6afd02048ed9', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20'),
 
-(10, 'Inaya', 'Sheikh', 'sheikh2005@email.com', '(480) 555-0110', '561 Highland Park Drive
-Scottsdale, AZ 85255', '06c72080d5e3115ab95c0ae3af325bafb8b460c0', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00'), 
+(10, 'Inaya', 'Sheikh', 'sheikh2005@email.com', '(480) 555-0110', '561 Highland Park Drive Scottsdale, AZ 85255', '06c72080d5e3115ab95c0ae3af325bafb8b460c0', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00'), 
 
-(11, 'Jasmine', 'Taha', 'jazzy0267@email.com', '(919) 555-0111', '744 Brookhaven Road
-Chapel Hill, NC 27516', '3a5577a3b1766e1ce8913473745a246cbc37d32a', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10'), 
+(11, 'Jasmine', 'Taha', 'jazzy0267@email.com', '(919) 555-0111', '744 Brookhaven Road Chapel Hill, NC 27516', '3a5577a3b1766e1ce8913473745a246cbc37d32a', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10'), 
 
-(12, 'Malay', 'Usami', 'musami89@email.com', '(707) 555-0112', '1205 Redwood Springs Circle
-Santa Rosa, CA 95404', '856f259020e565d14dceb7ca94ac130dc596e7ec', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25'), 
+(12, 'Malay', 'Usami', 'musami89@email.com', '(707) 555-0112', '1205 Redwood Springs Circle Santa Rosa, CA 95404', '856f259020e565d14dceb7ca94ac130dc596e7ec', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25'), 
 
-(13, 'Farah', 'Amin', 'faraha@email.com', '(828) 555-0113', '967 Autumn Crest Lane
-Asheville, NC 28803', '64211502d6a9ecd3eb8b7c91e9886c8aadf67f1e', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15'),
+(13, 'Farah', 'Amin', 'faraha@email.com', '(828) 555-0113', '967 Autumn Crest Lane Asheville, NC 28803', '64211502d6a9ecd3eb8b7c91e9886c8aadf67f1e', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15'),
  
-(14, 'Sofie', 'Nasser', 'sofiebee23@email.com', '(609) 555-0114', '29 Stonegate Boulevard
-Princeton, NJ 08540', 'e298c8e7d3b7a83af9aae2b189b00b1e13a64277', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35'), 
+(14, 'Sofie', 'Nasser', 'sofiebee23@email.com', '(609) 555-0114', '29 Stonegate Boulevard Princeton, NJ 08540', 'e298c8e7d3b7a83af9aae2b189b00b1e13a64277', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35'), 
 
-(15, 'Fatima', 'Noore', 'f_noore3342@email.com', '(410) 555-0115', '392 Harbor Point Drive
-Annapolis, MD 21403', '920b9fb1dbf9c13240bf47f644d3b71d6353b065', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55'), 
+(15, 'Fatima', 'Noore', 'f_noore3342@email.com', '(410) 555-0115', '392 Harbor Point Drive Annapolis, MD 21403', '920b9fb1dbf9c13240bf47f644d3b71d6353b065', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55'), 
  
-(16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive
-Annapolis, MD 21403', '5772fa800ad99dd0cc3c59cdabdacf8f1f906603', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45'),
+(16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive Annapolis, MD 21403', '5772fa800ad99dd0cc3c59cdabdacf8f1f906603', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45'),
 
-(17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive
-Bozeman, MT 59718', '55e25e785d2c1cd969086a905da929ce0cc8bf85', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50'),
+(17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive Bozeman, MT 59718', '55e25e785d2c1cd969086a905da929ce0cc8bf85', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50'),
      
-(18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road
-Sarasota, FL 34232', 'b148bc09cb2817b5becbfd48af7d1db1ca696bb4', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40'),
+(18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road Sarasota, FL 34232', 'b148bc09cb2817b5becbfd48af7d1db1ca696bb4', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40'),
     
-(19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane
-Fort Collins, CO 80525', '50a7097293554de80ba95b1aef309aab63e7f858', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25'),  
+(19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane Fort Collins, CO 80525', '50a7097293554de80ba95b1aef309aab63e7f858', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25'),  
      
-(20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing
-Lexington, KY 40503', 'd51d2230171c9c68db83deb9480f36c19f491268', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10');
+(20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing Lexington, KY 40503', 'd51d2230171c9c68db83deb9480f36c19f491268', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10');
    
 
 INSERT INTO Role 
@@ -297,10 +291,10 @@ role_name,
 role_desc
 )
 VALUES
-(1, 'President', 'Oversees the entire organization, makes final decisions, and ensures overall system and organizational integrity.'),
-(2, 'Department Head', 'Manages the department's operations, reporting, and member activities, and serves as the primary liaison to the President.'),
-(3, 'Member', 'Participates in organizational activities, submits required forms, engages with events and communications.'),
-(4, 'Admin/Maintenance', 'Maintains the technical health, security, and configuration of the system without participating in organizational decision-making.');
+(1, 'President', 'Oversees the entire organization makes final decisions and ensures overall system and organizational integrity'),
+(2, 'Department Head', 'Manages department operations reporting and member activities and serves as the primary liaison to the President'),
+(3, 'Member', 'Participates in organizational activities submits required forms and engages with events and communications'),
+(4, 'Admin', 'Maintains the technical health security and configuration of the system without participating in organizational decision-making');
 
 
 INSERT INTO UserRole 
@@ -308,7 +302,7 @@ INSERT INTO UserRole
 user_id,
 role_id	
 )
-VALUE
+VALUES
 (1, 3),
 (2, 3),
 (3, 3),
@@ -341,7 +335,7 @@ dept_name,
 dept_desc
 )
 VALUES
-(1, 17, 'Reporting Department', 'The Reporting Department is responsible for collecting, organizing, analyzing, and consolidating organizational data into accurate reports.');
+(1, 17, 'Reporting Department', 'The Reporting Department is responsible for collecting organizing analyzing and consolidating organizational data into accurate reports');
 
 
 INSERT INTO CalendarEvent 
@@ -356,8 +350,8 @@ iterations,
 created_at
 )
 VALUES
-(1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'); 
+(1, 'First Day of Class', 'The first day of Spring Term begins', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
+(2, 'Team Meeting', 'Gather to discuss future developments', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'); 
 
 
 INSERT INTO Permission 
@@ -370,59 +364,40 @@ perm_crud
 )
 VALUES
 
-/* president only permissions */
-			-- pres only - user 
-(1, 'Create User Account', 'Create a new member account by entering required credentials and assigning an initial active status.', 'User', 'Create'),
-(2, 'Update User Account Status', 'Freeze or reactivate user accounts, immediately revoking or restoring login access while preserving data.', 'User', 'Update'), 
-(3, 'View User Accounts', 'View all user accounts and related metadata for monitoring and management.', 'User', 'Read'),
-(4, 'View User Activity Logs', 'View user engagement metrics including login frequency, last login time, and site activity.', 'User', 'Read'),
-			-- pres only - suggestion
-(5, 'Receive Message Requests', 'Receive and view membership requests submitted by visitors via contact form.', 'Suggestion', 'Read'),
-(6, 'Respond to Requests', 'Accept or decline visitor membership requests.', 'Suggestion', 'Update'),
-			-- pres only - event
-(7, 'Cancel Calendar Event', 'Cancel any calendar event or recurring series across the organization.', 'Calendar Event', 'Update'),
-
-/* leadership = pres & dept head perm */
-			-- leader - docs
-(8, 'Upload Document', 'Upload documents (PDF/DOCX) to the system within size and performance constraints.', 'Document', 'Create'),
-(9, 'Set Document Visibility', 'Define which roles or departments can view and download a document.', 'Document', 'Update'),
-(10, 'View Documents', 'View and download documents based on assigned visibility permissions.', 'Document', 'Read'),
-(11, 'Archive Document', 'Archive documents so they are no longer active but retained for historical reference.', 'Document', 'Update'),
-			-- leader - events
-(12, 'Create Calendar Event', 'Create calendar events that are visible to selected roles within seconds of posting.', 'Calendar Event', 'Create'),
-(13, 'Update Calendar Event', 'Edit calendar events according to defined modification permissions, overwriting displayed versions while logging changes.', 'Calendar Event', 'Update'),
-			-- leader - announce
-(14, 'Publish Announcement', 'Create and publish announcements with title, body, and expiry date.', 'Announcement', 'Create'),
-(15, 'Update Announcement', 'Edit active announcements; expired announcements auto-hide while status updates accordingly.', 'Announcement', 'Update'),
-(16, 'View Announcement Archive', 'Archive any announcement across the organization to preserve history without deletion.', 'Announcement', 'Update'),
-			-- leader - other 
-(17, 'View Reports', 'View monthly aggregated reports with visualizations and qualitative interpretations.', 'Form Response', 'Read'),
-
-/* dept head only */
-(18, 'Cancel Calendar Event', 'Cancel calendar events they created or in their department only.', 'Calendar Event', 'Update'),
-
-/* regular member only */
-(19, 'View Own Profile', 'View personal profile information including name, contact details, role, and available navigation options.', 'User', 'Read'),
-(20, 'Update Own Profile', 'Update personal profile information such as name, email, phone number, and address.', 'User', 'Update'),
-(21, 'Submit Form Response', 'Complete and submit a survey or form related to member involvement.', 'Form Response', 'Create'),
-(22, 'Update Own Form Response', 'Edit a previously submitted survey response before the submission deadline to correct errors.', 'Form Response', 'Update'),
-(23, 'View Own Form Responses', 'View a list of previously submitted form responses and open individual submissions in read-only mode.', 'Form Response', 'Read'),
-(24, 'View Member Announcements', 'View published announcements intended for members.', 'Announcement', 'Read'),
-
-/* applies to everyone */
-(25, 'Submit Message Suggestions', 'Visitors and all members can send membership requests and/or suggestions via contact form.', 'Suggestion', 'Create'),
-(26, 'Reset Password', 'Reset account password using a time-limited, tokenized email link with enforced password strength rules.', 'User', 'Update'),
-			-- all member levels, excludes admins
-(27, 'View Calendar Events', 'View all calendar events across roles with consistent formatting.', 'Calendar Event', 'Read'), 
-(28, 'View Announcements', 'View announcements and their current status (active/expired).', 'Announcement', 'Read'), 
-
-/* admin only */
-(29, 'View System Logs', 'View system log entries for monitoring and troubleshooting.', 'Audit Log', 'Read'),
-(30, 'Export System Logs', 'Generate and export system logs as CSV or PDF files using scheduled scripts for auditing and archival purposes.', 'Audit Log', 'Read'),
-(31, 'Assign User Roles', 'Assign or change user roles (President, Dept Head, Member, Admin) with immediate effect and audit logging of changes.', 'User Role', 'Update'),
-(32, 'Grant Role Permissions', 'Grant or modify CRUD permissions associated with roles to control system access.', 'Role Permission', 'Update'),
-(33, 'View Performance Metrics', 'View system performance metrics and operational data through an administrative dashboard.', 'Audit Log', 'Read'),
-(34, 'View System Alerts', 'View system alerts and notifications related to failures or downtime within the past 90 days.', 'Audit Log', 'Read');
+(1, 'Create User Account', 'Create a new member account by entering required credentials and assigning an initial active status', 'User', 'Create'),
+(2, 'Update User Account Status', 'Freeze or reactivate user accounts immediately revoking or restoring login access while preserving data', 'User', 'Update'), 
+(3, 'View User Accounts', 'View all user accounts and related metadata for monitoring and management', 'User', 'Read'),
+(4, 'View User Activity Logs', 'View user engagement metrics including login frequency last login time and site activity', 'User', 'Read'),
+(5, 'Receive Message Requests', 'Receive and view membership requests submitted by visitors via contact form', 'Suggestion', 'Read'),
+(6, 'Respond to Requests', 'Accept or decline visitor membership requests', 'Suggestion', 'Update'),
+(7, 'Cancel Calendar Event', 'Cancel any calendar event or recurring series across the organization', 'Calendar Event', 'Update'),
+(8, 'Upload Document', 'Upload documents within size and performance constraints', 'Document', 'Create'),
+(9, 'Set Document Visibility', 'Define which roles or departments can view and download a document', 'Document', 'Update'),
+(10, 'View Documents', 'View and download documents based on assigned visibility permissions', 'Document', 'Read'),
+(11, 'Archive Document', 'Archive documents so they are no longer active but retained for historical reference', 'Document', 'Update'),
+(12, 'Create Calendar Event', 'Create calendar events that are visible to selected roles within seconds of posting', 'Calendar Event', 'Create'),
+(13, 'Update Calendar Event', 'Edit calendar events according to defined modification permissions', 'Calendar Event', 'Update'),
+(14, 'Publish Announcement', 'Create and publish announcements with title body and expiry date', 'Announcement', 'Create'),
+(15, 'Update Announcement', 'Edit active announcements while expired announcements auto-hide', 'Announcement', 'Update'),
+(16, 'View Announcement Archive', 'Archive any announcement across the organization to preserve history without deletion', 'Announcement', 'Update'),
+(17, 'View Reports', 'View monthly aggregated reports with visualizations and qualitative interpretations', 'Form Response', 'Read'),
+(18, 'Cancel Department Calendar Event', 'Cancel calendar events they created or in their department only', 'Calendar Event', 'Update'),
+(19, 'View Own Profile', 'View personal profile information including name contact details role and available navigation options', 'User', 'Read'),
+(20, 'Update Own Profile', 'Update personal profile information such as name email phone number and address', 'User', 'Update'),
+(21, 'Submit Form Response', 'Complete and submit a survey or form related to member involvement', 'Form Response', 'Create'),
+(22, 'Update Own Form Response', 'Edit a previously submitted survey response before the submission deadline to correct errors', 'Form Response', 'Update'),
+(23, 'View Own Form Responses', 'View a list of previously submitted form responses and open individual submissions in read-only mode', 'Form Response', 'Read'),
+(24, 'View Member Announcements', 'View published announcements intended for members', 'Announcement', 'Read'),
+(25, 'Submit Message Suggestions', 'Visitors and all members can send membership requests via contact form', 'Suggestion', 'Create'),
+(26, 'Reset Password', 'Reset account password using a time-limited tokenized email link with enforced password strength rules', 'User', 'Update'),
+(27, 'View Calendar Events', 'View all calendar events across roles with consistent formatting', 'Calendar Event', 'Read'), 
+(28, 'View Announcements', 'View announcements and their current status', 'Announcement', 'Read'), 
+(29, 'View System Logs', 'View system log entries for monitoring and troubleshooting', 'Audit Log', 'Read'),
+(30, 'Export System Logs', 'Generate and export system logs as files for auditing and archival purposes', 'Audit Log', 'Read'),
+(31, 'Assign User Roles', 'Assign or change user roles with immediate effect and audit logging of changes', 'User Role', 'Update'),
+(32, 'Grant Role Permissions', 'Grant or modify permissions associated with roles to control system access', 'Role Permission', 'Update'),
+(33, 'View Performance Metrics', 'View system performance metrics and operational data through an administrative dashboard', 'Audit Log', 'Read'),
+(34, 'View System Alerts', 'View system alerts and notifications related to failures or downtime within the past 90 days', 'Audit Log', 'Read');
 
 
 INSERT INTO RolePermission 
@@ -494,7 +469,6 @@ VALUES
 (53, 33, 4),
 (54, 34, 4);
 
-/* to access the database */
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON lanja_db.*
 TO mgs_user@localhost
