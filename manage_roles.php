@@ -46,7 +46,7 @@ $stmtRoles = $db->prepare($queryGetRoles);
 $stmtRoles->execute();
 $roles = $stmtRoles->fetchAll();
 
-$queryGetPermissions = 'SELECT permission_id, permission_name FROM Permission ORDER BY permission_name';
+$queryGetPermissions = 'SELECT permission_id, perm_title FROM Permission ORDER BY perm_title';
 $stmtPerms = $db->prepare($queryGetPermissions);
 $stmtPerms->execute();
 $permissions = $stmtPerms->fetchAll();
@@ -171,17 +171,17 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
                     <td><?php echo htmlspecialchars($role['role_name']); ?></td>
                     <td>
                         <?php
-                        $queryRolePerms = 'SELECT p.permission_name 
+                        $queryRolePerms = 'SELECT p.perm_title 
                                           FROM RolePermission rp
                                           JOIN Permission p ON rp.permission_id = p.permission_id
                                           WHERE rp.role_id = :role_id
-                                          ORDER BY p.permission_name';
+                                          ORDER BY p.perm_title';
                         $stmtRP = $db->prepare($queryRolePerms);
                         $stmtRP->bindParam(':role_id', $role['role_id']);
                         $stmtRP->execute();
                         $rolePerms = $stmtRP->fetchAll();
                         
-                        $permNames = array_column($rolePerms, 'permission_name');
+                        $permNames = array_column($rolePerms, 'perm_title');
                         echo htmlspecialchars(implode(', ', $permNames));
                         ?>
                     </td>

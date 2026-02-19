@@ -47,39 +47,37 @@ if (isset($assign_role))
     $oldRoleData = $stmtOldRole->fetch();
     $old_role_id = $oldRoleData ? $oldRoleData['role_id'] : null;
 
-    $queryCheckExisting = 'SELECT user_role_id FROM UserRole 
-                          WHERE user_id = :user_id LIMIT 1';
+    $queryCheckExisting = 'SELECT COUNT(*) FROM UserRole 
+                          WHERE user_id = :user_id AND role_id = :role_id';
     $stmtCheck = $db->prepare($queryCheckExisting);
     $stmtCheck->bindParam(':user_id', $user_id);
+    $stmtCheck->bindParam(':role_id', $new_role_id);
     $stmtCheck->execute();
-    $existingRole = $stmtCheck->fetch();
+    $alreadyHasRole = $stmtCheck->fetchColumn() > 0;
 
-    if ($existingRole) 
+    if (!$alreadyHasRole) 
     {
-        $queryUpdateRole = 'UPDATE UserRole SET role_id = :role_id WHERE user_id = :user_id';
-        $stmtUpdate = $db->prepare($queryUpdateRole);
-        $stmtUpdate->bindParam(':role_id', $new_role_id);
-        $stmtUpdate->bindParam(':user_id', $user_id);
-        $stmtUpdate->execute();
-    } 
-    else 
-    {
+        $queryDeleteOldRoles = 'DELETE FROM UserRole WHERE user_id = :user_id';
+        $stmtDelete = $db->prepare($queryDeleteOldRoles);
+        $stmtDelete->bindParam(':user_id', $user_id);
+        $stmtDelete->execute();
+
         $queryAssignRole = 'INSERT INTO UserRole (user_id, role_id) 
                            VALUES (:user_id, :role_id)';
         $stmtAssign = $db->prepare($queryAssignRole);
         $stmtAssign->bindParam(':user_id', $user_id);
         $stmtAssign->bindParam(':role_id', $new_role_id);
         $stmtAssign->execute();
-    }
 
-    $queryLogChange = 'INSERT INTO RoleChangeLog (user_id, admin_id, old_role_id, new_role_id) 
-                      VALUES (:user_id, :admin_id, :old_role_id, :new_role_id)';
-    $stmtLog = $db->prepare($queryLogChange);
-    $stmtLog->bindParam(':user_id', $user_id);
-    $stmtLog->bindParam(':admin_id', $admin_id);
-    $stmtLog->bindParam(':old_role_id', $old_role_id);
-    $stmtLog->bindParam(':new_role_id', $new_role_id);
-    $stmtLog->execute();
+        $queryLogChange = 'INSERT INTO RoleChangeLog (user_id, admin_id, old_role_id, new_role_id) 
+                          VALUES (:user_id, :admin_id, :old_role_id, :new_role_id)';
+        $stmtLog = $db->prepare($queryLogChange);
+        $stmtLog->bindParam(':user_id', $user_id);
+        $stmtLog->bindParam(':admin_id', $admin_id);
+        $stmtLog->bindParam(':old_role_id', $old_role_id);
+        $stmtLog->bindParam(':new_role_id', $new_role_id);
+        $stmtLog->execute();
+    }
 
     header('Location: manage_roles.php?success=1');
     exit();
