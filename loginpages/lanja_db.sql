@@ -747,7 +747,7 @@ JSON_ARRAY(
 CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
 IDENTIFIED BY 'pa55word';
 
-GRANT SELECT, INSERT, UPDATE
+GRANT SELECT, INSERT, UPDATE, DELETE
 ON lanja_db.*
 TO 'mgs_user'@'localhost';
 
