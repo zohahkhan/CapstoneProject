@@ -511,6 +511,238 @@ VALUES
 (53, 33, 4),
 (54, 34, 4);
 
+
+INSERT INTO FormTemplate (
+template_id,
+temp_title, 
+temp_desc, 
+temp_status, 
+form_questions, 
+form_deadline, 
+)
+
+VALUES 
+(1, "Monthly Members Survey", 
+	"This form is anonymous. All questions should be answered from your own induvidual experiences. Group activity should be reported to your Local Shoba or Department Secretary", 
+	"Active", 
+
+JSON_ARRAY(
+	JSON_OBJECT( 
+		'id', 1,
+		'question', 'Majis',
+		'options', JSON_ARRAY('PA-York/Harrisburg', 'PA-Pittsburgh', 'IT-Testing')
+		),
+	JSON_OBJECT(
+		'id', 2,
+		'question', 'Reporting Month',
+		'options', JSON_ARRAY()
+		),
+	JSON_OBJECT(
+		'id', 3,
+		'question', 'Is this your first time cmpleting this survey?',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 4,
+		'question', 'Are you a NAU MUBAI''A',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'NAU MUBAI’A: Accepted Islam Ahmadiyyat in last three years'
+		),
+	JSON_OBJECT(
+		'id', 5,
+		'question', 'Which auxiliary are you from',
+		'options', JSON_ARRAY('Lajna', 'Nasirat')
+		),
+		/*
+			IF Nasirat SELECTED 
+		*/
+	JSON_OBJECT(
+		'id', 6,
+		'question', 'What age group are you in?',
+		'options', JSON_ARRAY('7-9', '10-12', '13-15')
+		),
+	JSON_OBJECT(
+		'id', 7,
+		'question', 'Are you regular in offering your Salat?',
+		'options', JSON_ARRAY('I offer five daily prayers', 'I offer three daily prayers', 'In progress/working on it', 'No, I don''t offer Salat')
+		),
+	JSON_OBJECT(
+		'id', 8,
+		'question', 'Do you know the translation of Salat?',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 9,
+		'question', 'Do you recite the Holy Qur''an daily?',
+		'options', JSON_ARRAY('Yes', 'No', 'Working on it'),
+		'context', '(Try to recite in the morning before school. If that''s not possible, recite after school.)'
+		),
+	JSON_OBJECT(
+		'id', 10,
+		'question', 'Do you watch/read the Friday Sermon?',
+		'options', JSON_ARRAY('Once a month', 'Twice a month', 'Every week (all of them)', 'I don''t watch/read the Friday Sermon'),
+		'context', '(You should strive to watch the sermon live. If unable, please watch it later and read the sermon to gain full understanding.)'
+		),
+	JSON_OBJECT(
+		'id', 11,
+		'question', 'Do you regularly watch MTA?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This could be a couple times a week or month, does not have to be daily)'
+		),
+	JSON_OBJECT(
+		'id', 12,
+		'question', 'Do you regularly look over the Nasirat Syllabus and are up to date with it?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This includes attending weekly or monthly classes and following the guidance of your Nasirat Secretary.)'
+		),
+	JSON_OBJECT(
+		'id', 13,
+		'question', 'Do you regularly exercise?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This can include sports, physical education classes, walks, or other physical activity—even if it is once a month.)'
+		),
+		/*
+			IF Lajna SELECTED 
+		*/
+
+	/* Office Bearer */
+	JSON_OBJECT(
+		'id', 14,
+		'question', 'Are you a member of Local Amila?',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 15,
+		'question', 'Do you make prayer at Mosque or Salat Center?',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 16,
+		'question', 'How often do you make prayer at Local Mosque or Salat Center?',
+		'options', JSON_ARRAY('Five daily', 'Three daily', 'Juma only', 'Other')
+		),	
+
+	/* Taleem (Education) */
+	JSON_OBJECT(
+		'id', 17,
+		'question', 'Knowledge of Salat: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 18,
+		'question', 'Knowledge of Salat with translation: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 19, 
+		'question', 'Reciting Holy Qur''an with basic correct pronunciation:', 
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 20,
+		'question', 'Knowledge of Holy Quran with translation: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 21,
+		'question', 'Qur''an class attendance (pronunciation): ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'i.e. attend Al Furqan or Tahir Academy HQ'
+		),
+	JSON_OBJECT(
+		'id', 22,
+		'question', 'Qur''an class attendance (translation): ',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 23,
+		'question', 'Following the Taleem Syllabus: ',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 24,
+		'question', 'Studying/Reading Jama’at books or Lajna Publications: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Lajna/Nasirat assigned'
+		),
+	
+	/* Lajna/Nasirat books: */
+	JSON_OBJECT(
+		'id', 25,
+		'question', 'Which book(s) were completed?',
+		'options', JSON_ARRAY()
+		),
+
+	/* Tarbiyyat (Moral Training) */
+	JSON_OBJECT(
+		'id', 26,
+		'question', 'Recite the Holy Qur''an daily:',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 27,
+		'question', 'Reciting the Holy Qur''an with translation:',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 28,
+		'question', 'Regular in offering Salat: ',
+		'options', JSON_ARRAY('Offer 5 daily salat', 'Offer 3 daily salat', 'Offer occassional salat', 'No')
+		),
+	JSON_OBJECT(
+		'id', 29,
+		'question', 'Offer Salat in congregation',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 30,
+		'question', 'Following the Tarbiyyat Syllabus: ',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 31,
+		'question', 'Listening/Reading the Friday Sermon: ',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 32,
+		'question', 'Regular watching MTA: ',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 33,
+		'question', 'Observing Purdah: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it')
+		),
+	JSON_OBJECT(
+		'id', 34,
+		'question', 'Regularly exercising',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 35,
+		'question', 'Did you do any community service?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Inside or outside Jamaat?'
+		),
+		
+	/* Tabligh (Preaching) */
+	JSON_OBJECT(
+		'id', 36,
+		'question', 'Did you preach this month?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Dai''yat: Member who is actively preaching'	
+		),
+	
+	), 
+	"2026-03-10"
+);
+
+
+
+
+
+
 /* to access the database */
 CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
 IDENTIFIED BY 'pa55word';
