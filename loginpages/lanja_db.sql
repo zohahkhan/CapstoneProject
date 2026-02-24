@@ -518,7 +518,7 @@ temp_title,
 temp_desc, 
 temp_status, 
 form_questions, 
-form_deadline, 
+form_deadline
 )
 
 VALUES 
@@ -661,7 +661,7 @@ JSON_ARRAY(
 		),
 	JSON_OBJECT(
 		'id', 24,
-		'question', 'Studying/Reading Jama’at books or Lajna Publications: ',
+		'question', 'Studying/Reading Jama''at books or Lajna Publications: ',
 		'options', JSON_ARRAY('Yes', 'No'),
 		'context', 'Lajna/Nasirat assigned'
 		),
