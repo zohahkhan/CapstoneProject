@@ -546,7 +546,7 @@ JSON_ARRAY(
 		'id', 4,
 		'question', 'Are you a NAU MUBAI''A',
 		'options', JSON_ARRAY('Yes', 'No'),
-		'context', 'NAU MUBAI’A: Accepted Islam Ahmadiyyat in last three years'
+		'context', 'NAU MUBAI''A: Accepted Islam Ahmadiyyat in last three years'
 		),
 	JSON_OBJECT(
 		'id', 5,
