@@ -22,12 +22,12 @@ first_name		VARCHAR(25)			NOT NULL,
 last_name		VARCHAR(25)			NOT NULL, 
 user_email		VARCHAR(50)			NOT NULL, 
 user_phone		VARCHAR(15)			NOT NULL, 
-user_address	VARCHAR(200)			NOT NULL, 
+user_address	VARCHAR(200)		NOT NULL, 
 password_hashed	VARCHAR(60)			NOT NULL, 
 is_active		BOOLEAN				NOT NULL, 
-joined_on		TIMESTAMP			NOT NULL, 
-last_login		TIMESTAMP			NOT NULL, 
-last_updated	TIMESTAMP,
+joined_on		TIMESTAMP			NOT NULL   					 DEFAULT CURRENT_TIMESTAMP, 
+last_login		TIMESTAMP			NOT NULL					 DEFAULT CURRENT_TIMESTAMP, 
+last_updated	TIMESTAMP									  	 ON UPDATE CURRENT_TIMESTAMP,
 updated_by		INT,
 PRIMARY KEY (user_id), 
 UNIQUE INDEX user_email (user_email)
@@ -194,7 +194,7 @@ contact_email	VARCHAR(50)			NOT NULL,
 visitor_msg		TEXT				NOT NULL, 
 msg_status		ENUM('Pending', 'Reviewed', 'Finalized')			NOT NULL, 
 session_id		VARCHAR(50)			NOT NULL, 
-created_at		TIMESTAMP			NOT NULL, 
+created_at       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 PRIMARY KEY (suggestion_id)
 );
 
@@ -312,7 +312,7 @@ user_id,
 role_id	
 )
 VALUE
-(1, 3),
+(1, 1),
 (2, 3),
 (3, 3),
 (4, 3),
@@ -328,11 +328,25 @@ VALUE
 (14, 3),
 (15, 3),
 (16, 3),
+	
+(17, 1),
 (17, 2),
 (17, 3),
 (17, 4),
+	
+(18, 1),
+(18, 2),
+(18, 3),
 (18, 4),
+
+(19, 1),
+(19, 2),
+(19, 3),
 (19, 4),
+	
+(20, 1),
+(20, 2),
+(20, 3),
 (20, 4);
 
 
