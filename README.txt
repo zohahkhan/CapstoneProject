@@ -1,47 +1,32 @@
-Sprint #2: 
-The new feature branches that were created were profile, edit-login, and new-user. To run these branches, you must connect to XAMPP, and configure the file in htdocs and ensure the database connection.
+Sprint #3: 
+Project Description: This project is a reporting system for the Al-Nur Mosque. It works by combining the current files/reports that are scattered into one website to create an easier flow for all members. This week, the attendance and form report for all users to complete was implemented. 
+
+SetUp Instructions: To run these branches, start by connecting to XAMPP. You can open the specific branch in GitHub Desktop by choosing the 'Open with GitHub Desktop' option when you click on the green 'code' button. Then fetch the latest code, and open it in File Explorer. Copy the selected file into your htdocs folder so it can be opened via XAMPP. Ensure the database is connected, if not that can be configured at: http://localhost/phpmyadmin/. Then you can start on the login page at http://localhost/CapstoneProject/loginpages/login.php and test the user story. 
+
+The new feature branches that were created for Sprint #3 were: 
+
 Each branch correlates with the following user stories: 
 
-
-Profile branch:
-User Story: As a Member, I want to view and update my personal profile so that my contact information and preferences are correct.
-Usage Instructions: The new files created were updateProfile and updateProfileForm. You should be able to log in with any credentials, and at the bottom of your homepage, there should be an 'update profile' hyperlink. That should take you to the screen where you can edit information. Click the 'update profile' button and then it should take you to a screen where it tells you if it was successful or not. If it was not successful, you will need to click the back arrow and make the necessary changes to your profile information. If it was successful, after two seconds, it should take you back to your homepage. 
- Acceptance Criteria:
--  Required fields: first name, last name, email, phone number, street address.
--  Users can only view and update their own profile.
--  Profile must show “last updated” timestamp and logs user ID for changes.
--  If the update is successful, the system must display the changes within 2 seconds of clicking the button to confirm changes (page auto refreshes)
--  If the update is unsuccessful, such as if the session times out prior to confirming changes or invalid field input, the system must display an error message that states what went wrong. 
-Test Credentials: Username: kha27882@email.com Password: kha27882 or any username/password already the database
-
-User-roles branch:
-User Story: As an Admin, I want to assign user roles and grant permissions so that access is properly controlled.
-Usage Instructions: The new files created were manage_roles.php and assign_role_process.php, along with database schema updates (Role, UserRole, Permission, RolePermission, and RoleChangeLog tables). Log in with admin credentials, and on the homepage, you should see a '⚙ Manage User Roles & Permissions' hyperlink. Click it to access the role management interface where you can view all active users and their current roles. Select a role from the dropdown menu next to any user and click 'Assign Role' to update their role. The system will display a success message and log the change in the RoleChangeLog table with timestamp, admin ID, and before/after role status. The page also displays the permissions associated with each role (Create, Read, Update, Delete) in the Role Permissions table.
+Branch Name #1:
+User Story: 
+Usage Instructions: 
 Acceptance Criteria:
-- Assign user roles (President/Dept Head/Member/Admin) and grant permissions to these roles (Create/Read/Update/Delete).
-- Role changes will log the before and after status of the user, user ID, admin ID, and timestamp.
-- Updates to roles/permissions take effect immediately.
-Test Credentials: Username: carie_b0009@email.com Password: password (or any admin account - all test users default to Admin role)
+Test Credentials: 
 
+Branch Name #2:
+User Story: 
+Usage Instructions: 
+Acceptance Criteria:
+Test Credentials: 
 
-New-user branch & edit-login branch:
-User story: As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry. - High Priority, Shannon
- Acceptance Criteria: 
-▪ Ability to answer the questions with appropriate answers.
-▪ Contain all relevant questions in one place.
-▪ Data should be collected and stored for summary and reporting use.
-Test Credentials: KAT44977@email.com, password: KAT44977 -- all the user accounts' passwords match the username of their respective email.
-My goals for this sprint were focused on 3 main tasks
-Task 1 ✅: If/else to navigate through the roles that the user has access to 
-Task 2 ✅: Create a new account with required user fields / Add new member
-Task 3 ✅: List view all member accounts. Active = 1 by default, inactive = 0 by president 
+Branch Name #3:
+User Story: 
+Usage Instructions: 
+Acceptance Criteria:
+Test Credentials: 
 
-Add files via upload branch:
-As President, I want to receive request from visitors to join our organization so that we can expand 
-our horizons. - Medium Priority, Kah 
-o   Acceptance Criteria:
--  Visitors can fill out a contact form that includes basic sign-up info (full name, email) and a text box for a personal statement on why they want to join.
--   Only the president can accept/decline these requests.
-  The request should be received within 3 minutes from the sent time. 
-
-
+Branch Name #4:
+User Story: 
+Usage Instructions: 
+Acceptance Criteria:
+Test Credentials: 
