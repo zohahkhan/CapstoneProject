@@ -87,7 +87,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
 		<!-- left box split horizontally into 2 -->
-		<div class="left-box">
+		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
@@ -95,9 +95,8 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
+				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
-			
-		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>	
 
 		</div>
 
@@ -137,7 +136,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<br><br>
 	<div class="boxes">
 		<!-- left box, split horizontally into 2 -->
-		<div class="left-box">
+		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Department Report</h2>
 				<p>Description</p>

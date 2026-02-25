@@ -48,6 +48,7 @@ body {
 	min-height: 65vh;
 }
 
+
 /*right box container*/
 .right-box {
 	display: grid;
@@ -71,6 +72,71 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
+/*left box container for the department Head and President pages */
+.left-split {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+	background-color: transparent; /*so the background image shows through between the four boxes*/
+}
+/*The sub boxes for the department Head and President pages on the left side */
+.left-sub-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container for the new homepage layout */
+.homepage-boxes {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1400px;
+    margin-top: 40px;
+    gap: 30px; /* space between top row and bottom box */
+}
+
+/* Top row with two boxes side by side */
+.homepage-top {
+    display: flex;
+    gap: 20px; /* space between the two top boxes */
+}
+
+/* Individual top boxes */
+.homepage-top-box {
+    flex: 1;
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Bottom full-width box */
+.homepage-bottom-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    min-height: 25vh; /* optional: makes it taller */
+}
+
+
 /*login form*/
 .login-form {
 	width: 100%;
@@ -152,3 +218,4 @@ h3 {
 	bottom: 5vh;
 	right: 5vw;
 }
+
