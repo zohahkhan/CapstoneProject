@@ -2264,11 +2264,13 @@ VALUES
 
 
 /* to access the database */
+FLUSH PRIVILEGES;
+
 CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
 IDENTIFIED BY 'pa55word';
 
 GRANT SELECT, INSERT, UPDATE, DELETE
-ON lanja_db.*
+ON *
 TO 'mgs_user'@'localhost';
 
 
