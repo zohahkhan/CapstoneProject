@@ -744,7 +744,7 @@ template_id,
 user_id,
 form_response,
 form_status
-);
+)
 
 VALUES
 (1, 1, 1, 
@@ -862,11 +862,10 @@ VALUES
 			'response', "Yes"
 		)
 	),
-
-
-"Pending"),
-(1, 1, 2, 
-JSON_ARRAY(
+	"Pending"
+),
+(2, 1, 2, 
+	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
 			'response', 'PA-Pittsburgh'
@@ -980,27 +979,243 @@ JSON_ARRAY(
 			'response', "Yes"
 		)
 	),
-
-
-"Pending"),
-
-
-	/*
-(1, 1, 2, 
-
-
-"Pending"),
-(1, 1, 3, 
-
-
-"Pending"),
-(1, 1, 4, 
-
-
-"Pending"),
-*/
-	
-(1, 1, 5, 
+	"Pending"
+),
+(3, 1, 3, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', ' '
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(4, 1, 4, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', ' '
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(5, 1, 5, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1117,7 +1332,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 6, 
+(6, 1, 6, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1234,7 +1449,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 7, 
+(7, 1, 7, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1349,9 +1564,9 @@ JSON_ARRAY(
 			'response', "No"
 		)
 	),
-
-"Pending"),
-(1, 1, 8, 
+	"Pending"
+),
+(8, 1, 8, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1468,7 +1683,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 9, 
+(9, 1, 9, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1583,11 +1798,9 @@ JSON_ARRAY(
 			'response', "No"
 		)
 	),
-
-
-"Pending"
+	"Pending"
 ),
-(1, 1, 10, 
+(10, 1, 10, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1704,7 +1917,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 11, 
+(11, 1, 11, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1761,7 +1974,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 12, 
+(12, 1, 12, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1818,7 +2031,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 13, 
+(13, 1, 13, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1875,7 +2088,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 14, 
+(14, 1, 14, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1932,7 +2145,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 15, 
+(15, 1, 15, 
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -1989,7 +2202,7 @@ JSON_ARRAY(
 	),
 	"Pending"
 ),
-(1, 1, 16,
+(16, 1, 16,
 	JSON_ARRAY(
 		JSON_OBJECT(
 			'id', 1,
@@ -2046,7 +2259,6 @@ JSON_ARRAY(
 	),
 	"Pending"
 );
-
 
 
 
