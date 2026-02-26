@@ -3,17 +3,6 @@
 // connects to database script
 require_once './include/db_connect.php';
 
-// alert for if a new member is added
-if (isset($_GET['success']) && $_GET['success'] == 1) 
-{
-    echo "<script>alert('Account successfully created!');</script>";
-
-    // redirect to same page without get query string 
-    $url = strtok($_SERVER["REQUEST_URI"], '?'); 
-    echo "<script>window.location.href='$url';</script>";
-    exit();
-}
-
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
 {
