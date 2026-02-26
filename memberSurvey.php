@@ -149,6 +149,7 @@ if (isset($_POST['submit_quiz'])) {
 	<meta charset="UTF-8">
 	<title>Monthly Members Survey</title>
 	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 	<form method="post">
@@ -202,6 +203,7 @@ if ($step == 1 || ($step == 2 && ($branchAnswer === 1 && $currentGroup < 5 || $b
 </form>
 </body>
 </html>
+
 
 
 
