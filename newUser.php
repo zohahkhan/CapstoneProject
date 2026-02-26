@@ -6,6 +6,17 @@ if (session_status() == PHP_SESSION_NONE)
 }
 require_once 'include/db_connect.php';
 
+// alert for if a new member is added
+if (isset($_GET['success']) && $_GET['success'] == 1) 
+{
+    echo "<script>alert('Account successfully created!');</script>";
+
+    // redirect to same page without get query string 
+    $url = strtok($_SERVER["REQUEST_URI"], '?'); 
+    echo "<script>window.location.href='$url';</script>";
+    exit();
+}
+
 // initialize variables
 $first_name = $last_name = $email = $phone = $address = $temp_password = '';
 
@@ -106,7 +117,7 @@ if (isset($register))
 				]);
 			
             // redirect to president's profile for feedback		
-			header('Location: index.php?success=1');
+			header('Location: newUser.php?success=1');
             exit();
         } else {
             // if failed, display error message
@@ -192,3 +203,4 @@ if (isset($register))
     </main>
 </body>
 </html>
+
