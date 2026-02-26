@@ -95,6 +95,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
+				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
 
 		</div>
@@ -133,6 +134,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
+
 		<!-- left side-->
 		<div class="dept-left-box">
 
