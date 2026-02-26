@@ -87,7 +87,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
 		<!-- left box split horizontally into 2 -->
-		<div class="left-box">
+		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
@@ -96,8 +96,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 				<h2>Monthly Report</h2>
 				<p>Description</p>
 			</div>
-			
-		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>	
 
 		</div>
 
@@ -134,24 +132,30 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$_SESSION['user']['role_name'] == "Department Head" ||
 	----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
-	<br><br>
 	<div class="boxes">
-		<!-- left box, split horizontally into 2 -->
-		<div class="left-box">
-			<div class="left-sub-box top-box">
-				<h2>Department Report</h2>
+		<!-- left side-->
+		<div class="dept-left-box">
+
+			<div class="left-sub-box">				
+				<h2>Monthly Report Responses</h2>
 				<p>Description</p>
 			</div>
-			<div class="left-sub-box bottom-box">
+
+			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
 			</div>
-		</div>
+
+			<div class="left-sub-box dept-full-width">
+				<h2>Compiled Monthly Report</h2>
+				<p>Description</p>
+			</div>
+	     </div>
 
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
+				<h2>Create a new Reminder</h2>
 				<p>Description</p>
 			</div>
 
@@ -166,7 +170,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 
 			<div class="right-sub-box">
-				<h2>Suggestions</h2>
+				<h2>Review Suggestions</h2>
 				<p>Description</p>
 			</div>
 		</div>
@@ -181,7 +185,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$_SESSION['user']['role_name'] == "Member" ||
 	--->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
-	<br><br>
 	<div class="boxes">
 		<!--the left side big box-->
 		<div class="box left-box">
@@ -194,7 +197,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 <div class="right-sub-box">
   <h2>Important Reminders</h2>
 
-  <?php if ($isPresident): ?>
+  <?php if ($_SESSION['user']['role_id'] == 1): ?>
     <?php
       $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
       $stmt->execute([':status' => 'Pending']);
@@ -235,7 +238,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$_SESSION['user']['role_name'] == "Admin" || 
 	---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<br><br>
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
         <div class="homepage-top">
@@ -252,6 +254,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
         <div class="homepage-bottom-box">
             <h2>Members</h2>
             <p>Description</p>
+			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
 	<br><br>
