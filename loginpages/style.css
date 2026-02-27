@@ -48,7 +48,6 @@ body {
 	min-height: 65vh;
 }
 
-
 /*right box container*/
 .right-box {
 	display: grid;
@@ -81,6 +80,7 @@ body {
     padding: 0;
 	background-color: transparent; /*so the background image shows through between the four boxes*/
 }
+
 /*The sub boxes for the department Head and President pages on the left side */
 .left-sub-box {
     background-color: #faf5f0;
@@ -90,7 +90,6 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-	/*height: 100%; */
 }
 
 /* Container for the new homepage layout */
@@ -152,21 +151,15 @@ body {
     grid-column: 1 / span 2;
 }
 
-
 /* Nested summary box inside Monthly Report Responses */
 .report-summary-box {
     width: 100%;
     margin-top: 15px;
     padding: 15px;
-    
     background-color: #fdfaf7; /* lighter than main box */
-    
     border-radius: 10px;
-    
     border: 1px solid #e6d5c3;
-    
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
-    
     text-align: left;
 }
 
@@ -188,7 +181,6 @@ body {
     width: 100%;
 	height: 200px;     
     overflow-y: auto; /* enables vertical scrolling */
-    
     margin-top: 10px;
     padding-right: 5px;
 }
