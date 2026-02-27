@@ -219,7 +219,9 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 		</div>
 	</div>
-	</br></br>
+	
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
+
 	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
