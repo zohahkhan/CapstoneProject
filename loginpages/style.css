@@ -71,6 +71,130 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
+/*left box container for the department Head and President pages */
+.left-split {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+	background-color: transparent; /*so the background image shows through between the four boxes*/
+}
+
+/*The sub boxes for the department Head and President pages on the left side */
+.left-sub-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container for the new homepage layout */
+.homepage-boxes {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1400px;
+    margin-top: 40px;
+    gap: 30px; /* space between top row and bottom box */
+}
+
+/* Top row with two boxes side by side */
+.homepage-top {
+    display: flex;
+    gap: 20px; /* space between the two top boxes */
+}
+
+/* Individual top boxes */
+.homepage-top-box {
+    flex: 1;
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Bottom full-width box */
+.homepage-bottom-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    min-height: 25vh; /* optional: makes it taller */
+}
+
+/* Department Head left side layout */
+.dept-left-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* two columns */
+    grid-template-rows: 1fr 1fr;  /* two rows */
+    gap: 20px;
+    flex: 1;
+    min-height: 75vh;
+}
+
+/* bottom box spans full width */
+.dept-full-width {
+    grid-column: 1 / span 2;
+}
+
+/* Nested summary box inside Monthly Report Responses */
+.report-summary-box {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #fdfaf7; /* lighter than main box */
+    border-radius: 10px;
+    border: 1px solid #e6d5c3;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+/* content inside summary box */
+.report-summary-content {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* optional: make summary title aligned left */
+.report-summary-box h3 {
+    text-align: left;
+    margin-bottom: 10px;
+    color: #6b4f3b;
+}
+
+/* make the Monthly Report Responses box fixed height with scrolling */
+.scrollable-report-box {
+    width: 100%;
+	height: 200px;     
+    overflow-y: auto; /* enables vertical scrolling */
+    margin-top: 10px;
+    padding-right: 5px;
+}
+
+/* optional: nicer scrollbar (Chrome/Edge) */
+.scrollable-report-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-report-box::-webkit-scrollbar-thumb {
+    background-color: #c4a484;
+    border-radius: 10px;
+}
+
 /*login form*/
 .login-form {
 	width: 100%;
@@ -151,4 +275,28 @@ h3 {
 .corner-img.bottom-right {
 	bottom: 5vh;
 	right: 5vw;
+}
+
+/* Grid container for multiple charts */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Each chart wrapper */
+.chart-wrapper {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+}
+
+/* Limit canvas height for smaller charts */
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 200px !important;
 }
