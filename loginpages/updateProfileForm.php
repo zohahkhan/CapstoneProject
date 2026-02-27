@@ -3,7 +3,10 @@
 require_once './include/db_connect.php';
 
 //get the user_id
-session_start();
+if (session_status() == PHP_SESSION_NONE) 
+{
+    session_start();
+}
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
