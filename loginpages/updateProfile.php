@@ -20,6 +20,8 @@ $editor_id = $_SESSION['user']['user_id'];
 $errors = [];
 if (empty($first_name))  $errors[] = "First name required.";
 if (empty($last_name))   $errors[] = "Last name required.";
+if (empty($user_phone))   $errors[] = "Phone number required.";
+if (empty($user_address))   $errors[] = "Street address required.";
 if (!filter_var($user_email, FILTER_VALIDATE_EMAIL))
     $errors[] = "Invalid email.";
 
@@ -27,6 +29,7 @@ if (!empty($errors)) {
     foreach ($errors as $e) {
         echo "<p style='color:red'>$e</p>";
     }
+	include("updateProfileForm.php");
     exit();
 }
 
@@ -61,5 +64,5 @@ if ($success) {
     echo "<script>setTimeout(function() {window.location='index.php';}, 2000);</script>";
 } else {
     echo "Update failed.";
-=}
+}
 ?>
