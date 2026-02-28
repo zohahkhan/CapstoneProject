@@ -24,6 +24,17 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$statement->bindParam(':user_id', $user_id);
 	$statement->execute();
 	$role = $statement->fetchAll();
+	
+$template_id = 1;
+$stmt = $db->prepare("
+	SELECT COUNT(*) 
+	FROM FormResponse 
+	WHERE template_id = :template_id
+");
+$stmt->execute(['template_id' => $template_id]);
+$totalReports = $stmt->fetchColumn();
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -131,7 +142,19 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		<div class="dept-left-box">
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
-				<p>Description</p>
+				<!-- scroll container -->
+    			<div class="scrollable-report-box">
+				<!-- stats summary box -->
+				<div class="report-summary-box">
+					<h3>Monthly Summary</h3>
+
+					<div class="report-summary-content">
+						<p><strong>Total Reports Submitted:</strong> <?= $totalReports ?></p>
+					</div>
+					
+				</div>
+				</div> 
+				<p><a href="viewSummary.php">View summary</a></p>
 			</div>
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
@@ -174,22 +197,24 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<p>Description</p>
 		</div>
 		<div class="right-box">
-			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
-				<?php if ($_SESSION['user']['role_id'] == 1): ?>
-					<?php
-					  $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
-					  $stmt->execute([':status' => 'Pending']);
-					  $pendingCount = (int)$stmt->fetchColumn();
-					?>
-					<p>
-					  You have <b><?= $pendingCount ?></b> pending request(s).<br>
-					  <a href="president_requests.php">View Visitor Requests</a>
-					</p>
-				<?php else: ?>
-					<p>Description</p>
-				<?php endif; ?>
-			</div>
+		<div class="right-sub-box">
+		  <h2>Important Reminders</h2>
+
+		  <?php if ($_SESSION['user']['role_id'] == 1): ?>
+			<?php
+			  $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
+			  $stmt->execute([':status' => 'Pending']);
+			  $pendingCount = (int)$stmt->fetchColumn();
+			?>
+			<p>
+			  You have <b><?= $pendingCount ?></b> pending request(s).<br>
+			  <a href="president_requests.php">View Visitor Requests</a>
+			</p>
+		  <?php else: ?>
+			<p>Description</p>
+		  <?php endif; ?>
+		</div>
+
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<p>Description</p>
