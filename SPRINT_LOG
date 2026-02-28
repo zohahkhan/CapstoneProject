@@ -1,44 +1,39 @@
-Sprint #2: Feb 2 - Feb 15, Web Wizards, JJ Gilbert, Kah Guan Ong, Shannon Katolsky, Zoha Khan 
+Sprint 3 
 
-Planned User Stories & Tasks: 
-As President, I want to manage users (freeze the accounts of former members or create accounts for new members) so that I can preserve the system integrity of the site. As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
-As President, I want to receive request from visitors to join our organization so that we can expand our horizons
-As a Member, I want to view and update my personal profile so that my contact information and preferences are correct. Set up user database tables *Users, Roles, Permissions)
-As an Admin, I want to assign user roles and grant permissions so that access is properly controlled. Build a login page with username/password form.
-Implement role-based access control (President, Dept Head, Member, Admin)
-Build account request submission form
-Create presidential approval workflow
-Develop member management CRUD operations
-Build member profile pages 
+1. Planning & Assignments
+Sprint Dates: Feb 16th to March 1st
+Team Name: Web Wizards 
+Members Present: 
+  Zoha Khan @zohahkhan
+  Shannon Katolsky @5h6nn0n
+  JJ Gilbert @jjlee42134
+  Kah Guan Ong @kahguan92
+Sprint Goals: 
+Creating an Attendence system and working on the monthly report, generating a summary, and a final compiled report
+As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent. 
+As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
+As a Department Head, I want to generate a monthly summary (counts by category, charts) from submitted reports.
+As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
 
-Completed User Stories & Tasks: 
-As President, I want to manage users (freeze the accounts of former members or create accounts for new members) so that I can preserve the system integrity of the site. As a User (President/Head/Member/Admin), I might forget or lose my password and want to be able to reset my password just in case, so that I can safely recover access to my account.
-As President, I want to receive request from visitors to join our organization so that we can expand our horizons
-As a Member, I want to view and update my personal profile so that my contact information and preferences are correct. Set up user database tables *Users, Roles, Permissions)
-As an Admin, I want to assign user roles and grant permissions so that access is properly controlled. Build a login page with username/password form.
-Implement role-based access control (President, Dept Head, Member, Admin)
-Build account request submission form
-Create presidential approval workflow
-Develop member management CRUD operations
-Build member profile pages 
+| Task Description | Assigned Owner | Priority | Status      |
+|    Attendence    |  @jjlee42134   |  Medium  | Completed   |
+|  Monthly Report  |  @5h6nn0n      |  High    | Completed   |
+| Report Responses |  @zohahkhan    |  High    | Completed   |
+| Compiled Report  | @kahguan92     |  High    | Completed   |
 
-Tests: Tests were done for pull requests, see comments pertaining to each specific one. 
-
-Bug Tracking: 
-JJ:
-- Issue: Files disappeared after branch switching; manage_roles.php, assign_role_process.php, and include/db_connect.php were not found after switching between branches in GitHub Desktop. 
-  Resolution: Recreated missing files in the feature/user-roles branch and verified all paths were correct.
-  
-- Issue: Database permission error; "DELETE command denied to user 'mgs_user'" when attempting to change user roles.
-  Resolution: Updated database grants to include DELETE permission and modified assign_role_process.php to use UPDATE instead of DELETE/INSERT for role changes.
-  
-- Issue: Admin link not appearing on homepage despite correct role assignment in database.
-  Resolution: Added debug logging to verify session and role query execution, confirmed link displays correctly for users with Admin role (role_id = 4).
+2. Progress & Blockers
+Completed Work:
+As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent. 
+As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
+As a Department Head, I want to generate a monthly summary (counts by category, charts) from submitted reports.
+As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
 
 
-Shan:
-- Issue: When implementing the active/inactive code, I ran into the bug of having to click on the button twice for it to display as 'false' for the status and 'activate' for the button label. 
-         I noticed that it updated in the database with one click and that when I clicked a lower role to view and then switch back to president, it would update. 
-- I had an sql query to update the is_active attribute inside a line that verifies the variable is not empty/false. If I had the exact same query outside of the scope too, the active/inactive feature worked perfectly.
-               However, when I removed either one of them, the code no longer worked as intended.
-- Resolution: The solution was to have the update qury block inside the verification and then add a fetch qury below it so that it can execute globally on refresh.
+3. System Test Report
+| Test Case | Type | Result | Evidence/PR # |
+| [Valid Login] | Unit | Passed | PR #12 |
+| [UI Layout]   | Manual | Passed | Screenshot in Repo |
+
+## 4. Bug Tracking
+* **Bug Description:** [e.g., Login button unresponsive]
+* **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
