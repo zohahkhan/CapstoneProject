@@ -1,14 +1,10 @@
-<!--homepage.php the homepage / user landing page-->
 <?php
-// connects to database script
 require_once './include/db_connect.php';
-
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
-
 if (isset($_SESSION['user']['user_id'])) 
 {
 	if (!isset($user_id)) 
@@ -16,12 +12,10 @@ if (isset($_SESSION['user']['user_id']))
 		$user_id = $_SESSION['user']['user_id'];	
 	}
 }
-
 if (isset($_POST['role'])) 
 {
     $_SESSION['user']['role_id'] = $_POST['role'];
 }
-
 $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 						FROM Role					
 						JOIN UserRole ON Role.role_id = UserRole.role_id
@@ -50,8 +44,19 @@ $totalReports = $stmt->fetchColumn();
 	<title>Homepage</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		.admin-link {
+			font-size: 1.1em;
+			color: #8b6f47;
+			text-decoration: none;
+			font-weight: 500;
+		}
+		.admin-link:hover {
+			color: #6b5437;
+			text-decoration: underline;
+		}
+	</style>
 </head>
-
 <body>
     <!--display user session information-->
     <?php		
@@ -60,6 +65,20 @@ $totalReports = $stmt->fetchColumn();
 			echo "<h1>Hello, ";
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
+			
+			// Check if user is Admin and show manage roles link
+			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
+								JOIN Role r ON ur.role_id = r.role_id
+								WHERE ur.user_id = :user_id AND r.role_name = "Admin"';
+			$stmtCheck = $db->prepare($queryCheckAdmin);
+			$stmtCheck->bindParam(':user_id', $_SESSION['user']['user_id']);
+			$stmtCheck->execute();
+			$isAdmin = $stmtCheck->fetchColumn() > 0;
+			
+			if ($isAdmin) {
+				echo '<p><a href="http://localhost/CapstoneProject/manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
+			}
+			
 			echo "\n<h2>";
 	?>
 	<label>Current Role: </label>
@@ -76,13 +95,8 @@ $totalReports = $stmt->fetchColumn();
 		</select> 
 	</form>
 	<?php echo "</h2>";	?>		
-	<!-- emergency logout link for testing purposes 
-	    <p><a href="logout.php">Logout</a></p> -->
-
 	
-	<!---- PRES HOMEPAGE 
-	$_SESSION['user']['role_name'] == "President" || 
-	---->
+	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
 		<!-- left box split horizontally into 2 -->
@@ -96,26 +110,21 @@ $totalReports = $stmt->fetchColumn();
 				<p>Description</p>
 				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
-
 		</div>
-
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<p>Description</p>
@@ -123,20 +132,14 @@ $totalReports = $stmt->fetchColumn();
 		</div>
 	</div>
 	</br></br>
-	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
-
-
-	<!---- DEPT HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Department Head" ||
-	----->
+	
+	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
-
 		<!-- left side-->
 		<div class="dept-left-box">
-
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
 				<!-- scroll container -->
@@ -153,35 +156,29 @@ $totalReports = $stmt->fetchColumn();
 				</div> 
 				<p><a href="viewSummary.php">View summary</a></p>
 			</div>
-
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="left-sub-box dept-full-width">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
 			</div>
 	     </div>
-
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<p>Description</p>
@@ -189,23 +186,16 @@ $totalReports = $stmt->fetchColumn();
 		</div>
 	</div>
 	</br></br>
-	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
 	
-	
-	<!--- MEMBER HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Member" ||
-	--->
+	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<div class="boxes">
-		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 			<p>Description</p>
 		</div>
-
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 		<div class="right-sub-box">
 		  <h2>Important Reminders</h2>
@@ -229,27 +219,22 @@ $totalReports = $stmt->fetchColumn();
 				<h2>Calendar</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
 				<p>Description</p>
 			</div>
 		</div>
 	</div>
-	</br></br>
-	<!--if the user is logged in, display a logout link-->
+	
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
-		
 	
-	<!--- ADMIN HOMEPAGE 
-	$_SESSION['user']['role_name'] == "Admin" || 
-	---->
+	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
@@ -271,20 +256,16 @@ $totalReports = $stmt->fetchColumn();
         </div>
     </div>
 	<br><br>
-	<!--if the user is logged in, display a logout link-->
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF ADMIN HOMEPAGE --->
-		
 	
 	<!--this section is the default home screen when logged out-->
-    <?php 
-	}} else {
+    <?php } } else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
 	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
-
   <?php } ?>
 	
 </body>

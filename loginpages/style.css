@@ -80,6 +80,7 @@ body {
     padding: 0;
 	background-color: transparent; /*so the background image shows through between the four boxes*/
 }
+
 /*The sub boxes for the department Head and President pages on the left side */
 .left-sub-box {
     background-color: #faf5f0;
@@ -178,7 +179,7 @@ body {
 /*make the monthly report responses box fixed height with scrolling*/
 .scrollable-report-box {
     width: 100%;
-	height: 200px;     
+	  height: 200px;     
     overflow-y: auto; /*enables vertical scrolling*/
     margin-top: 10px;
     padding-right: 5px;
