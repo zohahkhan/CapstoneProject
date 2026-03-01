@@ -35,7 +35,7 @@ if (isset($login))
 	// retrieve needed variables for session
 	
 	// ***********added join for session switch
-	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hashed, User.is_active, Role.role_id, Role.role_name
+	$queryVerifyUser = 'SELECT User.user_id, User.first_name, User.last_name, User.user_email, User.password_hash, User.is_active, Role.role_id, Role.role_name
 						FROM `User`						
 						JOIN UserRole ON User.user_id = UserRole.user_id
 						JOIN Role ON UserRole.role_id = Role.role_id
@@ -50,7 +50,7 @@ if (isset($login))
 	{
 			
 		// verify user password against stored hashed value
-		if (password_verify($password, $user['password_hashed'])) 
+		if (password_verify($password, $user['password_hash']) || sha1($password) === $user['password_hash']) 
 		{
 			// check is account is still active 
 			if ($user['is_active'] == 0) 

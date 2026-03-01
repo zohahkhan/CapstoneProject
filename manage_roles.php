@@ -29,13 +29,9 @@ if (!$isAdmin)
     exit();
 }
 
-$queryGetUsers = 'SELECT u.user_id, u.first_name, u.last_name, u.user_email,
-                  GROUP_CONCAT(r.role_name SEPARATOR ", ") as roles
+$queryGetUsers = 'SELECT u.user_id, u.first_name, u.last_name, u.user_email
                   FROM User u
-                  LEFT JOIN UserRole ur ON u.user_id = ur.user_id
-                  LEFT JOIN Role r ON ur.role_id = r.role_id
                   WHERE u.is_active = 1
-                  GROUP BY u.user_id
                   ORDER BY u.last_name, u.first_name';
 $stmtUsers = $db->prepare($queryGetUsers);
 $stmtUsers->execute();
@@ -46,10 +42,14 @@ $stmtRoles = $db->prepare($queryGetRoles);
 $stmtRoles->execute();
 $roles = $stmtRoles->fetchAll();
 
-$queryGetPermissions = 'SELECT permission_id, perm_title FROM Permission ORDER BY perm_title';
-$stmtPerms = $db->prepare($queryGetPermissions);
-$stmtPerms->execute();
-$permissions = $stmtPerms->fetchAll();
+$queryAllUserRoles = 'SELECT user_id, role_id FROM UserRole';
+$stmtAllRoles = $db->prepare($queryAllUserRoles);
+$stmtAllRoles->execute();
+$userRolesMap = [];
+foreach ($stmtAllRoles->fetchAll() as $row) 
+{
+    $userRolesMap[$row['user_id']][] = $row['role_id'];
+}
 
 $success_message = '';
 if (isset($_GET['success']) && $_GET['success'] == 1) 
@@ -66,7 +66,30 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            background-image: url('loginpages/images/background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
+        .content-box {
+            width: 80%;
+            max-width: 1400px;
+            background-color: #faf5f0;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            padding: 40px;
+            text-align: center;
         }
         table {
             width: 100%;
@@ -93,14 +116,21 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
         .role-form {
             margin-top: 10px;
         }
-        select {
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+        .checkbox-group label {
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .action-btn {
             padding: 8px 16px;
-            margin-top: 5px;
+            margin-top: 8px;
             border-radius: 8px;
             border: none;
             background-color: #c4a484;
@@ -114,10 +144,8 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     </style>
 </head>
 <body>
-    <header>
-        <h1>Manage User Roles & Permissions</h1>
-    </header>
-    <main>
+    <h1>Manage User Roles & Permissions</h1>
+    <div class="content-box">
         <?php if ($success_message): ?>
             <p class="success"><?php echo $success_message; ?></p>
         <?php endif; ?>
@@ -129,27 +157,39 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
                     <th>Name</th>
                     <th>Email</th>
                     <th>Current Roles</th>
-                    <th>Assign Role</th>
+                    <th>Assign Roles</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($users as $user): ?>
+                <?php $currentRoles = $userRolesMap[$user['user_id']] ?? []; ?>
                 <tr>
                     <td><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></td>
                     <td><?php echo htmlspecialchars($user['user_email']); ?></td>
-                    <td><?php echo htmlspecialchars($user['roles'] ?: 'No roles assigned'); ?></td>
+                    <td>
+                        <?php
+                        $roleNames = [];
+                        foreach ($roles as $r) {
+                            if (in_array($r['role_id'], $currentRoles)) {
+                                $roleNames[] = htmlspecialchars($r['role_name']);
+                            }
+                        }
+                        echo implode(', ', $roleNames) ?: 'No roles assigned';
+                        ?>
+                    </td>
                     <td>
                         <form method="POST" action="assign_role_process.php" class="role-form">
                             <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
-                            <select name="role_id" required>
-                                <option value="">Select a role...</option>
+                            <div class="checkbox-group">
                                 <?php foreach ($roles as $role): ?>
-                                    <option value="<?php echo $role['role_id']; ?>">
-                                        <?php echo htmlspecialchars($role['role_name']); ?>
-                                    </option>
+                                <label>
+                                    <input type="checkbox" name="role_ids[]" value="<?php echo $role['role_id']; ?>"
+                                        <?php echo in_array($role['role_id'], $currentRoles) ? 'checked' : ''; ?>>
+                                    <?php echo htmlspecialchars($role['role_name']); ?>
+                                </label>
                                 <?php endforeach; ?>
-                            </select>
-                            <button type="submit" name="assign_role" class="action-btn">Assign Role</button>
+                            </div>
+                            <button type="submit" name="assign_role" class="action-btn">Save Roles</button>
                         </form>
                     </td>
                 </tr>
@@ -180,7 +220,6 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
                         $stmtRP->bindParam(':role_id', $role['role_id']);
                         $stmtRP->execute();
                         $rolePerms = $stmtRP->fetchAll();
-                        
                         $permNames = array_column($rolePerms, 'perm_title');
                         echo htmlspecialchars(implode(', ', $permNames));
                         ?>
@@ -191,6 +230,6 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
         </table>
 
         <p style="margin-top: 30px;"><a href="./loginpages/index.php">Back to Home</a></p>
-    </main>
+    </div>
 </body>
 </html>
