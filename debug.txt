@@ -1,0 +1,5 @@
+function debugFormIdentity() {
+  const form = FormApp.getActiveForm();
+  console.log("Title:", form.getTitle());
+  console.log("ID:", form.getId());
+}

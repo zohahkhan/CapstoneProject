@@ -1,0 +1,42 @@
+const WEBHOOK_URL = "https://sebastian-unpolymerised-riotously.ngrok-free.dev/capstone/webhooks/google_form_webhook.php";
+const SHARED_SECRET = "lajnaabc2026";
+
+function onFormSubmit(e) {
+  const form = FormApp.getActiveForm();
+
+  // Build namedValues reliably from the response
+  const namedValues = {};
+  if (e && e.response) {
+    const itemResponses = e.response.getItemResponses();
+    itemResponses.forEach(ir => {
+      const q = ir.getItem().getTitle();
+      const a = ir.getResponse();
+      // Normalize to array to match your report renderer
+      namedValues[q] = Array.isArray(a) ? a : [String(a)];
+    });
+  } else if (e && e.namedValues) {
+    // fallback (if it exists)
+    Object.assign(namedValues, e.namedValues);
+  }
+
+  const payload = {
+    form_title: form.getTitle(),
+    form_id: form.getId(),
+    submitted_at: new Date().toISOString(),
+    namedValues: namedValues
+  };
+
+  const options = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify(payload),
+    headers: {
+      "X-Webhook-Secret": SHARED_SECRET,
+      "ngrok-skip-browser-warning": "true"
+    },
+    muteHttpExceptions: true
+  };
+
+  const res = UrlFetchApp.fetch(WEBHOOK_URL, options);
+  console.log("Webhook response:", res.getResponseCode(), res.getContentText());
+}
