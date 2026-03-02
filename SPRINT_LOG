@@ -32,16 +32,13 @@ As a Department Head,  I want to be able to see questions and enter values to co
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | reportResponses | Manual | Passed | PR #33, the user is able to successfully edit their profile information |
-| [UI Layout]   | Manual | Passed | Screenshot in Repo |  
+
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
 
-
-
 @5h6nn0n // Shannon's bugs 🪲
-
 Bug 1 (MySQL troubles): MySQL flashed green before stopping, but my Apache server worked fine. I remember having errors with Xampp before and that reinstalling it helped back then, but this time the issue persisted. 
 I ruled out a port conflict after checking task manager and the Netstat list. I decided to restart my computer and run Xampp as admin. From there, I clicked a red X in the box next to Apache and MySQL and installed them as module services. 
 This didn’t fix it, and the next morning my Apache suddenly stopped too. I made a copy of the mysql> data and backupfolders, then named the backup copy “data”. 
