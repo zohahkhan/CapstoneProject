@@ -105,3 +105,25 @@ The current primary communication platform (Snapchat) made collaboration difficu
 For video calls and presentations, Zoom was used, and the meeting link was distributed through Snapchat. The lack of integration between Snapchat and Zoom created workflow inefficiencies. Additionally, the free Zoom account imposed time limitations on meetings, and there was no centralized location to retain files, screenshots, or reference materials.
 
 An alternative platform such as Microsoft Teams was suggested in last sememster. Teams is available to students with a school Outlook/Microsoft 365 account and provides integrated chat, file sharing, document storage, and video conferencing without strict time limitations. Messages and shared materials are automatically saved, which would improve transparency and requirement tracking.
+
+Outline of Pivot (Kah Guan):
+At the beginning of Sprint #3, my assigned user story was:
+Original User Story: As President, I want to receive monthly reports and know which dept the data originates so that I can stay informed of
+performance and be directed to the appropriate sources if needed. - High Priority, Kah
+o Acceptance Criteria:
+▪ View trends/visualization from the report as well as a qualitative interpretation of its trajectory.
+▪ Report aggregation (count/sum/average) must match the source data with 100% accuracy.
+▪ Compare with past reports side-by-side; filter by month/year; select to view newest first or oldest first. 
+This story was dependent on another teammate's story:
+Dependent Story (Shannon)
+As a User, I want access to a monthly report where we can input data for specific questions and insert data. The
+data should be collected from every entry.
+
+Since my story relied on the data collection and storage component being completed first, I initially informed the team that I had not started development because it depended on the completion of upstream functionality.
+After approximately one week, it was identified that my story overlapped with another team member’s story. As a result, my user story was reassigned and modified.
+Reassigned User Story:
+As a Department Head, I want to be able to see questions and enter values to complete the final compiled monthly report that will be reviewed by the President.
+Following the reassignment, I began working on the new story. However, progress was impacted due to access restrictions on the reference link provided (internal organizational domain only), which limited my ability to fully implement the expected functionality. 
+
+This pivot required redirecting effort mid-sprint, adjusting to revised requirements, and re-planning development tasks within the remaining sprint timeline.
+
