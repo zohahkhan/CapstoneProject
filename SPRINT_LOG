@@ -38,6 +38,34 @@ As a Department Head,  I want to be able to see questions and enter values to co
 * **Bug Description:** [e.g., Login button unresponsive]
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
 
+
+@jjlee42134 // JJ's Bugs 🪲
+
+Bug 1 (Empty Database After Fresh Clone): After cloning the repository and importing lajna_db.txt from the documents folder, all tables were created but contained zero rows. Login was impossible and no users existed to test with.
+Resolution: Discovered that lanja_db.sql in the root folder contained the actual INSERT statements with test data. Imported that file instead.
+Severity: [High] | Fix Status: [Fixed]
+
+Bug 2 (Login Failure - Wrong Column Name): Attempting to login threw a fatal PDOException: Unknown column 'User.password_hashed' in field list. The code referenced a column that did not exist.
+Resolution: Updated login.php to use the correct column name password_hash in both the SELECT query and the password verification check.
+Severity: [High] | Fix Status: [Fixed]
+
+Bug 3 (Login Failure - SHA-1 vs bcrypt Mismatch): Even after fixing the column name, login failed silently. The database stores SHA-1 hashed passwords but login.php used password_verify() which only works with bcrypt hashes.
+Resolution: Added a SHA-1 fallback check alongside password_verify() so both hash formats are supported.
+Severity: [High] | Fix Status: [Fixed]
+
+Bug 4 (Attendance Notes Not Persisting): After saving attendance with notes, reloading the page showed all note fields blank. Previously entered notes were lost on every reload.
+Resolution: Updated the existing attendance query to also fetch the notes column, and added a value attribute to the notes input field so saved data repopulates correctly.
+Severity: [Medium] | Fix Status: [Fixed]
+
+Bug 5 (Audit Log Insert Failing on New Records): When saving attendance for the first time for an event, a fatal PDOException was thrown: Column 'before_json' cannot be null. The audit log insert passed null for new records which had no prior state.
+Resolution: Replaced null with json_encode([]) to insert an empty JSON object as the before state for new attendance records.
+Severity: [High] | Fix Status: [Fixed]
+
+Bug 6 (CSV Check-In Time Showing Full Datetime): The Check-In Time column in exported CSVs displayed a full date and time string instead of just the time, making the column redundant with the Event Date/Time column.
+Resolution: Formatted the check-in output using PHP's DateTime class with the America/New_York timezone, displaying as g:i A EST format. Absent and Excused records show N/A.
+Severity: [Low] | Fix Status: [Fixed]
+
+
 @5h6nn0n // Shannon's bugs 🪲
 Bug 1 (MySQL troubles): MySQL flashed green before stopping, but my Apache server worked fine. I remember having errors with Xampp before and that reinstalling it helped back then, but this time the issue persisted. 
 I ruled out a port conflict after checking task manager and the Netstat list. I decided to restart my computer and run Xampp as admin. From there, I clicked a red X in the box next to Apache and MySQL and installed them as module services. 
