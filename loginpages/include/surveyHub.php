@@ -1,4 +1,45 @@
 <!--- preview the quiz and results -->
+<style>
+
+#quizBox {
+    width: 250px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+	height: 400px;
+}
+
+#quizList {
+    background: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.quiz-item {
+    background: white;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quiz-item.active {
+    background-color: #d0e6ff;
+}
+
+.quiz-item.completed {
+    background-color: #d4edda;
+    cursor: default;
+    opacity: 0.7;
+}
+
+#quizFrame {
+    flex: 1;
+    width: 100%;
+    border: none;
+}
+</style>
+
 <?php
 require_once 'db_connect.php';
 
@@ -126,6 +167,7 @@ function loadQuiz(page, event) {
     document.getElementById("quizFrame").src = page;
 }
 </script>
+
 
 
 
