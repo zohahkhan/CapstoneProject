@@ -19,15 +19,17 @@ As a Department Head,  I want to be able to see questions and enter values to co
 |    Attendence    |  @jjlee42134   |  Medium  | Completed   |
 |  Monthly Report  |  @5h6nn0n      |  High    | Completed   |
 | Report Responses |  @zohahkhan    |  High    | Completed   |
-| Compiled Report  | @kahguan92     |  High    | Completed   |
+| Compiled Report  | @kahguan92     |  High    | Incomplete  |
 
 2. Progress & Blockers
 Completed Work:
 As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent. 
 As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
 As a Department Head, I want to generate a monthly summary (counts by category, charts) from submitted reports.
-As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
 
+In Progress & Blockers:
+As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
+Reference link provided could only be accessed though organizations's internal email domain.
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
