@@ -511,12 +511,1822 @@ VALUES
 (53, 33, 4),
 (54, 34, 4);
 
+
+INSERT INTO FormTemplate (
+template_id,
+temp_title, 
+temp_desc, 
+temp_status, 
+form_questions, 
+form_deadline
+)
+
+VALUES 
+(1, "Monthly Members Survey", 
+	"This form is anonymous. All questions should be answered from your own induvidual experiences. Group activity should be reported to your Local Shoba or Department Secretary.", 
+	"Active", 
+
+JSON_ARRAY(
+	JSON_OBJECT( 
+		'id', 1,
+		'question', 'Majis',
+		'options', JSON_ARRAY('PA-York/Harrisburg', 'PA-Pittsburgh', 'IT-Testing')
+		),
+	JSON_OBJECT(
+		'id', 2,
+		'question', 'Reporting Month',
+		'options', JSON_ARRAY("Feburary")
+		),
+	JSON_OBJECT(
+		'id', 3,
+		'question', 'Is this your first time cmpleting this survey?',
+		'options', JSON_ARRAY('Yes', 'No')
+		),
+	JSON_OBJECT(
+		'id', 4,
+		'question', 'Are you a NAU MUBAI''A',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'NAU MUBAI''A: Accepted Islam Ahmadiyyat in last three years'
+		),
+	JSON_OBJECT(
+		'id', 5,
+		'question', 'Which auxiliary are you from',
+		'options', JSON_ARRAY('Lajna', 'Nasirat')
+		),
+		/*
+			IF Nasirat SELECTED 
+		*/
+	JSON_OBJECT(
+		'id', 6,
+		'question', 'What age group are you in?',
+		'options', JSON_ARRAY('7-9', '10-12', '13-15'),
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 7,
+		'question', 'Are you regular in offering your Salat?',
+		'options', JSON_ARRAY('I offer five daily prayers', 'I offer three daily prayers', 'In progress/working on it', 'No, I don''t offer Salat'),
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 8,
+		'question', 'Do you know the translation of Salat?',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 9,
+		'question', 'Do you recite the Holy Qur''an daily?',
+		'options', JSON_ARRAY('Yes', 'No', 'Working on it'),
+		'context', '(Try to recite in the morning before school. If that''s not possible, recite after school.)',
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 10,
+		'question', 'Do you watch/read the Friday Sermon?',
+		'options', JSON_ARRAY('Once a month', 'Twice a month', 'Every week (all of them)', 'I don''t watch/read the Friday Sermon'),
+		'context', '(You should strive to watch the sermon live. If unable, please watch it later and read the sermon to gain full understanding.)',
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 11,
+		'question', 'Do you regularly watch MTA?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This could be a couple times a week or month, does not have to be daily)',
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 12,
+		'question', 'Do you regularly look over the Nasirat Syllabus and are up to date with it?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This includes attending weekly or monthly classes and following the guidance of your Nasirat Secretary.)',
+		'branch', 0
+		),
+	JSON_OBJECT(
+		'id', 13,
+		'question', 'Do you regularly exercise?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', '(This can include sports, physical education classes, walks, or other physical activity—even if it is once a month.)',
+		'branch', 0
+		),
+		/*
+			IF Lajna SELECTED 
+		*/
+
+	/* Office Bearer */
+	JSON_OBJECT(
+		'id', 14,
+		'question', 'Are you a member of Local Amila?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 1
+		),
+	JSON_OBJECT(
+		'id', 15,
+		'question', 'Do you make prayer at Mosque or Salat Center?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 1
+		),
+	JSON_OBJECT(
+		'id', 16,
+		'question', 'How often do you make prayer at Local Mosque or Salat Center?',
+		'options', JSON_ARRAY('Five daily', 'Three daily', 'Juma only', 'Other'),
+		'branch', 1,
+		'group', 1
+		),	
+
+	/* Taleem (Education) */
+	JSON_OBJECT(
+		'id', 17,
+		'question', 'Knowledge of Salat: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 18,
+		'question', 'Knowledge of Salat with translation: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 19, 
+		'question', 'Reciting Holy Qur''an with basic correct pronunciation:', 
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 20,
+		'question', 'Knowledge of Holy Quran with translation: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 21,
+		'question', 'Qur''an class attendance (pronunciation): ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'i.e. attend Al Furqan or Tahir Academy HQ',
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 22,
+		'question', 'Qur''an class attendance (translation): ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 23,
+		'question', 'Following the Taleem Syllabus: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 2
+		),
+	JSON_OBJECT(
+		'id', 24,
+		'question', 'Studying/Reading Jama''at books or Lajna Publications: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Lajna/Nasirat assigned',
+		'branch', 1,
+		'group', 2
+		),
+	
+	/* Lajna/Nasirat books: */
+	JSON_OBJECT(
+		'id', 25,
+		'question', 'Which book(s) were completed?',
+		'options', JSON_ARRAY(),
+		'branch', 1,
+		'group', 3
+		),
+
+	/* Tarbiyyat (Moral Training) */
+	JSON_OBJECT(
+		'id', 26,
+		'question', 'Recite the Holy Qur''an daily:',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 27,
+		'question', 'Reciting the Holy Qur''an with translation:',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 28,
+		'question', 'Regular in offering Salat: ',
+		'options', JSON_ARRAY('Offer 5 daily salat', 'Offer 3 daily salat', 'Offer occassional salat', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 29,
+		'question', 'Offer Salat in congregation',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 30,
+		'question', 'Following the Tarbiyyat Syllabus: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 31,
+		'question', 'Listening/Reading the Friday Sermon: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 32,
+		'question', 'Regular watching MTA: ',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 33,
+		'question', 'Observing Purdah: ',
+		'options', JSON_ARRAY('Yes', 'No', 'In progress/working on it'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 34,
+		'question', 'Regularly exercising',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'branch', 1,
+		'group', 4
+		),
+	JSON_OBJECT(
+		'id', 35,
+		'question', 'Did you do any community service?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Inside or outside Jamaat?',
+		'branch', 1,
+		'group', 4
+		),
+		
+	/* Tabligh (Preaching) */
+	JSON_OBJECT(
+		'id', 36,
+		'question', 'Did you preach this month?',
+		'options', JSON_ARRAY('Yes', 'No'),
+		'context', 'Dai''yat: Member who is actively preaching'	,
+		'branch', 1,
+		'group', 5
+		)
+	
+	), 
+	CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-10 ', '23:59:59')
+);
+
+
+
+INSERT INTO FormResponse (
+response_id,
+template_id,
+user_id,
+form_response,
+form_status
+)
+
+VALUES
+(1, 1, 1, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 3 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', "Yes"
+		)
+	),
+	"Pending"
+),
+(2, 1, 2, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 3 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', "Yes"
+		)
+	),
+	"Pending"
+),
+(3, 1, 3, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', ' '
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(4, 1, 4, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', ' '
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(5, 1, 5, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Five daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', ' '
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "Yes"
+		)
+	),
+	"Pending"
+),
+(6, 1, 6, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Five daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "Yes"
+		)
+	),
+	"Pending"
+),
+(7, 1, 7, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Juma only'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 5 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "No"
+		)
+	),
+	"Pending"
+),
+(8, 1, 8, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Juma only'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer 3 daily salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "No"
+		)
+	),
+	"Pending"
+),
+(9, 1, 9, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Three daily'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer occassional salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "No"
+		)
+	),
+	"Pending"
+),
+(10, 1, 10, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Lajna'
+		),
+		JSON_OBJECT(
+			'id', 14,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 15,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 16,
+			'response', 'Juma only'
+		),
+		JSON_OBJECT(
+			'id', 17,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 18,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 19,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 20,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 21,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 22,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 23,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 24,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 25,
+			'response', 'book'
+		),
+		JSON_OBJECT(
+			'id', 26,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 27,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 28,
+			'response', 'Offer occassional salat'
+		),
+		JSON_OBJECT(
+			'id', 29,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 30,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 31,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 32,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 33,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 34,
+			'response', "No"
+		),
+		JSON_OBJECT(
+			'id', 35,
+			'response', "Yes"
+		),
+		JSON_OBJECT(
+			'id', 36,
+			'response', "No"
+		)
+	),
+	"Pending"
+),
+(11, 1, 11, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '13-15'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'I offer five daily prayers'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Working on it'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Once a month'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(12, 1, 12, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '10-12'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'I offer three daily prayers'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Twice a month'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'No'
+		)
+	),
+	"Pending"
+),
+(13, 1, 13, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '10-12'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'I offer five daily prayers'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Working on it'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Every week (all of them)'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(14, 1, 14, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '7-9'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Working on it'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Once a month'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(15, 1, 15, 
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '13-15'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'I offer five daily prayers'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Working on it'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Twice a month'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'Yes'
+		)
+	),
+	"Pending"
+),
+(16, 1, 16,
+	JSON_ARRAY(
+		JSON_OBJECT(
+			'id', 1,
+			'response', 'PA-Pittsburgh'
+		), 
+		JSON_OBJECT(
+			'id', 2,
+			'response', 'March 10, 2026'
+		),
+		JSON_OBJECT(
+			'id', 3,
+			'response', 'No'
+		),
+		JSON_OBJECT(
+			'id', 4,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 5,
+			'response', 'Nasirat'
+		),
+		JSON_OBJECT(
+			'id', 6,
+			'response', '10-12'
+		),
+		JSON_OBJECT(
+			'id', 7,
+			'response', 'I offer three daily prayers'
+		),
+		JSON_OBJECT(
+			'id', 8,
+			'response', 'In progress/working on it'
+		),
+		JSON_OBJECT(
+			'id', 9,
+			'response', 'Working on it'
+		),
+		JSON_OBJECT(
+			'id', 10,
+			'response', 'Twice a month'
+		),
+		JSON_OBJECT(
+			'id', 11,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 12,
+			'response', 'Yes'
+		),
+		JSON_OBJECT(
+			'id', 13,
+			'response', 'No'
+		)
+	),
+	"Pending"
+);
+
+
+
+
 /* to access the database */
+FLUSH PRIVILEGES;
+
 CREATE USER IF NOT EXISTS 'mgs_user'@'localhost'
 IDENTIFIED BY 'pa55word';
 
-GRANT SELECT, INSERT, UPDATE
-ON lanja_db.*
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON *
 TO 'mgs_user'@'localhost';
 
 
