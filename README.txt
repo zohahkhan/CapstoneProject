@@ -20,7 +20,7 @@ Test Credentials:
 
 Branch Name #2: feature/json-scripts
 User Story: As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
-Usage Instructions: 
+Usage Instructions: On the homepage (index.php), there will be a section for surveys. Clicking the title of the survey will launch the form to complete. Once submitted, the user will see their responses to each question on the homepage.
 Acceptance Criteria:
   ▪ Ability to answer the questions with appropriate answers.
   ▪ Contain all relevant questions in one place.
