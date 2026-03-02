@@ -32,7 +32,7 @@ As a Department Head,  I want to be able to see questions and enter values to co
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | reportResponses | Manual | Passed | PR #33, the user is able to successfully edit their profile information |
-
+| user-roles | Manual | Passed | PR #38, the admin is able to successfully assign user roles and grant permissions, role changes are logged with before/after status, and updates take effect immediately |
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
