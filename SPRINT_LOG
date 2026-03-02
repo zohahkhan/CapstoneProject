@@ -34,6 +34,7 @@ As a Department Head,  I want to be able to see questions and enter values to co
 | reportResponses | Manual | Passed | PR #33, the user is able to successfully edit their profile information |
 | user-roles | Manual | Passed | PR #38, the admin is able to successfully assign user roles and grant permissions, role changes are logged with before/after status, and updates take effect immediately |
 | new-user | Manual | Passed | PR #32, the president is able to successfully add a new user and deactivate/reactivate members. New user are assigned regular Member by default. Deactivating a member will prevent them from logging in.
+|receiverequest| Manual | Passed| PR#42, the president is able to receive and see the visitor request |
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
