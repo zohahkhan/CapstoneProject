@@ -29,11 +29,17 @@ Test Credentials:
   Username: kat44977@email.com
   Password: kat44977
 
-Branch Name #3:
-User Story: 
-Usage Instructions: 
+Branch Name #3: feature/attendance-tracking
+User Story: As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent.
+Usage Instructions: Navigate to the Department Head homepage and click the "Record Attendance" link under the Meeting Attendance box. Select an event from the dropdown to load the member list. Use "Mark All Present" or "Mark All Absent" for bulk actions, then adjust individual members as needed. Set a check-in time for present/late members (absent and excused are grayed out automatically). Add optional notes per member. Click "Save Attendance" to submit. To export, use "Export This Event CSV" for a single event or select a month and click "Export Month CSV" for a full month report. Members can view their own attendance history by clicking "View My Attendance" on their homepage.
 Acceptance Criteria:
+ ▪ Save is ≤ 2 seconds; edits create an audit entry (actor, timestamp).
+ ▪ Export CSV by month; includes member, date, status.
+ ▪ Bulk actions: mark all present/absent, then adjust individual members.
+ ▪ Only Heads/President can edit; Members can view own history.
 Test Credentials: 
+  Username: gil42134@email.com
+  Password: gil42134
 
 Branch Name #4:
 User Story: 
