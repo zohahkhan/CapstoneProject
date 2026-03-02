@@ -18,11 +18,16 @@ Test Credentials:
   Password: kha27882
   or any username/password that has department head access
 
-Branch Name #2:
-User Story: 
+Branch Name #2: feature/json-scripts
+User Story: As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
 Usage Instructions: 
 Acceptance Criteria:
+  ▪ Ability to answer the questions with appropriate answers.
+  ▪ Contain all relevant questions in one place.
+  ▪ Data should be collected and stored for summary and reporting use.
 Test Credentials: 
+  Username: kat44977@email.com
+  Password: kat44977
 
 Branch Name #3:
 User Story: 
