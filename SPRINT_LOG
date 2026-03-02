@@ -58,9 +58,13 @@ Bug 2.3: (trade-off between binary and string insert) Unfortunately, the radio i
 Resolution: I added a conditional at the top of the memberSurvey page that maps the responses to question #5 as a binary (Lajna = 1 and Nasirat = 0)
 **Severity:** [High] | **Fix Status:** [Fixed]
 
-Bug 3: (last page of survey visible after submitting) When I completed the quiz, I still had the title, the last question, and the back/submit buttons appearing above the “Survey Complete” message and the responses (which showed up fine). 
+Bug 3 (last page of survey visible after submitting): When I completed the quiz, I still had the title, the last question, and the back/submit buttons appearing above the “Survey Complete” message and the responses (which showed up fine). 
 Resolution: I added a conditional equivalent to If (!isset($_POST[‘submit_quiz’])) for the questions displayed, message headers, and navigation buttons the the memberSurvey page. 
-**Severity:** [Med] | **Fix Status:** [Fixed]
+**Severity:** [Low] | **Fix Status:** [Fixed]
+
+Bug 4 (multiple survey submissions per user): When I complete the survey, it would set back to the beginning to take again. On the homepage, when clicking on the results list, the survey was still clickable. 
+Resolution: I fetched whether there was already a JSON array filled out for that form and user. If yes, then I redirect them to back to the surveyHub page to exit the memberSurvey page.
+**Severity:** [Low] | **Fix Status:** [Fixed]
 
 
 
