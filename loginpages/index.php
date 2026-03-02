@@ -73,9 +73,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			echo "<h1>Hello, ";
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
-			
-			
-			
+					
 			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
 								JOIN Role r ON ur.role_id = r.role_id
 								WHERE ur.user_id = :user_id AND r.role_name = "Admin"';
@@ -84,11 +82,9 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			$stmtCheck->execute();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
 			
-			/*
 			if ($isAdmin) {
 				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
-			*/
 		
 	?>
 	<label>Current Role: </label>
@@ -279,8 +275,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
 	<br><br>
-	<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>
-	
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
         <div class="homepage-top">
