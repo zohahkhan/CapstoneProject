@@ -37,3 +37,30 @@ As a Department Head,  I want to be able to see questions and enter values to co
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
+
+
+
+@5h6nn0n // Shannon's bugs 🪲
+
+Bug 1 (MySQL troubles): MySQL flashed green before stopping, but my Apache server worked fine. I remember having errors with Xampp before and that reinstalling it helped back then, but this time the issue persisted. 
+I ruled out a port conflict after checking task manager and the Netstat list. I decided to restart my computer and run Xampp as admin. From there, I clicked a red X in the box next to Apache and MySQL and installed them as module services. 
+This didn’t fix it, and the next morning my Apache suddenly stopped too. I made a copy of the mysql> data and backupfolders, then named the backup copy “data”. 
+Resolution: I reinstalled XAMPP to start fresh, which temporarily fixed it. The Apache part seems fixed, but MySQL was having issues again. 
+I permanently deleted the data folder (had a copy on desktop) and renamed the backup to “data”, then opened XAMPP as admin. 
+Additionally, inside the (config.inc.php), I had to comment out the ‘controluser’ and ‘controlpass’ because it gave me an error when trying to access phpMyAdmin. 
+**Severity:** [High] | **Fix Status:** [Fixed]
+
+Bug 2.1 (keys-values not paired in JSON): Initially, the JSON array into form_response, of the FormResponse table, did not include the keys like id and response. 
+Resolution: I formatted the input by using an associative array to map the key to the value before inserting it into the database. I also sorted the array input by its id so that everything is more organized in the database. 
+Bug 2.2 (binary being inserted to JSON): The response values input to the JSON array were showing up as INT data type separated by a comma, instead of the string for the option selected
+Resolution: I saved the radio input value as a string $option in the memberSurvey page.
+Bug 2.3: (trade-off between binary and string insert) Unfortunately, the radio input value needed to be a binary for the question #5 branches to work properly. This also made the selected survey responses unsave when clicking the back button. 
+Resolution: I added a conditional at the top of the memberSurvey page that maps the responses to question #5 as a binary (Lajna = 1 and Nasirat = 0)
+**Severity:** [High] | **Fix Status:** [Fixed]
+
+Bug 3: (last page of survey visible after submitting) When I completed the quiz, I still had the title, the last question, and the back/submit buttons appearing above the “Survey Complete” message and the responses (which showed up fine). 
+Resolution: I added a conditional equivalent to If (!isset($_POST[‘submit_quiz’])) for the questions displayed, message headers, and navigation buttons the the memberSurvey page. 
+**Severity:** [Med] | **Fix Status:** [Fixed]
+
+
+
