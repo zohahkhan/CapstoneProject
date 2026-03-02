@@ -131,7 +131,23 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-				<p>Description</p>
+				
+				<?php
+				
+				   
+      $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
+      $stmt->execute([':status' => 'Pending']);
+      $pendingCount = (int)$stmt->fetchColumn();
+	  
+	  if ($pendingCount):
+    ?>
+    <p>
+      You have <b><?= $pendingCount ?></b> pending request(s).<br>
+      <a href="president_requests.php">View Visitor Requests</a>
+    </p>
+  <?php else: ?>
+    <p>Description</p>
+  <?php endif; ?>
 			</div>
 
 			<div class="right-sub-box">
