@@ -41,11 +41,15 @@ Test Credentials:
   Username: gil42134@email.com
   Password: gil42134
 
-Branch Name #4:
-User Story: 
-Usage Instructions: 
-Acceptance Criteria:
+Branch Name #4: feature/googleformreport
+User Story: As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President
+Usage Instructions: Go https://docs.google.com/forms/d/e/1FAIpQLSfoNgFcr66KNIElKdwqV4qZnYtC10rlVdfb8z9OY285xqnLuw/viewform?usp=dialog and submit the form. And then go to the Deparment Head homepage and click Google Form Report, the report should show what answer has been submitted. 
+Acceptance Criteria: 
+▪ When a user submitted the google form, the data is saved in the database
+▪ When a user submitted the google form, the data is shown in the dashboard of the president or the deparment head.
 Test Credentials: 
+  username: ong92990@email.com
+  password: test1234
 
 Workflow Info: The main branch houses all our documents about preparation and planning from the first semester for easy reference. The develop branch is the most up-to-date version of our code; it is the final branch that all code branches merge into. We use the feature/branch-name naming strategy for our pull requests and branch naming for a uniform naming format. While all members are encouraged to review all pull requests, we have assigned each member the specific responsibility to review another member's pull requests: 
 Zoha will review JJ's PR
