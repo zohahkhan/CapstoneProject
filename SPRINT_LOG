@@ -30,9 +30,9 @@ As a Department Head,  I want to be able to see questions and enter values to co
 
 
 3. System Test Report
-| Test Case | Type | Result | Evidence/PR # |
-| [Valid Login] | Unit | Passed | PR #12 |
-| [UI Layout]   | Manual | Passed | Screenshot in Repo |
+|    Test Case    | Type   | Result | Evidence/PR # |
+| reportResponses | Manual | Passed | PR #33, the user is able to successfully edit their profile information |
+| [UI Layout]   | Manual | Passed | Screenshot in Repo |  
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
