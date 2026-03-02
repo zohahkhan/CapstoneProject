@@ -99,5 +99,9 @@ Bug 5: I want to clear future form input when the user goes back and changes the
 This will ensure that the user can only fill out questions pertaining to them and not affect the compiled report stats. 
 **Severity:** [Low] | **Fix Status:** [Open]
 
+Communication Barrier:
+The current primary communication platform (Snapchat) made collaboration difficult during Sprint #3. The platform does not support effective document sharing or screen sharing, and messages are automatically deleted after 24 hours unless manually saved. As a result, it was challenging to track discussions, requirements, and previously shared links.
 
+For video calls and presentations, Zoom was used, and the meeting link was distributed through Snapchat. The lack of integration between Snapchat and Zoom created workflow inefficiencies. Additionally, the free Zoom account imposed time limitations on meetings, and there was no centralized location to retain files, screenshots, or reference materials.
 
+An alternative platform such as Microsoft Teams was suggested in last sememster. Teams is available to students with a school Outlook/Microsoft 365 account and provides integrated chat, file sharing, document storage, and video conferencing without strict time limitations. Messages and shared materials are automatically saved, which would improve transparency and requirement tracking.
