@@ -24,6 +24,31 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$statement->bindParam(':user_id', $user_id);
 	$statement->execute();
 	$role = $statement->fetchAll();
+
+// Mini calendar data
+$mini_month = (int)date('n');
+$mini_year  = (int)date('Y');
+$mini_first_day = mktime(0, 0, 0, $mini_month, 1, $mini_year);
+$mini_days_in_month = (int)date('t', $mini_first_day);
+$mini_start_weekday = (int)date('w', $mini_first_day);
+$mini_month_name = date('F', $mini_first_day);
+$today_day = (int)date('j');
+
+$stmtEvents = $db->prepare("
+    SELECT event_date
+    FROM calendarevent
+    WHERE YEAR(event_date) = :year AND MONTH(event_date) = :month
+");
+$stmtEvents->bindParam(':year',  $mini_year,  PDO::PARAM_INT);
+$stmtEvents->bindParam(':month', $mini_month, PDO::PARAM_INT);
+$stmtEvents->execute();
+$event_rows = $stmtEvents->fetchAll(PDO::FETCH_ASSOC);
+
+$event_days = [];
+foreach ($event_rows as $row)
+{
+    $event_days[] = (int)date('j', strtotime($row['event_date']));
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +68,74 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		.admin-link:hover {
 			color: #6b5437;
 			text-decoration: underline;
+		}
+
+		.mini-calendar-link {
+			display: block;
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.mini-calendar-link:hover .mini-calendar {
+			opacity: 0.85;
+		}
+
+		.mini-calendar {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.75rem;
+			margin-top: 8px;
+			transition: opacity 0.2s;
+		}
+
+		.mini-calendar th {
+			text-align: center;
+			color: #8b6f47;
+			font-weight: 600;
+			padding: 2px 0;
+		}
+
+		.mini-calendar td {
+			text-align: center;
+			padding: 3px 2px;
+			color: #3b2f2f;
+			position: relative;
+		}
+
+		.mini-calendar td.today {
+			background-color: #c4a484;
+			color: white;
+			border-radius: 50%;
+			font-weight: bold;
+		}
+
+		.mini-calendar td.has-event::after {
+			content: '';
+			display: block;
+			width: 4px;
+			height: 4px;
+			background-color: #8b6f47;
+			border-radius: 50%;
+			margin: 1px auto 0;
+		}
+
+		.mini-calendar td.today.has-event::after {
+			background-color: white;
+		}
+
+		.mini-cal-header {
+			text-align: center;
+			font-size: 0.8rem;
+			font-weight: bold;
+			color: #3b2f2f;
+			margin-bottom: 4px;
+		}
+
+		.mini-cal-hint {
+			text-align: center;
+			font-size: 0.7rem;
+			color: #c4a484;
+			margin-top: 6px;
 		}
 	</style>
 </head>
@@ -84,6 +177,52 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		</select> 
 	</form>
 	<?php echo "</h2>";	?>		
+
+	<?php
+	// Mini calendar HTML block — reused across roles
+	ob_start();
+	?>
+	<a href="../calendar.php" class="mini-calendar-link">
+		<div class="mini-cal-header"><?= $mini_month_name ?> <?= $mini_year ?></div>
+		<table class="mini-calendar">
+			<thead>
+				<tr>
+					<th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$cell = 0;
+				echo '<tr>';
+				for ($i = 0; $i < $mini_start_weekday; $i++)
+				{
+					echo '<td></td>';
+					$cell++;
+				}
+				for ($d = 1; $d <= $mini_days_in_month; $d++)
+				{
+					$classes = [];
+					if ($d === $today_day) $classes[] = 'today';
+					if (in_array($d, $event_days)) $classes[] = 'has-event';
+					$class_str = !empty($classes) ? ' class="' . implode(' ', $classes) . '"' : '';
+					echo '<td' . $class_str . '>' . $d . '</td>';
+					$cell++;
+					if ($cell % 7 === 0 && $d < $mini_days_in_month) echo '</tr><tr>';
+				}
+				while ($cell % 7 !== 0)
+				{
+					echo '<td></td>';
+					$cell++;
+				}
+				echo '</tr>';
+				?>
+			</tbody>
+		</table>
+		<div class="mini-cal-hint">Click to open full calendar</div>
+	</a>
+	<?php
+	$mini_calendar_html = ob_get_clean();
+	?>
 	
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
@@ -108,7 +247,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
-				<p>Description</p>
+				<?= $mini_calendar_html ?>
 			</div>
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
@@ -150,7 +289,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
-				<p>Description</p>
+				<?= $mini_calendar_html ?>
 			</div>
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
@@ -192,7 +331,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
-				<p>Description</p>
+				<?= $mini_calendar_html ?>
 			</div>
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
