@@ -66,6 +66,7 @@ foreach ($events_raw as $event)
         body
         {
             font-family: 'Poppins', sans-serif;
+            background-image: url("loginpages/images/background.png");
         }
 
         .calendar-wrapper
