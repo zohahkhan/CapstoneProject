@@ -50,28 +50,6 @@ foreach ($event_rows as $row)
     $event_days[] = (int)date('j', strtotime($row['event_date']));
 }
 
-<<<<<<< Updated upstream
-//creating some events
-$demo_events = [
-    ["title" => "Workshops",
-	"date" => "2026-03-14"],
-    ["title" => "Monthly Meeting",
-    "date" => "2026-03-29"],
-    ["title" => "Eid",
-    "date" => "2026-03-20"]];
-
-//this adds the events to the mini calendar markers as dots
-foreach ($demo_events as $event)
-{
-    $event_month = (int)date('n', strtotime($event['date']));
-    $event_year  = (int)date('Y', strtotime($event['date']));
-    $event_day   = (int)date('j', strtotime($event['date']));
-
-    if ($event_month == $mini_month && $event_year == $mini_year){
-        $event_days[] = $event_day;
-    }
-}
-=======
 //query for the upcoming events for popup announcement, only events from that month 
 $stmtUpcoming = $db->prepare("
     SELECT event_title, event_date
@@ -83,7 +61,6 @@ $stmtUpcoming->bindParam(':year', $mini_year, PDO::PARAM_INT);
 $stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
 $stmtUpcoming->execute();
 $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
->>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -274,16 +251,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-<<<<<<< Updated upstream
-				<ul class="reminder-list">
-				<?php foreach ($demo_events as $event): ?>
-					<ul>
-						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
-						<?= date("F j, Y", strtotime($event['date'])) ?>
-				</ul>
-				<?php endforeach; ?>
-				</ul>
-=======
 				<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -296,7 +263,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
->>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -313,8 +279,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	<br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	</br></br>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!---- DEPT HOMEPAGE ----->
@@ -337,16 +302,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-<<<<<<< Updated upstream
-				<ul class="reminder-list">
-				<?php foreach ($demo_events as $event): ?>
-					<ul>
-						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
-						<?= date("F j, Y", strtotime($event['date'])) ?>
-				</ul>
-				<?php endforeach; ?>
-				</ul>
-=======
 				<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -359,7 +314,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
->>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -376,8 +330,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	<br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	</br></br>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!--- MEMBER HOMEPAGE --->
@@ -390,16 +343,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
-<<<<<<< Updated upstream
-				<ul class="reminder-list">
-				<?php foreach ($demo_events as $event): ?>
-					<ul>
-						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
-						<?= date("F j, Y", strtotime($event['date'])) ?>
-				</ul>
-				<?php endforeach; ?>
-				</ul>
-=======
 					<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -412,7 +355,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
->>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -429,7 +371,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	<br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
@@ -452,8 +393,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
-	<br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<br><br>
     <p><a href="logout.php">Logout</a></p>
 	
     <?php } } else {
