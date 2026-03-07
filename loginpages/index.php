@@ -47,7 +47,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	</style>
 </head>
 <body>
-    <!--display user session information-->
     <?php		
         if (isset($_SESSION['user'])) 
 		{
@@ -55,7 +54,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
 			
-			// Check if user is Admin and show manage roles link
 			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
 								JOIN Role r ON ur.role_id = r.role_id
 								WHERE ur.user_id = :user_id AND r.role_name = "Admin"';
@@ -88,7 +86,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
-		<!-- left box split horizontally into 2 -->
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
@@ -100,7 +97,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
 		</div>
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -113,6 +109,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
+				<p><a href="http://localhost/CapstoneProject/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
@@ -122,12 +119,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	</div>
 	</br></br>
     <p><a href="logout.php">Logout</a></p>
-	<!----- END OF PRES HOMEPAGE --->
 	
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
-		<!-- left side-->
 		<div class="dept-left-box">
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
@@ -142,7 +137,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 				<p>Description</p>
 			</div>
 	     </div>
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -155,6 +149,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
+				<p><a href="http://localhost/CapstoneProject/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
@@ -164,7 +159,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	</div>
 	</br></br>
     <p><a href="logout.php">Logout</a></p>
-	<!----- END OF DEPT HOMEPAGE --->
 	
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
@@ -197,6 +191,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
+				<p><a href="http://localhost/CapstoneProject/view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
 			</div>
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
@@ -204,15 +199,12 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 			</div>
 		</div>
 	</div>
-	
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
-	<!----- END OF MEMBER HOMEPAGE --->
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	 <div class="homepage-boxes">
-        <!-- the top row with two boxes -->
+	<div class="homepage-boxes">
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
@@ -223,7 +215,6 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
                 <p>Description</p>
             </div>
         </div>
-        <!--bottom box -->
         <div class="homepage-bottom-box">
             <h2>Members</h2>
             <p>Description</p>
@@ -232,13 +223,10 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
     </div>
 	<br><br>
     <p><a href="logout.php">Logout</a></p>
-	<!----- END OF ADMIN HOMEPAGE --->
 	
-	<!--this section is the default home screen when logged out-->
     <?php } } else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
-	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
   <?php } ?>
