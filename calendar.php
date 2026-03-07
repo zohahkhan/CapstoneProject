@@ -53,6 +53,27 @@ foreach ($events_raw as $event)
     $day = (int)date('j', strtotime($event['event_date']));
     $events_by_day[$day][] = $event;
 }
+
+//events in the calendar
+$demo_events = [
+    ["event_title" => "Workshops",
+    "event_date" => "2026-03-14"],
+    ["event_title" => "Monthly Meeting",
+    "event_date" => "2026-03-29"],
+    ["event_title" => "Eid",
+    "event_date" => "2026-03-20"]];
+
+foreach ($demo_events as $event)
+{
+    $event_day = (int)date('j', strtotime($event['event_date']));
+    $event_month = (int)date('n', strtotime($event['event_date']));
+    $event_year  = (int)date('Y', strtotime($event['event_date']));
+
+    if ($event_month == $month && $event_year == $year)
+    {
+        $events_by_day[$event_day][] = $event;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

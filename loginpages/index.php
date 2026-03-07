@@ -49,6 +49,27 @@ foreach ($event_rows as $row)
 {
     $event_days[] = (int)date('j', strtotime($row['event_date']));
 }
+
+//creating some events
+$demo_events = [
+    ["title" => "Workshops",
+	"date" => "2026-03-14"],
+    ["title" => "Monthly Meeting",
+    "date" => "2026-03-29"],
+    ["title" => "Eid",
+    "date" => "2026-03-20"]];
+
+//this adds the events to the mini calendar markers as dots
+foreach ($demo_events as $event)
+{
+    $event_month = (int)date('n', strtotime($event['date']));
+    $event_year  = (int)date('Y', strtotime($event['date']));
+    $event_day   = (int)date('j', strtotime($event['date']));
+
+    if ($event_month == $mini_month && $event_year == $mini_year){
+        $event_days[] = $event_day;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -239,7 +260,14 @@ foreach ($event_rows as $row)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-				<p>Description</p>
+				<ul class="reminder-list">
+				<?php foreach ($demo_events as $event): ?>
+					<ul>
+						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
+						<?= date("F j, Y", strtotime($event['date'])) ?>
+				</ul>
+				<?php endforeach; ?>
+				</ul>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -256,7 +284,8 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	<br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!---- DEPT HOMEPAGE ----->
@@ -279,7 +308,14 @@ foreach ($event_rows as $row)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-				<p>Description</p>
+				<ul class="reminder-list">
+				<?php foreach ($demo_events as $event): ?>
+					<ul>
+						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
+						<?= date("F j, Y", strtotime($event['date'])) ?>
+				</ul>
+				<?php endforeach; ?>
+				</ul>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -296,7 +332,8 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	<br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!--- MEMBER HOMEPAGE --->
@@ -309,19 +346,14 @@ foreach ($event_rows as $row)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
-				<?php if ($_SESSION['user']['role_id'] == 1): ?>
-					<?php
-					  $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
-					  $stmt->execute([':status' => 'Pending']);
-					  $pendingCount = (int)$stmt->fetchColumn();
-					?>
-					<p>
-					  You have <b><?= $pendingCount ?></b> pending request(s).<br>
-					  <a href="president_requests.php">View Visitor Requests</a>
-					</p>
-				<?php else: ?>
-					<p>Description</p>
-				<?php endif; ?>
+				<ul class="reminder-list">
+				<?php foreach ($demo_events as $event): ?>
+					<ul>
+						<strong><?= htmlspecialchars($event['title']) ?></strong><br>
+						<?= date("F j, Y", strtotime($event['date'])) ?>
+				</ul>
+				<?php endforeach; ?>
+				</ul>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -338,6 +370,7 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
+	<br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
@@ -360,7 +393,8 @@ foreach ($event_rows as $row)
 			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
-	<br><br>
+	<br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
     <?php } } else {
