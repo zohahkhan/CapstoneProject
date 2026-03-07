@@ -318,8 +318,6 @@ h3 {
     line-height: 1.4;
     word-wrap: break-word;
     overflow-wrap: break-word;
-<<<<<<< Updated upstream
-=======
 }
 
 /*the upcoming event announcement popup */
@@ -365,5 +363,4 @@ h3 {
 @keyframes slideIn {
     from { transform: translateX(120%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
->>>>>>> Stashed changes
 }
