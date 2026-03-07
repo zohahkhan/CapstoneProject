@@ -54,6 +54,7 @@ foreach ($events_raw as $event)
     $events_by_day[$day][] = $event;
 }
 
+<<<<<<< Updated upstream
 //events in the calendar
 $demo_events = [
     ["event_title" => "Workshops",
@@ -74,6 +75,8 @@ foreach ($demo_events as $event)
         $events_by_day[$event_day][] = $event;
     }
 }
+=======
+>>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html lang="en">

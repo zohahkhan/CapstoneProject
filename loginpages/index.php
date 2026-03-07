@@ -50,6 +50,7 @@ foreach ($event_rows as $row)
     $event_days[] = (int)date('j', strtotime($row['event_date']));
 }
 
+<<<<<<< Updated upstream
 //creating some events
 $demo_events = [
     ["title" => "Workshops",
@@ -70,6 +71,19 @@ foreach ($demo_events as $event)
         $event_days[] = $event_day;
     }
 }
+=======
+//query for the upcoming events for popup announcement, only events from that month 
+$stmtUpcoming = $db->prepare("
+    SELECT event_title, event_date
+    FROM calendarevent
+    WHERE YEAR(event_date) = :year AND MONTH(event_date) = :month
+    ORDER BY event_date ASC
+");
+$stmtUpcoming->bindParam(':year', $mini_year, PDO::PARAM_INT);
+$stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
+$stmtUpcoming->execute();
+$upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
+>>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -260,6 +274,7 @@ foreach ($demo_events as $event)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
+<<<<<<< Updated upstream
 				<ul class="reminder-list">
 				<?php foreach ($demo_events as $event): ?>
 					<ul>
@@ -268,6 +283,20 @@ foreach ($demo_events as $event)
 				</ul>
 				<?php endforeach; ?>
 				</ul>
+=======
+				<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+>>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -308,6 +337,7 @@ foreach ($demo_events as $event)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
+<<<<<<< Updated upstream
 				<ul class="reminder-list">
 				<?php foreach ($demo_events as $event): ?>
 					<ul>
@@ -316,6 +346,20 @@ foreach ($demo_events as $event)
 				</ul>
 				<?php endforeach; ?>
 				</ul>
+=======
+				<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+>>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -346,6 +390,7 @@ foreach ($demo_events as $event)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
+<<<<<<< Updated upstream
 				<ul class="reminder-list">
 				<?php foreach ($demo_events as $event): ?>
 					<ul>
@@ -354,6 +399,20 @@ foreach ($demo_events as $event)
 				</ul>
 				<?php endforeach; ?>
 				</ul>
+=======
+					<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+>>>>>>> Stashed changes
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -402,7 +461,34 @@ foreach ($demo_events as $event)
 	?>
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
-  <?php } ?>
+	<?php } ?>
 	
+	<!--- display the events upcoming this month popup ---->
+	<?php if (!empty($upcoming_events)) : ?>
+	<div class="event-popup" id="eventPopup">
+		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
+
+		<h4>Upcoming This Month</h4>
+
+		<ul>
+			<?php foreach ($upcoming_events as $event): ?>
+				<li>
+					<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+					<?= date("F j", strtotime($event['event_date'])) ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+
+	<script>
+	setTimeout(function(){
+		var popup = document.getElementById("eventPopup");
+		if(popup){
+			popup.style.display = "none";
+		}
+	}, 5000); // auto close after 5 seconds
+	</script>
+	<?php endif; ?>
+
 </body>
 </html>
