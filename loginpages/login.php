@@ -50,7 +50,7 @@ if (isset($login))
 	{
 			
 		// verify user password against stored hashed value
-		if (password_verify($password, $user['password_hashed'])) 
+		if (password_verify($password, $user['password_hashed']) || sha1($password) === $user['password_hashed']) 
 		{
 			// check is account is still active 
 			if ($user['is_active'] == 0) 
