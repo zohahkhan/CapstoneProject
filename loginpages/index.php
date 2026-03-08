@@ -24,6 +24,17 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$statement->bindParam(':user_id', $user_id);
 	$statement->execute();
 	$role = $statement->fetchAll();
+	
+$template_id = 1;
+$stmt = $db->prepare("
+	SELECT COUNT(*) 
+	FROM FormResponse 
+	WHERE template_id = :template_id
+");
+$stmt->execute(['template_id' => $template_id]);
+$totalReports = $stmt->fetchColumn();
+
+
 
 // Mini calendar data
 $mini_month = (int)date('n');
@@ -288,7 +299,19 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="dept-left-box">
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
-				<p>Description</p>
+				<!-- scroll container -->
+    			<div class="scrollable-report-box">
+				<!-- stats summary box -->
+				<div class="report-summary-box">
+					<h3>Monthly Summary</h3>
+
+					<div class="report-summary-content">
+						<p><strong>Total Reports Submitted:</strong> <?= $totalReports ?></p>
+					</div>
+					
+				</div>
+				</div> 
+				<p><a href="viewSummary.php">View summary</a></p>
 			</div>
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
