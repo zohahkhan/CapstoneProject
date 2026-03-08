@@ -234,7 +234,7 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 			<p>Description</p>
-		<p><?php include("include/listPreview.php"); ?></p>
+		<p><?php include("include/surveyHub.php"); ?></p>
 
 		</div>
 
