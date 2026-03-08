@@ -1,10 +1,24 @@
+<!--homepage.php the homepage / user landing page-->
 <?php
 require_once './include/db_connect.php';
+
+// alert for if a new member is added
+if (isset($_GET['success']) && $_GET['success'] == 1) 
+{
+    echo "<script>alert('Account successfully created!');</script>";
+
+    // redirect to same page without get query string 
+    $url = strtok($_SERVER["REQUEST_URI"], '?'); 
+    echo "<script>window.location.href='$url';</script>";
+    exit();
+}
+
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
+
 if (isset($_SESSION['user']['user_id'])) 
 {
 	if (!isset($user_id)) 
@@ -12,10 +26,12 @@ if (isset($_SESSION['user']['user_id']))
 		$user_id = $_SESSION['user']['user_id'];	
 	}
 }
+
 if (isset($_POST['role'])) 
 {
     $_SESSION['user']['role_id'] = $_POST['role'];
 }
+
 $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 						FROM Role					
 						JOIN UserRole ON Role.role_id = UserRole.role_id
@@ -24,7 +40,9 @@ $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 	$statement->bindParam(':user_id', $user_id);
 	$statement->execute();
 	$role = $statement->fetchAll();
-	
+
+
+// fetches the template for compled Report
 $template_id = 1;
 $stmt = $db->prepare("
 	SELECT COUNT(*) 
@@ -33,7 +51,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute(['template_id' => $template_id]);
 $totalReports = $stmt->fetchColumn();
-
 
 
 // Mini calendar data
@@ -60,6 +77,9 @@ foreach ($event_rows as $row)
 {
     $event_days[] = (int)date('j', strtotime($row['event_date']));
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,7 +100,6 @@ foreach ($event_rows as $row)
 			color: #6b5437;
 			text-decoration: underline;
 		}
-
 		.mini-calendar-link {
 			display: block;
 			text-decoration: none;
@@ -150,13 +169,17 @@ foreach ($event_rows as $row)
 		}
 	</style>
 </head>
+
 <body>
+    <!--display user session information-->
     <?php		
         if (isset($_SESSION['user'])) 
 		{
 			echo "<h1>Hello, ";
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
+			
+			
 			
 			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
 								JOIN Role r ON ur.role_id = r.role_id
@@ -166,11 +189,12 @@ foreach ($event_rows as $row)
 			$stmtCheck->execute();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
 			
-			if ($isAdmin) {
-				echo '<p><a href="http://localhost/CapstoneProject/manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
-			}
 			
+			if ($isAdmin) {
+				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
+			}
 			echo "\n<h2>";
+		
 	?>
 	<label>Current Role: </label>
 	<form method="POST">
@@ -186,7 +210,8 @@ foreach ($event_rows as $row)
 		</select> 
 	</form>
 	<?php echo "</h2>";	?>		
-
+	
+	<!---- Calendar code ---->
 	<?php
 	// Mini calendar HTML block — reused across roles
 	ob_start();
@@ -233,9 +258,11 @@ foreach ($event_rows as $row)
 	$mini_calendar_html = ob_get_clean();
 	?>
 	
+	
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
+		<!-- left box split horizontally into 2 -->
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
@@ -247,20 +274,41 @@ foreach ($event_rows as $row)
 				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
 		</div>
+
+		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-				<p>Description</p>
+				
+				<?php
+				
+				   
+      $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
+      $stmt->execute([':status' => 'Pending']);
+      $pendingCount = (int)$stmt->fetchColumn();
+	  
+	  if ($pendingCount):
+    ?>
+    <p>
+      You have <b><?= $pendingCount ?></b> pending request(s).<br>
+      <a href="president_requests.php">View Visitor Requests</a>
+    </p>
+  <?php else: ?>
+    <p>Description</p>
+  <?php endif; ?>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<?= $mini_calendar_html ?>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
-				<p><a href="http://localhost/CapstoneProject/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<p><a href="record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<p>Description</p>
@@ -269,11 +317,17 @@ foreach ($event_rows as $row)
 	</div>
 	</br></br>
     <p><a href="logout.php">Logout</a></p>
-	
+	<!----- END OF PRES HOMEPAGE --->
+
+
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
+	<br><br>
 	<div class="boxes">
+		<!-- left box, split horizontally into 2 -->
+		<!-- left side-->
 		<div class="dept-left-box">
+
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
 				<!-- scroll container -->
@@ -290,29 +344,38 @@ foreach ($event_rows as $row)
 				</div> 
 				<p><a href="viewSummary.php">View summary</a></p>
 			</div>
+
+
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
 			</div>
+
 			<div class="left-sub-box dept-full-width">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
 			</div>
 	     </div>
+
+
+		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Create a new Reminder</h2>
+				<h2>Important Reminders</h2>
 				<p>Description</p>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<?= $mini_calendar_html ?>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
-				<p><a href="http://localhost/CapstoneProject/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<p><a href="record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<p>Description</p>
@@ -321,54 +384,57 @@ foreach ($event_rows as $row)
 	</div>
 	</br></br>
     <p><a href="logout.php">Logout</a></p>
+	<!----- END OF DEPT HOMEPAGE --->
+	
 	
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
+	<br><br>
 	<div class="boxes">
+		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 			<p>Description</p>
-		</div>
-		<div class="right-box">
-		<div class="right-sub-box">
-		  <h2>Important Reminders</h2>
+		<p><?php include("include/surveyHub.php"); ?></p>
 
-		  <?php if ($_SESSION['user']['role_id'] == 1): ?>
-			<?php
-			  $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
-			  $stmt->execute([':status' => 'Pending']);
-			  $pendingCount = (int)$stmt->fetchColumn();
-			?>
-			<p>
-			  You have <b><?= $pendingCount ?></b> pending request(s).<br>
-			  <a href="president_requests.php">View Visitor Requests</a>
-			</p>
-		  <?php else: ?>
-			<p>Description</p>
-		  <?php endif; ?>
 		</div>
+
+		<!--the right box with four separate boxes inside-->
+		<div class="right-box">
+			<div class="right-sub-box">
+				<h2>Important Reminders</h2>
+				<p>Description</p>
+			</div>
 
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<?= $mini_calendar_html ?>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="http://localhost/CapstoneProject/view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
+				<p><a href="view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
 			</div>
+
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
 				<p>Description</p>
 			</div>
 		</div>
 	</div>
+	</br></br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
+		</br></br>
     <p><a href="logout.php">Logout</a></p>
+	<!----- END OF MEMBER HOMEPAGE --->
+		
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<div class="homepage-boxes">
+	<br><br>
+	
+	 <div class="homepage-boxes">
+        <!-- the top row with two boxes -->
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
@@ -379,6 +445,7 @@ foreach ($event_rows as $row)
                 <p>Description</p>
             </div>
         </div>
+        <!--bottom box -->
         <div class="homepage-bottom-box">
             <h2>Members</h2>
             <p>Description</p>
@@ -387,13 +454,17 @@ foreach ($event_rows as $row)
     </div>
 	<br><br>
     <p><a href="logout.php">Logout</a></p>
+	<!----- END OF ADMIN HOMEPAGE --->
+		
 	
-    <?php } } else {
+	<!--this section is the default home screen when logged out-->
+    <?php 
+	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
+	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
-  <?php } ?>
-	
+    <?php } ?>
 </body>
 </html>
