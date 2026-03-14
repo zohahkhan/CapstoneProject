@@ -354,6 +354,7 @@ foreach ($event_rows as $row)
 			<div class="left-sub-box dept-full-width">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
+				<p><?php include("include/surveyHub.php"); ?></p>
 			</div>
 	     </div>
 
