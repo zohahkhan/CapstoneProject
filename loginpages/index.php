@@ -262,6 +262,9 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -274,6 +277,8 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -291,6 +296,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		</div>
 	</div>
 	</br></br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!---- DEPT HOMEPAGE ----->
@@ -325,6 +331,9 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -337,6 +346,8 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -354,6 +365,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		</div>
 	</div>
 	</br></br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	
 	<!--- MEMBER HOMEPAGE --->
@@ -366,6 +378,9 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
 					<?php if (!empty($upcoming_events)) : ?>
 					<ul class = "reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
@@ -378,6 +393,8 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
    					 <?php else: ?>
         			<p>No upcoming events this month.</p>
   				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
