@@ -2534,6 +2534,27 @@ JSON_OBJECT(
 CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
 );
 
+INSERT INTO FormResponse (template_id, user_id, form_response) VALUES
+
+(2,17,'[
+{"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
+{"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
+{"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
+{"id":16,"response":"Yes"},{"id":17,"response":"Yes"},{"id":18,"response":"Yes"},{"id":19,"response":"No"},{"id":20,"response":"Yes"},
+{"id":21,"response":"No"},{"id":22,"response":"Yes"},{"id":23,"response":"Yes"},{"id":24,"response":"Yes"},{"id":25,"response":"No"},
+{"id":26,"response":"Yes"},{"id":27,"response":"Yes"},{"id":28,"response":"No"},{"id":29,"response":"Yes"},{"id":30,"response":"Yes"},
+{"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
+]'),
+
+(2,18,'[
+{"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
+{"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
+{"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
+{"id":16,"response":"No"},{"id":17,"response":"Yes"},{"id":18,"response":"Yes"},{"id":19,"response":"Yes"},{"id":20,"response":"Yes"},
+{"id":21,"response":"No"},{"id":22,"response":"Yes"},{"id":23,"response":"No"},{"id":24,"response":"Yes"},{"id":25,"response":"Yes"},
+{"id":26,"response":"Yes"},{"id":27,"response":"No"},{"id":28,"response":"Yes"},{"id":29,"response":"Yes"},{"id":30,"response":"Yes"},
+{"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"No"}
+]');
 
 /* to access the database */
 FLUSH PRIVILEGES;
