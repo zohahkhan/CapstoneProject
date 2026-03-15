@@ -179,7 +179,7 @@ body {
 /*make the monthly report responses box fixed height with scrolling*/
 .scrollable-report-box {
     width: 100%;
-	  height: 200px;     
+	height: 200px;     
     overflow-y: auto; /*enables vertical scrolling*/
     margin-top: 10px;
     padding-right: 5px;

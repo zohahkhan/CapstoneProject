@@ -11,12 +11,61 @@
 
 #quizList {
     background: #f4f4f4;
+    background-color: #fdfaf7; /*makes it lighter than main box for contrast*/
+
     padding: 10px;
     border-bottom: 1px solid #ccc;
 }
 
+.monthly-report-box {
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #fdfaf7;
+    border-radius: 5px;
+    border: 1px solid #e6d5c3;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-monthly-report-box {
+    width: 100%;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.scrollable-report-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-report-box::-webkit-scrollbar-thumb {
+    background-color: #c4a484;
+    border-radius: 10px;
+}
+
+.scrollable-monthly-report-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-monthly-report-box::-webkit-scrollbar-track {
+    background: #fdfaf7;
+}
+
+.scrollable-monthly-report-box::-webkit-scrollbar-thumb {
+    background-color: #c4a484;
+    border-radius: 6px;
+}
+
+.scrollable-monthly-report-box::-webkit-scrollbar-thumb:hover {
+    background-color: #8b6f47;
+}
+
 .quiz-item {
-    background: white;
+    background-color: #e8d9c8;
     padding: 10px;
     margin-bottom: 8px;
     border-radius: 5px;
@@ -24,7 +73,7 @@
 }
 
 .quiz-item.active {
-    background-color: #d0e6ff;
+    background-color: #e8d9c8;
 }
 
 .quiz-item.completed {
@@ -59,7 +108,6 @@ $stmt = $db->prepare("
 $stmt->bindParam(':template_id', $form_id);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
-
 $alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($alreadyCompleted) {
@@ -74,7 +122,13 @@ if (isset($_SESSION['user']['user_id']))
 	{
 		$user_id = $_SESSION['user']['user_id'];	
 	}
-}
+}?>
+
+<div class="monthly-report-box">
+
+<div class="scrollable-monthly-report-box">
+
+<?php
 // Fetch JSON results for all quizzes
 $sql = 'SELECT q.template_id, q.temp_title, q.form_questions, r.form_response
 				FROM FormTemplate q
@@ -86,19 +140,14 @@ $stmt3->bindParam(':user_id', $user_id);
 $stmt3->execute();
 $quizzes = $stmt3->FetchAll(PDO::FETCH_ASSOC);
 $stmt3->closeCursor();
-
-
-
 ?>
 
 <?php foreach ($quizzes as $quiz): ?>
     <?php if ($quiz['form_response']): ?>
         <?php 		
-		
 		$questionsData = json_decode($quiz['form_questions'], true);
 		$responsesData = json_decode($quiz['form_response'], true);
         ?>
-			
 			
 	<?php
         $responseMap = [];
@@ -108,51 +157,38 @@ $stmt3->closeCursor();
 	}
 ?>
 
-	<!---- this part displays after the form is complete
-				and is responsible for the box -->
-       <div class="">
-      <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
-	
-
-<ol>
-<?php 
-
-foreach ($questionsData as $q): ?>
-    <?php 
-	if (!isset($responseMap[$q['id']])) {
-            continue;
-        }
-	
-	
-        $questionText = $q['question'] ?? 'Unknown question';
-        $questionId = $q['id'];
-        $userResponse = $responseMap[$questionId] ?? 'No response';
-		
-		 
-	
-    ?>
-    <li> 
-	
-	Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
-	
-	</li>
-<?php endforeach; ?>
-</ol>
-			
-			
-        </div>
+<!---- this part displays after the form is complete and is responsible for the box -->
+<div class="">
+    <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
+        <ol>
+        <?php 
+        foreach ($questionsData as $q): ?>
+            <?php 
+            if (!isset($responseMap[$q['id']])) {
+                    continue;
+                }
+            
+                $questionText = $q['question'] ?? 'Unknown question';
+                $questionId = $q['id'];
+                $userResponse = $responseMap[$questionId] ?? 'No response'; ?>
+            <li> 
+                Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
+            </li>
+        <?php endforeach; ?>
+        </ol>
+</div>
     <?php else: ?>
-	
         <div class="quiz-item" 
-		
 		onclick="loadQuiz('memberSurvey.php?id=<?= $quiz['template_id'] ?>', event)">
             <?php echo htmlspecialchars($quiz['temp_title']); ?>
         </div>
-    <?php endif; ?>
+        <?php endif; ?>
 <?php endforeach; ?>
+
+</div>
+
  <iframe id="quizFrame" ></iframe>
-
-
+</div>
 
 <script>
 function loadQuiz(page, event) {

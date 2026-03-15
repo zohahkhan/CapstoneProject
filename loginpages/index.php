@@ -197,8 +197,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			$stmtCheck->bindParam(':user_id', $_SESSION['user']['user_id']);
 			$stmtCheck->execute();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
-			
-			
+		
 			if ($isAdmin) {
 				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
@@ -324,7 +323,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
@@ -332,7 +331,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
-	<br><br>
 	<div class="boxes">
 		<!-- left box, split horizontally into 2 -->
 		<!-- left side-->
@@ -408,7 +406,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
@@ -416,13 +414,11 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 	
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
-	<br><br>
 	<div class="boxes">
 		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
-			<p>Description</p>
-		<p><?php include("include/surveyHub.php"); ?></p>
+		<?php include("include/surveyHub.php"); ?>
 
 		</div>
 
@@ -464,16 +460,14 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
-		</br></br>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
 		
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<br><br>
 	
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
@@ -494,7 +488,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
-	<br><br>
+	<br>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF ADMIN HOMEPAGE --->
 		
