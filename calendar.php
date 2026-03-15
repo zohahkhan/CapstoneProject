@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['user']['user_id']))
 {
@@ -8,6 +10,17 @@ if (!isset($_SESSION['user']['user_id']))
 }
 
 require_once './include/db_connect.php';
+
+// success message for edit event
+if (isset($_GET['success'])) {
+	$success = "Event successfully updated!";
+    echo "<p style='color:green;'>$success</p>";
+}
+// error message if event doesn't updated
+if (isset($_GET['error'])) {
+	$error = "Incomplete data. Check all fields and try again.";
+    echo "<p style='color:red;'>$error</p>";
+}
 
 $user_id = $_SESSION['user']['user_id'];
 $active_role = $_SESSION['user']['role_id'] ?? null;
@@ -276,6 +289,40 @@ foreach ($events_raw as $event)
             border-radius: 3px;
             display: inline-block;
         }
+        
+            /* css to view each event */
+        .modal 
+        {
+            display:none;
+            position:fixed;
+            z-index:1000;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.6);
+        }
+        
+        .modal-content 
+        {
+            background:white;
+            width:500px;
+            margin:10% auto;
+            padding:20px;
+            border-radius:8px;
+        }
+
+        .close 
+        {
+            float:right;
+            font-size:26px;
+            cursor:pointer;
+        }
+
+        .event-detail 
+        {
+            margin-bottom:10px;
+        }
     </style>
 </head>
 <body>
@@ -340,7 +387,9 @@ foreach ($events_raw as $event)
             {
                 foreach ($events_by_day[$day] as $ev)
                 {
-                    echo '<span class="event-chip" title="' . htmlspecialchars($ev['event_title']) . '">'
+                    (int)$event_id = $ev['event_id'];
+                    echo '<span class="event-chip" onclick="openEvent(' . $event_id . ')" title="' 
+                        . htmlspecialchars($ev['event_title']) . '">'
                         . htmlspecialchars($ev['event_title'])
                         . '</span>';
                 }
@@ -357,5 +406,262 @@ foreach ($events_raw as $event)
     </div>
 
 </div>
+
+<!-----  form to edit calendar events !! --->
+
+<div id="eventModal" class="modal"> 
+<div class="modal-content"> 
+<span class="close" onclick="closeModal()">&times;</span> 
+<div id="eventDetails"> Loading event... </div>
+
+<div id="editView" style="display:none;">
+	<table>
+    <form id="editForm" method="post" action="editEvent.php">
+			
+		<input type="hidden" name="event_id" id="eventId">
+		
+		<tr>
+			<td><label>Title</label></td>
+            <td><input type="text" name="title" id="editTitle"></td>
+		</tr>
+		
+			<input type="hidden" name="edit_date" id="editDate">
+		<tr>
+			<td><label>Month</label></td>	
+			<td><select id="edit_month" onchange="updateDateTime()">
+				<option value="01">January</option>
+				<option value="02">February</option>
+				<option value="03">March</option>
+				<option value="04">April</option>
+				<option value="05">May</option>
+				<option value="06">June</option>
+				<option value="07">July</option>
+				<option value="08">August</option>
+				<option value="09">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+				</select></td>
+		
+			<td><label>Day</label></td>		
+			<td><select id="edit_day" onchange="updateDateTime()">
+				<?php
+					for ($d=1; $d<=31; $d++) 
+					{
+						printf("<option value='%02d'>%d</option>", $d, $d);
+					}
+				?>
+				</select></td>
+			
+			<td><label>Year</label></td>
+			<td><select id="edit_year" onchange="updateDateTime()">
+				<?php
+					$currentYear = date("Y");
+					for ($y=$currentYear-2; $y<=$currentYear+5; $y++) 
+					{
+						echo "<option value='$y'>$y</option>";
+					}
+				?>
+				</select></td>
+		</tr>
+		
+		<tr>
+			<td><label>Time</label></td>
+				<?php 
+					$stmt5 = $db->prepare("
+									SELECT event_date 
+									FROM CalendarEvent 
+									WHERE event_id = :event_id");
+					$stmt5->bindParam(":event_id", $event_id);
+					$stmt5->execute();
+					$result = $stmt5->fetch(PDO::FETCH_ASSOC);
+
+					if ($result) 
+					{
+						$time = $result['event_date'];
+
+						$hr12 = date("g", strtotime($time));   // 1-12
+						$min = date("i", strtotime($time));    // 00-59
+						$ampm   = date("A", strtotime($time)); // AM or PM
+				?>
+<?php var_dump($event_id); ?>
+<?php var_dump($time); ?>
+<?php var_dump($hr12); ?>
+<?php var_dump($min); ?>
+<?php var_dump($ampm); ?>
+
+				<td><select id="edit_hour" onchange="updateDateTime()">
+				<?php
+					for ($h=1; $h<13; $h++) 
+					{
+						echo "<option value='$h'>$h</option>";
+					}
+				?>
+				</select>
+		
+				<?php } ?>
+				<select id="edit_minute" onchange="updateDateTime()">
+				<?php
+					for ($m=0; $m<60; $m+=5) 
+					{
+						printf("<option value='%02d'>: %02d</option>", $m, $m);
+					}
+				?>
+				</select>
+
+				<select id="edit_time" onchange="updateDateTime()">
+					<option value="AM" <?php echo ($ampm=="AM") ? "selected" : ""; ?>>AM</option>
+					<option value="PM" <?php echo ($ampm=="PM") ? "selected" : ""; ?>>PM</option>
+					</select></td>	
+		</tr>
+		
+		<tr>
+            <td><label>Location</label></td>
+            <td><input type="text" name="location" id="editLocation"></td>
+		</tr>
+            
+		<tr>
+			<td><label>Description</label></td>
+            <td><textarea name="description" id="editDescription"></textarea></td>
+		</tr>
+		
+		<tr>
+            <td><button type="submit" name="saveChanges" >Save</button></td>
+            <td><button type="button" onclick="cancelEdit()">Cancel</button></td>
+		</tr>
+  </form>
+  </table>
+    </div>
+
+<script>
+function openEvent(eventId)
+{
+    document.getElementById("eventModal").style.display = "block";
+	document.getElementById("eventId").value = eventId;	
+	
+	fetch("viewEvent.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "event_id=" + encodeURIComponent(eventId)
+    })
+
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("eventDetails").innerHTML = data;
+        });
+}
+
+function closeModal()
+{
+    document.getElementById("eventModal").style.display = "none";
+}
+
+window.onclick = function(event)
+{
+    let modal = document.getElementById("eventModal");
+    if (event.target == modal)
+    {
+        modal.style.display = "none";
+    }
+}
+
+function convertTo24Hour(hour12Str) 
+{
+    let [h, ampm] = hour12Str.split(" ");
+    h = parseInt(h, 10);
+    ampm = ampm.toUpperCase();
+
+    if (ampm === "AM") {
+        return (h === 12) ? 0 : h; 
+    } else { // PM
+        return (h === 12) ? 12 : h + 12;
+    }
+}
+function updateDateTime()
+{
+    let year   = document.getElementById("edit_year").value;
+    let month  = document.getElementById("edit_month").value;
+    let day    = document.getElementById("edit_day").value;
+    let hour   = document.getElementById("edit_hour").value;
+    let minute = document.getElementById("edit_minute").value;
+
+	// convert hour to 24-hour format
+	let hour12 = document.getElementById("edit_hour").value + " " +
+             document.getElementById("edit_time").value;
+			 
+    let hour24 = convertTo24Hour(hour12);
+
+    // keep all other values the same
+    let hourStr = (hour24 === 0) ? "00" : hour24.toString().padStart(2,'0'); 
+
+    let dateTime = `${year}-${month}-${day} ${hourStr}:${minute}:00`;
+
+    document.getElementById("editDate").value = dateTime;
+}
+
+function showEditForm()
+{
+	// displays the edit event form
+    document.getElementById("eventDetails").style.display = "none";
+    document.getElementById("editView").style.display = "block";
+
+    document.getElementById("editTitle").value =
+        document.getElementById("eventTitle").innerText;
+
+    document.getElementById("editLocation").value =
+        document.getElementById("eventLocation").innerText.replace("Location:", "").trim();
+
+    document.getElementById("editDescription").value =
+        document.getElementById("eventDescription").innerText.replace("Description:", "").trim();
+		
+
+	// parse existing date string
+    let dtStr = document.getElementById("eventDate").innerText.replace("Date:", "").trim();
+    let dt = new Date(dtStr); // assumes format parseable by JS
+
+    // prefill dropdowns
+    document.getElementById("edit_year").value = dt.getFullYear();
+    document.getElementById("edit_month").value = (dt.getMonth() + 1).toString().padStart(2,'0');
+    document.getElementById("edit_day").value = dt.getDate().toString().padStart(2,'0');
+
+    let hours = dt.getHours(); // 24-hour
+    let ampm = (hours >= 12) ? "PM" : "AM";
+    hours = hours % 12;
+	
+	// convert 0 to 12 for dropdown
+    if (hours === 0) hours = 12; 
+   
+	document.getElementById("edit_hour").value = "<?= (int)$hr12 ?>";
+	document.getElementById("edit_minute").value = "<?= $min ?>";
+	document.getElementById("edit_time").value = "<?= $ampm ?>";
+
+    // fill the hidden event_date field
+    updateDateTime();
+}
+
+function cancelEdit()
+{
+    document.getElementById("editView").style.display = "none";
+    document.getElementById("eventDetails").style.display = "block";
+}
+document.getElementById("editForm").addEventListener("submit", function(e)
+{
+    //e.preventDefault(); 
+	
+    let formData = new FormData(this);
+
+    fetch("editEvent.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("formErrors").innerHTML = data;
+    });
+});
+</script>
+    
 </body>
 </html>
