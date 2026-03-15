@@ -300,3 +300,67 @@ h3 {
     width: 100% !important;
     height: 200px !important;
 }
+
+/*this is for reminders*/
+.reminder-list {
+    width: 100%;
+    max-width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    text-align: left;
+}
+
+.reminder-list li {
+    width: 100%;
+    padding: 6px 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/*the upcoming event announcement popup */
+.event-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 260px;
+    background: #fff8f3;
+    border-left: 5px solid #c4a484;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    z-index: 9999;
+    animation: slideIn 0.4s ease;
+}
+
+.event-popup h4 {
+    margin: 0 0 6px 0;
+    color: #3b2f2f;
+    font-size: 0.9rem;
+}
+
+.event-popup ul {
+    padding-left: 16px;
+    margin: 0;
+}
+
+.event-popup li {
+    margin-bottom: 4px;
+}
+
+.close-popup {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #7a6655;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}

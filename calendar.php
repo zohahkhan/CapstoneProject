@@ -53,6 +53,7 @@ foreach ($events_raw as $event)
     $day = (int)date('j', strtotime($event['event_date']));
     $events_by_day[$day][] = $event;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
