@@ -2,19 +2,6 @@ DROP DATABASE IF EXISTS lanja_db;
 CREATE DATABASE IF NOT EXISTS lanja_db;
 USE lanja_db;
 
-CREATE TABLE CalendarEvent (
-event_id		INT              	NOT NULL  						AUTO_INCREMENT,
-event_title		VARCHAR(50)         NOT NULL, 
-event_desc		TEXT		        NOT NULL, 
-event_location	VARCHAR(250)		NOT NULL, 
-event_date		DATETIME			NOT NULL, 
-recurring		ENUM('Daily', 'Weekly', 'Monthly', 'Annually'), 
-iterations		INT, 
-created_at		TIMESTAMP			NOT NULL, 
-updated_at		TIMESTAMP,
-deleted_at		TIMESTAMP,
-PRIMARY KEY (event_id)
-);
 
 CREATE TABLE User (
 user_id			INT					NOT NULL  						AUTO_INCREMENT,
@@ -31,6 +18,24 @@ last_updated	TIMESTAMP									  	 ON UPDATE CURRENT_TIMESTAMP,
 updated_by		INT,
 PRIMARY KEY (user_id), 
 UNIQUE INDEX user_email (user_email)
+);
+
+CREATE TABLE CalendarEvent (
+event_id		INT              	NOT NULL  						AUTO_INCREMENT,
+event_title		VARCHAR(50)         NOT NULL, 
+event_desc		TEXT		        NOT NULL, 
+event_location	VARCHAR(250)		NOT NULL, 
+event_date		DATETIME			NOT NULL, 
+recurring		ENUM('None','Daily', 'Weekly', 'Monthly', 'Annually'), 
+iterations		INT, 
+days_of_week 	SET('SU','MO','TU','WE','TH','FR','SA'),
+created_at		TIMESTAMP			NOT NULL, 
+created_by		INT					NOT NULL,
+updated_at		TIMESTAMP,
+updated_by		INT,
+PRIMARY KEY (event_id),
+FOREIGN KEY (created_by) REFERENCES User (user_id),
+FOREIGN KEY (updated_by) REFERENCES User (user_id)
 );
 
 CREATE TABLE Attendance (
@@ -301,7 +306,7 @@ role_desc
 )
 VALUES
 (1, 'President', 'Oversees the entire organization, makes final decisions, and ensures overall system and organizational integrity.'),
-(2, 'Department Head', 'Manages the department’s operations, reporting, and member activities, and serves as the primary liaison to the President.'),
+(2, 'Department Head', 'Manages the department''s operations, reporting, and member activities, and serves as the primary liaison to the President.'),
 (3, 'Member', 'Participates in organizational activities, submits required forms, engages with events and communications.'),
 (4, 'Admin', 'Maintains the technical health, security, and configuration of the system without participating in organizational decision-making.');
 
@@ -370,15 +375,17 @@ event_location,
 event_date,
 recurring, 
 iterations,
-created_at
+days_of_week,
+created_at,
+created_by
 )
 VALUES
-(1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'), 
-(3, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, current_timestamp()),
-(4, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, current_timestamp()),
-(5, 'Eid ', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, current_timestamp()),
-(6, 'March Meeting ', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, current_timestamp());
+(1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL,  NULL, '2026-01-08 14:42:45', 20),   
+(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00',  NULL,  NULL, NULL, '2026-01-08 14:48:31', 20), 
+(3, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(4, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(5, 'Eid ', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(6, 'March Meeting ', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, NULL, current_timestamp(), 17);
 
 INSERT INTO Permission 
 (
