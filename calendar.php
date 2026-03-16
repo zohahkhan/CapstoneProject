@@ -323,12 +323,20 @@ foreach ($events_raw as $event)
         {
             margin-bottom:10px;
         }
+		.links 
+		{
+    		display: flex;
+    		justify-content: space-between;
+		}
     </style>
 </head>
 <body>
 <div class="calendar-wrapper">
 
-    <a href="loginpages/index.php" class="back-link">&larr; Back to Home</a>
+	<div class="links">
+    	<a href="loginpages/index.php" class="back-link">&larr; Back to Home</a>
+		<a href="newEvent.php" class="back-link"> Add New Event</a>
+	</div>
 
     <div class="calendar-header">
         <a href="calendar.php?month=<?= $prev_month ?>&year=<?= $prev_year ?>" class="nav-btn">&lsaquo;</a>
