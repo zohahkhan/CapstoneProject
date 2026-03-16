@@ -335,7 +335,9 @@ foreach ($events_raw as $event)
 
 	<div class="links">
     	<a href="loginpages/index.php" class="back-link">&larr; Back to Home</a>
+		<?php if ($_SESSION['user']['role_id'] === 1 || $_SESSION['user']['role_id'] === 2) { ?>
 		<a href="newEvent.php" class="back-link"> Add New Event</a>
+		<?php } ?>
 	</div>
 
     <div class="calendar-header">
