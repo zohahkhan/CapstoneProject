@@ -48,34 +48,34 @@ if (isset($register))
     $countEmail = $stmt->fetchColumn();
 	
     // error handling: check for empty fields
-    if (empty($email)) 
-	{
-        $errors['email'] = 'Email is required';
-    }
-    if (empty($temp_password)) 
-	{
-        $errors['temp_password'] = 'Password is required';
-    }
     if (empty($first_name)) 
 	{
         $errors['first_name'] = 'First name is required';
     }
-	if (empty($last_name)) 
+	else if (empty($last_name)) 
 	{
         $errors['last_name'] = 'Last name is required';
     }
-	if (empty($phone)) 
+	else if (empty($email)) 
 	{
-        $errors['phone'] = 'Phone number is required';
+        $errors['email'] = 'Email is required';
     }
-	if (empty($address)) 
-	{
-        $errors['address'] = 'Street address is required';
-    }
-	if ($countEmail>0) 
+	else if ($countEmail>0) 
 	{
 		$errors['email'] = "An account with this email address already exists";
 	}
+	else if (empty($phone)) 
+	{
+        $errors['phone'] = 'Phone number is required';
+    }
+	else if (empty($address)) 
+	{
+        $errors['address'] = 'Street address is required';
+    }
+	 else if (empty($temp_password)) 
+	{
+        $errors['temp_password'] = 'Password is required';
+    }
 
     // If there are no errors, proceed with registration
     else if (empty($errors)) 
@@ -139,6 +139,11 @@ if (isset($register))
 		<h1>Member Registration</h1>
 	</header>
 <br><br>
+	<style>
+		.error {
+			color:red;
+		}
+	</style>
     <main>
         <?php if (isset($errors['registration'])) : ?>
             <p class="error"><?php echo $errors['registration']; ?></p>
