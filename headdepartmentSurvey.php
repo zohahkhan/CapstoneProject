@@ -79,7 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_quiz'])) {
     $stmt5->bindParam(':form_status', $form_status, PDO::PARAM_STR);
     $stmt5->execute();
 
-    header("Location: include/surveyHub.php?id=$form_id");
+    if (isset($_POST['submit_quiz'])) 
+    {	
+        echo "<h3 style='text-align:center;'>Survey Complete!</h3><br>"; 
+    }
+    //header("Location: include/surveyHub.php?id=$form_id");
     exit;
 }
 
