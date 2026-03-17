@@ -32,6 +32,13 @@
     background-color: #d4edda;
     cursor: default;
     opacity: 0.7;
+    border: 1px solid #999;
+    padding: 10px;
+    max-height: 200px; 
+	max-width: 500px;
+	overflow-y: scroll;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 #quizFrame {
@@ -40,6 +47,9 @@
     height: 600px;
     border: 1px solid #ccc;
     margin-top: 15px;
+}
+.hidden {
+    display: none;
 }
 </style>
 
@@ -77,7 +87,7 @@ if ($role_id == 2)
     $formTitle = '%Compiled Monthly Report%';
     $formPage = 'headdepartmentSurvey.php';
 }
-elseif ($role_id == 3) 
+elseif ($role_id == 2 || $role_id == 3) 
 {
     $formTitle = '%Monthly Members Survey%';
     $formPage = 'memberSurvey.php';
@@ -144,7 +154,7 @@ $stmt3->closeCursor();
         ?>
 
         <!---- this part displays after the form is complete -->
-        <div class="">
+        <div class="quiz-item completed">
             <ol>
                 <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted)</strong>
             </ol>
@@ -171,7 +181,7 @@ $stmt3->closeCursor();
     <?php endif; ?>
 <?php endforeach; ?>
 
-<iframe id="quizFrame"></iframe>
+<iframe id="quizFrame" class="hidden"></iframe>
 
 <script>
 function loadQuiz(page, event) {
@@ -180,5 +190,9 @@ function loadQuiz(page, event) {
 
     event.currentTarget.classList.add('active');
     document.getElementById("quizFrame").src = page;
+
+    const frame = document.getElementById('quizFrame');
+	frame.classList.remove('hidden');
+    frame.src = page;
 }
 </script>
