@@ -1073,1520 +1073,293 @@ form_status
 )
 
 VALUES
-(1, 1, 1, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Three daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 3 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', "Yes"
-		)
-	),
-	"Pending"
-),
-(2, 1, 2, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Three daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 3 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', "Yes"
-		)
-	),
-	"Pending"
-),
-(3, 1, 3, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Three daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', ' '
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 5 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(4, 1, 4, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Three daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', ' '
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 5 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(5, 1, 5, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Five daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', ' '
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 5 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "Yes"
-		)
-	),
-	"Pending"
-),
-(6, 1, 6, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Five daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 5 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "Yes"
-		)
-	),
-	"Pending"
-),
-(7, 1, 7, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Juma only'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 5 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "No"
-		)
-	),
-	"Pending"
-),
-(8, 1, 8, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Juma only'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer 3 daily salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "No"
-		)
-	),
-	"Pending"
-),
-(9, 1, 9, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Three daily'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer occassional salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "No"
-		)
-	),
-	"Pending"
-),
-(10, 1, 10, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Lajna'
-		),
-		JSON_OBJECT(
-			'id', 14,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 15,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 16,
-			'response', 'Juma only'
-		),
-		JSON_OBJECT(
-			'id', 17,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 18,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 19,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 20,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 21,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 22,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 23,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 24,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 25,
-			'response', 'book'
-		),
-		JSON_OBJECT(
-			'id', 26,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 27,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 28,
-			'response', 'Offer occassional salat'
-		),
-		JSON_OBJECT(
-			'id', 29,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 30,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 31,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 32,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 33,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 34,
-			'response', "No"
-		),
-		JSON_OBJECT(
-			'id', 35,
-			'response', "Yes"
-		),
-		JSON_OBJECT(
-			'id', 36,
-			'response', "No"
-		)
-	),
-	"Pending"
-),
-(11, 1, 11, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '13-15'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'I offer five daily prayers'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Working on it'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Once a month'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(12, 1, 12, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '10-12'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'I offer three daily prayers'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Twice a month'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'No'
-		)
-	),
-	"Pending"
-),
-(13, 1, 13, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '10-12'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'I offer five daily prayers'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Working on it'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Every week (all of them)'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(14, 1, 14, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '7-9'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Working on it'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Once a month'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(15, 1, 15, 
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '13-15'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'I offer five daily prayers'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Working on it'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Twice a month'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'Yes'
-		)
-	),
-	"Pending"
-),
-(16, 1, 16,
-	JSON_ARRAY(
-		JSON_OBJECT(
-			'id', 1,
-			'response', 'PA-Pittsburgh'
-		), 
-		JSON_OBJECT(
-			'id', 2,
-			'response', 'March 10, 2026'
-		),
-		JSON_OBJECT(
-			'id', 3,
-			'response', 'No'
-		),
-		JSON_OBJECT(
-			'id', 4,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 5,
-			'response', 'Nasirat'
-		),
-		JSON_OBJECT(
-			'id', 6,
-			'response', '10-12'
-		),
-		JSON_OBJECT(
-			'id', 7,
-			'response', 'I offer three daily prayers'
-		),
-		JSON_OBJECT(
-			'id', 8,
-			'response', 'In progress/working on it'
-		),
-		JSON_OBJECT(
-			'id', 9,
-			'response', 'Working on it'
-		),
-		JSON_OBJECT(
-			'id', 10,
-			'response', 'Twice a month'
-		),
-		JSON_OBJECT(
-			'id', 11,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 12,
-			'response', 'Yes'
-		),
-		JSON_OBJECT(
-			'id', 13,
-			'response', 'No'
-		)
-	),
-	"Pending"
-),
 
-(17, 2,17,'[
+	
+(1, 1, 5, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "Yes"},
+{"id": 15, "response": "Yes"},
+{"id": 16, "response": "Five daily"},
+{"id": 17, "response": "Yes"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "In progress/working on it"},
+{"id": 20, "response": "Yes"},
+{"id": 21, "response": "Yes"},
+{"id": 22, "response": "No"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "No"},
+{"id": 25, "response": "None"},
+{"id": 26, "response": "Yes"},
+{"id": 27, "response": "No"},
+{"id": 28, "response": "Offer 5 daily salat"},
+{"id": 29, "response": "Yes"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "Yes"},
+{"id": 32, "response": "Yes"},
+{"id": 33, "response": "Yes"},
+{"id": 34, "response": "Yes"},
+{"id": 35, "response": "No"},
+{"id": 36, "response": "Yes"}
+]', "Pending"),		
+
+(2, 1, 6, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "Yes"},
+{"id": 15, "response": "Yes"},
+{"id": 16, "response": "Five daily"},
+{"id": 17, "response": "Yes"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "Yes"},
+{"id": 20, "response": "Yes"},
+{"id": 21, "response": "Yes"},
+{"id": 22, "response": "Yes"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "Yes"},
+{"id": 25, "response": "book"},
+{"id": 26, "response": "Yes"},
+{"id": 27, "response": "No"},
+{"id": 28, "response": "Offer 5 daily salat"},
+{"id": 29, "response": "Yes"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "Yes"},
+{"id": 32, "response": "Yes"},
+{"id": 33, "response": "Yes"},
+{"id": 34, "response": "Yes"},
+{"id": 35, "response": "Yes"},
+{"id": 36, "response": "Yes"}
+]', "Pending"),		
+
+(3, 1, 7, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "No"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "Yes"},
+{"id": 15, "response": "Yes"},
+{"id": 16, "response": "Juma only"},
+{"id": 17, "response": "In progress/working on it"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "Yes"},
+{"id": 20, "response": "In progress/working on it"},
+{"id": 21, "response": "Yes"},
+{"id": 22, "response": "Yes"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "Yes"},
+{"id": 25, "response": "book"},
+{"id": 26, "response": "In progress/working on it"},
+{"id": 27, "response": "Yes"},
+{"id": 28, "response": "Offer 5 daily salat"},
+{"id": 29, "response": "Yes"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "Yes"},
+{"id": 32, "response": "No"},
+{"id": 33, "response": "Yes"},
+{"id": 34, "response": "Yes"},
+{"id": 35, "response": "Yes"},
+{"id": 36, "response": "No"}
+]', "Pending"),	
+		
+(4, 1, 8, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "No"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "No"},
+{"id": 15, "response": "Yes"},
+{"id": 16, "response": "Juma only"},
+{"id": 17, "response": "Yes"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "Yes"},
+{"id": 20, "response": "In progress/working on it"},
+{"id": 21, "response": "Yes"},
+{"id": 22, "response": "No"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "Yes"},
+{"id": 25, "response": "book"},
+{"id": 26, "response": "No"},
+{"id": 27, "response": "Yes"},
+{"id": 28, "response": "Offer 3 daily salat"},
+{"id": 29, "response": "Yes"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "No"},
+{"id": 32, "response": "No"},
+{"id": 33, "response": "Yes"},
+{"id": 34, "response": "No"},
+{"id": 35, "response": "No"},
+{"id": 36, "response": "No"}
+]', "Pending"),
+
+(5, 1, 9, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "Yes"},
+{"id": 4, "response": "No"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "No"},
+{"id": 15, "response": "No"},
+{"id": 16, "response": "Three daily"},
+{"id": 17, "response": "Yes"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "Yes"},
+{"id": 20, "response": "Yes"},
+{"id": 21, "response": "No"},
+{"id": 22, "response": "No"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "Yes"},
+{"id": 25, "response": "book"},
+{"id": 26, "response": "In progress/working on it"},
+{"id": 27, "response": "Yes"},
+{"id": 28, "response": "Offer occassional salat"},
+{"id": 29, "response": "No"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "Yes"},
+{"id": 32, "response": "No"},
+{"id": 33, "response": "In progress/working on it"},
+{"id": 34, "response": "Yes"},
+{"id": 35, "response": "Yes"},
+{"id": 36, "response": "No"}
+]', "Pending"),
+
+
+(6, 1, 10, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Lajna"},
+{"id": 14, "response": "No"},
+{"id": 15, "response": "Yes"},
+{"id": 16, "response": "Juma only"},
+{"id": 17, "response": "Yes"},
+{"id": 18, "response": "Yes"},
+{"id": 19, "response": "Yes"},
+{"id": 20, "response": "Yes"},
+{"id": 21, "response": "No"},
+{"id": 22, "response": "No"},
+{"id": 23, "response": "Yes"},
+{"id": 24, "response": "Yes"},
+{"id": 25, "response": "book"},
+{"id": 26, "response": "In progress/working on it"},
+{"id": 27, "response": "Yes"},
+{"id": 28, "response": "Offer occassional salat"},
+{"id": 29, "response": "No"},
+{"id": 30, "response": "Yes"},
+{"id": 31, "response": "Yes"},
+{"id": 32, "response": "No"},
+{"id": 33, "response": "Yes"},
+{"id": 34, "response": "No"},
+{"id": 35, "response": "Yes"},
+{"id": 36, "response": "No"}
+]', "Pending"),
+	
+
+(7, 1, 11, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "No"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "13-15"},
+{"id": 7, "response": "I offer five daily prayers"},
+{"id": 8, "response": "Yes"},
+{"id": 9, "response": "Yes"},
+{"id": 10, "response": "Once a month"},
+{"id": 11, "response": "No"},
+{"id": 12, "response": "Yes"},
+{"id": 13, "response": "Yes"}
+]', "Pending"),
+
+(8, 1, 12, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "10-12"},
+{"id": 7, "response": "I offer three daily prayers"},
+{"id": 8, "response": "Yes"},
+{"id": 9, "response": "Yes"},
+{"id": 10, "response": "Twice a month"},
+{"id": 11, "response": "Yes"},
+{"id": 12, "response": "Yes"},
+{"id": 13, "response": "No"}
+]', "Pending"),
+
+(9, 1, 13, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "10-12"},
+{"id": 7, "response": "I offer five daily prayers"},
+{"id": 8, "response": "Yes"},
+{"id": 9, "response": "Working on it"},
+{"id": 10, "response": "Every week (all of them)"},
+{"id": 11, "response": "Yes"},
+{"id": 12, "response": "Yes"},
+{"id": 13, "response": "Yes"}
+]', "Pending"),
+
+(10, 1, 14, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "Yes"},
+{"id": 4, "response": "No"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "7-9"},
+{"id": 7, "response": "In progress/working on it"},
+{"id": 8, "response": "No"},
+{"id": 9, "response": "Working on it"},
+{"id": 10, "response": "Once a month"},
+{"id": 11, "response": "Yes"},
+{"id": 12, "response": "No"},
+{"id": 13, "response": "Yes"}
+]', "Pending"),
+
+(11, 1, 15, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "13-15"},
+{"id": 7, "response": "I offer five daily prayers"},
+{"id": 8, "response": "Yes"},
+{"id": 9, "response": "Working on it"},
+{"id": 10, "response": "Twice a month"},
+{"id": 11, "response": "Yes"},
+{"id": 12, "response": "Yes"},
+{"id": 13, "response": "Yes"}
+]', "Pending"),
+
+(12, 1, 16, '[
+{"id": 1, "response": "PA-Pittsburgh"},
+{"id": 2, "response": "March 10, 2026"},
+{"id": 3, "response": "No"},
+{"id": 4, "response": "Yes"},
+{"id": 5, "response": "Nasirat"},
+{"id": 6, "response": "10-12"},
+{"id": 7, "response": "I offer three daily prayers"},
+{"id": 8, "response": "In progress/working on it"},
+{"id": 9, "response": "Working on it"},
+{"id": 10, "response": "Twice a month"},
+{"id": 11, "response": "Yes"},
+{"id": 12, "response": "Yes"},
+{"id": 13, "response": "No"}
+]', "Pending"),
+		
+(13, 2,1,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
@@ -2596,7 +1369,7 @@ VALUES
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
 ]', "Pending"),
 
-(18, 2, 18,'[
+(14, 2, 2,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
