@@ -164,7 +164,7 @@ if (isset($create))
 				
 			<div>
 				<label for="event_date"  class="labels">What date and time will it occur? </label><br>
-				<input type="datetime-local" name="event_date" id = "event_date" value="<?php echo $event_date; ?>">
+				<input type="datetime-local" name="event_date" id = "event_date" value="<?php echo $event_date; ?>" required >
 					<?php if (isset($errors['event_date'])) : ?>
 						<p class="error"><?php echo $errors['event_date']; ?></p>
 					<?php endif; ?>			
