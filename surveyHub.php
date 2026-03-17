@@ -6,7 +6,7 @@
     border: 2px solid black;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 74px;
 }
 
 #quizList {
