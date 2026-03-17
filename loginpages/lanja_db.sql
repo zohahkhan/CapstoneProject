@@ -790,6 +790,276 @@ JSON_ARRAY(
 	
 	), 
 	CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-10 ', '23:59:59')
+),
+
+	/* Quiz form 2 for 
+		Compiled Monthly Report
+	*/
+
+(2, "Compiled Monthly Report",
+"This form is completed by Department Heads to compile monthly departmental activities for the President's review.",
+"Active",
+
+JSON_ARRAY(
+
+JSON_OBJECT(
+'id', 1,
+'question', 'Was a Lajna General Meeting held this month?',
+'options', JSON_ARRAY('Yes','No')
+),
+
+JSON_OBJECT(
+'id', 2,
+'question', 'Was a Halqa Meeting held this month?',
+'options', JSON_ARRAY('Yes','No')
+),
+
+JSON_OBJECT(
+'id', 3,
+'question', 'Was an Amila Meeting held this month?',
+'options', JSON_ARRAY('Yes','No')
+),
+
+JSON_OBJECT(
+'id', 4,
+'question', 'Was a Jamaat Meeting held this month?',
+'options', JSON_ARRAY('Yes','No')
+),
+
+JSON_OBJECT(
+'id', 5,
+'question', 'Was a Book Club held this month?',
+'options', JSON_ARRAY('Yes','No')
+),
+
+JSON_OBJECT(
+'id', 6,
+'question', 'Was the monthly Tarteel Rule Covered?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 1
+),
+
+JSON_OBJECT(
+'id', 7,
+'question', 'Were the Taleem Syllabus questions answered?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 1
+),
+
+JSON_OBJECT(
+'id', 8,
+'question', 'Were any workshops held this month?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 1
+),
+
+JSON_OBJECT(
+'id', 9,
+'question', 'Were any presentations held this month?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 1
+),
+
+JSON_OBJECT(
+'id', 10,
+'question', 'Was a Seeratul-Nabi Jalsa held by Lajna?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 1
+),
+
+JSON_OBJECT(
+'id', 11,
+'question', 'Were the current Friday sermons covered in the Lajna meeting using quiz questions?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 12,
+'question', 'Was the workbook prayer reviewed in the Lajna meeting?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 13,
+'question', 'Were efforts made to promote observance of Purdah?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 14,
+'question', 'Were efforts made to eradicate unIslamic practices?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 15,
+'question', 'Were efforts made to inculcate Islamic Morals?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 16,
+'question', 'Were efforts made for Rishta Nata?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 17,
+'question', 'Was Al-Wassiyat read and discussed in the meeting?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 18,
+'question', 'Were Jamaat youth sessions held?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 19,
+'question', 'Were Jamaat parent sessions held?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 2
+),
+
+JSON_OBJECT(
+'id', 20,
+'question', 'Was the Tabligh syllabus followed for the Quarter?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 3
+),
+
+JSON_OBJECT(
+'id', 21,
+'question', 'Were any new Bai''at achieved by Lajna efforts this month?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 3
+),
+
+JSON_OBJECT(
+'id', 22,
+'question', 'Were female public officials presented with the Lajna brochure?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 3
+),
+
+JSON_OBJECT(
+'id', 23,
+'question', 'Were distorted images of Islam in classrooms identified?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 3
+),
+
+JSON_OBJECT(
+'id', 24,
+'question', 'Was the Khidmat-e-khalq syllabus followed for the Quarter?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 4
+),
+
+JSON_OBJECT(
+'id', 25,
+'question', 'Any new convert or newly migrated sister served?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 4
+),
+
+JSON_OBJECT(
+'id', 26,
+'question', 'Was Humanity First served?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 4
+),
+
+JSON_OBJECT(
+'id', 27,
+'question', 'Was a Title 1 school served?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 4
+),
+
+JSON_OBJECT(
+'id', 28,
+'question', 'Do you have Nau Mubaiyat (New Converts)?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+),
+
+JSON_OBJECT(
+'id', 29,
+'question', 'Were activities arranged for new sisters this month?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+),
+
+JSON_OBJECT(
+'id', 30,
+'question', 'Was a health seminar or sports day held this month?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+),
+
+JSON_OBJECT(
+'id', 31,
+'question', 'Was a Sports Tournament held?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+),
+
+JSON_OBJECT(
+'id', 32,
+'question', 'Did your Majlis recycle during Lajna events?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+),
+
+JSON_OBJECT(
+'id', 33,
+'question', 'Was a Umoore Talibat outing organized?',
+'options', JSON_ARRAY('Yes','No'),
+'branch', 1,
+'group', 5
+)
+
+),
+
+CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
+
 );
 
 
@@ -2314,229 +2584,9 @@ VALUES
 		)
 	),
 	"Pending"
-);
-
-INSERT INTO FormTemplate (
-temp_title,
-temp_desc,
-temp_status,
-form_questions,
-form_deadline
-)
-
-VALUES (
-"Compiled Monthly Report",
-"This form is completed by Department Heads to compile monthly departmental activities for the President's review.",
-"Active",
-
-JSON_ARRAY(
-
-JSON_OBJECT(
-'id', 1,
-'question', 'Was a Lajna General Meeting held this month?',
-'options', JSON_ARRAY('Yes','No')
 ),
 
-JSON_OBJECT(
-'id', 2,
-'question', 'Was a Halqa Meeting held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 3,
-'question', 'Was an Amila Meeting held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 4,
-'question', 'Was a Jamaat Meeting held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 5,
-'question', 'Was a Book Club held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 6,
-'question', 'Was the monthly Tarteel Rule Covered?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 7,
-'question', 'Were the Taleem Syllabus questions answered?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 8,
-'question', 'Were any workshops held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 9,
-'question', 'Were any presentations held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 10,
-'question', 'Was a Seeratul-Nabi Jalsa held by Lajna?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 11,
-'question', 'Were the current Friday sermons covered in the Lajna meeting using quiz questions?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 12,
-'question', 'Was the workbook prayer reviewed in the Lajna meeting?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 13,
-'question', 'Were efforts made to promote observance of Purdah?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 14,
-'question', 'Were efforts made to eradicate unIslamic practices?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 15,
-'question', 'Were efforts made to inculcate Islamic Morals?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 16,
-'question', 'Were efforts made for Rishta Nata?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 17,
-'question', 'Was Al-Wassiyat read and discussed in the meeting?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 18,
-'question', 'Were Jamaat youth sessions held?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 19,
-'question', 'Were Jamaat parent sessions held?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 20,
-'question', 'Was the Tabligh syllabus followed for the Quarter?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 21,
-'question', 'Were any new Bai’at achieved by Lajna efforts this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 22,
-'question', 'Were female public officials presented with the Lajna brochure?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 23,
-'question', 'Were distorted images of Islam in classrooms identified?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 24,
-'question', 'Was the Khidmat-e-khalq syllabus followed for the Quarter?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 25,
-'question', 'Any new convert or newly migrated sister served?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 26,
-'question', 'Was Humanity First served?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 27,
-'question', 'Was a Title 1 school served?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 28,
-'question', 'Do you have Nau Mubaiyat (New Converts)?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 29,
-'question', 'Were activities arranged for new sisters this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 30,
-'question', 'Was a health seminar or sports day held this month?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 31,
-'question', 'Was a Sports Tournament held?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 32,
-'question', 'Did your Majlis recycle during Lajna events?',
-'options', JSON_ARRAY('Yes','No')
-),
-
-JSON_OBJECT(
-'id', 33,
-'question', 'Was a Umoore Talibat outing organized?',
-'options', JSON_ARRAY('Yes','No')
-)
-
-),
-
-CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
-);
-
-INSERT INTO FormResponse (template_id, user_id, form_response) VALUES
-
-(2,17,'[
+(17, 2,17,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
@@ -2544,9 +2594,9 @@ INSERT INTO FormResponse (template_id, user_id, form_response) VALUES
 {"id":21,"response":"No"},{"id":22,"response":"Yes"},{"id":23,"response":"Yes"},{"id":24,"response":"Yes"},{"id":25,"response":"No"},
 {"id":26,"response":"Yes"},{"id":27,"response":"Yes"},{"id":28,"response":"No"},{"id":29,"response":"Yes"},{"id":30,"response":"Yes"},
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
-]'),
+]', "Pending"),
 
-(2,18,'[
+(18, 2, 18,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
@@ -2554,7 +2604,11 @@ INSERT INTO FormResponse (template_id, user_id, form_response) VALUES
 {"id":21,"response":"No"},{"id":22,"response":"Yes"},{"id":23,"response":"No"},{"id":24,"response":"Yes"},{"id":25,"response":"Yes"},
 {"id":26,"response":"Yes"},{"id":27,"response":"No"},{"id":28,"response":"Yes"},{"id":29,"response":"Yes"},{"id":30,"response":"Yes"},
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"No"}
-]');
+]', "Pending");
+
+
+
+
 
 /* to access the database */
 FLUSH PRIVILEGES;
