@@ -42,16 +42,6 @@ $monthEnd   = date('Y-m-t 23:59:59', strtotime($monthStart));
 $monthStartDate = date('Y-m-01', strtotime($monthStart));
 $monthEndDate   = date('Y-m-t', strtotime($monthStart));
 
-/*
-|--------------------------------------------------------------------------
-| Get events from CalendarEvent
-| Your schema uses:
-| - recurring (enum)
-| - recurrence_type
-| - recurrence_interval
-| - recurrence_end_date
-|--------------------------------------------------------------------------
-*/
 $stmt = $db->prepare("
     SELECT *
     FROM CalendarEvent
@@ -76,22 +66,12 @@ $stmt->execute([
 ]);
 $all_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-/*
-|--------------------------------------------------------------------------
-| Keep title map for rescheduled exceptions
-|--------------------------------------------------------------------------
-*/
 $event_title_map = [];
 foreach ($all_events as $event)
 {
     $event_title_map[$event['event_id']] = $event['event_title'];
 }
 
-/*
-|--------------------------------------------------------------------------
-| Build raw event occurrence list
-|--------------------------------------------------------------------------
-*/
 $events_raw = [];
 
 foreach ($all_events as $event)
@@ -121,12 +101,6 @@ foreach ($all_events as $event)
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| Load exceptions
-| Assumes your exception table is CalendarEvent_Exception
-|--------------------------------------------------------------------------
-*/
 $stmtEx = $db->prepare("
     SELECT *
     FROM CalendarEvent_Exception
@@ -141,11 +115,6 @@ $stmtEx->execute([
 ]);
 $exceptions = $stmtEx->fetchAll(PDO::FETCH_ASSOC);
 
-/*
-|--------------------------------------------------------------------------
-| Apply exceptions
-|--------------------------------------------------------------------------
-*/
 foreach ($exceptions as $ex)
 {
     foreach ($events_raw as $k => $event)
@@ -188,11 +157,6 @@ foreach ($exceptions as $ex)
 
 $events_raw = array_values($events_raw);
 
-/*
-|--------------------------------------------------------------------------
-| Group events by day for calendar display
-|--------------------------------------------------------------------------
-*/
 $events_by_day = [];
 
 foreach ($events_raw as $event)
@@ -224,11 +188,6 @@ foreach ($events_raw as $event)
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| Sort each day by start time
-|--------------------------------------------------------------------------
-*/
 foreach ($events_by_day as $day => $dayEvents)
 {
     usort($dayEvents, function ($a, $b) {
