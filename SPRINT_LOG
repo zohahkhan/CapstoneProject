@@ -60,3 +60,22 @@ Caused "Table not found" errors in production
 Fix:
 Standardized all table references to match exact database casing (CalendarEvent, CalendarEvent_Exception)
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
+
+Shan's bugs
+Bug 1: When i click edit event nothing happens. I need to style.display = block for the form but embedded styles override the js function. 
+Resolution: I had to put the JavaScript in the calendar page instead of the viewEvent page. 
+**Severity:** High | **Fix Status:** Fixed
+
+Bug 2: When adding a new event, my query runs but the database does not update. I have error handling in place to check if required fields are either empty or false. 
+Solution: I added individual checks for all fields to see which attribute was preventing the insert. $days_of_week came back as false both when filled and empty but is also not required (ended up being an unrelated error due to variable name conflicts). 
+**Severity:** Med | **Fix Status:** Fixed
+
+Bug 3: the form resubmits when the page is refreshed, modifying the database. 
+Solution: change the redirect from echo message paired above include to a header with a parameter to the url that signifies whether the update was a success or shows an error. 
+**Severity:** Low | **Fix Status:** Fixed
+
+Bug 4: the save changes button to edit the event sends me to the index dashboard even though the form is supposed to launch editEvent.php on click.  No error is shown. 
+Solution: I forgot to add the bottom execute statement for the insert query. 
+**Severity:** High | **Fix Status:** Fixed
+
+
