@@ -1,130 +1,43 @@
-Sprint 3 
-
+Sprint 4
 1. Planning & Assignments
-Sprint Dates: Feb 16th to March 1st
+Sprint Dates: March 2nd - March 22nd
 Team Name: Web Wizards 
 Members Present: 
   Zoha Khan @zohahkhan
   Shannon Katolsky @5h6nn0n
   JJ Gilbert @jjlee42134
   Kah Guan Ong @kahguan92
+
+
 Sprint Goals: 
-Creating an Attendence system and working on the monthly report, generating a summary, and a final compiled report
-As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent. 
-As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
-As a Department Head, I want to generate a monthly summary (counts by category, charts) from submitted reports.
-As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
+As a User, I want access to a calendar where dates, months, and year will be shown.
+As a Member, I want to view a calendar of upcoming workshops + other important events and see a reminder so that I can be reminded and plan my schedule around them. 
+As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates. 
+As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
 
 | Task Description | Assigned Owner | Priority | Status      |
-|    Attendence    |  @jjlee42134   |  Medium  | Completed   |
-|  Monthly Report  |  @5h6nn0n      |  High    | Completed   |
-| Report Responses |  @zohahkhan    |  High    | Completed   |
-| Compiled Report  | @kahguan92     |  High    | Incomplete  |
+|    Calender  |  @jjlee42134   |  High | Completed   |
+|  CalendarEvents |  @zohahkhan    |  High    | Completed   |
+|  AddCalendarActivies  |  @5h6nn0n      |  Medium   | Completed   |
+| RecurringCalendarEvent  | @kahguan92     |  Medium   | Incomplete|
+
 
 2. Progress & Blockers
 Completed Work:
-As a Department Head, I want to record attendance for a meeting by selecting a date and marking members present/absent. 
-As a User, I want access to a monthly report where we can input data for specific questions and insert data. The data should be collected from every entry.
-As a Department Head, I want to generate a monthly summary (counts by category, charts) from submitted reports.
+As a User, I want access to a calendar where dates, months, and year will be shown.
+As a Member, I want to view a calendar of upcoming workshops + other important events and see a reminder so that I can be reminded and plan my schedule around them. 
+As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates. 
+As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
 
 In Progress & Blockers:
-As a Department Head,  I want to be able to see questions and enter values to complete the final, compiled monthly report that needs to be reviewed by the President. 
-Reference link (https://docs.google.com/forms/d/e/1FAIpQLSdBFXk2ErXHccZClOX0wBs4oPFwGQxRsIwUSklj4m9exaL9Og/viewform?edit2=2_ABaOnucghpeM6vhBYdJkHJSs99yFIllbCsylud97iqNMXnx0nUE_v6AzJ7K2V-Xn6MBxxbQ
-) provided could only be accessed though organizations's internal email domain.
+As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
+
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
-| reportResponses | Manual | Passed | PR #33, the user is able to successfully edit their profile information |
-| user-roles | Manual | Passed | PR #38, the admin is able to successfully assign user roles and grant permissions, role changes are logged with before/after status, and updates take effect immediately |
-| new-user | Manual | Passed | PR #32, the president is able to successfully add a new user and deactivate/reactivate members. New user are assigned regular Member by default. Deactivating a member will prevent them from logging in.
-|receiverequest| Manual | Passed| PR#42, the president is able to receive and see the visitor request |
+| Calender | Manual | Passed | PR #56, the user is able to successfully view a Calendar within the Calendar box, and enlarge it to see the dates |
+
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
-
-
-@jjlee42134 // JJ's Bugs 🪲
-
-Bug 1 (Empty Database After Fresh Clone): After cloning the repository and importing lajna_db.txt from the documents folder, all tables were created but contained zero rows. Login was impossible and no users existed to test with.
-Resolution: Discovered that lanja_db.sql in the root folder contained the actual INSERT statements with test data. Imported that file instead.
-Severity: [High] | Fix Status: [Fixed]
-
-Bug 2 (Login Failure - Wrong Column Name): Attempting to login threw a fatal PDOException: Unknown column 'User.password_hashed' in field list. The code referenced a column that did not exist.
-Resolution: Updated login.php to use the correct column name password_hash in both the SELECT query and the password verification check.
-Severity: [High] | Fix Status: [Fixed]
-
-Bug 3 (Login Failure - SHA-1 vs bcrypt Mismatch): Even after fixing the column name, login failed silently. The database stores SHA-1 hashed passwords but login.php used password_verify() which only works with bcrypt hashes.
-Resolution: Added a SHA-1 fallback check alongside password_verify() so both hash formats are supported.
-Severity: [High] | Fix Status: [Fixed]
-
-Bug 4 (Attendance Notes Not Persisting): After saving attendance with notes, reloading the page showed all note fields blank. Previously entered notes were lost on every reload.
-Resolution: Updated the existing attendance query to also fetch the notes column, and added a value attribute to the notes input field so saved data repopulates correctly.
-Severity: [Medium] | Fix Status: [Fixed]
-
-Bug 5 (Audit Log Insert Failing on New Records): When saving attendance for the first time for an event, a fatal PDOException was thrown: Column 'before_json' cannot be null. The audit log insert passed null for new records which had no prior state.
-Resolution: Replaced null with json_encode([]) to insert an empty JSON object as the before state for new attendance records.
-Severity: [High] | Fix Status: [Fixed]
-
-Bug 6 (CSV Check-In Time Showing Full Datetime): The Check-In Time column in exported CSVs displayed a full date and time string instead of just the time, making the column redundant with the Event Date/Time column.
-Resolution: Formatted the check-in output using PHP's DateTime class with the America/New_York timezone, displaying as g:i A EST format. Absent and Excused records show N/A.
-Severity: [Low] | Fix Status: [Fixed]
-
-
-@5h6nn0n // Shannon's bugs 🪲
-Bug 1 (MySQL troubles): MySQL flashed green before stopping, but my Apache server worked fine. I remember having errors with Xampp before and that reinstalling it helped back then, but this time the issue persisted. 
-I ruled out a port conflict after checking task manager and the Netstat list. I decided to restart my computer and run Xampp as admin. From there, I clicked a red X in the box next to Apache and MySQL and installed them as module services. 
-This didn’t fix it, and the next morning my Apache suddenly stopped too. I made a copy of the mysql> data and backupfolders, then named the backup copy “data”. 
-Resolution: I reinstalled XAMPP to start fresh, which temporarily fixed it. The Apache part seems fixed, but MySQL was having issues again. 
-I permanently deleted the data folder (had a copy on desktop) and renamed the backup to “data”, then opened XAMPP as admin. 
-Additionally, inside the (config.inc.php), I had to comment out the ‘controluser’ and ‘controlpass’ because it gave me an error when trying to access phpMyAdmin. 
-**Severity:** [High] | **Fix Status:** [Fixed]
-
-Bug 2.1 (keys-values not paired in JSON): Initially, the JSON array into form_response, of the FormResponse table, did not include the keys like id and response. 
-Resolution: I formatted the input by using an associative array to map the key to the value before inserting it into the database. I also sorted the array input by its id so that everything is more organized in the database. 
-Bug 2.2 (binary being inserted to JSON): The response values input to the JSON array were showing up as INT data type separated by a comma, instead of the string for the option selected
-Resolution: I saved the radio input value as a string $option in the memberSurvey page.
-Bug 2.3: (trade-off between binary and string insert) Unfortunately, the radio input value needed to be a binary for the question #5 branches to work properly. This also made the selected survey responses unsave when clicking the back button. 
-Resolution: I added a conditional at the top of the memberSurvey page that maps the responses to question #5 as a binary (Lajna = 1 and Nasirat = 0)
-**Severity:** [High] | **Fix Status:** [Fixed]
-
-Bug 3 (last page of survey visible after submitting): When I completed the quiz, I still had the title, the last question, and the back/submit buttons appearing above the “Survey Complete” message and the responses (which showed up fine). 
-Resolution: I added a conditional equivalent to If (!isset($_POST[‘submit_quiz’])) for the questions displayed, message headers, and navigation buttons the the memberSurvey page. 
-**Severity:** [Low] | **Fix Status:** [Fixed]
-
-Bug 4 (multiple survey submissions per user): When I complete the survey, it would set back to the beginning to take again. On the homepage, when clicking on the results list, the survey was still clickable. 
-Resolution: I fetched whether there was already a JSON array filled out for that form and user. If yes, then I redirect them to back to the surveyHub page to exit the memberSurvey page.
-**Severity:** [Low] | **Fix Status:** [Fixed]
-
-Bug 5: I want to clear future form input when the user goes back and changes their response to the question 5 for which auxiliary they belong to. 
-This will ensure that the user can only fill out questions pertaining to them and not affect the compiled report stats. 
-**Severity:** [Low] | **Fix Status:** [Open]
-
-Communication Barrier:
-The current primary communication platform (Snapchat) made collaboration difficult during Sprint #3. The platform does not support effective document sharing or screen sharing, and messages are automatically deleted after 24 hours unless manually saved. As a result, it was challenging to track discussions, requirements, and previously shared links.
-
-For video calls and presentations, Zoom was used, and the meeting link was distributed through Snapchat. The lack of integration between Snapchat and Zoom created workflow inefficiencies. Additionally, the free Zoom account imposed time limitations on meetings, and there was no centralized location to retain files, screenshots, or reference materials.
-
-An alternative platform such as Microsoft Teams was suggested in last sememster. Teams is available to students with a school Outlook/Microsoft 365 account and provides integrated chat, file sharing, document storage, and video conferencing without strict time limitations. Messages and shared materials are automatically saved, which would improve transparency and requirement tracking.
-
-Outline of Pivot (Kah Guan):
-At the beginning of Sprint #3, my assigned user story was:
-Original User Story: As President, I want to receive monthly reports and know which dept the data originates so that I can stay informed of
-performance and be directed to the appropriate sources if needed. - High Priority, Kah
-o Acceptance Criteria:
-▪ View trends/visualization from the report as well as a qualitative interpretation of its trajectory.
-▪ Report aggregation (count/sum/average) must match the source data with 100% accuracy.
-▪ Compare with past reports side-by-side; filter by month/year; select to view newest first or oldest first. 
-This story was dependent on another teammate's story:
-Dependent Story (Shannon)
-As a User, I want access to a monthly report where we can input data for specific questions and insert data. The
-data should be collected from every entry.
-
-Since my story relied on the data collection and storage component being completed first, I initially informed the team that I had not started development because it depended on the completion of upstream functionality.
-After approximately one week, it was identified that my story overlapped with another team member’s story. As a result, my user story was reassigned and modified.
-Reassigned User Story:
-As a Department Head, I want to be able to see questions and enter values to complete the final compiled monthly report that will be reviewed by the President.
-Following the reassignment, I began working on the new story. However, progress was impacted due to access restrictions on the reference link provided (internal organizational domain only), which limited my ability to fully implement the expected functionality. 
-
-This pivot required redirecting effort mid-sprint, adjusting to revised requirements, and re-planning development tasks within the remaining sprint timeline.
-
