@@ -23,10 +23,26 @@ Acceptance Criteria:
 Test Credentials: 
 
 
-Branch Name #3: 
-User Story:
+Branch Name #3: Feature/mark calendar event
+User Story: As a user, I want to mark a calendar event as recurring (daily, weekly, monthly, yearly) so that I do not need to manually create the same event multiple times.
 Acceptance Criteria:
+Users can select a recurring pattern:
+Daily/Weekly/Monthly/Yearly and specify either:the number of repetitions, or an end date.
+The recurring status is clearly indicated with a visual or symbol in the calendar.
+Users can:
+Cancel a single occurrence, or
+Cancel the entire series
+(e.g., “Cancel this event only” vs “Cancel all events in this series”).
+Events remain editable after creation.
+The system must support at least 12 months of recurring events without data loss.
+Cancelled events should indicate:
+whether they have been rescheduled
+the reason for the change
+and provide a reference or redirect to the updated event date (if applicable).
 Test Credentials: 
+Login link https://capstone.ongkg.com/capstone/index.php
+Username: ong92990@email.com
+Password: test1234
  
 Branch Name #4: 
 User Story: 
