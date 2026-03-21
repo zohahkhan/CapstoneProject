@@ -275,6 +275,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
+				<a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a>
 			</div>
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
@@ -362,6 +363,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			<div class="left-sub-box dept-full-width">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
+				<p><?php include("include/surveyHub.php"); ?></p>
 			</div>
 	     </div>
 
