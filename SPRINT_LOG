@@ -30,7 +30,6 @@ As a Department Head and President, I want to add, enter, and update the calenda
 As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
 
 In Progress & Blockers:
-As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
 
 
 3. System Test Report
@@ -40,4 +39,24 @@ As a Department Head and President, I want to mark a calendar event as recurring
 
 ## 4. Bug Tracking
 * **Bug Description:** [e.g., Login button unresponsive]
+Kah's Bug
+
+1. File Path Issues (Folder Structure) * **Severity:** [Med] | **Fix Status:** [Fixed]
+When moving calendar files into a separate /calendar/ folder, some files initially failed to load due to incorrect relative paths.
+Example issue:
+require_once './include/db_connect.php';
+Fix:
+require_once '../include/db_connect.php'; 
+2. Case Sensitivity on Linux Server * **Severity:** [Med] | **Fix Status:** [Fixed]
+The application behaved differently when deployed to the Linux server compared to local development.
+Example issue:
+FROM calendarevent  --  not found
+FROM CalendarEvent  --  correct
+Cause:
+Linux file system and MySQL table names are case-sensitive
+Local environments (e.g., Windows) are often case-insensitive
+Impact:
+Caused "Table not found" errors in production
+Fix:
+Standardized all table references to match exact database casing (CalendarEvent, CalendarEvent_Exception)
 * **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
