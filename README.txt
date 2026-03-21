@@ -18,7 +18,7 @@ Test Credentials:
 
 
 Branch Name #2: feature/event-management-system
-User Story: As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates.  - Medium Priority, Shannon
+User Story: As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates.
 Acceptance Criteria:
 ▪ Must be consistent across all roles (President/Head/Members/Admin)  and visible with 5 seconds of posting. 
 ▪ The enter and edit box must be the same dimensions as the final post  display to keep the formatting predictable and consistent. 
