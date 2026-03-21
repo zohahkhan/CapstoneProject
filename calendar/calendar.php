@@ -453,7 +453,7 @@ foreach ($events_by_day as $day => $dayEvents)
 <body>
 <div class="calendar-wrapper">
 
-    <a href="index.php" class="back-link">&larr; Back to Home</a>
+    <a href="../index.php" class="back-link">&larr; Back to Home</a>
 
     <div class="calendar-header">
         <a href="calendar.php?month=<?= $prev_month ?>&year=<?= $prev_year ?>" class="nav-btn">&lsaquo;</a>
