@@ -78,8 +78,17 @@ foreach ($event_rows as $row)
     $event_days[] = (int)date('j', strtotime($row['event_date']));
 }
 
-
-
+//query for the upcoming events for popup announcement, only events from that month 
+$stmtUpcoming = $db->prepare("
+    SELECT event_title, event_date
+    FROM calendarevent
+    WHERE YEAR(event_date) = :year AND MONTH(event_date) = :month
+    ORDER BY event_date ASC
+");
+$stmtUpcoming->bindParam(':year', $mini_year, PDO::PARAM_INT);
+$stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
+$stmtUpcoming->execute();
+$upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -188,8 +197,7 @@ foreach ($event_rows as $row)
 			$stmtCheck->bindParam(':user_id', $_SESSION['user']['user_id']);
 			$stmtCheck->execute();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
-			
-			
+		
 			if ($isAdmin) {
 				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
@@ -280,23 +288,23 @@ foreach ($event_rows as $row)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
-				
-				<?php
-				
-				   
-      $stmt = $db->prepare("SELECT COUNT(*) FROM `suggestion` WHERE msg_status = :status");
-      $stmt->execute([':status' => 'Pending']);
-      $pendingCount = (int)$stmt->fetchColumn();
-	  
-	  if ($pendingCount):
-    ?>
-    <p>
-      You have <b><?= $pendingCount ?></b> pending request(s).<br>
-      <a href="president_requests.php">View Visitor Requests</a>
-    </p>
-  <?php else: ?>
-    <p>Description</p>
-  <?php endif; ?>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
+				<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
 
 			<div class="right-sub-box">
@@ -316,14 +324,14 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
 
 
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
-	<br><br>
 	<div class="boxes">
 		<!-- left box, split horizontally into 2 -->
 		<!-- left side-->
@@ -363,8 +371,24 @@ foreach ($event_rows as $row)
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
-				<p>Description</p>
+				<h2>Create a new Reminder</h2>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
+				<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
 
 			<div class="right-sub-box">
@@ -384,20 +408,19 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
+	<p><a href="updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
 	
 	
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
-	<br><br>
 	<div class="boxes">
 		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
-			<p>Description</p>
-		<p><?php include("include/surveyHub.php"); ?></p>
+		<?php include("include/surveyHub.php"); ?>
 
 		</div>
 
@@ -405,9 +428,24 @@ foreach ($event_rows as $row)
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
-				<p>Description</p>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+				<strong>Upcoming Events:</strong>
+					<?php if (!empty($upcoming_events)) : ?>
+					<ul class = "reminder-list">
+						<?php foreach ($upcoming_events as $event): ?>
+							<li>
+							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+							<?= date("F j", strtotime($event['event_date'])) ?>
+							</li>
+						<?php endforeach; ?>
+       		 		</ul>
+   					 <?php else: ?>
+        			<p>No upcoming events this month.</p>
+  				   <?php endif; ?>
+				   </div>
+				   </div>
 			</div>
-
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
 				<?= $mini_calendar_html ?>
@@ -424,16 +462,14 @@ foreach ($event_rows as $row)
 			</div>
 		</div>
 	</div>
-	</br></br>
+	</br>
 	<p><a href="updateProfileForm.php">Update Profile</a></p>
-		</br></br>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
 		
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<br><br>
 	
 	 <div class="homepage-boxes">
         <!-- the top row with two boxes -->
@@ -454,7 +490,7 @@ foreach ($event_rows as $row)
 			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
-	<br><br>
+	<br>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF ADMIN HOMEPAGE --->
 		
@@ -467,6 +503,34 @@ foreach ($event_rows as $row)
 	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
-    <?php } ?>
+	<?php } ?>
+	
+	<!--- display the events upcoming this month popup ---->
+	<?php if (!empty($upcoming_events)) : ?>
+	<div class="event-popup" id="eventPopup">
+		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
+
+		<h4>Upcoming This Month</h4>
+
+		<ul>
+			<?php foreach ($upcoming_events as $event): ?>
+				<li>
+					<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+					<?= date("F j", strtotime($event['event_date'])) ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+
+	<script>
+	setTimeout(function(){
+		var popup = document.getElementById("eventPopup");
+		if(popup){
+			popup.style.display = "none";
+		}
+	}, 5000); // auto close after 5 seconds
+	</script>
+	<?php endif; ?>
+
 </body>
 </html>

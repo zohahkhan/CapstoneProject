@@ -282,7 +282,7 @@ $stmt5->bindParam(':form_response', $json);
 $stmt5->bindParam(':form_status', $form_status);
 $stmt5->execute();
     
-	header("Location: include\surveyHub.php?id=$form_id");
+	//header("Location: include\surveyHub.php?id=$form_id");
     exit; 
 }
 

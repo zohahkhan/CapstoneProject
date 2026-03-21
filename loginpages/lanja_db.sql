@@ -374,8 +374,11 @@ created_at
 )
 VALUES
 (1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL, '2026-01-08 14:42:45'),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'); 
-
+(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00', 'Once', 15, '2026-01-08 14:48:31'), 
+(3, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, current_timestamp()),
+(4, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, current_timestamp()),
+(5, 'Eid ', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, current_timestamp()),
+(6, 'March Meeting ', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, current_timestamp());
 
 INSERT INTO Permission 
 (
@@ -2565,6 +2568,3 @@ IDENTIFIED BY 'pa55word';
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON *
 TO 'mgs_user'@'localhost';
-
-
-
