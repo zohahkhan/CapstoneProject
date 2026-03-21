@@ -51,11 +51,20 @@ Login link https://capstone.ongkg.com/capstone/index.php
 Username: ong92990@email.com
 Password: test1234
  
-Branch Name #4: 
-User Story: 
-Usage Instructions: 
+Branch Name #4: feature/calendar
+User Story: As a User, I want access to a calendar where dates, months, and years will be shown so that I can view and interact with it.
+Usage Instructions: Navigate to any user's homepage (President, Dept Head, or Member). A mini calendar preview will appear in the Calendar card showing the current month with today's date highlighted and event dots on days that have events. Click anywhere on the mini calendar to open the full calendar page. On the full calendar, use the back and forward arrows to navigate month by month, or use the month and year dropdowns to jump to a specific date. The background and font match the rest of the site styling.
 Acceptance Criteria: 
+▪ Displays a mini calendar preview on the homepage calendar card for President, Dept Head, and Member roles
+▪ Full calendar page shows dates, months, and years
+▪ Navigation has a forward and back arrow to see future or past month activities
+▪ Month and year dropdowns allow jumping to distant dates (1900–2100)
+▪ The current day is highlighted by default
+▪ Events from the calendarevent table are displayed on their corresponding dates
 Test Credentials: 
+  Username: gil42134@email.com
+  Password: gil42134
+  or any username/password within the database 
 
 
 Workflow Info: The main branch houses all our documents about preparation and planning from the first semester for easy reference. The develop branch is the most up-to-date version of our code; it is the final branch that all code branches merge into. We use the feature/branch-name naming strategy for our pull requests and branch naming for a uniform naming format. While all members are encouraged to review all pull requests, we have assigned each member the specific responsibility to review another member's pull requests: 
