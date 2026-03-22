@@ -35,6 +35,7 @@ In Progress & Blockers:
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | Calender | Manual | Passed | PR #56, the user is able to successfully view a Calendar within the Calendar box, and enlarge it to see the dates |
+| Event Management | Manual | Passed | PR #59, the user is able to successfully view, edit, and add event details
 
 
 ## 4. Bug Tracking
