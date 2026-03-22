@@ -78,4 +78,11 @@ Bug 4: the save changes button to edit the event sends me to the index dashboard
 Solution: I forgot to add the bottom execute statement for the insert query. 
 **Severity:** High | **Fix Status:** Fixed
 
+JJ's Bugs
+Bug 1: Calendar page redirected back to login instead of loading. The session check was referencing $_SESSION['user_id'] instead of $_SESSION['user']['user_id'], causing all logged in users to be treated as unauthenticated.
+Solution: Updated the session check at the top of calendar.php to use the correct session key $_SESSION['user']['user_id'] to match how the rest of the application stores session data.
+**Severity:** High | **Fix Status:** Fixed
 
+Bug 2: Login stopped working after a Git pull. The SHA-1 password fallback in login.php was overwritten, causing password_verify() to fail on all SHA-1 hashed passwords in the database.
+Solution: Restored the SHA-1 fallback || sha1($password) === $user['password_hashed'] to the password check condition in login.php so both bcrypt and SHA-1 hashed passwords are handled correctly.
+**Severity:** High | **Fix Status:** Fixed
