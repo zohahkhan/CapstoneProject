@@ -144,7 +144,7 @@ if ($role_id == 2)
     $formTitle = '%Compiled Monthly Report%';
     $formPage = 'headdepartmentSurvey.php';
 }
-elseif ($role_id == 3) 
+elseif ($role_id == 3 || 1) 
 {
     $formTitle = '%Monthly Members Survey%';
     $formPage = 'memberSurvey.php';
