@@ -1,4 +1,4 @@
-Sprint 4
+Sprint #5:
 1. Planning & Assignments
 Sprint Dates: March 2nd - March 22nd
 Team Name: Web Wizards 
@@ -8,84 +8,32 @@ Members Present:
   JJ Gilbert @jjlee42134
   Kah Guan Ong @kahguan92
 
-
 Sprint Goals: 
-As a User, I want access to a calendar where dates, months, and year will be shown.
-As a Member, I want to view a calendar of upcoming workshops + other important events and see a reminder so that I can be reminded and plan my schedule around them. 
-As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates. 
-As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
+As an Member, I want to be able to submit suggestions or feedback of events and meetings.
+As an Department Head & President, I want to be able to review suggestions or feedback given.
+As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues.
+As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
+
 
 | Task Description | Assigned Owner | Priority | Status      |
-|    Calender  |  @jjlee42134   |  High | Completed   |
-|  CalendarEvents |  @zohahkhan    |  High    | Completed   |
-|  AddCalendarActivies  |  @5h6nn0n      |  Medium   | Completed   |
-| RecurringCalendarEvent  | @kahguan92     |  Medium   | Incomplete|
-
+|    Review Suggestion |  @jjlee42134   |  High | In Progress  |
+|  Design Layout   |  @zohahkhan    |  Medium   | In Progress  |
+|  System Logs |  @5h6nn0n      |  Medium   | In Progress  |
+| Submit Suggestions | @kahguan92     |  High  | In Progress|
 
 2. Progress & Blockers
 Completed Work:
-As a User, I want access to a calendar where dates, months, and year will be shown.
-As a Member, I want to view a calendar of upcoming workshops + other important events and see a reminder so that I can be reminded and plan my schedule around them. 
-As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates. 
-As a Department Head and President, I want to mark a calendar event as recurring (daily, weekly,  monthly, yearly) so that I do not need to manually create the same event multiple times.
+
 
 In Progress & Blockers:
+As an Member, I want to be able to submit suggestions or feedback of events and meetings.
+As an Department Head & President, I want to be able to review suggestions or feedback given.
+As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues.
+As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
 
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
-| Calender | Manual | Passed | PR #56, the user is able to successfully view a Calendar within the Calendar box, and enlarge it to see the dates |
-| Event Management | Manual | Passed | PR #59, the user is able to successfully view, edit, and add event details
-| Calender Events | Manual | Passed | PR #57, the user can see an announcement of calendar events |
-
-
 
 ## 4. Bug Tracking
-* **Bug Description:** [e.g., Login button unresponsive]
-Kah's Bug
 
-1. File Path Issues (Folder Structure) * **Severity:** [Med] | **Fix Status:** [Fixed]
-When moving calendar files into a separate /calendar/ folder, some files initially failed to load due to incorrect relative paths.
-Example issue:
-require_once './include/db_connect.php';
-Fix:
-require_once '../include/db_connect.php'; 
-2. Case Sensitivity on Linux Server * **Severity:** [Med] | **Fix Status:** [Fixed]
-The application behaved differently when deployed to the Linux server compared to local development.
-Example issue:
-FROM calendarevent  --  not found
-FROM CalendarEvent  --  correct
-Cause:
-Linux file system and MySQL table names are case-sensitive
-Local environments (e.g., Windows) are often case-insensitive
-Impact:
-Caused "Table not found" errors in production
-Fix:
-Standardized all table references to match exact database casing (CalendarEvent, CalendarEvent_Exception)
-* **Severity:** [High/Med/Low] | **Fix Status:** [Fixed/Open]
-
-Shan's bugs
-Bug 1: When i click edit event nothing happens. I need to style.display = block for the form but embedded styles override the js function. 
-Resolution: I had to put the JavaScript in the calendar page instead of the viewEvent page. 
-**Severity:** High | **Fix Status:** Fixed
-
-Bug 2: When adding a new event, my query runs but the database does not update. I have error handling in place to check if required fields are either empty or false. 
-Solution: I added individual checks for all fields to see which attribute was preventing the insert. $days_of_week came back as false both when filled and empty but is also not required (ended up being an unrelated error due to variable name conflicts). 
-**Severity:** Med | **Fix Status:** Fixed
-
-Bug 3: the form resubmits when the page is refreshed, modifying the database. 
-Solution: change the redirect from echo message paired above include to a header with a parameter to the url that signifies whether the update was a success or shows an error. 
-**Severity:** Low | **Fix Status:** Fixed
-
-Bug 4: the save changes button to edit the event sends me to the index dashboard even though the form is supposed to launch editEvent.php on click.  No error is shown. 
-Solution: I forgot to add the bottom execute statement for the insert query. 
-**Severity:** High | **Fix Status:** Fixed
-
-JJ's Bugs
-Bug 1: Calendar page redirected back to login instead of loading. The session check was referencing $_SESSION['user_id'] instead of $_SESSION['user']['user_id'], causing all logged in users to be treated as unauthenticated.
-Solution: Updated the session check at the top of calendar.php to use the correct session key $_SESSION['user']['user_id'] to match how the rest of the application stores session data.
-**Severity:** High | **Fix Status:** Fixed
-
-Bug 2: Login stopped working after a Git pull. The SHA-1 password fallback in login.php was overwritten, causing password_verify() to fail on all SHA-1 hashed passwords in the database.
-Solution: Restored the SHA-1 fallback || sha1($password) === $user['password_hashed'] to the password check condition in login.php so both bcrypt and SHA-1 hashed passwords are handled correctly.
-**Severity:** High | **Fix Status:** Fixed
