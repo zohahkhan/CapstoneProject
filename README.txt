@@ -1,70 +1,36 @@
-Sprint #4: 
+Sprint #5:
 Project Description: This project is a reporting system for the Al-Nur Mosque. It works by combining the current files/reports that are scattered into one website to create an easier flow for all members. This week, the attendance and form report for all users to complete was implemented. 
 
 SetUp Instructions: To run these branches, start by connecting to XAMPP. You can open the specific branch in GitHub Desktop by choosing the 'Open with GitHub Desktop' option when you click on the green 'code' button. Then fetch the latest code, and open it in File Explorer. Copy the selected file into your htdocs folder so it can be opened via XAMPP. Ensure the database is connected, if not that can be configured at: http://localhost/phpmyadmin/. Then you can start on the login page at http://localhost/CapstoneProject/loginpages/login.php and test the user story. 
 
 Each branch correlates with the following user stories:
 
-Branch Name #1: feature/calendarEvents
-User Story: As a Member, I want to view a calendar of upcoming workshops + other important events and see a reminder so that I can be reminded and plan my schedule around them.  
-Usage Instructions:  Navigate to any user’s page, and a pop-up should appear with the events that were added to the calendar. The events should be visible within the calendar box when enlarged, as well as the reminders box on the homepage for easy user reference.
+Branch Name #1: 
+User Story: 
+Usage Instructions:  
 Acceptance Criteria:
-▪ Shows events on a monthly calendar (read-only). 
-▪ Navigation has a forward and a back arrow to see future or past month  activities; The current day is highlighted by default.
 Test Credentials:
-  Username: kha27882@email.com
-  Password: kha27882
-  or any username/password within the database
 
 
-Branch Name #2: feature/event-management-system
-User Story: As a Department Head and President, I want to add, enter, and update the calendar activities so that  everyone can be notified of important dates.
+Branch Name #2:
+User Story: 
+Usage Instructions:  
 Acceptance Criteria:
-▪ Must be consistent across all roles (President/Head/Members/Admin)  and visible with 5 seconds of posting. 
-▪ The enter and edit box must be the same dimensions as the final post  display to keep the formatting predictable and consistent. 
-▪ Select who has permission to modify the calendar activities (only the  post creator or just the president/dept head or both) 
-▪ Previous versions of announcements must be overwritten when displayed to users, but all changes must be 
-     logged in the audit trail (user  ID, role, action (add/edit), timestamp, activity ID). 
 Test Credentials: 
-  Username: kat44977@email.com
-  Password: kat44977
 
 
-Branch Name #3: Feature/mark calendar event
-User Story: As a user, I want to mark a calendar event as recurring (daily, weekly, monthly, yearly) so that I do not need to manually create the same event multiple times.
+Branch Name #3:
+User Story: 
+Usage Instructions:  
 Acceptance Criteria:
-Users can select a recurring pattern:
-Daily/Weekly/Monthly/Yearly and specify either:the number of repetitions, or an end date.
-The recurring status is clearly indicated with a visual or symbol in the calendar.
-Users can:
-Cancel a single occurrence, or
-Cancel the entire series
-(e.g., “Cancel this event only” vs “Cancel all events in this series”).
-Events remain editable after creation.
-The system must support at least 12 months of recurring events without data loss.
-Cancelled events should indicate:
-whether they have been rescheduled
-the reason for the change
-and provide a reference or redirect to the updated event date (if applicable).
 Test Credentials: 
-Login link https://capstone.ongkg.com/capstone/index.php
-Username: ong92990@email.com
-Password: test1234
- 
-Branch Name #4: feature/calendar
-User Story: As a User, I want access to a calendar where dates, months, and years will be shown so that I can view and interact with it.
-Usage Instructions: Navigate to any user's homepage (President, Dept Head, or Member). A mini calendar preview will appear in the Calendar card showing the current month with today's date highlighted and event dots on days that have events. Click anywhere on the mini calendar to open the full calendar page. On the full calendar, use the back and forward arrows to navigate month by month, or use the month and year dropdowns to jump to a specific date. The background and font match the rest of the site styling.
-Acceptance Criteria: 
-▪ Displays a mini calendar preview on the homepage calendar card for President, Dept Head, and Member roles
-▪ Full calendar page shows dates, months, and years
-▪ Navigation has a forward and back arrow to see future or past month activities
-▪ Month and year dropdowns allow jumping to distant dates (1900–2100)
-▪ The current day is highlighted by default
-▪ Events from the calendarevent table are displayed on their corresponding dates
+
+
+Branch Name #4:
+User Story: 
+Usage Instructions:  
+Acceptance Criteria:
 Test Credentials: 
-  Username: gil42134@email.com
-  Password: gil42134
-  or any username/password within the database 
 
 
 Workflow Info: The main branch houses all our documents about preparation and planning from the first semester for easy reference. The develop branch is the most up-to-date version of our code; it is the final branch that all code branches merge into. We use the feature/branch-name naming strategy for our pull requests and branch naming for a uniform naming format. While all members are encouraged to review all pull requests, we have assigned each member the specific responsibility to review another member's pull requests: 
@@ -72,4 +38,3 @@ Zoha will review JJ's PR
 JJ will review Shannon's PR
 Shanon will review Kah's PR 
 Kah will review Zoha's PR
-
