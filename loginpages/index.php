@@ -366,15 +366,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 				<!-- stats summary box -->
 				<div class="report-summary-box">
 					<div class="report-summary-content">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-						<p><strong>Reports should be submitted by the 5th of every month.</strong></p>
-=======
 						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
->>>>>>> Stashed changes
-=======
-						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
->>>>>>> Stashed changes
 					</div>	
 				</div>
 				</div> 
@@ -419,21 +411,9 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    			
-				<p style="line-height: 1;">Attendance should be </p>
-				<pstyle="line-height: 1;">held for all events</p>
-=======
     			<br>
 				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
 				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
->>>>>>> Stashed changes
-=======
-    			<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
->>>>>>> Stashed changes
 
 				<p><a href="record_attendance.php"">Record Attendance</a></p>
 			</div>
