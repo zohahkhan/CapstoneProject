@@ -1106,6 +1106,7 @@ form_deadline
 )
 
 VALUES (
+	2,
 "Compiled Monthly Report",
 "This form is completed by Department Heads to compile monthly departmental activities for the President's review.",
 "Active",
@@ -1317,7 +1318,7 @@ CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
 
 INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALUES
 
-(2,17,'[
+(13, 2,17,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
@@ -1327,7 +1328,7 @@ INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALU
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
 ]'),
 
-(2,18,'[
+(14, 2,18,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
