@@ -147,8 +147,10 @@ dept_id			INT,
 doc_title		VARCHAR(50)			NOT NULL, 
 stored_url		VARCHAR(250)		NOT NULL, 
 archived		BOOLEAN				NOT NULL, 
-created_at		TIMESTAMP			NOT NULL, 
-updated_at		TIMESTAMP,
+created_at		TIMESTAMP			NOT NULL						DEFAULT CURRENT_TIMESTAMP, 
+created_by		INT					NOT NULL,
+updated_at		TIMESTAMP											ON UPDATE CURRENT_TIMESTAMP,
+updated_by		INT,
 deleted_at		TIMESTAMP,
 PRIMARY KEY (document_id),
 INDEX dept_id (dept_id),
@@ -168,8 +170,10 @@ announce_expiry		DATETIME		NOT NULL,
 allow_opt_out		BOOLEAN			NOT NULL, 
 announce_delivery	TIMESTAMP		NOT NULL, 
 archived			BOOLEAN			NOT NULL, 
-created_at			TIMESTAMP		NOT NULL, 
-updated_at			TIMESTAMP,
+created_at		TIMESTAMP			NOT NULL						DEFAULT CURRENT_TIMESTAMP, 
+created_by		INT					NOT NULL,
+updated_at		TIMESTAMP											ON UPDATE CURRENT_TIMESTAMP,
+updated_by		INT,
 PRIMARY KEY (announcement_id),
 INDEX user_id (user_id),
 INDEX dept_id (dept_id),
@@ -1318,7 +1322,7 @@ CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
 
 INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALUES
 
-(13, 2,17,'[
+(13, 2,1,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
@@ -1328,7 +1332,7 @@ INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALU
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
 ]'),
 
-(14, 2,18,'[
+(14, 2,2,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
@@ -1337,6 +1341,446 @@ INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALU
 {"id":26,"response":"Yes"},{"id":27,"response":"No"},{"id":28,"response":"Yes"},{"id":29,"response":"Yes"},{"id":30,"response":"Yes"},
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"No"}
 ]');
+
+
+/************************************ 
+
+PROCEDURE FOR AUDIT LOG TABLE UPDATES 
+
+************************************/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE generate_updated_json(
+     IN tbl_name VARCHAR(64),
+	 IN pk_col VARCHAR(64),
+     IN old_row JSON,
+     IN new_row JSON,
+     OUT updated_json JSON
+)
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE col_name VARCHAR(64);
+    DECLARE cols CURSOR FOR
+        SELECT COLUMN_NAME 
+        FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_NAME = tbl_name AND COLUMN_NAME NOT IN (pk_col,'user_id');
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    SET updated_json = JSON_OBJECT();
+
+    OPEN cols;
+    read_loop: LOOP
+        FETCH cols INTO col_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+    IF NOT (
+            JSON_UNQUOTE(JSON_EXTRACT(old_row, CONCAT('$.', col_name)))
+            <=>
+            JSON_UNQUOTE(JSON_EXTRACT(new_row, CONCAT('$.', col_name)))
+        )
+        THEN
+            SET updated_json = JSON_MERGE_PATCH(
+                updated_json,
+                JSON_OBJECT(
+                    col_name,
+                    JSON_UNQUOTE(JSON_EXTRACT(new_row, CONCAT('$.', col_name)))
+                )
+            );
+        END IF;
+    END LOOP;
+    CLOSE cols;
+END$$
+DELIMITER ;
+
+
+/* UPDATE TRIGGER FOR USER TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER user_after_update
+AFTER UPDATE ON `User`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'first_name', OLD.first_name,
+            'last_name', OLD.last_name,
+			'user_email', OLD.user_email,
+            'user_phone', OLD.user_phone,
+			'user_address', OLD.user_address,
+			'password_hashed', OLD.password_hashed,
+            'is_active', OLD.is_active,
+			'last_updated', OLD.last_updated,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'first_name', NEW.first_name,
+            'last_name', NEW.last_name,
+			'user_email', NEW.user_email,
+            'user_phone', NEW.user_phone,
+			'user_address', NEW.user_address,
+			'password_hashed', NEW.password_hashed,
+            'is_active', NEW.is_active,
+			'last_updated', NEW.last_updated,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('User', 'user_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			'UPDATE',
+			'User',
+            NEW.user_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR CALENDAR EVENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER event_after_update
+AFTER UPDATE ON `CalendarEvent`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'event_title', OLD.event_title,
+            'event_desc', OLD.event_desc,
+			'event_location', OLD.event_location,
+            'event_date', OLD.event_date,
+			'recurring', OLD.recurring,
+			'iterations', OLD.iterations,
+            'days_of_week', OLD.days_of_week,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'event_title', NEW.event_title,
+            'event_desc', NEW.event_desc,
+			'event_location', NEW.event_location,
+            'event_date', NEW.event_date,
+			'recurring', NEW.recurring,
+			'iterations', NEW.iterations,
+            'days_of_week', NEW.days_of_week,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('CalendarEvent', 'event_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			'UPDATE',
+			'CalendarEvent',
+            NEW.event_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER announcement_after_update
+AFTER UPDATE ON `Announcement`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'visibility_scope', OLD.visibility_scope,
+            'announce_title', OLD.announce_title,
+			'announce_body', OLD.announce_body,
+            'announce_expiry', OLD.announce_expiry,
+			'allow_opt_out', OLD.allow_opt_out,
+			'announce_delivery', OLD.announce_delivery,
+            'archived', OLD.archived,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'announce_title', NEW.announce_title,
+			'announce_body', NEW.announce_body,
+            'announce_expiry', NEW.announce_expiry,
+			'allow_opt_out', NEW.allow_opt_out,
+			'announce_delivery', NEW.announce_delivery,
+            'archived', NEW.archived,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('Announcement', 'announcement_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			'UPDATE',
+			'Announcement',
+            NEW.announcement_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR DOCUMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER document_after_update
+AFTER UPDATE ON `Document`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'visibility_scope', OLD.visibility_scope,
+            'doc_title', OLD.doc_title,
+			'stored_url', OLD.stored_url,
+            'archived', OLD.archived,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'doc_title', NEW.doc_title,
+			'stored_url', NEW.stored_url,
+            'archived', NEW.archived,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('Document', 'document_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			'UPDATE',
+			'Document',
+            NEW.document_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR USER TABLE */
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER user_after_insert
+AFTER INSERT ON `User`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	 DECLARE changes JSON;
+	 SET new_row = JSON_OBJECT(
+            'first_name', NEW.first_name,
+            'last_name', NEW.last_name,
+			'user_email', NEW.user_email,
+            'user_phone', NEW.user_phone,
+			'user_address', NEW.user_address,
+			'password_hashed', NEW.password_hashed,
+            'is_active', NEW.is_active,
+			'joined_on', NEW.joined_on
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.user_id,
+			'INSERT',
+			'User',
+            NEW.user_id,
+			NULL,
+		    new_row,
+			changes  
+    );
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR CALENDAR EVENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER event_after_insert
+AFTER INSERT ON `CalendarEvent`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+	 SET new_row =  JSON_OBJECT(
+            'event_title', NEW.event_title,
+            'event_desc', NEW.event_desc,
+			'event_location', NEW.event_location,
+            'event_date', NEW.event_date,
+			'recurring', NEW.recurring,
+			'iterations', NEW.iterations,
+            'days_of_week', NEW.days_of_week,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+			'INSERT',
+			'CalendarEvent',
+            NEW.event_id,
+			NULL,
+		    new_row,
+			changes       
+    );
+END$$
+DELIMITER ;
+
+
+/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER announcement_after_insert
+AFTER INSERT ON `Announcement`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+	 SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'announce_title', NEW.announce_title,
+			'announce_body', NEW.announce_body,
+            'announce_expiry', NEW.announce_expiry,
+			'allow_opt_out', NEW.allow_opt_out,
+			'announce_delivery', NEW.announce_delivery,
+            'archived', NEW.archived,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+			'INSERT',
+			'Announcement',
+            NEW.announcement_id,
+			NULL,
+		    new_row,
+			changes 
+    );
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR DOCUMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER document_after_insert
+AFTER INSERT ON `Document`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+
+	  SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'doc_title', NEW.doc_title,
+			'stored_url', NEW.stored_url,
+            'archived', NEW.archived,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+
+    INSERT INTO AuditLog (
+        user_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+			'INSERT',
+			'Document',
+            NEW.document_id,
+			NULL,
+		    new_row,
+			changes
+    );
+END$$
+DELIMITER ;
+
+
 
 /* to access the database */
 FLUSH PRIVILEGES;
