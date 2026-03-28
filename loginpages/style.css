@@ -135,6 +135,7 @@ body {
     text-align: center;
     padding: 40px;
     min-height: 25vh; /*taller */
+    
 }
 
 /*department head left side layout*/
@@ -191,6 +192,12 @@ body {
     overflow-y: auto; /*enables vertical scrolling*/
     margin-top: 10px;
     padding-right: 5px;
+    
+}
+
+.background {
+    	background-image: url("images/background.png"); 
+    
 }
 
 /*this is the scrollbar to make it easier to go throuh  (Chrome/Edge) */

@@ -317,8 +317,11 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+    			<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+
+				<p><a href="record_attendance.php"">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -364,7 +367,11 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 				<div class="report-summary-box">
 					<div class="report-summary-content">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 						<p><strong>Reports should be submitted by the 5th of every month.</strong></p>
+=======
+						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
+>>>>>>> Stashed changes
 =======
 						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
 >>>>>>> Stashed changes
@@ -413,9 +420,15 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     			
 				<p style="line-height: 1;">Attendance should be </p>
 				<pstyle="line-height: 1;">held for all events</p>
+=======
+    			<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+>>>>>>> Stashed changes
 =======
     			<br>
 				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
@@ -506,12 +519,18 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
                 <p>Description</p>
             </div>
         </div>
+
         <!--bottom box -->
         <div class="homepage-bottom-box">
-            <h2>Members</h2>
-            <p>Description</p>
-			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
-        </div>
+		<h2>Members</h2>
+			<div class="scrollable-report-box">
+			<div class="background">
+				<?php include("viewUser.php"); ?>
+			</div>
+			</div>
+		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+		</div>
+
     </div>
 	<br>
     <p><a href="logout.php">Logout</a></p>
