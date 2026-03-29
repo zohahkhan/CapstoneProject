@@ -458,6 +458,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
+				<p><a href="memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Suggestion</a></p>
 				<p>Description</p>
 			</div>
 		</div>
