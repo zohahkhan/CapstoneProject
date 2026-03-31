@@ -70,7 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':status' => 'Pending'
             ]);
 
-            $successMessage = "Your suggestion has been submitted successfully.";
+	$_SESSION['submitted'] = true;
+	$_SESSION['submitted_from'] = 'memberSuggestion';
+	header("Location: thank_you.php");
+exit;
         }
     }
 }
