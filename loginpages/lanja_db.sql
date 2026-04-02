@@ -189,10 +189,14 @@ entity_type		VARCHAR(50)			NOT NULL,
 entity_id		INT					NOT NULL, 
 before_json		JSON				NOT NULL, 
 after_json		JSON				NOT NULL, 
+role_id			INT,
 occurred_at		TIMESTAMP			NOT NULL, 
 PRIMARY KEY (log_id),
 INDEX user_id (user_id),
+INDEX role_id (role_id),
 INDEX entity_id (entity_id),
+INDEX idx_occurred_at (occurred_at),
+FOREIGN KEY (role_id) REFERENCES Role (role_id),
 FOREIGN KEY (user_id) REFERENCES User (user_id)
 );
 
@@ -1412,6 +1416,7 @@ BEGIN
     IF JSON_LENGTH(changes) > 0 THEN
         INSERT INTO AuditLog (
             user_id,
+			role_id,
 			action,
 			entity_type,
 			entity_id,
@@ -1421,6 +1426,7 @@ BEGIN
         )
         VALUES (
             NEW.updated_by,
+			@current_role_id,
 			'UPDATE',
 			'User',
             NEW.user_id,
@@ -1470,6 +1476,7 @@ BEGIN
     IF JSON_LENGTH(changes) > 0 THEN
         INSERT INTO AuditLog (
             user_id,
+			role_id,
 			action,
 			entity_type,
 			entity_id,
@@ -1479,6 +1486,7 @@ BEGIN
         )
         VALUES (
             NEW.updated_by,
+			@current_role_id,
 			'UPDATE',
 			'CalendarEvent',
             NEW.event_id,
@@ -1528,6 +1536,7 @@ BEGIN
     IF JSON_LENGTH(changes) > 0 THEN
         INSERT INTO AuditLog (
             user_id,
+			role_id,
 			action,
 			entity_type,
 			entity_id,
@@ -1537,6 +1546,7 @@ BEGIN
         )
         VALUES (
             NEW.updated_by,
+			@current_role_id,
 			'UPDATE',
 			'Announcement',
             NEW.announcement_id,
@@ -1580,6 +1590,7 @@ BEGIN
     IF JSON_LENGTH(changes) > 0 THEN
         INSERT INTO AuditLog (
             user_id,
+			role_id,
 			action,
 			entity_type,
 			entity_id,
@@ -1589,6 +1600,7 @@ BEGIN
         )
         VALUES (
             NEW.updated_by,
+			@current_role_id,
 			'UPDATE',
 			'Document',
             NEW.document_id,
@@ -1621,6 +1633,7 @@ BEGIN
         );
     INSERT INTO AuditLog (
         user_id,
+		role_id,
 		action,
 		entity_type,
 		entity_id,
@@ -1630,7 +1643,8 @@ BEGIN
     )
     VALUES (
          NEW.user_id,
-			'INSERT',
+		 @current_role_id,
+			'CREATE',
 			'User',
             NEW.user_id,
 			NULL,
@@ -1661,6 +1675,7 @@ BEGIN
         );
     INSERT INTO AuditLog (
         user_id,
+		role_id,
 		action,
 		entity_type,
 		entity_id,
@@ -1670,7 +1685,8 @@ BEGIN
     )
     VALUES (
          NEW.created_by,
-			'INSERT',
+		 @current_role_id,
+			'CREATE',
 			'CalendarEvent',
             NEW.event_id,
 			NULL,
@@ -1702,6 +1718,7 @@ BEGIN
         );
     INSERT INTO AuditLog (
         user_id,
+		role_id,
 		action,
 		entity_type,
 		entity_id,
@@ -1711,7 +1728,8 @@ BEGIN
     )
     VALUES (
          NEW.created_by,
-			'INSERT',
+		  @current_role_id,
+			'CREATE',
 			'Announcement',
             NEW.announcement_id,
 			NULL,
@@ -1729,7 +1747,6 @@ FOR EACH ROW
 BEGIN
     DECLARE new_row JSON;
 	DECLARE changes JSON;
-
 	  SET new_row =  JSON_OBJECT(
             'visibility_scope', NEW.visibility_scope,
             'doc_title', NEW.doc_title,
@@ -1738,9 +1755,9 @@ BEGIN
 			'created_at', NEW.created_at,
 			'created_by', NEW.created_by
         );
-
     INSERT INTO AuditLog (
         user_id,
+		role_id,
 		action,
 		entity_type,
 		entity_id,
@@ -1750,7 +1767,8 @@ BEGIN
     )
     VALUES (
          NEW.created_by,
-			'INSERT',
+		 @current_role_id,
+			'CREATE',
 			'Document',
             NEW.document_id,
 			NULL,
@@ -1760,22 +1778,27 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+
 /* for cleanup testing purposes */
 INSERT INTO AuditLog (
 log_id,
 user_id,
+role_id,	
 action,
 entity_type,
 entity_id,
 before_json,			 
 after_json,
 diff_json,
-occurred_at	
+occurred_at
 )
 VALUES 
-(1, 20, 'Create', 'CalendarEvent', 1, NULL, '[{"event_title": "First Day of Class"}, {"event_desc": "The first day of Spring Term begins."}, {"event_location": "Campus"}, {"event_date": "2026-01-20 00:00:00"}, {"recurring": null}, {"iterations": null}, {"days_of_week": null}, {"created_at": "2025-01-08 14:42:45"}, {"created_by": 20}]', NULL, '2025-01-08 14:42:45'),
-(2, 20, 'Update', 'CalendarEvent', 1, NULL, '[{"event_title": "First Day of Class"}, {"event_desc": "The first day of Spring Term begins."}, {"event_location": "D2L"}, {"event_date": "2026-01-20 00:00:00"}, {"recurring": null}, {"iterations": null}, {"days_of_week": null}, {"created_at": "2026-04-02 02:00:27"}, {"created_by": 20}]', NULL, '2026-04-02 02:00:27');
-
+(1, 20, 2, 'Create', 'CalendarEvent', 1, NULL, '{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "created_at": "2025-01-08 14:42:45", "created_by": 20}', NULL, '2026-01-08 14:42:45'),
+(2, 20, 2, 'Update', 'CalendarEvent', 1,
+	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "0000-00-00 00:00:00", "updated_by": null}', 
+	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "D2L", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "2026-03-02 02:00:27", "updated_by": 20}', 
+	'{"event_location": "D2L", "updated_at": "2026-03-02 02:00:27", "updated_by": 20}', '2026-03-02 02:00:27');
 
 /* auto cleanup event */
 SET GLOBAL event_scheduler = ON;
