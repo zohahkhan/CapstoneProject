@@ -6,6 +6,8 @@ if (!isset($_SESSION['user'])) {
     echo "Session expired. Please log in again.";
     exit();
 }
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 //fetch inputs
 $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
