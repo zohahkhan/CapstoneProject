@@ -10,6 +10,12 @@ if (!isset($user_id))
 {
 	$user_id = $_GET['user_id'];
 }
+
+$current_user = $_SESSION['user']['user_id'];
+
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
 // Get user Information
 $queryProfile = 'SELECT * FROM `User`
 				 WHERE user_id = :user_id';
@@ -34,10 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_POST['user_id'];
 	
 	$queryDeactivate = 'UPDATE `User` 
-						SET is_active = NOT is_active 
+						SET is_active = NOT is_active,
+							updated_by = :updated_by
 						WHERE user_id = :user_id';
     $stmt = $db->prepare($queryDeactivate);
     $stmt->bindValue(':user_id', $user_id);
+	$stmt->bindValue(':updated_by', $current_user);
     $stmt->execute();
 	
 	header("Location: userInfo.php?user_id=" . $user_id);

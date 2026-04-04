@@ -147,8 +147,10 @@ dept_id			INT,
 doc_title		VARCHAR(50)			NOT NULL, 
 stored_url		VARCHAR(250)		NOT NULL, 
 archived		BOOLEAN				NOT NULL, 
-created_at		TIMESTAMP			NOT NULL, 
-updated_at		TIMESTAMP,
+created_at		TIMESTAMP			NOT NULL						DEFAULT CURRENT_TIMESTAMP, 
+created_by		INT					NOT NULL,
+updated_at		TIMESTAMP											ON UPDATE CURRENT_TIMESTAMP,
+updated_by		INT,
 deleted_at		TIMESTAMP,
 PRIMARY KEY (document_id),
 INDEX dept_id (dept_id),
@@ -168,8 +170,10 @@ announce_expiry		DATETIME		NOT NULL,
 allow_opt_out		BOOLEAN			NOT NULL, 
 announce_delivery	TIMESTAMP		NOT NULL, 
 archived			BOOLEAN			NOT NULL, 
-created_at			TIMESTAMP		NOT NULL, 
-updated_at			TIMESTAMP,
+created_at		TIMESTAMP			NOT NULL						DEFAULT CURRENT_TIMESTAMP, 
+created_by		INT					NOT NULL,
+updated_at		TIMESTAMP											ON UPDATE CURRENT_TIMESTAMP,
+updated_by		INT,
 PRIMARY KEY (announcement_id),
 INDEX user_id (user_id),
 INDEX dept_id (dept_id),
@@ -185,10 +189,14 @@ entity_type		VARCHAR(50)			NOT NULL,
 entity_id		INT					NOT NULL, 
 before_json		JSON				NOT NULL, 
 after_json		JSON				NOT NULL, 
+role_id			INT,
 occurred_at		TIMESTAMP			NOT NULL, 
 PRIMARY KEY (log_id),
 INDEX user_id (user_id),
+INDEX role_id (role_id),
 INDEX entity_id (entity_id),
+INDEX idx_occurred_at (occurred_at),
+FOREIGN KEY (role_id) REFERENCES Role (role_id),
 FOREIGN KEY (user_id) REFERENCES User (user_id)
 );
 
@@ -237,65 +245,45 @@ updated_by
 
 VALUES
 
-(1, 'Carie', 'Baig', 'carie_b0009@email.com', '(217) 555-0101', '101 Maple Grove Drive 
-	Springfield, IL 62704', '$2y$10$kw5f0o4KGqtRwysU8o.Qn.HJIKgDfkctvyII75mYbsOKrJ9VFc7Rm', 1, '2022-03-15 08:12:45', '2023-07-21 14:55:12', NULL, NULL), 
+(1, 'Carie', 'Baig', 'carie_b0009@email.com', '(217) 555-0101', '101 Maple Grove Drive Springfield, IL 62704', '$2y$10$kw5f0o4KGqtRwysU8o.Qn.HJIKgDfkctvyII75mYbsOKrJ9VFc7Rm', 1, '2022-03-15 08:12:45', '2023-07-21 14:55:12', NULL, NULL), 
 
-(2, 'Aliyah', 'Salah', 'sal11390@email.com', '(608) 555-0102', '245 Oak Valley Road 
-	Madison, WI 53711', '$2y$10$5LJs/YsrRj66QCORnDyNsOK.58J7p95UAc.FqnjVRccjgPlpl3pHy', 1, '2021-11-02 16:45:30', '2023-01-18 09:23:50', NULL, NULL),
+(2, 'Aliyah', 'Salah', 'sal11390@email.com', '(608) 555-0102', '245 Oak Valley Road Madison, WI 53711', '$2y$10$5LJs/YsrRj66QCORnDyNsOK.58J7p95UAc.FqnjVRccjgPlpl3pHy', 1, '2021-11-02 16:45:30', '2023-01-18 09:23:50', NULL, NULL),
 
-(3, 'Kamila', 'Nawaz', 'kamkam13506@email.com', '(919) 555-0103', '389 Pine Hill 
-	Lane Raleigh, NC 27607', '$2y$10$kBqOL5e1wDheS8DHTBl6bOKkpzjXM2hRWDqNM.KWjr/wifbhFYQni', 1, '2020-06-10 12:05:10', '2022-12-22 18:40:05', NULL, NULL),
+(3, 'Kamila', 'Nawaz', 'kamkam13506@email.com', '(919) 555-0103', '389 Pine Hill Lane Raleigh, NC 27607', '$2y$10$kBqOL5e1wDheS8DHTBl6bOKkpzjXM2hRWDqNM.KWjr/wifbhFYQni', 1, '2020-06-10 12:05:10', '2022-12-22 18:40:05', NULL, NULL),
 
-(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue 
-	Pasadena, CA 91105', '$2y$10$ps9ws6TzOeIV6pBZZDeEZOOBQnYIvDtDIsfE5cj.V6LNaPtH16.pS', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45', NULL, NULL), 
+(4, 'Samiya', 'Rizzi', 'srizzi@email.com', '(626) 555-0104', '512 Sunset Ridge Avenue Pasadena, CA 91105', '$2y$10$ps9ws6TzOeIV6pBZZDeEZOOBQnYIvDtDIsfE5cj.V6LNaPtH16.pS', 1, '2023-01-22 10:20:00', '2023-12-15 11:05:45', NULL, NULL), 
 
-(5, 'Roxanne', 'Sumar', 'rsumar@email.com', '(802) 555-0105', '76 Riverstone Court
-Burlington, VT 05401', '$2y$10$0d4cPeCkCZhybZ6S1Dc.Q.gjAShuancxpzwDoWJkvch4znII/ftCi', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12' , NULL, NULL),
+(5, 'Roxanne', 'Sumar', 'rsumar@email.com', '(802) 555-0105', '76 Riverstone Court Burlington, VT 05401', '$2y$10$0d4cPeCkCZhybZ6S1Dc.Q.gjAShuancxpzwDoWJkvch4znII/ftCi', 1, '2021-08-05 14:30:25', '2023-04-03 07:50:12' , NULL, NULL),
 
-(6, 'Mina', 'Hashim', 'minahashim@email.com', '(972) 555-0106', '834 Willow Bend Way 
-	Plano, TX 75024', '$2y$10$QjUoa70XLel3.7dMehpBAOw.eazg.8udTQh8WVGP1336K.w70ANRG', 1, '2022-02-28 09:12:15', '2023-08-09 21:15:35', NULL, NULL),
+(6, 'Mina', 'Hashim', 'minahashim@email.com', '(972) 555-0106', '834 Willow Bend Way Plano, TX 75024', '$2y$10$QjUoa70XLel3.7dMehpBAOw.eazg.8udTQh8WVGP1336K.w70ANRG', 1, '2022-02-28 09:12:15', '2023-08-09 21:15:35', NULL, NULL),
 
-(7, 'Mariam', 'Latif', 'latimari@email.com', '(425) 555-0107', '690 Cedar Ridge Drive 
-	Bellevue, WA 98008', '$2y$10$S.8/Vr3.yfNkG3QApZoO1e.GtM7nfRJRalqGhTJAkeLKjdqZ1o1I6', 1, '2020-12-15 22:10:50', '2022-10-30 08:05:25', NULL, NULL),
+(7, 'Mariam', 'Latif', 'latimari@email.com', '(425) 555-0107', '690 Cedar Ridge Drive Bellevue, WA 98008', '$2y$10$S.8/Vr3.yfNkG3QApZoO1e.GtM7nfRJRalqGhTJAkeLKjdqZ1o1I6', 1, '2020-12-15 22:10:50', '2022-10-30 08:05:25', NULL, NULL),
 
-(8, 'Nadia', 'Maroon', 'mar00nn@email.com', '(614) 555-0108', '918 Meadowbrook Lane
-Columbus, OH 43221', '$2y$10$YlawsO6QyO5qO0ezFK6H6OTkulwtUYsj8hJxSApG.S4gNyTsG.7Je', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50', NULL, NULL), 
+(8, 'Nadia', 'Maroon', 'mar00nn@email.com', '(614) 555-0108', '918 Meadowbrook Lane Columbus, OH 43221', '$2y$10$YlawsO6QyO5qO0ezFK6H6OTkulwtUYsj8hJxSApG.S4gNyTsG.7Je', 1, '2021-05-19 07:45:40', '2023-03-12 19:35:50', NULL, NULL), 
 
-(9, 'Lula', 'Mirza', 'mirza_lu@email.com', '(847) 555-0109', '207 Lakeside Parkway
-Evanston, IL 60202', '$2y$10$LLmgwqQ9NDqQKVu/ax3oaOgfmbSuQ62kg0Quuvxs46PCMPILGYPXq', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20', NULL, NULL),
+(9, 'Lula', 'Mirza', 'mirza_lu@email.com', '(847) 555-0109', '207 Lakeside Parkway Evanston, IL 60202', '$2y$10$LLmgwqQ9NDqQKVu/ax3oaOgfmbSuQ62kg0Quuvxs46PCMPILGYPXq', 1, '2023-02-10 13:15:30', '2023-12-01 16:40:20', NULL, NULL),
 
-(10, 'Inaya', 'Sheikh', 'sheikh2005@email.com', '(480) 555-0110', '561 Highland Park Drive
-Scottsdale, AZ 85255', '$2y$10$mUr9yZwVvkUoUwlqzmP4ieKXGH8b1kHqmsovCFo2UXzYcHR1/LHvq', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00', NULL, NULL), 
+(10, 'Inaya', 'Sheikh', 'sheikh2005@email.com', '(480) 555-0110', '561 Highland Park Drive Scottsdale, AZ 85255', '$2y$10$mUr9yZwVvkUoUwlqzmP4ieKXGH8b1kHqmsovCFo2UXzYcHR1/LHvq', 1, '2021-09-30 11:25:55', '2023-09-18 10:15:00', NULL, NULL), 
 
-(11, 'Jasmine', 'Taha', 'jazzy0267@email.com', '(919) 555-0111', '744 Brookhaven Road
-Chapel Hill, NC 27516', '$2y$10$IZfz/u/54SqWzcb0otAq2eQb5uwOJm/X0jmJhrD3I21AlXnO3d3Bq', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10', NULL, NULL), 
+(11, 'Jasmine', 'Taha', 'jazzy0267@email.com', '(919) 555-0111', '744 Brookhaven Road Chapel Hill, NC 27516', '$2y$10$IZfz/u/54SqWzcb0otAq2eQb5uwOJm/X0jmJhrD3I21AlXnO3d3Bq', 1, '2022-07-07 17:40:20', '2023-06-11 22:55:10', NULL, NULL), 
 
-(12, 'Malay', 'Usami', 'musami89@email.com', '(707) 555-0112', '1205 Redwood Springs Circle
-Santa Rosa, CA 95404', '$2y$10$PmNOQP2FrN50jE4ghiWCcuqI.FBsqto1syRl9TblNRZMtu6q6Ouz2', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25', NULL, NULL), 
+(12, 'Malay', 'Usami', 'musami89@email.com', '(707) 555-0112', '1205 Redwood Springs Circle Santa Rosa, CA 95404', '$2y$10$PmNOQP2FrN50jE4ghiWCcuqI.FBsqto1syRl9TblNRZMtu6q6Ouz2', 1, '2020-03-22 06:55:10', '2022-11-08 13:10:25', NULL, NULL), 
 
-(13, 'Farah', 'Amin', 'faraha@email.com', '(828) 555-0113', '967 Autumn Crest Lane
-Asheville, NC 28803', '$2y$10$tmhVscmPDY.eymVx1fAcbepfGLyI.aEOphCWBQ.vi0Bu4Qb2JnUEi', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15', NULL, NULL),
+(13, 'Farah', 'Amin', 'faraha@email.com', '(828) 555-0113', '967 Autumn Crest Lane Asheville, NC 28803', '$2y$10$tmhVscmPDY.eymVx1fAcbepfGLyI.aEOphCWBQ.vi0Bu4Qb2JnUEi', 1, '2021-12-25 19:05:45', '2023-08-05 17:30:15', NULL, NULL),
  
-(14, 'Sofie', 'Nasser', 'sofiebee23@email.com', '(609) 555-0114', '29 Stonegate Boulevard
-Princeton, NJ 08540', '$2y$10$ncUkQZ.UpLK98sgHSx8iuemii1YVZcK3phdYkRdTh0G6Hs3kowcim', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35', NULL, NULL), 
+(14, 'Sofie', 'Nasser', 'sofiebee23@email.com', '(609) 555-0114', '29 Stonegate Boulevard Princeton, NJ 08540', '$2y$10$ncUkQZ.UpLK98sgHSx8iuemii1YVZcK3phdYkRdTh0G6Hs3kowcim', 1, '2021-01-18 15:30:40', '2023-05-25 12:45:35', NULL, NULL), 
 
-(15, 'Fatima', 'Noore', 'f_noore3342@email.com', '(410) 555-0115', '392 Harbor Point Drive
-Annapolis, MD 21403', '$2y$10$1Ck3Dmd3lE7drK/MIomR0.WEl9Wzo6aj2ec0vP5PBwWPwVAJiYqlm', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55', NULL, NULL), 
+(15, 'Fatima', 'Noore', 'f_noore3342@email.com', '(410) 555-0115', '392 Harbor Point Drive Annapolis, MD 21403', '$2y$10$1Ck3Dmd3lE7drK/MIomR0.WEl9Wzo6aj2ec0vP5PBwWPwVAJiYqlm', 1, '2022-09-05 09:15:25', '2023-10-29 08:05:55', NULL, NULL), 
  
-(16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive
-Annapolis, MD 21403', '$2y$10$yeNHHp5i25BeyAcXPyQvMuG/l4ib0opBdsff9ES50Dd3PLQF/Ufk2', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45', NULL, NULL),
+(16, 'Amara', 'Noore', 'a_noore1207@email.com', '(410) 555-0116', '392 Harbor Point Drive Annapolis, MD 21403', '$2y$10$yeNHHp5i25BeyAcXPyQvMuG/l4ib0opBdsff9ES50Dd3PLQF/Ufk2', 1, '2022-09-05 09:40:00', '2022-09-20 14:30:45', NULL, NULL),
 
-(17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive
-Bozeman, MT 59718', '$2y$10$hugC3ImjPgD9yz4Xw.ZqTO0bHkj1P1MkzdREMnH7c/xVF.vCec3L2', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50', NULL, NULL),
+(17, 'Zoha', 'K', 'kha27882@email.com', '(406) 555-0117', '155 Golden Meadow Drive Bozeman, MT 59718', '$2y$10$hugC3ImjPgD9yz4Xw.ZqTO0bHkj1P1MkzdREMnH7c/xVF.vCec3L2', 1, '2023-03-12 12:55:30', '2023-12-03 20:25:50', NULL, NULL),
      
-(18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road
-Sarasota, FL 34232', '$2y$10$ocq4zYQSUKbqVXvY/GZeWOfBWslM09JPpgXokfiJ8RJqWPPy28Tke', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40', NULL, NULL),
+(18, 'JJ', 'G', 'gil42134@email.com', '(941) 555-0118', '880 Cypress Hollow Road Sarasota, FL 34232', '$2y$10$ocq4zYQSUKbqVXvY/GZeWOfBWslM09JPpgXokfiJ8RJqWPPy28Tke', 1, '2021-06-28 18:20:15', '2023-07-15 09:05:40', NULL, NULL),
     
-(19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane
-Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25', NULL, NULL),  
+(19, 'Kah', 'O', 'ong92990@email.com', '(970) 555-0119', '602 Juniper Ridge Lane Fort Collins, CO 80525', '$2y$10$f/2.BUqrR7y7NdK.OSOU1uHZ3puYmPzIAHUaFia4pas9FZCdT4lYG', 1, '2022-04-09 10:10:50', '2023-09-22 15:50:25', NULL, NULL),  
      
-(20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing
-Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10', NULL, NULL);
+(20, 'Shan', 'K', 'kat44977@email.com', '(859) 555-0120', '2173 Bluebird Crossing Lexington, KY 40503', '$2y$10$/kIYD9Ryl1u.T65I6n.AgeK8wW8i7Q4Ca1v.YPkUdLhwSum6Ip0hK', 1, '2020-11-14 08:35:20', '2022-12-18 11:45:10', NULL, NULL);
    
 
 INSERT INTO Role 
@@ -1318,7 +1306,7 @@ CONCAT(YEAR(CURRENT_DATE), '-',LPAD(MONTH(CURRENT_DATE),2,'0'), '-25 23:59:59')
 
 INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALUES
 
-(13, 2,17,'[
+(13, 2,1,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"Yes"},{"id":3,"response":"Yes"},{"id":4,"response":"No"},{"id":5,"response":"Yes"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"No"},{"id":9,"response":"Yes"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"Yes"},{"id":13,"response":"Yes"},{"id":14,"response":"No"},{"id":15,"response":"Yes"},
@@ -1328,7 +1316,7 @@ INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALU
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"Yes"}
 ]'),
 
-(14, 2,18,'[
+(14, 2,2,'[
 {"id":1,"response":"Yes"},{"id":2,"response":"No"},{"id":3,"response":"Yes"},{"id":4,"response":"Yes"},{"id":5,"response":"No"},
 {"id":6,"response":"Yes"},{"id":7,"response":"Yes"},{"id":8,"response":"Yes"},{"id":9,"response":"No"},{"id":10,"response":"Yes"},
 {"id":11,"response":"Yes"},{"id":12,"response":"No"},{"id":13,"response":"Yes"},{"id":14,"response":"Yes"},{"id":15,"response":"Yes"},
@@ -1338,6 +1326,487 @@ INSERT INTO FormResponse (response_id, template_id, user_id, form_response) VALU
 {"id":31,"response":"No"},{"id":32,"response":"Yes"},{"id":33,"response":"No"}
 ]');
 
+
+/************************************ 
+
+PROCEDURE FOR AUDIT LOG TABLE UPDATES 
+
+************************************/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE generate_updated_json(
+     IN tbl_name VARCHAR(64),
+	 IN pk_col VARCHAR(64),
+     IN old_row JSON,
+     IN new_row JSON,
+     OUT updated_json JSON
+)
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE col_name VARCHAR(64);
+    DECLARE cols CURSOR FOR
+        SELECT COLUMN_NAME 
+        FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_NAME = tbl_name AND COLUMN_NAME NOT IN (pk_col,'user_id');
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    SET updated_json = JSON_OBJECT();
+
+    OPEN cols;
+    read_loop: LOOP
+        FETCH cols INTO col_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+    IF NOT (
+            JSON_UNQUOTE(JSON_EXTRACT(old_row, CONCAT('$.', col_name)))
+            <=>
+            JSON_UNQUOTE(JSON_EXTRACT(new_row, CONCAT('$.', col_name)))
+        )
+        THEN
+            SET updated_json = JSON_MERGE_PATCH(
+                updated_json,
+                JSON_OBJECT(
+                    col_name,
+                    JSON_UNQUOTE(JSON_EXTRACT(new_row, CONCAT('$.', col_name)))
+                )
+            );
+        END IF;
+    END LOOP;
+    CLOSE cols;
+END$$
+DELIMITER ;
+
+
+/* UPDATE TRIGGER FOR USER TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER user_after_update
+AFTER UPDATE ON `User`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'first_name', OLD.first_name,
+            'last_name', OLD.last_name,
+			'user_email', OLD.user_email,
+            'user_phone', OLD.user_phone,
+			'user_address', OLD.user_address,
+			'password_hashed', OLD.password_hashed,
+            'is_active', OLD.is_active,
+			'last_updated', OLD.last_updated,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'first_name', NEW.first_name,
+            'last_name', NEW.last_name,
+			'user_email', NEW.user_email,
+            'user_phone', NEW.user_phone,
+			'user_address', NEW.user_address,
+			'password_hashed', NEW.password_hashed,
+            'is_active', NEW.is_active,
+			'last_updated', NEW.last_updated,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('User', 'user_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			role_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			@current_role_id,
+			'UPDATE',
+			'User',
+            NEW.user_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR CALENDAR EVENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER event_after_update
+AFTER UPDATE ON `CalendarEvent`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'event_title', OLD.event_title,
+            'event_desc', OLD.event_desc,
+			'event_location', OLD.event_location,
+            'event_date', OLD.event_date,
+			'recurring', OLD.recurring,
+			'iterations', OLD.iterations,
+            'days_of_week', OLD.days_of_week,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'event_title', NEW.event_title,
+            'event_desc', NEW.event_desc,
+			'event_location', NEW.event_location,
+            'event_date', NEW.event_date,
+			'recurring', NEW.recurring,
+			'iterations', NEW.iterations,
+            'days_of_week', NEW.days_of_week,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('CalendarEvent', 'event_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			role_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			@current_role_id,
+			'UPDATE',
+			'CalendarEvent',
+            NEW.event_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER announcement_after_update
+AFTER UPDATE ON `Announcement`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'visibility_scope', OLD.visibility_scope,
+            'announce_title', OLD.announce_title,
+			'announce_body', OLD.announce_body,
+            'announce_expiry', OLD.announce_expiry,
+			'allow_opt_out', OLD.allow_opt_out,
+			'announce_delivery', OLD.announce_delivery,
+            'archived', OLD.archived,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'announce_title', NEW.announce_title,
+			'announce_body', NEW.announce_body,
+            'announce_expiry', NEW.announce_expiry,
+			'allow_opt_out', NEW.allow_opt_out,
+			'announce_delivery', NEW.announce_delivery,
+            'archived', NEW.archived,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('Announcement', 'announcement_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			role_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			@current_role_id,
+			'UPDATE',
+			'Announcement',
+            NEW.announcement_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* UPDATE TRIGGER FOR DOCUMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER document_after_update
+AFTER UPDATE ON `Document`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'visibility_scope', OLD.visibility_scope,
+            'doc_title', OLD.doc_title,
+			'stored_url', OLD.stored_url,
+            'archived', OLD.archived,
+			'updated_at', OLD.updated_at,
+			'updated_by', OLD.updated_by
+        );
+    SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'doc_title', NEW.doc_title,
+			'stored_url', NEW.stored_url,
+            'archived', NEW.archived,
+			'updated_at', NEW.updated_at,
+			'updated_by', NEW.updated_by
+        );
+
+    CALL generate_updated_json('Document', 'document_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			role_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.updated_by,
+			@current_role_id,
+			'UPDATE',
+			'Document',
+            NEW.document_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR USER TABLE */
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER user_after_insert
+AFTER INSERT ON `User`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	 DECLARE changes JSON;
+	 SET new_row = JSON_OBJECT(
+            'first_name', NEW.first_name,
+            'last_name', NEW.last_name,
+			'user_email', NEW.user_email,
+            'user_phone', NEW.user_phone,
+			'user_address', NEW.user_address,
+			'password_hashed', NEW.password_hashed,
+            'is_active', NEW.is_active,
+			'joined_on', NEW.joined_on
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		role_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.user_id,
+		 @current_role_id,
+			'CREATE',
+			'User',
+            NEW.user_id,
+			NULL,
+		    new_row,
+			changes  
+    );
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR CALENDAR EVENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER event_after_insert
+AFTER INSERT ON `CalendarEvent`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+	 SET new_row =  JSON_OBJECT(
+            'event_title', NEW.event_title,
+            'event_desc', NEW.event_desc,
+			'event_location', NEW.event_location,
+            'event_date', NEW.event_date,
+			'recurring', NEW.recurring,
+			'iterations', NEW.iterations,
+            'days_of_week', NEW.days_of_week,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		role_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+		 @current_role_id,
+			'CREATE',
+			'CalendarEvent',
+            NEW.event_id,
+			NULL,
+		    new_row,
+			changes       
+    );
+END$$
+DELIMITER ;
+
+
+/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER announcement_after_insert
+AFTER INSERT ON `Announcement`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+	 SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'announce_title', NEW.announce_title,
+			'announce_body', NEW.announce_body,
+            'announce_expiry', NEW.announce_expiry,
+			'allow_opt_out', NEW.allow_opt_out,
+			'announce_delivery', NEW.announce_delivery,
+            'archived', NEW.archived,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		role_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+		  @current_role_id,
+			'CREATE',
+			'Announcement',
+            NEW.announcement_id,
+			NULL,
+		    new_row,
+			changes 
+    );
+END$$
+DELIMITER ;
+
+/* INSERT TRIGGER FOR DOCUMENT TABLE */
+DELIMITER $$
+CREATE OR REPLACE TRIGGER document_after_insert
+AFTER INSERT ON `Document`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	DECLARE changes JSON;
+	  SET new_row =  JSON_OBJECT(
+            'visibility_scope', NEW.visibility_scope,
+            'doc_title', NEW.doc_title,
+			'stored_url', NEW.stored_url,
+            'archived', NEW.archived,
+			'created_at', NEW.created_at,
+			'created_by', NEW.created_by
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		role_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.created_by,
+		 @current_role_id,
+			'CREATE',
+			'Document',
+            NEW.document_id,
+			NULL,
+		    new_row,
+			changes
+    );
+END$$
+DELIMITER ;
+
+
+
+/* for cleanup testing purposes */
+INSERT INTO AuditLog (
+log_id,
+user_id,
+role_id,	
+action,
+entity_type,
+entity_id,
+before_json,			 
+after_json,
+diff_json,
+occurred_at
+)
+VALUES 
+(1, 20, 2, 'Create', 'CalendarEvent', 1, NULL, '{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "created_at": "2025-01-08 14:42:45", "created_by": 20}', NULL, '2026-01-08 14:42:45'),
+(2, 20, 2, 'Update', 'CalendarEvent', 1,
+	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "0000-00-00 00:00:00", "updated_by": null}', 
+	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "D2L", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "2026-03-02 02:00:27", "updated_by": 20}', 
+	'{"event_location": "D2L", "updated_at": "2026-03-02 02:00:27", "updated_by": 20}', '2026-03-02 02:00:27');
+
+/* auto cleanup event */
+SET GLOBAL event_scheduler = ON;
+CREATE EVENT IF NOT EXISTS delete_audit_logs
+ON SCHEDULE EVERY 1 DAY
+DO
+  DELETE FROM AuditLog
+  WHERE occurred_at < NOW() - INTERVAL 90 DAY;
 CREATE TABLE MemberSuggestion (
     suggestion_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,

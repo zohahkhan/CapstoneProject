@@ -74,8 +74,8 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
             {
                 $beforeJson = json_encode(['attend_status' => $existing['attend_status'], 'check_in_time' => $existing['check_in_time'], 'notes' => $existing['notes']]);
                 $afterJson  = json_encode(['attend_status' => $status, 'check_in_time' => $check_in_time, 'notes' => $notes]);
-                $auditQuery = 'INSERT INTO auditlog (user_id, action, entity_type, entity_id, before_json, after_json)
-                               VALUES (:user_id, :action, :entity_type, :entity_id, :before_json, :after_json)';
+                $auditQuery = 'INSERT INTO auditlog (user_id, action, entity_type, entity_id, before_json, after_json, role_id)
+                               VALUES (:user_id, :action, :entity_type, :entity_id, :before_json, :after_json, :role_id)';
                 $auditStmt = $db->prepare($auditQuery);
                 $auditStmt->execute([
                     ':user_id'     => $current_user_id,
@@ -83,7 +83,8 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
                     ':entity_type' => 'attendance',
                     ':entity_id'   => $existing['attendance_id'],
                     ':before_json' => $beforeJson,
-                    ':after_json'  => $afterJson
+                    ':after_json'  => $afterJson,
+                  	':role_id'	   => $role_id
                 ]);
             }
         } 
@@ -103,8 +104,8 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
 
             $beforeJson = json_encode([]);
             $afterJson  = json_encode(['attend_status' => $status, 'check_in_time' => $check_in_time, 'notes' => $notes]);
-            $auditQuery = 'INSERT INTO auditlog (user_id, action, entity_type, entity_id, before_json, after_json)
-                           VALUES (:user_id, :action, :entity_type, :entity_id, :before_json, :after_json)';
+            $auditQuery = 'INSERT INTO auditlog (user_id, action, entity_type, entity_id, before_json, after_json, role_id)
+                           VALUES (:user_id, :action, :entity_type, :entity_id, :before_json, :after_json, :role_id)';
             $auditStmt = $db->prepare($auditQuery);
             $auditStmt->execute([
                 ':user_id'     => $current_user_id,
@@ -112,7 +113,8 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
                 ':entity_type' => 'attendance',
                 ':entity_id'   => $event_id,
                 ':before_json' => $beforeJson,
-                ':after_json'  => $afterJson
+                ':after_json'  => $afterJson,
+                ':role_id'	   => $role_id
             ]);
         }
     }
