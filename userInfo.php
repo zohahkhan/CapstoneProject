@@ -13,6 +13,9 @@ if (!isset($user_id))
 
 $current_user = $_SESSION['user']['user_id'];
 
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
 // Get user Information
 $queryProfile = 'SELECT * FROM `User`
 				 WHERE user_id = :user_id';
