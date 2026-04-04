@@ -185,7 +185,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 		<td><?php echo $row['entity_type']; ?></td>
 		<td><?php echo date('M d, Y', strtotime($row['occurred_at'])); ?></td>
 		<td>
-			<form action = "logInfo.php" method = "post">
+			<form action = "auditLogInfo.php" method = "post">
 				<input type="hidden" name = "log_id" value= "<?php echo $row['log_id']; ?>">
 				
 				<input type="hidden" name = "user_id" value= "<?php echo $row['user_id']; ?>">
