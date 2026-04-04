@@ -26,11 +26,19 @@ Password: gil42134
 or any username/password within the database
 
 
-Branch Name #3:
-User Story: 
+Branch Name #3: feature/audit-log
+User Story: As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues.
 Usage Instructions:  
+     Starting on the Admin dashboard (index.php), click the view logs link that launches viewLog.php page with all the logs displayed in a table. The logs (in viewLog.php) can be filtered by the user ID of who made the changes, the role they were signed into at the time of making the changes, the action taken (create, read, update, delete), and the date of when the changed were made. Each log contains more information by clicking the corresponding view more button that launches auditLogInfo.php page. Additionally, in viewLog.php, the Admin user can chose to export all the logs into a CSV file. I also made an exportAuditLogs.php file that should automatically export the AuditLog table to exports folder in my htdocs every 89 days (1 day before purged via database script).    
 Acceptance Criteria:
+  ▪ Log entries must include timestamp, user ID, action, status. 
+  ▪ Filters: date, user ID, action, role. 
+  ▪ System logs are auto purged after 90 days to save on storage; individual  logs cannot be manually deleted. 
+  ▪ Use a Node.js script that is scheduled to query logs, generate CSV/PDF,  and export to a designated folder. 
 Test Credentials: 
+  Username: kat44977@email.com
+  Password: kat44977
+  or any user with Admin role permissions within the database
 
 
 Branch Name #4:
