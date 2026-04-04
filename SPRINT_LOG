@@ -37,6 +37,18 @@ Blockers:
 Resolution Plan:
 - All blockers were resolved within the sprint with no carryover needed.
 
+
+Shannon's User Story (5h6nn0n):
+Complted work: 
+- As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues. I made viewLog.php, auditLogInfo.php, exportLog.php, autoExportLogs.php
+Incomplete Tasks:
+- None
+Blockers:
+- The CSV code needed to be on its own page or else couldn't get it to work. role_id needed to be added across several pages to track the current role of the user at the time of making changes. 
+Resolution Plan:
+- All blockers were resolved within the sprint with no carryover needed.
+
+
 In Progress & Blockers:
 As an Member, I want to be able to submit suggestions or feedback of events and meetings.
 As an Department Head & President, I want to be able to review suggestions or feedback given.
@@ -47,7 +59,7 @@ As an Member, I want to see a preview of each item/box on each web page before c
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | Audit Log | Manual | Passed | PR #73 - Admin can view all system logs filterable by user ID, role, action, and date, view detailed log info, and export logs to CSV |
-
+| Input Member Suggestion | Manual | Passed | PR #72 - Members can text and upluad images/files to the suggestion box. A confirmation page will let user know it went through. | 
 
 ## 4. Bug Tracking
 
