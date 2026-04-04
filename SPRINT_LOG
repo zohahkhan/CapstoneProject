@@ -37,3 +37,16 @@ As an Member, I want to see a preview of each item/box on each web page before c
 
 ## 4. Bug Tracking
 
+JJ's Bugs
+
+Bug 1.) reviewSuggestions.php threw a fatal PDO error on load. The MemberSuggestion table did not exist in the database because Kah's submission form was inserting into MemberSuggestion while the SQL file only contained a Suggestion table.
+Resolution: Created the MemberSuggestion table in phpMyAdmin with the correct columns matching Kah's insert statement: suggestion_id, user_id, suggestion_text, attachment_path, status, and created_at.
+Severity: High | Fix Status: Fixed
+
+Bug 2.) reviewSuggestions.php threw a fatal PDO error after adding the resolved-by feature. The resolved_by column did not exist in the MemberSuggestion table.
+Resolution: Added the resolved_by column to the MemberSuggestion table via phpMyAdmin using ALTER TABLE MemberSuggestion ADD COLUMN resolved_by INT NULL with a foreign key referencing User(user_id).
+Severity: High | Fix Status: Fixed
+
+Bug 3.) Review Suggestions link returned a 404 Not Found error when clicked from the homepage.
+Resolution: index.php is located inside the loginpages folder while reviewSuggestions.php is in the root. Updated the link in index.php to use ../reviewSuggestions.php to correctly navigate up one directory level.
+Severity: High | Fix Status: Fixed
