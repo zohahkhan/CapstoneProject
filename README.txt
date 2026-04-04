@@ -12,11 +12,18 @@ Acceptance Criteria:
 Test Credentials:
 
 
-Branch Name #2:
-User Story: 
-Usage Instructions:  
+Branch Name #2: feature/reviewSuggestions
+User Story: As a Department Head & President, I want to be able to review suggestions or feedback given.
+Usage Instructions:  Navigate to the Department Head or President homepage. A suggestion preview card will display the total number of pending and reviewed/resolved suggestions. Click "Review Suggestions" to open the full review page. On the review page, all submitted member feedback is displayed in an organized table showing the submitter's name, role, suggestion text, any attachments, date submitted, and current status. Department Heads and Presidents can mark suggestions as resolved or reopen them. The President can additionally approve suggestions submitted by Department Heads. All status changes display who resolved or approved the suggestion by name and role. Suggestions can also be selected individually or all at once and deleted.
 Acceptance Criteria:
-Test Credentials: 
+- Ability to review all submitted feedback
+- Mark suggestions as resolved
+- Have all suggestions displayed in an organized format
+- President can approve suggestions Department Head submits
+Test Credentials:
+Username: gil42134@email.com
+Password: gil42134
+or any username/password within the database
 
 
 Branch Name #3:
