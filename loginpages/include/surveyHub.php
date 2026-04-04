@@ -11,7 +11,7 @@
 
 #quizList {
     background: #f4f4f4;
-    background-color: #fdfaf7; /*makes it lighter than main box for contrast*/
+    background-color: #fdfaf7;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     overflow-y: auto;
@@ -27,7 +27,6 @@
     border: 1px solid #e6d5c3;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
     text-align: left;
-
     display: flex;
     flex-direction: column;
 }
@@ -102,23 +101,6 @@ if (session_status() == PHP_SESSION_NONE)
 if (!isset($_SESSION['user']['user_id'])) 
 {
     die("User not logged in.");
-// Check if user already submitted
-$stmt = $db->prepare("
-    SELECT 1
-    FROM FormResponse 
-    WHERE template_id = :template_id
-      AND user_id = :user_id
-    LIMIT 1
-");
-$stmt->bindParam(':template_id', $form_id);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($alreadyCompleted) {
-    // redirect back to hub
-    header("Location: surveyHub.php");
-    exit;
 }
 
 if (!isset($_SESSION['user']['role_id'])) 
@@ -129,11 +111,6 @@ if (!isset($_SESSION['user']['role_id']))
 $user_id = $_SESSION['user']['user_id'];
 $role_id = $_SESSION['user']['role_id'];
 
-/*
-    role_id:
-    2 = Department Head
-    3 = Member
-*/
 $formTitle = '';
 $formPage = '';
 
@@ -151,20 +128,13 @@ else
 {
     die("No valid role found for surveys.");
 }
-
-/* Fetch JSON results only for the correct survey type */
-	if (!isset($user_id)) 
-	{
-		$user_id = $_SESSION['user']['user_id'];	
-	}
-}?>
+?>
 
 <div class="monthly-report-box">
 
 <div class="scrollable-monthly-report-box">
 
 <?php
-// Fetch JSON results for all quizzes
 $sql = 'SELECT q.template_id, q.temp_title, q.form_questions, r.form_response
         FROM FormTemplate q
         LEFT JOIN FormResponse r 
@@ -220,7 +190,6 @@ $stmt3->closeCursor();
         }
         ?>
 
-        <!---- this part displays after the form is complete -->
         <div class="">
             <ol>
                 <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted)</strong>
@@ -249,49 +218,9 @@ $stmt3->closeCursor();
 <?php endforeach; ?>
 
 <iframe id="quizFrame"></iframe>
-		$questionsData = json_decode($quiz['form_questions'], true);
-		$responsesData = json_decode($quiz['form_response'], true);
-        ?>
-			
-	<?php
-        $responseMap = [];
-	foreach ($responsesData as $resp) 
-	{
-		$responseMap[$resp['id']] = $resp['response'];
-	}
-?>
-
-<!---- this part displays after the form is complete and is responsible for the box -->
-<div class="">
-    <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
-        <ol>
-        <?php 
-        foreach ($questionsData as $q): ?>
-            <?php 
-            if (!isset($responseMap[$q['id']])) {
-                    continue;
-                }
-            
-                $questionText = $q['question'] ?? 'Unknown question';
-                $questionId = $q['id'];
-                $userResponse = $responseMap[$questionId] ?? 'No response'; ?>
-            <li> 
-                Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
-            </li>
-        <?php endforeach; ?>
-        </ol>
-</div>
-    <?php else: ?>
-        <div class="quiz-item" 
-		onclick="loadQuiz('memberSurvey.php?id=<?= $quiz['template_id'] ?>', event)">
-            <?php echo htmlspecialchars($quiz['temp_title']); ?>
-        </div>
-        <?php endif; ?>
-<?php endforeach; ?>
 
 </div>
 
- <iframe id="quizFrame" ></iframe>
 </div>
 
 <script>
