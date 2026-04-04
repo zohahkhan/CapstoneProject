@@ -4,15 +4,14 @@
 #quizBox {
     width: 250px;
     border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    height: 400px;
+    display: block;
+    height: auto !important;
+    min-height: 0 !important;
 }
 
 #quizList {
     background: #f4f4f4;
     background-color: #fdfaf7; /*makes it lighter than main box for contrast*/
-
     padding: 10px;
     border-bottom: 1px solid #ccc;
     overflow-y: auto;

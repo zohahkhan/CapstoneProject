@@ -1807,6 +1807,15 @@ ON SCHEDULE EVERY 1 DAY
 DO
   DELETE FROM AuditLog
   WHERE occurred_at < NOW() - INTERVAL 90 DAY;
+CREATE TABLE MemberSuggestion (
+    suggestion_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    suggestion_text TEXT NOT NULL,
+    attachment_path VARCHAR(255),
+    status ENUM('Pending','Reviewed','Resolved') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
 
 /* to access the database */
 FLUSH PRIVILEGES;
