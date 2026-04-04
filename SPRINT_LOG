@@ -49,3 +49,31 @@ Severity: High | Fix Status: Fixed
 Bug 3.) Review Suggestions link returned a 404 Not Found error when clicked from the homepage.
 Resolution: index.php is located inside the loginpages folder while reviewSuggestions.php is in the root. Updated the link in index.php to use ../reviewSuggestions.php to correctly navigate up one directory level.
 Severity: High | Fix Status: Fixed
+
+
+Shannon's Bugs:
+Bug 1.) change tracking in lanja_db.sql 
+        The audit log updated successfully with the update triggers, but I noticed all the json attributes updated for that row, 
+        even the ones that had no changes. It’s hard to see what changes were made to the json object arrays without playing spot the difference. 
+Resolution: Created a procedure that filters out the difference between the before and after json. Added diff_json attribute to AuditLog table. 
+Severity: low | Fix Status: Fixed
+
+Bug 2.) fixed session variable in userInfo.php 
+        I get ‘user_id cannot be null’ error when choosing updated_by attribute for user table update trigger, specifically when activating/deactivating users. 
+        I haven’t received this error for the other triggers I tested. Replacing updated_by with user_id stops this error but doesn’t receive the proper value in the database. The error shows it’s on line 41 from userInfo.php.
+Resolution: I added updated_by to the deactivate query. Then, I got fk constraint error but have no fks in User, which is the table that is being updated. I used var_dump() for all the ID variables (current user & user being updated) 
+        to find out the current_user_id is showing as an array. I just forgot to put [‘user_id’] next to $_SESSION[‘user’]. 
+Severity: low | Fix Status: Fixed
+
+Bug 3.) trouble displaying correct role_name in viewLog.php
+        When i made a join query for the user role, it returned all roles of the current user, but I only want to see the role that the user was logged into al the time of making the changes. 
+Resolution: I added a $current_role_id variable that is seen and used by the database trigger. I also added role_id to AuditLog table to perform a join query for the user’s role. 
+Severity: high | Fix Status: Fixed
+
+Bug 4.) CSV won’t launch in viewLog.php 
+        When I click export csv button, I get ‘undefined variable’ error for variables positioned above the action button statement where the csv execute block is held. Var_dump() shows 
+        these variables hold correct values before the export csv button is clicked. I know it has something to do with the form sending to the same page, causing it to refresh and the variables clear. 
+Resolution: I tested this by placing the export query in a different page called exportLogs.php, which launches when Admin user clicks export all button. 
+        I also made changes to the csv query block section, separating the json keys from values, so that the file output looks more organized. 
+Severity: med | Fix Status: Fixed
+
