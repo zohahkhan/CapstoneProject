@@ -37,8 +37,7 @@ As an Member, I want to see a preview of each item/box on each web page before c
 
 ## 4. Bug Tracking
 
-JJ's Bugs
-
+JJ's Bugs:
 Bug 1.) reviewSuggestions.php threw a fatal PDO error on load. The MemberSuggestion table did not exist in the database because Kah's submission form was inserting into MemberSuggestion while the SQL file only contained a Suggestion table.
 Resolution: Created the MemberSuggestion table in phpMyAdmin with the correct columns matching Kah's insert statement: suggestion_id, user_id, suggestion_text, attachment_path, status, and created_at.
 Severity: High | Fix Status: Fixed
