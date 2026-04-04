@@ -15,11 +15,11 @@ As an Admin, I want to view system logs so that I can monitor webapp activities 
 As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
 
 
-| Task Description | Assigned Owner | Priority | Status      |
-|    Review Suggestion |  @jjlee42134   |  High | In Progress  |
-|  Design Layout   |  @zohahkhan    |  Medium   | In Progress  |
-|  System Logs |  @5h6nn0n      |  Medium   | In Progress  |
-| Submit Suggestions | @kahguan92     |  High  | In Progress|
+| Task Description     | Assigned Owner | Priority | Status   |
+|  Review Suggestion   |  @jjlee42134   |  High    | Complete |
+|  Design Layout       |  @zohahkhan    |  Medium  | Complete |
+|  System Logs         |  @5h6nn0n      |  Medium  | Complete |
+|  Submit Suggestions  |  @kahguan92    |  High    | Complete |
 
 2. Progress & Blockers
 Completed Work:
