@@ -1,16 +1,45 @@
 <?php
+require_once('include/db_connect.php');
+
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
-require_once('include/db_connect.php');
+
 
 if (!isset($log_id)) 
 {
-	$log_id = $_GET['log_id'];
+	$log_id = $_POST['log_id'];
+}
+if (!isset($user_id)) 
+{
+	$user_id = $_POST['user_id'];
+}
+if (!isset($role_name)) 
+{
+	$role_name = $_POST['role_name'];
+}
+if (!isset($action_type)) 
+{
+	$action_type = $_POST['action_type'];
+}
+if (!isset($entity_type)) 
+{
+	$entity_type = $_POST['entity_type'];
+}
+if (!isset($occurred_at)) 
+{
+	$occurred_at = $_POST['occurred_at'];
+}
+if (!isset($entity_id)) 
+{
+	$entity_id = $_POST['entity_id'];
 }
 
+
+
 $current_user = $_SESSION['user']['user_id'];
+
 
 $queryProfile = 'SELECT before_json, after_json, diff_json  
 				 FROM `AuditLog`
@@ -21,8 +50,6 @@ $statement->execute();
 $data_json = $statement->fetch(PDO::FETCH_ASSOC);
 $statement->closeCursor();
 
-//var_dump($data_json);
-
 $json1 = is_array($data_json['before_json']) ? $data_json['before_json'] : ($data_json['before_json'] ? json_decode($data_json['before_json'], true) : []);
 
 $json2 = is_array($data_json['after_json']) ? $data_json['after_json'] : ($data_json['after_json'] ? json_decode($data_json['after_json'], true) : []);
@@ -30,6 +57,17 @@ $json2 = is_array($data_json['after_json']) ? $data_json['after_json'] : ($data_
 $json3 = is_array($data_json['diff_json']) ? $data_json['diff_json'] : ($data_json['diff_json'] ? json_decode($data_json['diff_json'], true) : []);
 
 $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? []), array_keys($json3 ?? [])));
+
+/*
+var_dump("variables other ");
+var_dump($log_id);
+var_dump($user_id);
+var_dump($role_name);
+var_dump($action_type);
+var_dump($entity_type);
+var_dump($occurred_at);
+var_dump($entity_id);
+*/
 
 ?>
 <!DOCTYPE HTML>
@@ -112,26 +150,42 @@ $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? 
 	</header>
 	<br><br>
 <main>
-	<table>			
+	<table>	
+	<form action = "exportLogs.php" method = "post" style="display:inline;">
+
 		<tr>
 			<th>Key</th>
 			<th>Before</th>
 			<th>After</th>
 			<th>Difference</th>
 		</tr>
-	    <?php foreach ($keys as $key): ?>
-        <tr>
+			 <?php foreach ($keys as $key): ?>
+
+		<tr>
             <td><?php echo $key; ?></td>
             <td><?php echo $json1[$key] ?? ''; ?></td>
             <td><?php echo $json2[$key] ?? ''; ?></td>
             <td><?php echo $json3[$key] ?? ''; ?></td>
-        </tr>
-    <?php endforeach; ?>
 
-	</table>		
+				<input type="hidden" name = "log_id" value= "<?php echo $log_id; ?>">
+				<input type="hidden" name = "user_id" value= "<?php echo $user_id; ?>">
+				<input type="hidden" name = "role_name" value= "<?php echo $role_name; ?>">
+				<input type="hidden" name = "action_type" value= "<?php echo $action_type; ?>">
+				<input type="hidden" name = "entity_type" value= "<?php echo $entity_type; ?>">
+				<input type="hidden" name = "occurred_at" value= "<?php echo $occurred_at; ?>">
+				<input type="hidden" name = "entity_id" value= "<?php echo $entity_id; ?>">
+        </tr>
+		<?php endforeach; ?>
+
+    <!---<button type="submit"  name="action" class="action-btn export-btn" value="export_csv" >Export CSV</button>-->
+ 	</form>
+	</table>	
 <br><br>	
 		<p><a href="viewLog.php">Back to all Logs</a></p>
 		<p><a href="index.php">Back to dashboard</a></p>
 	</main>
 </body>
 </html>
+
+
+
