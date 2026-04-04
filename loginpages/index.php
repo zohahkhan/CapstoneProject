@@ -274,8 +274,10 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-				<a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a>
+				<div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a></p>
 			</div>
 
 			<div class="left-sub-box bottom-box">
@@ -414,7 +416,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
     			<br>
 				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
 				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-
 				<p><a href="record_attendance.php"">Record Attendance</a></p>
 			</div>
 
@@ -437,7 +438,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 		<?php include("include/surveyHub.php"); ?>
-
 		</div>
 
 		<!--the right box with four separate boxes inside-->
@@ -469,7 +469,10 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p><a href="view_attendance.php" style="color: #8b6f47; text-decoration: none;">View My Attendance</a></p>
+				<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Review your attendance </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+				<p><a href="../view_attendance.php">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -496,7 +499,10 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
-                <p>Description</p>
+               <div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
 
@@ -510,7 +516,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 			</div>
 		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 		</div>
-
     </div>
 	<br>
     <p><a href="logout.php">Logout</a></p>
