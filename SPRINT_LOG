@@ -23,7 +23,19 @@ As an Member, I want to see a preview of each item/box on each web page before c
 
 2. Progress & Blockers
 Completed Work:
+Incomplete Tasks:
+Blockers:
+Resolution Plan:
 
+JJ's User Story (jjlee42134):
+Completed Work:
+- As a Department Head & President, I want to be able to review suggestions or feedback given. I built reviewSuggestions.php from scratch with the ability to view all submitted feedback in an organized table, mark suggestions as resolved, reopen them, approve Department Head submissions as President, track who resolved each suggestion by name and role, and delete selected suggestions. A suggestion preview was also added to the homepage for all three roles showing pending and reviewed/resolved counts.
+Incomplete Tasks:
+- None
+Blockers:
+- MemberSuggestion table did not exist on initial load causing a fatal PDO error. The resolved_by column also had to be added manually after resolver tracking was added. Links in index.php were broken due to the loginpages folder structure requiring ../ prefixes on all root level file paths.
+Resolution Plan:
+- All blockers were resolved within the sprint with no carryover needed.
 
 In Progress & Blockers:
 As an Member, I want to be able to submit suggestions or feedback of events and meetings.
@@ -34,6 +46,8 @@ As an Member, I want to see a preview of each item/box on each web page before c
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
+| Audit Log | Manual | Passed | PR #73 - Admin can view all system logs filterable by user ID, role, action, and date, view detailed log info, and export logs to CSV |
+
 
 ## 4. Bug Tracking
 
