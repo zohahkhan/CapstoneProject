@@ -89,6 +89,8 @@ $page_groups = [
             background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
+            background-image: url("images/background.png"); 
+
         }
 
         .box {
@@ -99,6 +101,8 @@ $page_groups = [
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            background-color: #faf5f0;
+
         }
 
         h2 {
