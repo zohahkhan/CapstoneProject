@@ -27,6 +27,12 @@ Incomplete Tasks:
 Blockers:
 Resolution Plan:
 
+Zoha's User Story (zohahkhan):
+Completed Work: As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
+Incomplete Tasks: None
+Blockers: There were some problems with the file location, which led to a 'File Not Found' error when I tried to access them. 
+Resolution Plan: This was resolved by adjusting the filing locations as needed as well as changing any of link addresses in the index file so they were calling the correct folder/file location.
+
 JJ's User Story (jjlee42134):
 Completed Work:
 - As a Department Head & President, I want to be able to review suggestions or feedback given. I built reviewSuggestions.php from scratch with the ability to view all submitted feedback in an organized table, mark suggestions as resolved, reopen them, approve Department Head submissions as President, track who resolved each suggestion by name and role, and delete selected suggestions. A suggestion preview was also added to the homepage for all three roles showing pending and reviewed/resolved counts.
@@ -59,9 +65,15 @@ As an Member, I want to see a preview of each item/box on each web page before c
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | Audit Log | Manual | Passed | PR #73 - Admin can view all system logs filterable by user ID, role, action, and date, view detailed log info, and export logs to CSV |
-| Input Member Suggestion | Manual | Passed | PR #72 - Members can text and upluad images/files to the suggestion box. A confirmation page will let user know it went through. | 
+| Input Member Suggestion | Manual | Passed | PR #72 - Members can text and upload images/files to the suggestion box. A confirmation page will let the user know it went through. | 
+| Webpage Previews | Manual | Passed | PR #75 - Webpages show a preview of the files in their respective location/boxes to help create an easier design for the user and fill the white space. | 
+
 
 ## 4. Bug Tracking
+Zoha's Bugs:
+Bug 1.) The following files: headdepartmentSurvey, headDepartmentSummary, memberSurvey, record_attendance, and view_attendance all had 'Not Found' errors when the hyperlinks were click, which implied the file location or location called were incorrect. 
+Resolution: File locations and hyperlink addresses were changed accordingly, so all files now successfully load and show correctly.
+Severity: High | Fix Status: Fixed
 
 JJ's Bugs:
 Bug 1.) reviewSuggestions.php threw a fatal PDO error on load. The MemberSuggestion table did not exist in the database because Kah's submission form was inserting into MemberSuggestion while the SQL file only contained a Suggestion table.
