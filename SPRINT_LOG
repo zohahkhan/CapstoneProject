@@ -25,7 +25,6 @@ As an Member, I want to see a preview of each item/box on each web page before c
 Completed Work:
 Incomplete Tasks:
 Blockers:
-Resolution Plan:
 
 Zoha's User Story (zohahkhan):
 Completed Work: As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
@@ -43,7 +42,6 @@ Blockers:
 Resolution Plan:
 - All blockers were resolved within the sprint with no carryover needed.
 
-
 Shannon's User Story (5h6nn0n):
 Complted work: 
 - As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues. I made viewLog.php, auditLogInfo.php, exportLog.php, autoExportLogs.php
@@ -53,6 +51,17 @@ Blockers:
 - The CSV code needed to be on its own page or else couldn't get it to work. role_id needed to be added across several pages to track the current role of the user at the time of making changes. 
 Resolution Plan:
 - All blockers were resolved within the sprint with no carryover needed.
+
+Kah's User Story (kahguan92)
+Completed Work: (Sprint 5)As an Member, I want to be able to submit suggestions or feedback of events and meetings.
+Incomplete Tasks: (Sprint 4) User story Feature/mark calendar event
+Blockers: (Sprint 4) My user story depends on Shannon’s user story, which establishes the foundational calendar functionality. However, her pull request has not yet been approved or merged. To continue progress, I implemented my own version of her functionality to support my feature development. 
+This resulted in differences in database table structures and php design between our implementations. 
+To avoid potential duplication and merge conflicts, I have not submitted or merged my pull request. Resolution of this blocker depends on alignment and integration of the base calendar functionality.
+(Sprint 5) There is an issue with how to the uploaded files being stored when the member submitted their suggestion. 
+Resolution Plan:
+(Sprint 5) Resolved by storing uploaded files on the server using a designated file path folder.
+(Sprint 4)Based on the approved request of Shannon's user story, I will either refactor my code to align with her database schema and PHP structure or carefully integrate my functionality into her existing implementation. If significant differences remain, I will prioritize adopting her version as the base to ensure consistency and avoid long-term conflicts. Communication will be maintained to confirm alignment before merging.
 
 
 In Progress & Blockers:
