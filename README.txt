@@ -6,10 +6,16 @@ SetUp Instructions: To run these branches, start by connecting to XAMPP. You can
 Each branch correlates with the following user stories:
 
 Branch Name #1: 
-User Story: 
-Usage Instructions:  
+User Story: As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
+Usage Instructions: Log in to the website and navigate to any users page, admin, member, department head, or president. Each page should have filled in boxes showing previews of that specific items or a text explanation so the user knows what to expect. 
 Acceptance Criteria:
+▪ A preview is displayed within each box to fill up the white space
+▪ Previews should be organized and easy to read
+▪ Initial text should be visible without having to click or navigate to a different screen
 Test Credentials:
+Username: kha27882@email.com
+  Password: kha27882
+  or any username/password within the database
 
 
 Branch Name #2: feature/reviewSuggestions
