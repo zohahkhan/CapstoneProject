@@ -6,6 +6,9 @@ if (session_status() == PHP_SESSION_NONE)
 }
 require_once 'include/db_connect.php';
 
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
 // alert for if a new member is added
 if (isset($_GET['success']) && $_GET['success'] == 1) 
 {

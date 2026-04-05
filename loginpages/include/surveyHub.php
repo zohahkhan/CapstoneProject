@@ -4,9 +4,9 @@
 #quizBox {
     width: 250px;
     border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    height: 400px;
+    display: block;
+    height: auto !important;
+    min-height: 0 !important;
 }
 
 #quizList {

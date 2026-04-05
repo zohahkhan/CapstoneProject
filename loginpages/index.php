@@ -12,6 +12,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     echo "<script>window.location.href='$url';</script>";
     exit();
 }
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
 
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
@@ -477,6 +480,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
+				<p><a href="memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Suggestion</a></p>
 				<p>Description</p>
 			</div>
 		</div>
@@ -496,6 +500,7 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
                 <p>Description</p>
+				<p><a href="viewLog.php">Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
