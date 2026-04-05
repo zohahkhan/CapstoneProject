@@ -47,12 +47,17 @@ Test Credentials:
   or any user with Admin role permissions within the database
 
 
-Branch Name #4:
-User Story: 
-Usage Instructions:  
+Branch Name #4: feature/membersuggestion 
+User Story: As an Member, I want to be able to submit suggestions or feedback of events and meetings.
+Usage Instructions:  Login in as a member and click on the suggetion link, a new tab(memberSuggestion.php) will pops with the option to enter text and upload documents/files, when the member submits the suggestion, it will store into the database table of memberSuggestion, the documents/files will be retrievable in the server.
 Acceptance Criteria:
+▪ Ability to input text to a submission form/box.
+▪ Ability to be able to attach a screenshot or document to your submission.
+▪ Ability to submit multiple responses.
+▪ Confirmation message displayed.
 Test Credentials: 
-
+Username: ong92990@email.com
+Password: test1234
 
 Workflow Info: The main branch houses all our documents about preparation and planning from the first semester for easy reference. The develop branch is the most up-to-date version of our code; it is the final branch that all code branches merge into. We use the feature/branch-name naming strategy for our pull requests and branch naming for a uniform naming format. While all members are encouraged to review all pull requests, we have assigned each member the specific responsibility to review another member's pull requests: 
 Zoha will review JJ's PR
