@@ -12,8 +12,6 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     echo "<script>window.location.href='$url';</script>";
     exit();
 }
-// for database script to 'see' session variable
-$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 
 // check for an existing session
@@ -92,6 +90,9 @@ $stmtUpcoming->bindParam(':year', $mini_year, PDO::PARAM_INT);
 $stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
 $stmtUpcoming->execute();
 $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
+
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 ?>
 <!DOCTYPE html>
 <html>
