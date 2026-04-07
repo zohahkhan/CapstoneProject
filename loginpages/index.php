@@ -277,13 +277,18 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-				<a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a>
+				<div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a></p>
 			</div>
+
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
-				<p>Description</p>
-				<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+    			<div class="scrollable-report-box">
+						<?php include("include/surveyHub.php"); ?>
+				</div> 
+				<p><a href="memberSurvey.php">Complete the Report</a></p>
 			</div>
 		</div>
 
@@ -317,8 +322,11 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+    			<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+
+				<p><a href="record_attendance.php"">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -347,11 +355,9 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 				<!-- stats summary box -->
 				<div class="report-summary-box">
 					<h3>Monthly Summary</h3>
-
 					<div class="report-summary-content">
 						<p><strong>Total Reports Submitted:</strong> <?= $totalReports ?></p>
 					</div>
-					
 				</div>
 				</div> 
 				<p><a href="viewSummary.php">View summary</a></p>
@@ -360,16 +366,25 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
-				<p>Description</p>
+				<!-- scroll container -->
+    			<div class="scrollable-report-box">
+				<!-- stats summary box -->
+				<div class="report-summary-box">
+					<div class="report-summary-content">
+						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
+					</div>	
+				</div>
+				</div> 
+				<p><a href="memberSurvey.php">Complete the Report</a></p>
 			</div>
 
-			<div class="left-sub-box dept-full-width">
+			<div class="dept-full-width">
 				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-				<p><?php include("include/surveyHub.php"); ?></p>
+				<div class="scrollable-report-box">
+				<?php include("include/surveyHub.php"); ?>
+				</div>
 			</div>
 	     </div>
-
 
 		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
@@ -401,8 +416,10 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+    			<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+				<p><a href="record_attendance.php"">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -424,7 +441,6 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 		<?php include("include/surveyHub.php"); ?>
-
 		</div>
 
 		<!--the right box with four separate boxes inside-->
@@ -456,7 +472,10 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p><a href="view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
+				<br>
+				<p style="color:  #8b6f47; line-height: 0.5;">Review your attendance </p>
+				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
+				<p><a href="../view_attendance.php">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -485,15 +504,23 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
-                <p>Description</p>
+               <div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
+
         <!--bottom box -->
         <div class="homepage-bottom-box">
-            <h2>Members</h2>
-            <p>Description</p>
-			<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
-        </div>
+		<h2>Members</h2>
+			<div class="scrollable-report-box">
+			<div class="background">
+				<?php include("viewUser.php"); ?>
+			</div>
+			</div>
+		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+		</div>
     </div>
 	<br>
     <p><a href="logout.php">Logout</a></p>
