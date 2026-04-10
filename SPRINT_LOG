@@ -1,6 +1,6 @@
-Sprint #5:
+Sprint #6:
 1. Planning & Assignments
-Sprint Dates: March 2nd - March 22nd
+Sprint Dates: March 29th - April 12th
 Team Name: Web Wizards 
 Members Present: 
   Zoha Khan @zohahkhan
@@ -9,115 +9,48 @@ Members Present:
   Kah Guan Ong @kahguan92
 
 Sprint Goals: 
-As an Member, I want to be able to submit suggestions or feedback of events and meetings.
-As an Department Head & President, I want to be able to review suggestions or feedback given.
-As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues.
-As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
-
+As a President and Department Head, I want to create reminders (title, body, expiry) so that members  receive timely updates.
+As a Admin, I want to debug the code so I have a fully functioning website.                                                                       
+As an Member, Admin, Department Head, and President, I want to access the website through a server so the website can run on my local machine using a single link in the browser.   
+As an Member, Admin, Department Head, and President, I want a standardized formatted css that adheres to the organization's brand and aesthetic.
 
 | Task Description     | Assigned Owner | Priority | Status   |
-|  Review Suggestion   |  @jjlee42134   |  High    | Complete |
-|  Design Layout       |  @zohahkhan    |  Medium  | Complete |
-|  System Logs         |  @5h6nn0n      |  Medium  | Complete |
-|  Submit Suggestions  |  @kahguan92    |  High    | Complete |
+|  Reminders   |  @jjlee42134   |  Medium   | Incomplete |
+|  Design Layout       |  @zohahkhan    |  Medium  | Incomplete |
+|  Debug         |  @5h6nn0n      |  High | Incomplete |
+|  Website Server  |  @kahguan92    |  High    | Incomplete |
 | RecurringCalendarEvent  | @kahguan92     |  Medium   | Incomplete|
 
+
 2. Progress & Blockers
-Zoha's User Story (zohahkhan):
-Completed Work: As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
-Incomplete Tasks: None
-Blockers: There were some problems with the file location, which led to a 'File Not Found' error when I tried to access them. 
-Resolution Plan: This was resolved by adjusting the filing locations as needed as well as changing any of link addresses in the index file so they were calling the correct folder/file location.
-
-JJ's User Story (jjlee42134):
-Completed Work:
-- As a Department Head & President, I want to be able to review suggestions or feedback given. I built reviewSuggestions.php from scratch with the ability to view all submitted feedback in an organized table, mark suggestions as resolved, reopen them, approve Department Head submissions as President, track who resolved each suggestion by name and role, and delete selected suggestions. A suggestion preview was also added to the homepage for all three roles showing pending and reviewed/resolved counts.
-Incomplete Tasks:
-- None
+User Story:
+Completed Work: 
+Incomplete Tasks: 
 Blockers:
-- MemberSuggestion table did not exist on initial load causing a fatal PDO error. The resolved_by column also had to be added manually after resolver tracking was added. Links in index.php were broken due to the loginpages folder structure requiring ../ prefixes on all root level file paths.
-Resolution Plan:
-- All blockers were resolved within the sprint with no carryover needed.
+Resolution Plan: 
 
-Shannon's User Story (5h6nn0n):
-Complted work: 
-- As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues. I made viewLog.php, auditLogInfo.php, exportLog.php, autoExportLogs.php
-Incomplete Tasks:
-- None
+User Story:
+Completed Work: 
+Incomplete Tasks: 
 Blockers:
-- The CSV code needed to be on its own page or else couldn't get it to work. role_id needed to be added across several pages to track the current role of the user at the time of making changes. 
-Resolution Plan:
-- All blockers were resolved within the sprint with no carryover needed.
+Resolution Plan: 
 
-Kah's User Story (kahguan92)
-Completed Work: (Sprint 5)As an Member, I want to be able to submit suggestions or feedback of events and meetings.
-Incomplete Tasks: (Sprint 4) User story Feature/mark calendar event
-Blockers: (Sprint 4) My user story depends on Shannon’s user story, which establishes the foundational calendar functionality. However, her pull request was not yet been approved or merged during the sprint 4 phase. To continue progress, I implemented my own version of her functionality to support my feature development. 
-This resulted in differences in database table structures and php design between our implementations. 
-To avoid potential duplication and merge conflicts, I have not submitted or merged my pull request. Resolution of this blocker depends on alignment and integration of the base calendar functionality.
-(Sprint 5) There is an issue with how to the uploaded files being stored when the member submitted their suggestion. 
-Resolution Plan:
-(Sprint 5) Resolved by storing uploaded files on the server using a designated file path folder.
-(Sprint 4)Based on the approved request of Shannon's user story, I will either refactor my code to align with her database schema and PHP structure or carefully integrate my functionality into her existing implementation. If significant differences remain, I will prioritize adopting her version as the base to ensure consistency and avoid long-term conflicts. Communication will be maintained to confirm alignment before merging.
+User Story:
+Completed Work: 
+Incomplete Tasks: 
+Blockers:
+Resolution Plan: 
 
-
-In Progress & Blockers:
-As an Member, I want to be able to submit suggestions or feedback of events and meetings.
-As an Department Head & President, I want to be able to review suggestions or feedback given.
-As an Admin, I want to view system logs so that I can monitor webapp activities and for troubleshooting issues.
-As an Member, I want to see a preview of each item/box on each web page before clicking on it so I know what information to expect.
+User Story:
+Completed Work: 
+Incomplete Tasks: 
+Blockers:
+Resolution Plan: 
 
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
-| Audit Log | Manual | Passed | PR #73 - Admin can view all system logs filterable by user ID, role, action, and date, view detailed log info, and export logs to CSV |
-| Input Member Suggestion | Manual | Passed | PR #72 - Members can text and upload images/files to the suggestion box. A confirmation page will let the user know it went through. | 
-| Webpage Previews | Manual | Passed | PR #75 - Webpages show a preview of the files in their respective location/boxes to help create an easier design for the user and fill the white space. | 
 
 
 ## 4. Bug Tracking
-Zoha's Bugs:
-Bug 1.) The following files: headdepartmentSurvey, headDepartmentSummary, memberSurvey, record_attendance, and view_attendance all had 'Not Found' errors when the hyperlinks were click, which implied the file location or location called were incorrect. 
-Resolution: File locations and hyperlink addresses were changed accordingly, so all files now successfully load and show correctly.
-Severity: High | Fix Status: Fixed
-
-JJ's Bugs:
-Bug 1.) reviewSuggestions.php threw a fatal PDO error on load. The MemberSuggestion table did not exist in the database because Kah's submission form was inserting into MemberSuggestion while the SQL file only contained a Suggestion table.
-Resolution: Created the MemberSuggestion table in phpMyAdmin with the correct columns matching Kah's insert statement: suggestion_id, user_id, suggestion_text, attachment_path, status, and created_at.
-Severity: High | Fix Status: Fixed
-
-Bug 2.) reviewSuggestions.php threw a fatal PDO error after adding the resolved-by feature. The resolved_by column did not exist in the MemberSuggestion table.
-Resolution: Added the resolved_by column to the MemberSuggestion table via phpMyAdmin using ALTER TABLE MemberSuggestion ADD COLUMN resolved_by INT NULL with a foreign key referencing User(user_id).
-Severity: High | Fix Status: Fixed
-
-Bug 3.) Review Suggestions link returned a 404 Not Found error when clicked from the homepage.
-Resolution: index.php is located inside the loginpages folder while reviewSuggestions.php is in the root. Updated the link in index.php to use ../reviewSuggestions.php to correctly navigate up one directory level.
-Severity: High | Fix Status: Fixed
-
-
-Shannon's Bugs:
-Bug 1.) change tracking in lanja_db.sql 
-        The audit log updated successfully with the update triggers, but I noticed all the json attributes updated for that row, 
-        even the ones that had no changes. It’s hard to see what changes were made to the json object arrays without playing spot the difference. 
-Resolution: Created a procedure that filters out the difference between the before and after json. Added diff_json attribute to AuditLog table. 
-Severity: low | Fix Status: Fixed
-
-Bug 2.) fixed session variable in userInfo.php 
-        I get ‘user_id cannot be null’ error when choosing updated_by attribute for user table update trigger, specifically when activating/deactivating users. 
-        I haven’t received this error for the other triggers I tested. Replacing updated_by with user_id stops this error but doesn’t receive the proper value in the database. The error shows it’s on line 41 from userInfo.php.
-Resolution: I added updated_by to the deactivate query. Then, I got fk constraint error but have no fks in User, which is the table that is being updated. I used var_dump() for all the ID variables (current user & user being updated) 
-        to find out the current_user_id is showing as an array. I just forgot to put [‘user_id’] next to $_SESSION[‘user’]. 
-Severity: low | Fix Status: Fixed
-
-Bug 3.) trouble displaying correct role_name in viewLog.php
-        When i made a join query for the user role, it returned all roles of the current user, but I only want to see the role that the user was logged into al the time of making the changes. 
-Resolution: I added a $current_role_id variable that is seen and used by the database trigger. I also added role_id to AuditLog table to perform a join query for the user’s role. 
-Severity: high | Fix Status: Fixed
-
-Bug 4.) CSV won’t launch in viewLog.php 
-        When I click export csv button, I get ‘undefined variable’ error for variables positioned above the action button statement where the csv execute block is held. Var_dump() shows 
-        these variables hold correct values before the export csv button is clicked. I know it has something to do with the form sending to the same page, causing it to refresh and the variables clear. 
-Resolution: I tested this by placing the export query in a different page called exportLogs.php, which launches when Admin user clicks export all button. 
-        I also made changes to the csv query block section, separating the json keys from values, so that the file output looks more organized. 
-Severity: med | Fix Status: Fixed
 
