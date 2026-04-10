@@ -370,10 +370,15 @@ created_by
 VALUES
 (1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL,  NULL, '2026-01-08 14:42:45', 20),   
 (2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00',  NULL,  NULL, NULL, '2026-01-08 14:48:31', 20), 
-(3, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(4, 'iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(5, 'Eid ', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(6, 'March Meeting ', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, NULL, current_timestamp(), 17);
+(3, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(4, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(5, 'Eid', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(6, 'March Meeting', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(7, 'April Meeting', 'Program will start at 10 AM and continue until 2PM', 'Mosque', '2026-04-11 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(8, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-05 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(9, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-12 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(10, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-19 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
+(11, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-26 10:00:00', NULL, NULL, NULL, current_timestamp(), 17);
 
 INSERT INTO Permission 
 (
