@@ -264,7 +264,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				?>
 			</tbody>
 		</table>
-		<div class="mini-cal-hint">Click to open full calendar</div>
+		<div class="mini-cal-hint" style="color: #4b3d29;" >Click to open full calendar</div>
 	</a>
 	<?php
 	$mini_calendar_html = ob_get_clean();
@@ -322,12 +322,9 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			</div>
 
 			<div class="right-sub-box">
-				<h2>Meeting Attendance</h2>
-    			<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-
-				<p><a href="record_attendance.php"">Record Attendance</a></p>
+				<h2>Meeting Attendance</h2> 
+				<br><p style="color: #8b6f47; font-size: 1.6rem;">Attendance should be held for all events</p>
+				<br><a href="record_attendance.php" style="color: #4b3d29; ">Record Attendance</a>
 			</div>
 
 			<div class="right-sub-box">
@@ -361,7 +358,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 					</div>
 				</div>
 				</div> 
-				<p><a href="viewSummary.php">View summary</a></p>
+				<p><a href="viewSummary.php" style="color: #4b3d29;">View summary</a></p>
 			</div>
 
 
@@ -376,7 +373,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 					</div>	
 				</div>
 				</div> 
-				<p><a href="memberSurvey.php">Complete the Report</a></p>
+				<p><a href="memberSurvey.php" style="color: #4b3d29;">Complete the Report</a></p>
 			</div>
 
 			<div class="dept-full-width">
@@ -417,12 +414,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-    			<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-				<p><a href="record_attendance.php"">Record Attendance</a></p>
+				<p style="color: #8b6f47; font-size: 1.4rem;">Attendance should be held for all events</p>
+				<br><a href="record_attendance.php" style="color: #4b3d29;">Record Attendance</a>
 			</div>
 
+		
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<p>Description</p>
@@ -473,16 +469,21 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Review your attendance </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-				<p><a href="../view_attendance.php">View My Attendance</a></p>
+				<p style="color: #8b6f47; font-size: 1.5rem;">Review your attendance held for all events </p>
+				<p><a href="../view_attendance.php" style="color: #4b3d29;">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
-				<p><a href="memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Suggestion</a></p>
-				<p>Description</p>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+					<textarea name="suggestion_text" id="suggestion_text" placeholder="Enter your suggestion or feedback here..." required><?= htmlspecialchars($_POST['suggestion_text'] ?? '') ?></textarea>
+						<br><br><br><br>	
+				<?#php include("memberSuggestion.php"); ?>
+				</div>
+				</div>
+				<p><a href="memberSuggestion.php" style="color: #4b3d29;">Submit a Suggestion</a></p>
+				
 			</div>
 		</div>
 	</div>
@@ -500,15 +501,17 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
-                <p>Description</p>
-				<p><a href="viewLog.php">Logs</a></p>
+                <div class="scrollable-report-box">
+					<?php include("viewLog.php"); ?>
+				</div>
+				<p><a href="viewLog.php" style="color: #4b3d29;">View Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
                <div class="scrollable-report-box">
 					<?php include("headDepartmentSummary.php"); ?>
 				</div>
-				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
+				<p><a href="headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
 
@@ -520,7 +523,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<?php include("viewUser.php"); ?>
 			</div>
 			</div>
-		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+		<p><a href="viewUser.php" style="color: #4b3d29;">View all members</a></p>
 		</div>
     </div>
 	<br>
@@ -542,9 +545,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	<?php if (!empty($upcoming_events)) : ?>
 	<div class="event-popup" id="eventPopup">
 		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
-
 		<h4>Upcoming This Month</h4>
-
 		<ul>
 			<?php foreach ($upcoming_events as $event): ?>
 				<li>
