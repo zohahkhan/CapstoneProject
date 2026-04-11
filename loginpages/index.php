@@ -91,8 +91,26 @@ $stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
 $stmtUpcoming->execute();
 $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
-// for database script to 'see' session variable
-$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+// Pending suggestion count for Dept Head and President boxes
+$stmtPending = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE status = 'Pending'");
+$stmtPending->execute();
+$pendingSuggestions = $stmtPending->fetchColumn();
+
+// Reviewed/Resolved suggestion count for Dept Head and President boxes
+$stmtCompleted = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE status IN ('Reviewed', 'Resolved')");
+$stmtCompleted->execute();
+$completedSuggestions = $stmtCompleted->fetchColumn();
+
+// Member's own suggestion count
+$stmtMySuggestions = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE user_id = :user_id");
+$stmtMySuggestions->bindParam(':user_id', $user_id);
+$stmtMySuggestions->execute();
+$myTotalSuggestions = $stmtMySuggestions->fetchColumn();
+
+$stmtMyPending = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE user_id = :user_id AND status = 'Pending'");
+$stmtMyPending->bindParam(':user_id', $user_id);
+$stmtMyPending->execute();
+$myPendingSuggestions = $stmtMyPending->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html>
@@ -180,6 +198,33 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			color: #c4a484;
 			margin-top: 6px;
 		}
+
+		.suggestion-preview {
+			width: 100%;
+			margin-top: 10px;
+			padding: 10px;
+			background-color: #fdfaf7;
+			border-radius: 8px;
+			border: 1px solid #e6d5c3;
+			font-size: 0.85em;
+			text-align: left;
+			flex: 1;
+		}
+
+		.suggestion-preview p {
+			margin: 4px 0;
+			color: #3b2f2f;
+		}
+
+		.suggestion-preview .pending-count {
+			font-weight: 600;
+			color: #856404;
+		}
+
+		.suggestion-preview .completed-count {
+			font-weight: 600;
+			color: #155724;
+		}
 	</style>
 </head>
 
@@ -192,8 +237,6 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
 			
-			
-			
 			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
 								JOIN Role r ON ur.role_id = r.role_id
 								WHERE ur.user_id = :user_id AND r.role_name = "Admin"';
@@ -203,7 +246,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
 		
 			if ($isAdmin) {
-				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
+				echo '<p><a href="../manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
 			echo "\n<h2>";
 		
@@ -225,7 +268,6 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	
 	<!---- Calendar code ---->
 	<?php
-	// Mini calendar HTML block — reused across roles
 	ob_start();
 	?>
 	<a href="../calendar.php" class="mini-calendar-link">
@@ -274,26 +316,20 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
-		<!-- left box split horizontally into 2 -->
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
-				<div class="scrollable-report-box">
-					<?php include("headDepartmentSummary.php"); ?>
-				</div>
-				<p><a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a></p>
+				<p>Description</p>
+				<a href="../headDepartmentSummary.php">Compiled Monthly Report Summary</a>
 			</div>
 
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
-    			<div class="scrollable-report-box">
-						<?php include("include/surveyHub.php"); ?>
-				</div> 
-				<p><a href="memberSurvey.php">Complete the Report</a></p>
+				<p>Description</p>
+				<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
 		</div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -301,19 +337,19 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 
 			<div class="right-sub-box">
@@ -323,21 +359,22 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-    			<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-
-				<p><a href="record_attendance.php"">Record Attendance</a></p>
+				<p>Description</p>
+				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
-				<p>Description</p>
+				<div class="suggestion-preview">
+					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
+					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
+				</div>
+				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
 
@@ -345,15 +382,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
-		<!-- left box, split horizontally into 2 -->
-		<!-- left side-->
 		<div class="dept-left-box">
 
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
-				<!-- scroll container -->
     			<div class="scrollable-report-box">
-				<!-- stats summary box -->
 				<div class="report-summary-box">
 					<h3>Monthly Summary</h3>
 					<div class="report-summary-content">
@@ -361,9 +394,8 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 					</div>
 				</div>
 				</div> 
-				<p><a href="viewSummary.php">View summary</a></p>
+				<p><a href="../viewSummary.php">View summary</a></p>
 			</div>
-
 
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
@@ -387,7 +419,6 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			</div>
 	     </div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -395,19 +426,19 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 
 			<div class="right-sub-box">
@@ -417,20 +448,22 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-    			<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Attendance should be </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-				<p><a href="record_attendance.php"">Record Attendance</a></p>
+				<p>Description</p>
+				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
-				<p>Description</p>
+				<div class="suggestion-preview">
+					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
+					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
+				</div>
+				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
 	
@@ -438,13 +471,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<div class="boxes">
-		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 		<?php include("include/surveyHub.php"); ?>
 		</div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
@@ -452,19 +483,19 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 					<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -473,21 +504,21 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<br>
-				<p style="color:  #8b6f47; line-height: 0.5;">Review your attendance </p>
-				<p style="color:  #8b6f47; line-height: 0.5;">held for all events</p>
-				<p><a href="../view_attendance.php">View My Attendance</a></p>
+				<p><a href="../view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
-				<p><a href="memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Suggestion</a></p>
-				<p>Description</p>
+				<div class="suggestion-preview">
+					<p>My Submissions: <strong><?= $myTotalSuggestions ?></strong></p>
+					<p>Pending: <span class="pending-count"><?= $myPendingSuggestions ?></span></p>
+				</div>
+				<p><a href="../memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Submit a Suggestion</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
 		
@@ -495,8 +526,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
 	
-	 <div class="homepage-boxes">
-        <!-- the top row with two boxes -->
+	<div class="homepage-boxes">
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
@@ -511,17 +541,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
-
-        <!--bottom box -->
         <div class="homepage-bottom-box">
-		<h2>Members</h2>
-			<div class="scrollable-report-box">
-			<div class="background">
-				<?php include("viewUser.php"); ?>
-			</div>
-			</div>
-		<p><a href="viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
-		</div>
+            <h2>Members</h2>
+            <p>Description</p>
+			<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+        </div>
     </div>
 	<br>
     <p><a href="logout.php">Logout</a></p>
@@ -533,7 +557,6 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
-	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
 	<?php } ?>
@@ -561,7 +584,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 		if(popup){
 			popup.style.display = "none";
 		}
-	}, 5000); // auto close after 5 seconds
+	}, 5000);
 	</script>
 	<?php endif; ?>
 

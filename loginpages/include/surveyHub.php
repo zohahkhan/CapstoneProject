@@ -30,7 +30,6 @@
     border: 1px solid #e6d5c3;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
     text-align: left;
-
     display: flex;
     flex-direction: column;
 }
@@ -88,24 +87,9 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 }
 
-// Check if user already submitted
-$stmt = $db->prepare("
-    SELECT 1
-    FROM FormResponse 
-    WHERE template_id = :template_id
-      AND user_id = :user_id
-    LIMIT 1
-");
-$stmt->bindParam(':template_id', $form_id);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-
-$alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($alreadyCompleted) {
-    // redirect back to hub
-    header("Location: surveyHub.php");
-    exit;
+if (!isset($_SESSION['user']['user_id'])) 
+{
+    die("User not logged in.");
 }
 
 if (isset($_SESSION['user']['user_id'])) 
@@ -130,12 +114,6 @@ if (!isset($_SESSION['user']['role_id']))
 $user_id = $_SESSION['user']['user_id']; 
 $role_id = $_SESSION['user']['role_id'];
 
-/*
-    role_id:
-    2 = Department Head
-    3 = Member
-*/
-
 $formTitle = '';
 $formPage = '';
 
@@ -153,9 +131,13 @@ else
 {
     die("No valid role found for surveys.");
 }
-//end of code I added
+?>
 
-/* Fetch JSON results for all quizzes */
+<div class="monthly-report-box">
+
+<div class="scrollable-monthly-report-box">
+
+<?php
 $sql = 'SELECT q.template_id, q.temp_title, q.form_questions, r.form_response
         FROM FormTemplate q
         LEFT JOIN FormResponse r 
@@ -212,19 +194,33 @@ foreach ($questionsData as $q): ?>
 	Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
     </li>
 
-<?php endforeach; ?>
-</ol>
+        <div class="">
+            <ol>
+                <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted)</strong>
+            </ol>
 
-    </div>
+            <ol>
+            <?php foreach ($questionsData as $q): ?>
+                <?php 
+                if (!isset($responseMap[$q['id']])) {
+                    continue;
+                }
+
+                $questionText = $q['question'] ?? 'Unknown question';
+                $questionId = $q['id'];
+                $userResponse = $responseMap[$questionId] ?? 'No response';
+                ?>
+                <li> 
+                    Question: <?php echo htmlspecialchars($questionText); ?><br>
+                    Your Response: <?php echo htmlspecialchars($userResponse); ?>
+                </li>
+            <?php endforeach; ?>
+            </ol>
+        </div>
 
     <?php endif; ?>
 
-    <?php endforeach; ?>
-
-</div>
-<?php
-$firstQuiz = $quizzes[0]['template_id'] ?? null;
-?>
+<iframe id="quizFrame"></iframe>
 
 <iframe 
 id="quizFrame"
