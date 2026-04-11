@@ -15,6 +15,9 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
     overflow-y: auto;
+    display: flex;          
+    flex-direction: column; 
+    width: 100%;            
 }
 
 .monthly-report-box {
@@ -37,30 +40,13 @@
     overflow-y: auto;
 }
 
-.scrollable-report-box::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollable-report-box::-webkit-scrollbar-thumb {
-    background-color: #c4a484;
-    border-radius: 10px;
-}
-
 .scrollable-monthly-report-box::-webkit-scrollbar {
     width: 8px;
-}
-
-.scrollable-monthly-report-box::-webkit-scrollbar-track {
-    background: #fdfaf7;
 }
 
 .scrollable-monthly-report-box::-webkit-scrollbar-thumb {
     background-color: #c4a484;
     border-radius: 6px;
-}
-
-.scrollable-monthly-report-box::-webkit-scrollbar-thumb:hover {
-    background-color: #8b6f47;
 }
 
 .quiz-item {
@@ -69,10 +55,13 @@
     margin-bottom: 8px;
     border-radius: 5px;
     cursor: pointer;
-}
 
-.quiz-item.active {
-    background-color: #e8d9c8;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
 }
 
 .quiz-item.completed {
@@ -103,12 +92,26 @@ if (!isset($_SESSION['user']['user_id']))
     die("User not logged in.");
 }
 
+if (isset($_SESSION['user']['user_id'])) 
+{
+	if (!isset($user_id)) 
+	{
+		$user_id = $_SESSION['user']['user_id'];	
+	}
+}
+
+//added code
+if (!isset($_SESSION['user']['user_id'])) 
+{
+    die("User not logged in.");
+} 
+
 if (!isset($_SESSION['user']['role_id'])) 
 {
     die("User role not found.");
 }
 
-$user_id = $_SESSION['user']['user_id'];
+$user_id = $_SESSION['user']['user_id']; 
 $role_id = $_SESSION['user']['role_id'];
 
 $formTitle = '';
@@ -119,7 +122,7 @@ if ($role_id == 2)
     $formTitle = '%Compiled Monthly Report%';
     $formPage = 'headdepartmentSurvey.php';
 }
-elseif ($role_id == 3) 
+elseif ($role_id == 3 || 1) 
 {
     $formTitle = '%Monthly Members Survey%';
     $formPage = 'memberSurvey.php';
@@ -150,45 +153,46 @@ $quizzes = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 $stmt3->closeCursor();
 ?>
 
-<div id="quizBox">
-    <div id="quizList">
-
-        <?php if (empty($quizzes)): ?>
-            <div class="quiz-item completed">No forms found.</div>
-        <?php else: ?>
-
-            <?php foreach ($quizzes as $quiz): ?>
-                <?php if ($quiz['form_response']): ?>
-                    <div class="quiz-item completed">
-                        <?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted)
-                    </div>
-                <?php else: ?>
-                    <div class="quiz-item" 
-                        onclick="loadQuiz('<?php echo $formPage; ?>?id=<?= $quiz['template_id'] ?>', event)">
-                        <?php echo htmlspecialchars($quiz['temp_title']); ?>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-
-        <?php endif; ?>
-
-    </div>
-</div>
-
+<div class="monthly-report-box">
+<div class="scrollable-monthly-report-box">
 <?php foreach ($quizzes as $quiz): ?>
     <?php if ($quiz['form_response']): ?>
-        <?php 		
-            $questionsData = json_decode($quiz['form_questions'], true);
-            $responsesData = json_decode($quiz['form_response'], true);
+        <?php
+        $questionsData = json_decode($quiz['form_questions'], true); // <-- FIXED (proper PHP placement)
+        $responsesData = json_decode($quiz['form_response'], true); // <-- FIXED
         ?>
 
-        <?php
+    <?php
         $responseMap = [];
-        foreach ($responsesData as $resp) 
-        {
-            $responseMap[$resp['id']] = $resp['response'];
-        }
-        ?>
+    foreach ($responsesData as $resp) 
+    {
+        $responseMap[$resp['id']] = $resp['response'];
+    }
+?>
+	
+    <!---- this part displays after the form is complete
+				and is responsible for the box -->
+       <div class="">
+      <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
+	
+
+<ol>
+
+<?php 
+foreach ($questionsData as $q): ?>
+    <?php
+    if (!isset($responseMap[$q['id']])) {
+        continue;
+    }
+
+    $questionText = $q['question'] ?? 'Unknown question';
+    $questionId = $q['id'];
+    $userResponse = $responseMap[$q['id']] ?? 'No response';
+    ?>
+
+    <li>
+	Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
+    </li>
 
         <div class="">
             <ol>
@@ -215,20 +219,26 @@ $stmt3->closeCursor();
         </div>
 
     <?php endif; ?>
-<?php endforeach; ?>
 
 <iframe id="quizFrame"></iframe>
 
-</div>
+<iframe 
+id="quizFrame"
+src="<?php echo $formPage; ?>?id=<?php echo $firstQuiz; ?>">
+</iframe>
 
 </div>
 
 <script>
 function loadQuiz(page, event) {
+    // Remove active class from all items
     const items = document.querySelectorAll('.quiz-item');
     items.forEach(item => item.classList.remove('active'));
 
+    // Add active class to the clicked item
     event.currentTarget.classList.add('active');
+
+    // Load the selected quiz in the iframe
     document.getElementById("quizFrame").src = page;
 }
 </script>

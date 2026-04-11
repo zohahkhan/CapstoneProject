@@ -90,6 +90,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    overflow: hidden; /* prevent stretching */
 }
 
 /* container for the new homepage layout */
@@ -134,13 +135,15 @@ body {
     text-align: center;
     padding: 40px;
     min-height: 25vh; /*taller */
+    
 }
 
 /*department head left side layout*/
 .dept-left-box {
     display: grid;
     grid-template-columns: 1fr 1fr; /*two columns*/
-    grid-template-rows: 1fr 1fr;  /*two rows*/
+    /*grid-template-rows: 1fr 1fr;*/  /*two rows*/
+    grid-template-rows: 335px 335px auto; /* top-left, top-right, bottom full-width */
     gap: 20px;
     flex: 1;
     min-height: 75vh;
@@ -149,6 +152,12 @@ body {
 /*bottom box spans full width*/
 .dept-full-width {
     grid-column: 1 / span 2;
+    max-height: 300px;
+    overflow-y: auto;
+    align-self: stretch;   /* ensures full width */
+    background-color: #faf5f0;
+    padding: 20px;
+
 }
 
 /*this is for the nested summary box inside monthly report responses*/
@@ -183,6 +192,12 @@ body {
     overflow-y: auto; /*enables vertical scrolling*/
     margin-top: 10px;
     padding-right: 5px;
+    
+}
+
+.background {
+    	background-image: url("images/background.png"); 
+    
 }
 
 /*this is the scrollbar to make it easier to go throuh  (Chrome/Edge) */

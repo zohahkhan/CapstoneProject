@@ -13,6 +13,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     exit();
 }
 
+
 // check for an existing session
 if (session_status() == PHP_SESSION_NONE) 
 {
@@ -321,6 +322,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<p>Description</p>
 				<a href="../headDepartmentSummary.php">Compiled Monthly Report Summary</a>
 			</div>
+
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
@@ -397,13 +399,23 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
-				<p>Description</p>
+				<!-- scroll container -->
+    			<div class="scrollable-report-box">
+				<!-- stats summary box -->
+				<div class="report-summary-box">
+					<div class="report-summary-content">
+						<p><strong>Reports must be submitted by the 5th of every month.</strong></p>
+					</div>	
+				</div>
+				</div> 
+				<p><a href="memberSurvey.php">Complete the Report</a></p>
 			</div>
 
-			<div class="left-sub-box dept-full-width">
+			<div class="dept-full-width">
 				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-				<p><?php include("include/surveyHub.php"); ?></p>
+				<div class="scrollable-report-box">
+				<?php include("include/surveyHub.php"); ?>
+				</div>
 			</div>
 	     </div>
 
@@ -519,10 +531,14 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
                 <p>Description</p>
+				<p><a href="viewLog.php">Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
-                <p>Description</p>
+               <div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
         <div class="homepage-bottom-box">
