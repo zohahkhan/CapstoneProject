@@ -5,11 +5,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['user']['user_id']))
 {
-    header("Location: loginpages/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 // success message for edit event
 if (isset($_GET['success'])) {
@@ -74,13 +74,13 @@ foreach ($events_raw as $event)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body
         {
             font-family: 'Poppins', sans-serif;
-            background-image: url("loginpages/images/background.png");
+            background-image: url("../images/background.png");
         }
 
         .calendar-wrapper
@@ -334,8 +334,8 @@ foreach ($events_raw as $event)
 <div class="calendar-wrapper">
 
 	<div class="links">
-    	<a href="loginpages/index.php" class="back-link">&larr; Back to Home</a>
-		<?php if ($_SESSION['user']['role_id'] === 1 || $_SESSION['user']['role_id'] === 2) { ?>
+    	<a href="../index.php" class="back-link">&larr; Back to Home</a>
+		<?php if ($_SESSION['user']['role_id'] == 1 || $_SESSION['user']['role_id'] == 2) { ?>
 		<a href="newEvent.php" class="back-link"> Add New Event</a>
 		<?php } ?>
 	</div>
