@@ -404,7 +404,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
       					$pendingCount = (int)$stmt->fetchColumn();
 	  					if ($pendingCount): ?>
     				<p> You have <b><?= $pendingCount ?></b> pending request(s).<br>
-      					<a href="president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
+      					<a href="Communications/president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
     				</p>
   				<?php else: ?>
     				<p>Visitor requests will show here.</p>
