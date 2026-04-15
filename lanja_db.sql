@@ -232,6 +232,7 @@ CREATE TABLE MemberSuggestion (
     attachment_path VARCHAR(255),
     status 			ENUM('Pending','Reviewed','Resolved') 		DEFAULT 'Pending',
     created_at 		TIMESTAMP 			DEFAULT CURRENT_TIMESTAMP,
+	resolved_by INT,
 	FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
