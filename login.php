@@ -148,7 +148,7 @@ if (isset($login))
 			<label for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="Enter your password" required/>
 		</div>
-		<p><a href="forgot_password.html" style="color: #c4a484; text-decoration: none;">Forgot Password?</a></p>
+		<p><a href="PswdRecovery/forgot_password.html" style="color: #c4a484; text-decoration: none;">Forgot Password?</a></p>
 		<button type="submit" name="submit">Submit</button>
 		</form>
 	</div>
