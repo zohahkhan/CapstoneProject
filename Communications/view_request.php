@@ -15,15 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $allowed = ["Pending","Reviewed","Finalized"];
   if (!in_array($newStatus, $allowed, true)) exit("Invalid status");
 
-  $db->prepare("UPDATE Suggestion SET msg_status=:s WHERE suggestion_id=:id")
+  $db->prepare("UPDATE Request SET msg_status=:s WHERE request_id=:id")
      ->execute([":s"=>$newStatus, ":id"=>$id]);
 }
 
 // Load request
 $stmt = $db->prepare("
-  SELECT suggestion_id, full_name, contact_email, visitor_msg, msg_status, created_at
-  FROM Suggestion
-  WHERE suggestion_id=:id
+  SELECT request_id, full_name, contact_email, visitor_msg, msg_status, created_at
+  FROM Request
+  WHERE request_id=:id
 ");
 $stmt->execute([":id"=>$id]);
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ if (!$r) exit("Not found");
 <body>
 <p><a href="president_requests.php">← Back</a></p>
 
-<h2>Request #<?= (int)$r["suggestion_id"] ?></h2>
+<h2>Request #<?= (int)$r["request_id"] ?></h2>
 <p><b>Name:</b> <?= htmlspecialchars($r["full_name"]) ?></p>
 <p><b>Email:</b> <?= htmlspecialchars($r["contact_email"]) ?></p>
 <p><b>Submitted:</b> <?= htmlspecialchars($r["created_at"]) ?></p>
