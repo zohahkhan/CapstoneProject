@@ -33,6 +33,9 @@ if (isset($_POST['role']))
     $_SESSION['user']['role_id'] = $_POST['role'];
 }
 
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
 $queryAllUserRoles = 'SELECT Role.role_id, Role.role_name
 						FROM Role					
 						JOIN UserRole ON Role.role_id = UserRole.role_id
