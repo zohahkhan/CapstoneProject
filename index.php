@@ -1,4 +1,4 @@
-<!--homepage.php the homepage / user landing page-->
+<!-- the homepage / user landing page-->
 <?php
 require_once './include/db_connect.php';
 
@@ -246,7 +246,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
 		
 			if ($isAdmin) {
-				echo '<p><a href="../manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
+				echo '<p><a href="RoleAssign/manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
 			echo "\n<h2>";
 		
@@ -265,12 +265,40 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		</select> 
 	</form>
 	<?php echo "</h2>";	?>		
+
+	<!--- display the events upcoming this month popup ---->
+	<?php if (!empty($upcoming_events)) : ?>
+	<div class="event-popup" id="eventPopup">
+		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
+
+		<h4>Upcoming This Month</h4>
+
+		<ul>
+			<?php foreach ($upcoming_events as $event): ?>
+				<li>
+					<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+					<?= date("F j", strtotime($event['event_date'])) ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+
+	<script>
+	setTimeout(function(){
+		var popup = document.getElementById("eventPopup");
+		if(popup){
+			popup.style.display = "none";
+		}
+	}, 5000);
+	</script>
+	<?php endif; ?>
+
 	
 	<!---- Calendar code ---->
 	<?php
 	ob_start();
 	?>
-	<a href="../calendar.php" class="mini-calendar-link">
+	<a href="CalendarEvent/calendar.php" class="mini-calendar-link">
 		<div class="mini-cal-header"><?= $mini_month_name ?> <?= $mini_year ?></div>
 		<table class="mini-calendar">
 			<thead>
@@ -320,13 +348,13 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
 				<p>Description</p>
-				<a href="../headDepartmentSummary.php">Compiled Monthly Report Summary</a>
+				<a href="SurveyPages/headDepartmentSummary.php">Compiled Monthly Report Summary</a>
 			</div>
 
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
 				<p>Description</p>
-				<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+				<p><a href="UserActivity/viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
 			</div>
 		</div>
 
@@ -360,7 +388,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
-				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<p><a href="AttendanceRecords/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -369,12 +397,12 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
-				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+				<p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="../updateProfileForm.php">Update Profile</a></p>
+	<p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
 
@@ -394,7 +422,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					</div>
 				</div>
 				</div> 
-				<p><a href="../viewSummary.php">View summary</a></p>
+				<p><a href="SurveyPages/viewSummary.php">View summary</a></p>
 			</div>
 
 			<div class="left-sub-box">
@@ -408,7 +436,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					</div>	
 				</div>
 				</div> 
-				<p><a href="memberSurvey.php">Complete the Report</a></p>
+				<p><a href="SurveyPages/memberSurvey.php">Complete the Report</a></p>
 			</div>
 
 			<div class="dept-full-width">
@@ -449,7 +477,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
 				<p>Description</p>
-				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<p><a href="AttendanceRecords/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -458,12 +486,12 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
-				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+				<p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="../updateProfileForm.php">Update Profile</a></p>
+	<p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
 	
@@ -504,7 +532,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p><a href="../view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
+				<p><a href="AttendanceRecords/view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
@@ -513,12 +541,12 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>My Submissions: <strong><?= $myTotalSuggestions ?></strong></p>
 					<p>Pending: <span class="pending-count"><?= $myPendingSuggestions ?></span></p>
 				</div>
-				<p><a href="../memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Submit a Suggestion</a></p>
+				<p><a href="Communications/memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Submit a Suggestion</a></p>
 			</div>
 		</div>
 	</div>
 	</br>
-	<p><a href="../updateProfileForm.php">Update Profile</a></p>
+	<p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
 		
@@ -531,20 +559,20 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
                 <p>Description</p>
-				<p><a href="viewLog.php">Logs</a></p>
+				<p><a href="AuditLog/viewLog.php">Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
                <div class="scrollable-report-box">
-					<?php include("headDepartmentSummary.php"); ?>
+					<?php include("SurveyPages/headDepartmentSummary.php"); ?>
 				</div>
-				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
+				<p><a href="SurveyPages/headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
         <div class="homepage-bottom-box">
             <h2>Members</h2>
             <p>Description</p>
-			<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+			<p><a href="UserActivity/viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
         </div>
     </div>
 	<br>
@@ -558,35 +586,10 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
-	<a href="contact.php" style="text-decoration: none;">Join Us</a>
+	<a href="Communications/contact.php" style="text-decoration: none;">Join Us</a>
 	<?php } ?>
 	
-	<!--- display the events upcoming this month popup ---->
-	<?php if (!empty($upcoming_events)) : ?>
-	<div class="event-popup" id="eventPopup">
-		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
-
-		<h4>Upcoming This Month</h4>
-
-		<ul>
-			<?php foreach ($upcoming_events as $event): ?>
-				<li>
-					<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
-					<?= date("F j", strtotime($event['event_date'])) ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-	</div>
-
-	<script>
-	setTimeout(function(){
-		var popup = document.getElementById("eventPopup");
-		if(popup){
-			popup.style.display = "none";
-		}
-	}, 5000);
-	</script>
-	<?php endif; ?>
+	
 
 </body>
 </html>
