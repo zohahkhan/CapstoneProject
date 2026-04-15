@@ -1,5 +1,6 @@
 <?php
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
+
 $user_id = isset($_POST['user_id']) && $_POST['user_id'] !== '' ? $_POST['user_id'] : null;
 $action  = isset($_POST['action'])  && $_POST['action'] !== '' ? $_POST['action'] : null;
 $role    = isset($_POST['role'])    && $_POST['role'] !== '' ? $_POST['role'] : null;
@@ -46,7 +47,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <html>
 <head>
     <title>Final project</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
 	<style>
         body {
             display: flex;
@@ -54,7 +55,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
             align-items: center;
             justify-content: flex-start;
             padding: 40px 20px;
-            background-image: url('images/background.png');
+            background-image: url('../images/background.png');
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
@@ -211,7 +212,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 		<p>No results found.</p>
 	<?php endif; ?>
 
-	<p><a href="index.php">Back to dashboard</a></p>
+	<p><a href="../index.php">Back to dashboard</a></p>
 </main>
 	
 </body>
