@@ -8,7 +8,7 @@ if ($token === "") {
   exit;
 }
 
-$stmt = $pdo->prepare("
+$stmt = $db->prepare("
   SELECT s.user_id
   FROM Session s
   WHERE s.session_id = ?
@@ -25,6 +25,6 @@ if (!$row) {
 }
 
 // Optionally refresh session last_seen
-$pdo->prepare("UPDATE Session SET last_seen_at = NOW() WHERE session_id = ?")->execute([$token]);
+$db->prepare("UPDATE Session SET last_seen_at = NOW() WHERE session_id = ?")->execute([$token]);
 
 $user_id = (int)$row["user_id"];
