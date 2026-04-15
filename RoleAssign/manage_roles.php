@@ -3,12 +3,12 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (!isset($_SESSION['user'])) 
 {
     echo '<p>You must be logged in to access this page.</p>';
-    echo '<p><a href="./loginpages/login.php">Login here</a></p>';
+    echo '<p><a href="../login.php">Login here</a></p>';
     exit();
 }
 
@@ -25,7 +25,7 @@ $isAdmin = $stmt->fetchColumn() > 0;
 if (!$isAdmin) 
 {
     echo '<p>Access denied. Admin privileges required.</p>';
-    echo '<p><a href="./loginpages/index.php">Back to Home</a></p>';
+    echo '<p><a href="../index.php">Back to Home</a></p>';
     exit();
 }
 
@@ -63,7 +63,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     <title>Manage User Roles</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <style>
         body {
             display: flex;
@@ -71,7 +71,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
             align-items: center;
             justify-content: flex-start;
             padding: 40px 20px;
-            background-image: url('loginpages/images/background.png');
+            background-image: url('../images/background.png');
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
@@ -229,7 +229,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
             </tbody>
         </table>
 
-        <p style="margin-top: 30px;"><a href="./loginpages/index.php">Back to Home</a></p>
+        <p style="margin-top: 30px;"><a href="../index.php">Back to Home</a></p>
     </div>
 </body>
 </html>
