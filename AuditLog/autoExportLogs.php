@@ -1,6 +1,5 @@
 <?php
-require_once('include/db_connect.php');
-
+require_once __DIR__ . '/../include/db_connect.php';
 
 // CONFIG
 $exportFolder = 'C:\\xampp\\htdocs\\exports\\'; // folder to store CSVs
