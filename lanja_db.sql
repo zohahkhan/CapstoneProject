@@ -72,7 +72,7 @@ response_id 	INT					NOT NULL  						AUTO_INCREMENT,
 template_id		INT					NOT NULL, 
 user_id			INT					NOT NULL, 
 form_response	JSON				NOT NULL, 
-form_status		ENUM('Pending', 'Reviewed', 'Finalized')			NOT NULL, 
+form_status		ENUM('Pending', 'Reviewed', 'Finalized')			NOT NULL , 
 PRIMARY KEY (response_id), 
 INDEX template_id (template_id), 
 INDEX user_id (user_id), 
@@ -201,15 +201,15 @@ FOREIGN KEY (role_id) REFERENCES Role (role_id),
 FOREIGN KEY (user_id) REFERENCES User (user_id)
 );
 
-CREATE TABLE Suggestion (
-suggestion_id	INT					NOT NULL  						AUTO_INCREMENT,
+CREATE TABLE Request (
+request_id		INT					NOT NULL  						AUTO_INCREMENT,
 full_name		VARCHAR(50)			NOT NULL, 
 contact_email	VARCHAR(50)			NOT NULL, 
 visitor_msg		TEXT				NOT NULL, 
-msg_status		ENUM('Pending', 'Reviewed', 'Finalized')			NOT NULL, 
+msg_status		ENUM('Pending', 'Reviewed', 'Finalized')	NOT NULL DEFAULT 'Pending', 
 session_id		VARCHAR(50)			NOT NULL, 
-created_at       TIMESTAMP       	NOT NULL 			DEFAULT CURRENT_TIMESTAMP, 
-PRIMARY KEY (suggestion_id)
+created_at      TIMESTAMP       	NOT NULL 			DEFAULT CURRENT_TIMESTAMP, 
+PRIMARY KEY (request_id)
 );
 
 CREATE TABLE Session (
