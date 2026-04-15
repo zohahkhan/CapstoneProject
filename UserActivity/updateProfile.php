@@ -1,6 +1,7 @@
 <?php
 //connects to the database
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
+
 session_start();
 if (!isset($_SESSION['user'])) {
     echo "Session expired. Please log in again.";
@@ -14,7 +15,7 @@ $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
 $first_name  = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
 $last_name   = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
 $user_email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_STRING);
-$user_phone  = filter_input(INPUT_POST, 'user_phone', FILTER_VALIDATE_INT);
+$user_phone  = filter_input(INPUT_POST, 'user_phone', FILTER_SANITIZE_STRING);
 $user_address = filter_input(INPUT_POST, 'user_address', FILTER_SANITIZE_STRING);
 $editor_id = $_SESSION['user']['user_id'];
 
@@ -22,7 +23,7 @@ $editor_id = $_SESSION['user']['user_id'];
 $errors = [];
 if (empty($first_name))  $errors[] = "First name required.";
 if (empty($last_name))   $errors[] = "Last name required.";
-if (empty($user_phone))   $errors[] = "Phone number required.";
+if (empty($user_phone) || strlen($phone) !== 10)   $errors[] = "Phone number required.";
 if (empty($user_address))   $errors[] = "Street address required.";
 if (!filter_var($user_email, FILTER_VALIDATE_EMAIL))
     $errors[] = "Invalid email.";
@@ -34,6 +35,9 @@ if (!empty($errors)) {
 	include("updateProfileForm.php");
     exit();
 }
+
+$updated_first_name = $first_name;
+$updated_last_name = $last_name;
 
 //update query
 $query = 'UPDATE User
@@ -61,6 +65,9 @@ $success = $statement->execute();
 
 if ($success) {
     echo "<p style='color:green'>Profile updated successfully!</p>";
+
+    $_SESSION['user']['first_name'] = $updated_first_name;
+	$_SESSION['user']['last_name'] = $updated_last_name;
 
     // 2 SECOND REFRESH REQUIREMENT
     echo "<script>setTimeout(function() {window.location='index.php';}, 2000);</script>";
