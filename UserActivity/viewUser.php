@@ -104,6 +104,7 @@ $statement->closeCursor();
 			<th>Email</th>	
 			<th>Joined On</th>
 			<th>Activated</th>
+			<th>More</th>
 		</tr>
 		<?php foreach($users as $user): ?>
 		<tr>
