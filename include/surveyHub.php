@@ -80,7 +80,7 @@
 </style>
 
 <?php
-require_once 'db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
@@ -120,12 +120,12 @@ $formPage = '';
 if ($role_id == 2) 
 {
     $formTitle = '%Compiled Monthly Report%';
-    $formPage = 'headdepartmentSurvey.php';
+    $formPage = '../SurveyPages/headdepartmentSurvey.php';
 }
 elseif ($role_id == 3 || 1) 
 {
     $formTitle = '%Monthly Members Survey%';
-    $formPage = 'memberSurvey.php';
+    $formPage = '../SurveyPages/memberSurvey.php';
 }
 else 
 {
