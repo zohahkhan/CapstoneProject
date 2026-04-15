@@ -174,7 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<tr>
 			<label><th>Active User</th></label>
 			<td><?php  echo $user['is_active'] ? 'true' : 'false'; ?></td>
-			<td>
 				<form method="post" style="margin:0;">
 					<input type="hidden" name="user_id" value="<?= $user_id ?>">
 
@@ -182,7 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<?= $user['is_active'] ? 'Deactivate this user' : 'Activate as Member' ?>
 					</button>
 				</form>			
-			</td>
 		</tr>		
 		</form>
 		<?php  endforeach; ?>
