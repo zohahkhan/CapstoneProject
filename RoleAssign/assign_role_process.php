@@ -3,10 +3,11 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
+
 if (!isset($_SESSION['user'])) 
 {
-    header('Location: ./loginpages/login.php');
+    header('Location: ../login.php');
     exit();
 }
 $admin_id = $_SESSION['user']['user_id'];
@@ -19,7 +20,7 @@ $stmt->execute();
 $isAdmin = $stmt->fetchColumn() > 0;
 if (!$isAdmin) 
 {
-    header('Location: ./loginpages/index.php');
+    header('Location: ../index.php');
     exit();
 }
 $assign_role = filter_input(INPUT_POST, 'assign_role');
