@@ -1,5 +1,5 @@
 <?php
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_quiz'])) {
     $stmt5->bindParam(':form_status', $form_status, PDO::PARAM_STR);
     $stmt5->execute();
 
-    header("Location: include/surveyHub.php?id=$form_id");
+    header("Location: ../include/surveyHub.php?id=$form_id");
     exit;
 }
 
@@ -102,7 +102,7 @@ $displayQuestions = array_slice($allQuestions, $range['start'], $range['length']
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($row['temp_title']) ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
