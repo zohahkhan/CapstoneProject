@@ -407,7 +407,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
       					<a href="president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
     				</p>
   				<?php else: ?>
-    				<p>No visitor requests yet.</p>
+    				<p>Visitor requests will show here.</p>
   				<?php endif; ?>
 			</div>
 		</div>
