@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $visitor_session_id = session_id();
 
         $stmt = $db->prepare("
-            INSERT INTO Suggestion
+            INSERT INTO VisitorRequest
               (full_name, contact_email, visitor_msg, msg_status, session_id, created_at)
             VALUES
               (:full_name, :email, :msg, 'Pending', :session_id, NOW())
