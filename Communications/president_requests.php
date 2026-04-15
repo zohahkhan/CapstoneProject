@@ -8,12 +8,12 @@ require_once __DIR__ . "/../include/auth.php";
 
 // Notification count
 $pendingCount = (int)$db->query("
-  SELECT COUNT(*) FROM `Request` WHERE msg_status='Pending'
+  SELECT COUNT(*) FROM `VisitorRequest` WHERE msg_status='Pending'
 ")->fetchColumn();
 
 $rows = $db->query("
   SELECT request_id, full_name, contact_email, created_at
-  FROM `Request`
+  FROM `VisitorRequest`
   WHERE msg_status='Pending'
   ORDER BY created_at DESC
 ")->fetchAll(PDO::FETCH_ASSOC);
