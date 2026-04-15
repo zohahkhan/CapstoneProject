@@ -398,6 +398,17 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
 				<p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+
+				<?php $stmt = $db->prepare("SELECT COUNT(*) FROM `VisitorRequest` WHERE msg_status = :status");
+      					$stmt->execute([':status' => 'Pending']);
+      					$pendingCount = (int)$stmt->fetchColumn();
+	  					if ($pendingCount): ?>
+    				<p> You have <b><?= $pendingCount ?></b> pending request(s).<br>
+      					<a href="president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
+    				</p>
+  				<?php else: ?>
+    				<p>No visitor requests yet.</p>
+  				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -487,18 +498,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
 				<p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
-
-
-				<?php $stmt = $db->prepare("SELECT COUNT(*) FROM `VisitorRequest` WHERE msg_status = :status");
-      					$stmt->execute([':status' => 'Pending']);
-      					$pendingCount = (int)$stmt->fetchColumn();
-	  					if ($pendingCount): ?>
-    				<p> You have <b><?= $pendingCount ?></b> pending request(s).<br>
-      					<a href="president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
-    				</p>
-  				<?php else: ?>
-    				<p>Your visitor request inbox is empty</p>
-  				<?php endif; ?>
 			</div>
 		</div>
 	</div>
