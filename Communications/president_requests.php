@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../include/db_connect.php';
 require_once __DIR__ . "/../include/auth.php";
 
-require_role(["President"]);
+//require_role(["President"]);
 
 // Notification count
 $pendingCount = (int)$db->query("
