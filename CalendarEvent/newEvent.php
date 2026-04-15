@@ -1,5 +1,5 @@
 <?php
-require_once 'include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
@@ -121,7 +121,7 @@ if (isset($create))
 		<title>Final Project</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../style.css">
 	</head>
 <body>
 	<header>
