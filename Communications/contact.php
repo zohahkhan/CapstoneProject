@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
-require_once './include/db_connect.php';
-
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -64,7 +63,7 @@ exit;
 <head>
 <meta charset="utf-8">
 <title>Join Us</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
@@ -95,7 +94,7 @@ exit;
 </form>
 
 <br><br>
-<a href="index.php">Back to home</a>
+<a href="../index.php">Back to home</a>
 </body>
 </html>
 
