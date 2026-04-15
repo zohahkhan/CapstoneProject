@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once __DIR__ . '/include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 // Check login
 if (!isset($_SESSION['user']['user_id'])) {
-    header("Location: loginpages/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Suggestion</title>
-    <link rel="stylesheet" type="text/css" href="loginpages/style.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         .suggestion-wrapper {
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn">Submit</button>
             </form>
 
-            <a class="back-link" href="loginpages/index.php">← Back</a>
+            <a class="back-link" href="../index.php">← Back</a>
         </div>
     </div>
 </body>
