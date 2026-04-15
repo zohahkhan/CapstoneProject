@@ -1,6 +1,6 @@
 <?php
 //database connection
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 $template_id = 1; //selects the form
 //gets the questions from db, using JSON
@@ -21,7 +21,7 @@ $responses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <head>
 	<meta charset="UTF-8">
 	<title>Responses Summary</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../style.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -117,7 +117,7 @@ $responses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     ?>
     </div>
 	<br><br>	
-    <a href="index.php">Back to Homepage</a>
+    <a href="../index.php">Back to Homepage</a>
 </div>
 </body>
 </html>
