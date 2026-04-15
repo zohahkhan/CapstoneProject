@@ -201,7 +201,7 @@ FOREIGN KEY (role_id) REFERENCES Role (role_id),
 FOREIGN KEY (user_id) REFERENCES User (user_id)
 );
 
-CREATE TABLE Request (
+CREATE TABLE VisitorRequest (
 request_id		INT					NOT NULL  						AUTO_INCREMENT,
 full_name		VARCHAR(50)			NOT NULL, 
 contact_email	VARCHAR(50)			NOT NULL, 
