@@ -16,6 +16,7 @@ $first_name  = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
 $last_name   = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
 $user_email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_STRING);
 $user_phone  = filter_input(INPUT_POST, 'user_phone', FILTER_SANITIZE_STRING);
+$phone = preg_replace('/\D/', '', $_POST['user_phone'] ?? '');
 $user_address = filter_input(INPUT_POST, 'user_address', FILTER_SANITIZE_STRING);
 $editor_id = $_SESSION['user']['user_id'];
 
