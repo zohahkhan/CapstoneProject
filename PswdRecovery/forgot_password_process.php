@@ -1,11 +1,11 @@
 <?php
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 session_start();
 
 if (isset($_SESSION['user'])) 
 {
-    header('Location: index.php'); 
+    header('Location: ../index.php'); 
     exit();
 }
 
