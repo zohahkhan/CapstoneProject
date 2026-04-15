@@ -1,5 +1,5 @@
 <?php
-require_once './include/db_connect.php';
+include __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
@@ -89,6 +89,7 @@ $page_groups = [
             background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
+            background-image: url("../images/background.png");
         }
 
         .box {
@@ -297,7 +298,7 @@ $page_groups = [
         </div>
     <?php endforeach; ?>
 
-    <a class="back-link" href="index.php">Back to Homepage</a>
+    <a class="back-link" href="../index.php">Back to Homepage</a>
 </div>
 </body>
 </html>
