@@ -93,7 +93,29 @@ $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+
+// Pending suggestion count for Dept Head and President boxes
+$stmtPending = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE status = 'Pending'");
+$stmtPending->execute();
+$pendingSuggestions = $stmtPending->fetchColumn();
+
+// Reviewed/Resolved suggestion count for Dept Head and President boxes
+$stmtCompleted = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE status IN ('Reviewed', 'Resolved')");
+$stmtCompleted->execute();
+$completedSuggestions = $stmtCompleted->fetchColumn();
+
+// Member's own suggestion count
+$stmtMySuggestions = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE user_id = :user_id");
+$stmtMySuggestions->bindParam(':user_id', $user_id);
+$stmtMySuggestions->execute();
+$myTotalSuggestions = $stmtMySuggestions->fetchColumn();
+
+$stmtMyPending = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE user_id = :user_id AND status = 'Pending'");
+$stmtMyPending->bindParam(':user_id', $user_id);
+$stmtMyPending->execute();
+$myPendingSuggestions = $stmtMyPending->fetchColumn();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -180,6 +202,34 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 			color: #c4a484;
 			margin-top: 6px;
 		}
+
+		.suggestion-preview {
+			width: 100%;
+			margin-top: 10px;
+			padding: 10px;
+			background-color: #fdfaf7;
+			border-radius: 8px;
+			border: 1px solid #e6d5c3;
+			font-size: 0.85em;
+			text-align: left;
+			flex: 1;
+		}
+
+		.suggestion-preview p {
+			margin: 4px 0;
+			color: #3b2f2f;
+		}
+
+		.suggestion-preview .pending-count {
+			font-weight: 600;
+			color: #856404;
+		}
+
+		.suggestion-preview .completed-count {
+			font-weight: 600;
+			color: #155724;
+		}
+		
 	</style>
 </head>
 
@@ -281,7 +331,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 				<div class="scrollable-report-box">
 					<?php include("headDepartmentSummary.php"); ?>
 				</div>
-				<p><a href="headDepartmentSummary.php">Compiled Monthly Report Summary</a></p>
+				<p><a href="headDepartmentSummary.php" style="color: #4b3d29; ">Compiled Monthly Report Summary</a></p>
 			</div>
 
 			<div class="left-sub-box bottom-box">
@@ -289,7 +339,7 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
     			<div class="scrollable-report-box">
 						<?php include("include/surveyHub.php"); ?>
 				</div> 
-				<p><a href="memberSurvey.php">Complete the Report</a></p>
+				<p><a href="memberSurvey.php" style="color: #4b3d29; ">Complete the Report</a></p>
 			</div>
 		</div>
 
@@ -329,7 +379,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
-				<p>Description</p>
+				<div class="suggestion-preview">
+					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
+					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
+				</div>
+				<p><a href="../reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
@@ -421,7 +475,11 @@ $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 		
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
-				<p>Description</p>
+				<div class="suggestion-preview">
+					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
+					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
+				</div>
+				<p><a href="../reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
