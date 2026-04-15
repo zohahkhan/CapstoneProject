@@ -285,10 +285,10 @@ role_name,
 role_desc
 )
 VALUES
-(1, 'President', 'Oversees the entire organization, makes final decisions, and ensures overall system and organizational integrity.'),
-(2, 'Department Head', 'Manages the department''s operations, reporting, and member activities, and serves as the primary liaison to the President.'),
-(3, 'Member', 'Participates in organizational activities, submits required forms, engages with events and communications.'),
-(4, 'Admin', 'Maintains the technical health, security, and configuration of the system without participating in organizational decision-making.');
+(1, 'President', 'Oversees the entire organization makes final decisions and ensures overall system and organizational integrity'),
+(2, 'Department Head', 'Manages department operations reporting and member activities and serves as the primary liaison to the President'),
+(3, 'Member', 'Participates in organizational activities submits required forms and engages with events and communications'),
+(4, 'Admin', 'Maintains the technical health security and configuration of the system without participating in organizational decision-making');
 
 
 INSERT INTO UserRole 
@@ -339,7 +339,7 @@ dept_name,
 dept_desc
 )
 VALUES
-(1, 17, 'Reporting Department', 'The Reporting Department is responsible for collecting, organizing, analyzing, and consolidating organizational data into accurate reports.');
+(1, 17, 'Reporting Department', 'The Reporting Department is responsible for collecting organizing analyzing and consolidating organizational data into accurate reports');
 
 
 INSERT INTO CalendarEvent 
@@ -356,8 +356,8 @@ created_at,
 created_by
 )
 VALUES
-(1, 'First Day of Class', 'The first day of Spring Term begins.', 'D2L', '2026-01-20 00:00:00', NULL, NULL,  NULL, '2026-01-08 14:42:45', 20),   
-(2, 'Team Meeting', 'Gather to discuss future developments.', 'Zoom', '2026-01-23 12:30:00',  NULL,  NULL, NULL, '2026-01-08 14:48:31', 20), 
+(1, 'First Day of Class', 'The first day of Spring Term begins', 'D2L', '2026-01-20 00:00:00', NULL, NULL,  NULL, '2026-01-08 14:42:45', 20),   
+(2, 'Team Meeting', 'Gather to discuss future developments', 'Zoom', '2026-01-23 12:30:00',  NULL,  NULL, NULL, '2026-01-08 14:48:31', 20), 
 (3, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
 (4, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
 (5, 'Eid', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
