@@ -1,5 +1,5 @@
 <?php
-require_once 'include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['user']['user_id']))
 {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -59,7 +59,7 @@ $result = $stmt->fetchAll();
 	</div>
 <br>
 	<!-- only president and dept head can edit events -->
-	<?php if ($_SESSION['user']['role_id'] === 1 || $_SESSION['user']['role_id'] === 2) { ?>
+	<?php if ($_SESSION['user']['role_id'] == 1 || $_SESSION['user']['role_id'] == 2) { ?>
 	<button onclick="showEditForm()">Edit Event</button>
 
 	<?php  } endforeach; ?>
