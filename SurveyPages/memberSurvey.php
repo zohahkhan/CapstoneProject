@@ -1,5 +1,6 @@
 <?php
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
+
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
@@ -39,12 +40,9 @@ $alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($alreadyCompleted) {
     // redirect back to hub
-    header("Location: include/surveyHub.php");
+    header("Location: ../include/surveyHub.php");
     exit;
 }
-
-
-
 
 // Fetch questions from database
 $queryForm = 'SELECT template_id, temp_title, temp_desc, temp_status, form_questions, form_deadline 
@@ -190,7 +188,7 @@ endif;
 <head>
 	<meta charset="UTF-8">
 	<title>Monthly Members Survey</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -282,7 +280,7 @@ $stmt5->bindParam(':form_response', $json);
 $stmt5->bindParam(':form_status', $form_status);
 $stmt5->execute();
     
-	//header("Location: include\surveyHub.php?id=$form_id");
+	header("Location: ../include/surveyHub.php?id=$form_id");
     exit; 
 }
 
