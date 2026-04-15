@@ -1,11 +1,10 @@
 <?php
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
-
 
 if (!isset($log_id)) 
 {
@@ -36,10 +35,7 @@ if (!isset($entity_id))
 	$entity_id = $_POST['entity_id'];
 }
 
-
-
 $current_user = $_SESSION['user']['user_id'];
-
 
 $queryProfile = 'SELECT before_json, after_json, diff_json  
 				 FROM `AuditLog`
@@ -58,23 +54,12 @@ $json3 = is_array($data_json['diff_json']) ? $data_json['diff_json'] : ($data_js
 
 $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? []), array_keys($json3 ?? [])));
 
-/*
-var_dump("variables other ");
-var_dump($log_id);
-var_dump($user_id);
-var_dump($role_name);
-var_dump($action_type);
-var_dump($entity_type);
-var_dump($occurred_at);
-var_dump($entity_id);
-*/
-
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title>Final Project	</title>
-	<link rel = "stylesheet" href = "style.css">
+	<link rel = "stylesheet" href = "../style.css">
 	<style>
         body {
             display: flex;
@@ -82,7 +67,7 @@ var_dump($entity_id);
             align-items: center;
             justify-content: flex-start;
             padding: 40px 20px;
-            background-image: url('images/background.png');
+            background-image: url('../images/background.png');
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
@@ -182,7 +167,7 @@ var_dump($entity_id);
 	</table>	
 <br><br>	
 		<p><a href="viewLog.php">Back to all Logs</a></p>
-		<p><a href="index.php">Back to dashboard</a></p>
+		<p><a href="../index.php">Back to dashboard</a></p>
 	</main>
 </body>
 </html>
