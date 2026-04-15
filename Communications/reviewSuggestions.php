@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/loginpages/include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (!isset($_SESSION['user']['user_id'])) {
     header("Location: loginpages/login.php");
@@ -11,7 +11,7 @@ $userId = (int)$_SESSION['user']['user_id'];
 $roleId = (int)$_SESSION['user']['role_id'];
 
 if ($roleId !== 1 && $roleId !== 2) {
-    header("Location: loginpages/index.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -85,7 +85,7 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Suggestions</title>
-    <link rel="stylesheet" type="text/css" href="loginpages/style.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         .review-wrapper {
@@ -392,7 +392,7 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <?php endif; ?>
 
-            <a class="back-link" href="loginpages/index.php">← Back to Home</a>
+            <a class="back-link" href="../index.php">← Back to Home</a>
         </div>
     </div>
 
