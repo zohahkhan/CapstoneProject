@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (!isset($user_id)) 
 {
@@ -57,7 +57,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
 	<title>Final Project	</title>
-	<link rel = "stylesheet" href = "style.css">
+	<link rel = "stylesheet" href = "../style.css">
+	<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            background-image: url('../images/background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
+        .content-box {
+            width: 80%;
+            max-width: 1400px;
+            background-color: #faf5f0;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            padding: 40px;
+            text-align: center;
+        }
+        .event-select-form {
+            margin-bottom: 30px;
+        }
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #c4a484;
+            color: white;
+        }
+        .action-btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 8px;
+            border: none;
+            background-color: #c4a484;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .action-btn:hover {
+            background-color: #b39578;
+        }
+     
+    </style>
 </head>
 <body>
 	<header>
@@ -121,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</table>		
 <br><br>	
 		<p><a href="viewUser.php">Back to all Members</a></p>
-		<p><a href="index.php">Back to dashboard</a></p>
+		<p><a href="../index.php">Back to dashboard</a></p>
 	</main>
 </body>
 </html>
