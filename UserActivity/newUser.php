@@ -69,7 +69,7 @@ if (isset($register))
 	}
 	else if (empty($phone) || strlen($phone) !== 10) 
 	{
-        $errors['phone'] = 'Phone number is required';
+        $errors['phone'] = 'Valid phone number is required';
     }
 	else if (empty($address)) 
 	{
@@ -180,7 +180,8 @@ if (isset($register))
 				
 				<div >
 					<label for="phone">Phone Number: </label>
-					<input type="text" name="phone" id="phone" value="<?php echo $phone; ?>">
+					<input type="text" name="phone" id="phone" inputmode="numeric" pattern="\d+" 
+							required title="Enter digits only" value="<?php echo $phone; ?>">
 						<?php if (isset($errors['phone'])) : ?>
 							<p class="error"><?php echo $errors['phone']; ?></p>
 						<?php endif; ?>
