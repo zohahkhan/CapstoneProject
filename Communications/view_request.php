@@ -15,14 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $allowed = ["Pending","Reviewed","Finalized"];
   if (!in_array($newStatus, $allowed, true)) exit("Invalid status");
 
-  $db->prepare("UPDATE Request SET msg_status=:s WHERE request_id=:id")
+  $db->prepare("UPDATE VisitorRequest SET msg_status=:s WHERE request_id=:id")
      ->execute([":s"=>$newStatus, ":id"=>$id]);
 }
 
 // Load request
 $stmt = $db->prepare("
   SELECT request_id, full_name, contact_email, visitor_msg, msg_status, created_at
-  FROM Request
+  FROM VisitorRequest
   WHERE request_id=:id
 ");
 $stmt->execute([":id"=>$id]);
