@@ -4,7 +4,7 @@ require_once "db_connect.php";
 
 $token = $_COOKIE["session"] ?? "";
 if ($token === "") {
-  header("Location: login.php");
+  header("Location: ../login.php");
   exit;
 }
 
@@ -20,7 +20,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$row) {
   setcookie("session", "", time() - 3600, "/");
-  header("Location: login.php");
+  header("Location: ../login.php");
   exit;
 }
 
