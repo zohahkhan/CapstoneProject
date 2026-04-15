@@ -1,16 +1,12 @@
 <?php
-require_once('include/db_connect.php');
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
 }
 
-
-
 $action = $_POST['action'] ?? '';
-
-
 
 if (!empty($action)) 
 {
@@ -95,8 +91,6 @@ $_SESSION['export_counter'] = $counter;
 }
 
 
-
-
 // EXPORT ALL THE LOGS TO AUDIT 
 if ($action === 'export_all_csv')	{
 	
@@ -106,7 +100,6 @@ if ($action === 'export_all_csv')	{
 	$role_name = $_POST['role_name'];
 }
 ob_clean();
-
 
 $counter = $_SESSION['export_counter'] ?? 0;
 $counter++;
