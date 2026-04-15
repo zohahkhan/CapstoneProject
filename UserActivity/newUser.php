@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
-require_once 'include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
@@ -67,7 +67,7 @@ if (isset($register))
 	{
 		$errors['email'] = "An account with this email address already exists";
 	}
-	else if (empty($phone)) 
+	else if (empty($phone) || strlen($phone) !== 10) 
 	{
         $errors['phone'] = 'Phone number is required';
     }
@@ -135,7 +135,7 @@ if (isset($register))
 		<title>Final Project</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../style.css">
 	</head>
 <body>
 	<header>
@@ -196,7 +196,8 @@ if (isset($register))
 				
 				<div >
 					<label for="password">Password: </label>
-					<input type="password" name="temp_password" id="temp_password">
+					<input type="password" name="temp_password" id="temp_password" pattern=".{8,}" 
+								required title="Password must be at least 8 characters">
 						<?php if (isset($errors['temp_password'])) : ?>
 							<p class="error"><?php echo $errors['temp_password']; ?></p>
 						<?php endif; ?>
@@ -204,7 +205,7 @@ if (isset($register))
 				<br>
 				<div style="text-align: center;">
 					<button type="submit" name="register">Submit</button>
-					<p><a href="index.php">Back to home</a></p>
+					<p><a href="../index.php">Back to home</a></p>
 				</div>
 			</div>
 		</form>
