@@ -3,11 +3,11 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 if (!isset($_SESSION['user'])) 
 {
-    header('Location: ./loginpages/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -16,7 +16,7 @@ $role_id = $_SESSION['user']['role_id'];
 
 if (!in_array($role_id, [1, 2, 4])) 
 {
-    header('Location: ./loginpages/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
