@@ -553,6 +553,10 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
+	<style> body { 
+	         background: url('images/background.png') !important;
+			}
+	</style>
 	
 	<div class="homepage-boxes">
         <div class="homepage-top">
