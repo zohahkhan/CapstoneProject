@@ -1,6 +1,5 @@
 <?php
-//connecting to the database
-require_once './include/db_connect.php';
+require_once __DIR__ . '/../include/db_connect.php';
 
 //get the user_id
 if (session_status() == PHP_SESSION_NONE) 
@@ -9,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE)
 }
 
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -36,13 +35,13 @@ $statement1->closeCursor();
 <head>
 	<meta charset="UTF-8">
 	<title>Profile</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 	<!--images-->
-	<img src="images/topLeft.png" alt="" class="corner-img top-left">
-	<img src="images/bottomRight.png" alt="" class="corner-img bottom-right">
+	<img src="../images/topLeft.png" alt="" class="corner-img top-left">
+	<img src="../images/bottomRight.png" alt="" class="corner-img bottom-right">
 
 	<div class="box">
 		<form action="updateProfile.php" method="post" id="update_profile_form" class="form-group">
@@ -69,7 +68,7 @@ $statement1->closeCursor();
            </form>
 		   
 		   <!-- link to return to homepage page -->
-		<a href="index.php">Back to Homepage</a>
+		<a href="../index.php">Back to Homepage</a>
 	</div>
 </body>
 </html>
