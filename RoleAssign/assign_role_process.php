@@ -64,16 +64,24 @@ if (isset($assign_role))
     foreach ($new_role_ids as $new_role_id) 
     {
         $old_role_id = !empty($oldRoleIds) ? $oldRoleIds[0] : null;
-        $queryLog = 'INSERT INTO RoleChangeLog (user_id, admin_id, old_role_id, new_role_id) 
-                     VALUES (:user_id, :admin_id, :old_role_id, :new_role_id)';
+		$beforeJson = json_encode(['user_id' => $admin_id, 'role_id' => $old_role_id]);    
+		$afterJson  = json_encode(['user_id' => $admin_id, 'role_id' => $new_role_id]);
+		$diffJson = json_encode(['role_id' => $new_role_id]);
+		
+        $queryLog = 'INSERT INTO auditLog (user_id, action, entity_type, entity_id, before_json, after_json, diff_json, role_id)
+					VALUES (:user_id, :action, :entity_type, :entity_id, :before_json, :after_json, :diff_json, :role_id)';    
         $stmtLog = $db->prepare($queryLog);
-        $stmtLog->bindParam(':user_id', $user_id);
-        $stmtLog->bindParam(':admin_id', $admin_id);
-        $stmtLog->bindParam(':old_role_id', $old_role_id);
-        $stmtLog->bindParam(':new_role_id', $new_role_id);
-        $stmtLog->execute();
+        $stmtLog->execute([
+                    ':user_id'     => $admin_id,
+                    ':action'      => 'Update',
+                    ':entity_type' => 'UserRole',
+                    ':entity_id'   => $user_id,
+                    ':before_json' => $beforeJson,
+                    ':after_json'  => $afterJson,
+					':diff_json'  => $diffJson,
+                  	':role_id'	   => $role_id
+                ]);
     }
-
     header('Location: manage_roles.php?success=1');
     exit();
 }
