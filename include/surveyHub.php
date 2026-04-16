@@ -2,7 +2,6 @@
 <style>
 
 #quizBox {
-    width: 250px;
     border: 2px solid black;
     display: block;
     height: auto !important;
@@ -17,12 +16,10 @@
     overflow-y: auto;
     display: flex;          
     flex-direction: column; 
-    width: 100%;            
+	align-items: flex-start;
 }
 
 .monthly-report-box {
-    width: 100%;
-    height: 100%;
     margin-top: 5px;
     padding: 5px;
     background-color: #fdfaf7;
@@ -32,11 +29,11 @@
     text-align: left;
     display: flex;
     flex-direction: column;
+	
 }
 
 .scrollable-monthly-report-box {
-    width: 100%;
-    max-height: 80px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
@@ -55,41 +52,35 @@
     margin-bottom: 8px;
     border-radius: 5px;
     cursor: pointer;
-
-    width: 100%;
     box-sizing: border-box;
-
     display: flex;
     justify-content: center; /* horizontal center */
     align-items: center;     /* vertical center */
 }
 
-.quiz-item.completed {
-    background-color: #d4edda;
-    cursor: default;
-    opacity: 0.7;
-}
-
 #quizFrame {
     flex: 1;
     width: 100%;
-    height: 600px;
     border: 1px solid #ccc;
     margin-top: 15px;
 }
+
+.showFrame {
+    display: block;
+}
+
+.showFrame.is-hidden {
+    display: none; 
+}
+
 </style>
 
 <?php
-require_once __DIR__ . '/../include/db_connect.php';
+require_once 'db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
-}
-
-if (!isset($_SESSION['user']['user_id'])) 
-{
-    die("User not logged in.");
 }
 
 if (isset($_SESSION['user']['user_id'])) 
@@ -114,30 +105,32 @@ if (!isset($_SESSION['user']['role_id']))
 $user_id = $_SESSION['user']['user_id']; 
 $role_id = $_SESSION['user']['role_id'];
 
+/*
+    role_id:
+    2 = Department Head
+    3 = Member
+*/
+
 $formTitle = '';
 $formPage = '';
 
 if ($role_id == 2) 
 {
     $formTitle = '%Compiled Monthly Report%';
-    $formPage = '../SurveyPages/headdepartmentSurvey.php';
+    $formPage = BASE_URL . 'SurveyPages/headdepartmentSurvey.php';
 }
-elseif ($role_id == 3 || 1) 
+elseif ($role_id == 3 || 2) 
 {
     $formTitle = '%Monthly Members Survey%';
-    $formPage = '../SurveyPages/memberSurvey.php';
+    $formPage = BASE_URL . 'SurveyPages/memberSurvey.php';
 }
 else 
 {
     die("No valid role found for surveys.");
 }
-?>
+//end of code I added
 
-<div class="monthly-report-box">
-
-<div class="scrollable-monthly-report-box">
-
-<?php
+/* Fetch JSON results for all quizzes */
 $sql = 'SELECT q.template_id, q.temp_title, q.form_questions, r.form_response
         FROM FormTemplate q
         LEFT JOIN FormResponse r 
@@ -153,81 +146,81 @@ $quizzes = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 $stmt3->closeCursor();
 ?>
 
-<div class="monthly-report-box">
-<div class="scrollable-monthly-report-box">
-<?php foreach ($quizzes as $quiz): ?>
-    <?php if ($quiz['form_response']): ?>
-        <?php
-        $questionsData = json_decode($quiz['form_questions'], true); // <-- FIXED (proper PHP placement)
-        $responsesData = json_decode($quiz['form_response'], true); // <-- FIXED
-        ?>
 
+<?php
+$form_id = $quizzes[0]['template_id'] ?? null;
+
+// Check if user already submitted
+$stmt = $db->prepare("
+    SELECT 1
+    FROM FormResponse 
+    WHERE template_id = :template_id
+      AND user_id = :user_id
+    LIMIT 1
+");
+$stmt->bindParam(':template_id', $form_id);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+$alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
+<iframe 
+	id="quizFrame" class="<?= $alreadyCompleted ? 'showFrame is-hidden' : 'showFrame' ?>"
+	src="<?php echo $formPage; ?>?id=<?php echo $form_id; ?>">
+</iframe>
+
+<div class="scrollable-monthly-report-box monthly-report-box">
+
+<?php 
+	foreach ($quizzes as $quiz): ?>
+
+    <?php if ($quiz['form_response']): ?>
+	
     <?php
-        $responseMap = [];
+        $questionsData = json_decode($quiz['form_questions'], true);
+        $responsesData = json_decode($quiz['form_response'], true);	
+    ?>
+		
+	<?php 
+		$responseMap = [];
     foreach ($responsesData as $resp) 
     {
         $responseMap[$resp['id']] = $resp['response'];
     }
 ?>
 	
-    <!---- this part displays after the form is complete
-				and is responsible for the box -->
-       <div class="">
-      <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
+	<!---- this part displays after the form is complete -->
+	<div class="">
+    <ol>  
+		<strong><?php echo htmlspecialchars($quiz['temp_title']); 
+		?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'>	
+	</ol>
 	
-
 <ol>
+<?php foreach ($questionsData as $q): ?>
 
-<?php 
-foreach ($questionsData as $q): ?>
-    <?php
+    <?php // question and answers
     if (!isset($responseMap[$q['id']])) {
         continue;
     }
-
     $questionText = $q['question'] ?? 'Unknown question';
     $questionId = $q['id'];
     $userResponse = $responseMap[$q['id']] ?? 'No response';
     ?>
-
-    <li>
+	
+<li>
 	Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
-    </li>
+</li>
 
-        <div class="">
-            <ol>
-                <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted)</strong>
-            </ol>
+<?php endforeach; ?>
 
-            <ol>
-            <?php foreach ($questionsData as $q): ?>
-                <?php 
-                if (!isset($responseMap[$q['id']])) {
-                    continue;
-                }
-
-                $questionText = $q['question'] ?? 'Unknown question';
-                $questionId = $q['id'];
-                $userResponse = $responseMap[$questionId] ?? 'No response';
-                ?>
-                <li> 
-                    Question: <?php echo htmlspecialchars($questionText); ?><br>
-                    Your Response: <?php echo htmlspecialchars($userResponse); ?>
-                </li>
-            <?php endforeach; ?>
-            </ol>
-        </div>
-
-    <?php endif; ?>
-
-<iframe id="quizFrame"></iframe>
-
-<iframe 
-id="quizFrame"
-src="<?php echo $formPage; ?>?id=<?php echo $firstQuiz; ?>">
-</iframe>
-
+</ol>
 </div>
+<?php endif; ?>
+<?php endforeach; ?>
+</div>
+	
 
 <script>
 function loadQuiz(page, event) {
@@ -239,6 +232,6 @@ function loadQuiz(page, event) {
     event.currentTarget.classList.add('active');
 
     // Load the selected quiz in the iframe
-    document.getElementById("quizFrame").src = page;
+    document.getElementById("quizFrame").src = page;	
 }
 </script>
