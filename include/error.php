@@ -12,6 +12,8 @@
 	</header>
 	
 	<p>You do not have permissions to view this page</p>
+	<br><br>
+	<p><a href="../index.php">Back to Home</a></p>
 	
 </body>
 </html>
