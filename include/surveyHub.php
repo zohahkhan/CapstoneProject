@@ -115,7 +115,7 @@ $formTitle = '';
 $formPage = '';
 
 /* UPDATE THIS TO THE CURRENT DIRECTORY -- whatever the folder inside your htdocs is titled 
-										-- it's in error.php too */
+										-- it's in newEvent.php too */
 define('BASE_URL', '/CapstoneProject-consolidate-documents/');
 
 
