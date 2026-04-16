@@ -4,7 +4,7 @@ require_once __DIR__ . '/include/db_connect.php';
 
 // Check login
 if (!isset($_SESSION['user']['user_id'])) {
-    header("Location: login.php");
+    header("Location: loginpages/login.php");
     exit;
 }
 
@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($suggestionText === '') {
         $errorMessage = "Please enter your suggestion or feedback.";
     } else {
-        // Handle optional file upload
         if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] !== UPLOAD_ERR_NO_FILE) {
             $uploadDir = __DIR__ . '/uploads/suggestions/';
 
@@ -70,10 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':status' => 'Pending'
             ]);
 
-	$_SESSION['submitted'] = true;
-	$_SESSION['submitted_from'] = 'memberSuggestion';
-	header("Location: thank_you.php");
-exit;
+            $_SESSION['submitted'] = true;
+            $_SESSION['submitted_from'] = 'memberSuggestion';
+            header("Location: thank_you.php");
+            exit;
         }
     }
 }
@@ -85,63 +84,88 @@ exit;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Suggestion</title>
+    <link rel="stylesheet" type="text/css" href="loginpages/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background: #f7f7f7;
-        }
-
-        .container {
+        .suggestion-wrapper {
+            width: 95%;
             max-width: 700px;
-            background: #fff;
-            padding: 24px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            margin: 0 auto;
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
 
-        h2 {
-            margin-bottom: 20px;
+        .suggestion-card {
+            background-color: #faf5f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .suggestion-card h2 {
+            color: #3b2f2f;
+            margin-bottom: 24px;
         }
 
         label {
             display: block;
             margin-top: 15px;
             margin-bottom: 6px;
-            font-weight: bold;
-        }
-
-        textarea,
-        input[type="file"] {
-            width: 100%;
-            box-sizing: border-box;
+            font-weight: 600;
+            color: #3b2f2f;
         }
 
         textarea {
+            width: 100%;
+            box-sizing: border-box;
             min-height: 150px;
             padding: 10px;
             resize: vertical;
+            border-radius: 8px;
+            border: 1px solid #e6d5c3;
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+            font-size: 0.95rem;
+            background-color: #fdfaf7;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #c4a484;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #8b6f47;
+            margin-top: 6px;
         }
 
         .btn {
-            margin-top: 20px;
-            padding: 10px 18px;
+            margin-top: 24px;
+            padding: 12px 24px;
             border: none;
-            background: #007bff;
+            background-color: #c4a484;
             color: white;
-            border-radius: 6px;
+            border-radius: 10px;
             cursor: pointer;
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+            font-size: 1em;
+            font-weight: 600;
         }
 
         .btn:hover {
-            background: #0056b3;
+            background-color: #b39578;
         }
 
         .message {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
         }
 
         .success {
@@ -156,17 +180,12 @@ exit;
             border: 1px solid #f5c2c7;
         }
 
-        .note {
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 6px;
-        }
-
         .back-link {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 20px;
             text-decoration: none;
-            color: #007bff;
+            color: #8b6f47;
+            font-size: 0.95em;
         }
 
         .back-link:hover {
@@ -175,39 +194,41 @@ exit;
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Submit Suggestion or Feedback</h2>
+    <div class="suggestion-wrapper">
+        <div class="suggestion-card">
+            <h2>Submit Suggestion or Feedback</h2>
 
-        <?php if ($successMessage !== ''): ?>
-            <div class="message success"><?= htmlspecialchars($successMessage) ?></div>
-        <?php endif; ?>
+            <?php if ($successMessage !== ''): ?>
+                <div class="message success"><?= htmlspecialchars($successMessage) ?></div>
+            <?php endif; ?>
 
-        <?php if ($errorMessage !== ''): ?>
-            <div class="message error"><?= htmlspecialchars($errorMessage) ?></div>
-        <?php endif; ?>
+            <?php if ($errorMessage !== ''): ?>
+                <div class="message error"><?= htmlspecialchars($errorMessage) ?></div>
+            <?php endif; ?>
 
-        <form action="" method="POST" enctype="multipart/form-data">
-            <label for="suggestion_text">Suggestion / Feedback</label>
-            <textarea
-                name="suggestion_text"
-                id="suggestion_text"
-                placeholder="Enter your suggestion or feedback here..."
-                required
-            ><?= htmlspecialchars($_POST['suggestion_text'] ?? '') ?></textarea>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <label for="suggestion_text">Suggestion / Feedback</label>
+                <textarea
+                    name="suggestion_text"
+                    id="suggestion_text"
+                    placeholder="Enter your suggestion or feedback here..."
+                    required
+                ><?= htmlspecialchars($_POST['suggestion_text'] ?? '') ?></textarea>
 
-            <label for="attachment">Attach Screenshot or Document</label>
-            <input
-                type="file"
-                name="attachment"
-                id="attachment"
-                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
-            >
-            <div class="note">Allowed files: JPG, JPEG, PNG, PDF, DOC, DOCX. Max size: 5MB.</div>
+                <label for="attachment">Attach Screenshot or Document</label>
+                <input
+                    type="file"
+                    name="attachment"
+                    id="attachment"
+                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+                >
+                <div class="note">Allowed files: JPG, JPEG, PNG, PDF, DOC, DOCX. Max size: 5MB.</div>
 
-            <button type="submit" class="btn">Submit</button>
-        </form>
+                <button type="submit" class="btn">Submit</button>
+            </form>
 
-        <a class="back-link" href="index.php">← Back</a>
+            <a class="back-link" href="loginpages/index.php">← Back</a>
+        </div>
     </div>
 </body>
 </html>

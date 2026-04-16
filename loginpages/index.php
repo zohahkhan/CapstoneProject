@@ -91,9 +91,6 @@ $stmtUpcoming->bindParam(':month', $mini_month, PDO::PARAM_INT);
 $stmtUpcoming->execute();
 $upcoming_events = $stmtUpcoming->fetchAll(PDO::FETCH_ASSOC);
 
-// for database script to 'see' session variable
-$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
-
 // Pending suggestion count for Dept Head and President boxes
 $stmtPending = $db->prepare("SELECT COUNT(*) FROM MemberSuggestion WHERE status = 'Pending'");
 $stmtPending->execute();
@@ -242,8 +239,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			echo $_SESSION['user']['first_name']." ";
 			echo $_SESSION['user']['last_name']."!</h1>";
 			
-			
-			
 			$queryCheckAdmin = 'SELECT COUNT(*) FROM UserRole ur
 								JOIN Role r ON ur.role_id = r.role_id
 								WHERE ur.user_id = :user_id AND r.role_name = "Admin"';
@@ -253,7 +248,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			$isAdmin = $stmtCheck->fetchColumn() > 0;
 		
 			if ($isAdmin) {
-				echo '<p><a href="manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
+				echo '<p><a href="../manage_roles.php" class="admin-link">⚙ Manage User Roles & Permissions</a></p>';
 			}
 			echo "\n<h2>";
 		
@@ -275,7 +270,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	
 	<!---- Calendar code ---->
 	<?php
-	// Mini calendar HTML block — reused across roles
 	ob_start();
 	?>
 	<a href="../calendar.php" class="mini-calendar-link">
@@ -324,7 +318,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<div class="boxes">
-		<!-- left box split horizontally into 2 -->
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
@@ -343,7 +336,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			</div>
 		</div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -351,19 +343,19 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 
 			<div class="right-sub-box">
@@ -388,7 +380,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF PRES HOMEPAGE --->
 
@@ -396,15 +388,11 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
-		<!-- left box, split horizontally into 2 -->
-		<!-- left side-->
 		<div class="dept-left-box">
 
 			<div class="left-sub-box">				
 				<h2>Monthly Report Responses</h2>
-				<!-- scroll container -->
     			<div class="scrollable-report-box">
-				<!-- stats summary box -->
 				<div class="report-summary-box">
 					<h3>Monthly Summary</h3>
 					<div class="report-summary-content">
@@ -414,7 +402,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				</div> 
 				<p><a href="viewSummary.php" style="color: #4b3d29;">View summary</a></p>
 			</div>
-
 
 			<div class="left-sub-box">
 				<h2>Monthly Report</h2>
@@ -438,7 +425,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			</div>
 	     </div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Create a new Reminder</h2>
@@ -446,19 +432,19 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 				<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 
 			<div class="right-sub-box">
@@ -484,7 +470,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF DEPT HOMEPAGE --->
 	
@@ -492,13 +478,11 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<div class="boxes">
-		<!--the left side big box-->
 		<div class="box left-box">
 			<h2>Monthly Report</h2>
 		<?php include("include/surveyHub.php"); ?>
 		</div>
 
-		<!--the right box with four separate boxes inside-->
 		<div class="right-box">
 			<div class="right-sub-box">
 				<h2>Important Reminders</h2>
@@ -506,19 +490,19 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
 					<?php if (!empty($upcoming_events)) : ?>
-					<ul class = "reminder-list">
+					<ul class="reminder-list">
 						<?php foreach ($upcoming_events as $event): ?>
 							<li>
 							<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
 							<?= date("F j", strtotime($event['event_date'])) ?>
 							</li>
 						<?php endforeach; ?>
-       		 		</ul>
-   					 <?php else: ?>
-        			<p>No upcoming events this month.</p>
-  				   <?php endif; ?>
-				   </div>
-				   </div>
+					</ul>
+				<?php else: ?>
+					<p>No upcoming events this month.</p>
+				<?php endif; ?>
+				</div>
+				</div>
 			</div>
 			<div class="right-sub-box">
 				<h2>Calendar</h2>
@@ -546,7 +530,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		</div>
 	</div>
 	</br>
-	<p><a href="updateProfileForm.php">Update Profile</a></p>
+	<p><a href="../updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
 	<!----- END OF MEMBER HOMEPAGE --->
 		
@@ -554,8 +538,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
 	
-	 <div class="homepage-boxes">
-        <!-- the top row with two boxes -->
+	<div class="homepage-boxes">
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
@@ -572,8 +555,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<p><a href="headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
-
-        <!--bottom box -->
         <div class="homepage-bottom-box">
 		<h2>Members</h2>
 			<div class="scrollable-report-box">
@@ -594,7 +575,6 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
-	<!--if the user is not logged in, display a login link-->
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="contact.php" style="text-decoration: none;">Join Us</a>
 	<?php } ?>
@@ -620,7 +600,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		if(popup){
 			popup.style.display = "none";
 		}
-	}, 5000); // auto close after 5 seconds
+	}, 5000);
 	</script>
 	<?php endif; ?>
 
