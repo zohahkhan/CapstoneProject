@@ -6,6 +6,15 @@ if (session_status() == PHP_SESSION_NONE)
 }
 require_once __DIR__ . '/../include/db_connect.php';
 
+// only president can view all member info
+if (!in_array($_SESSION['user']['role_id'], [1]))
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
+
 if (!isset($user_id)) 
 {
 	$user_id = $_GET['user_id'];
