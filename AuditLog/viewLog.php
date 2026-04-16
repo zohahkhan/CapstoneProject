@@ -31,7 +31,7 @@ if (!empty($_POST['role'])) {
     $queryAuditLog .= " AND r.role_name = ?";
     $params[] = $_POST['role'];
 }
-$sort = $_POST['date_sort'] ?? 'DESC';
+$sort = $_POST['date_sort'] ?? 'ASC';
 if (!in_array($sort, ['ASC', 'DESC'])) {
     $sort = 'DESC';
 }
@@ -159,7 +159,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
    <label>Date:</label>
     <select name="date_sort">
         <?php foreach(['DESC'=>'Newest First','ASC'=>'Oldest First'] as $val=>$label): ?>
-            <option value="<?php echo $val; ?>" <?php if(isset($_POST['date_sort']) && $_POST['date_sort']==$val) echo 'selected'; ?>>
+            <option value="<?php echo $val; ?>" <?php if($sort == $val) echo 'selected'; ?>>
                 <?php echo $label; ?>
             </option>
         <?php endforeach; ?>
@@ -171,6 +171,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <?php if($results): ?>
 <table border="1">
 	<tr>
+		<th>Log ID</th>
 		<th>User ID</th>
 		<th>Role</th>
 		<th>Action</th>
@@ -180,6 +181,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 	</tr>
 	<?php foreach($results as $row): ?>
 	<tr>
+		<td><?php echo $row['log_id']; ?></td>
 		<td><?php echo $row['user_id']; ?></td>
 		<td><?php echo $row['role_name']; ?></td>
 		<td><?php echo $row['action']; ?></td>
