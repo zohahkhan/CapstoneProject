@@ -1579,6 +1579,59 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+/* UPDATE TRIGGER FOR ATTENDANCE TABLE */
+DELIMITER $$
+CREATE OR REPLACE  TRIGGER attendance_after_update
+AFTER UPDATE ON `Attendance`
+FOR EACH ROW
+BEGIN
+    DECLARE changes JSON;
+	DECLARE old_row JSON;
+    DECLARE new_row JSON;
+
+    SET old_row = JSON_OBJECT(
+            'user_id', OLD.user_id,
+            'event_id', OLD.event_id,
+			'attend_status', OLD.attend_status,
+            'check_in_time', OLD.check_in_time,
+			'notes', OLD.notes
+        );
+	 SET new_row = JSON_OBJECT(
+            'user_id', NEW.user_id,
+            'event_id', NEW.event_id,
+			'attend_status', NEW.attend_status,
+            'check_in_time', NEW.check_in_time,
+			'notes', NEW.notes
+        );
+
+    CALL generate_updated_json('Attendance', 'attendance_id', old_row, new_row, changes);
+
+    IF JSON_LENGTH(changes) > 0 THEN
+        INSERT INTO AuditLog (
+            user_id,
+			role_id,
+			action,
+			entity_type,
+			entity_id,
+			before_json,
+			after_json,
+			diff_json
+        )
+        VALUES (
+            NEW.taken_by, 
+			@current_role_id,
+			'UPDATE',
+			'Attendance',
+            NEW.attendance_id,
+            old_row,
+		    new_row,
+        	changes
+        );
+    END IF;
+END$$
+DELIMITER ;
+
 /* INSERT TRIGGER FOR USER TABLE */
 
 DELIMITER $$
@@ -1745,7 +1798,44 @@ BEGIN
 END$$
 DELIMITER ;
 
+/* INSERT TRIGGER FOR ATTENDANCE TABLE */
 
+DELIMITER $$
+CREATE OR REPLACE TRIGGER attendance_after_insert
+AFTER INSERT ON `Attendance`
+FOR EACH ROW
+BEGIN
+    DECLARE new_row JSON;
+	 DECLARE changes JSON;
+	 SET new_row = JSON_OBJECT(
+            'user_id', NEW.user_id,
+            'event_id', NEW.event_id,
+			'attend_status', NEW.attend_status,
+            'check_in_time', NEW.check_in_time,
+			'notes', NEW.notes
+        );
+    INSERT INTO AuditLog (
+        user_id,
+		role_id,
+		action,
+		entity_type,
+		entity_id,
+        before_json,
+        after_json,
+		diff_json
+    )
+    VALUES (
+         NEW.taken_by, 
+		 @current_role_id,
+			'CREATE',
+			'Attendance',
+            NEW.attendance_id,
+			NULL,
+		    new_row,
+			changes  
+    );
+END$$
+DELIMITER ;
 
 /* for cleanup testing purposes */
 INSERT INTO AuditLog (
