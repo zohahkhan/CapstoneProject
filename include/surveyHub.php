@@ -114,6 +114,10 @@ $role_id = $_SESSION['user']['role_id'];
 $formTitle = '';
 $formPage = '';
 
+/* UPDATE THIS TO THE CURRENT DIRECTORY -- whatever the folder inside your htdocs is titled */
+define('BASE_URL', '/CapstoneProject-consolidate-documents/');
+
+
 if ($role_id == 2) 
 {
     $formTitle = '%Compiled Monthly Report%';
