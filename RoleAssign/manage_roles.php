@@ -24,8 +24,9 @@ $isAdmin = $stmt->fetchColumn() > 0;
 
 if (!$isAdmin) 
 {
-    echo '<p>Access denied. Admin privileges required.</p>';
-    echo '<p><a href="../index.php">Back to Home</a></p>';
+    require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
     exit();
 }
 
