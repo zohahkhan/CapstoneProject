@@ -6,6 +6,16 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 }
 
+/* UPDATE THIS TO THE CURRENT DIRECTORY -- whatever the folder inside your htdocs is titled 
+										-- it's in surveyHub.php too */
+define('BASE_URL', '/CapstoneProject-consolidate-documents/');
+$error_page = BASE_URL.'include/error.php';
+if (!in_array($_SESSION['user']['role_id'], [1, 2], true))
+{
+    header("Location: $error_page");
+    exit;
+}
+
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
