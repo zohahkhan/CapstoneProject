@@ -239,7 +239,10 @@ if (!isset($_POST['submit_quiz'])):
 
 	if ($step == 1 || ($step == 2 && ($branchAnswer === 1 && $currentGroup < 5 || $branchAnswer === 0))) 
 	{
+		if ($step > 1) 
+		{
 		echo '<button type="submit" name="back" formnovalidate>Back</button> ';
+		}
 		echo '<button type="submit" name="next">Next</button>';
 	} else 
 	{
