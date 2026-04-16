@@ -33,6 +33,7 @@ body {
 	display: flex;
 	gap: 30px; /*for the space between the two boxes */
 	align-items: stretch; /*makes left and right boxes same height*/
+	flex: 0;
 }
 
 /*left side box */
@@ -45,7 +46,7 @@ body {
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	min-height: 65vh;
+	min-height: 75vh;
 }
 
 /*right box container*/
@@ -58,6 +59,7 @@ body {
 	padding: 0;
 	flex: 1;
 	min-height: 75vh; /* matches the left-box's height */
+	width: 700px; /* placeholder*/
 }
 
 /*individual right sub-boxes*/
@@ -70,6 +72,7 @@ body {
 	align-items: center;
 	padding: 20px;
 	text-align: center;
+	height:290px; /* height placeholder*/
 }
 
 /*left box container for the department Head and President pages */
@@ -91,6 +94,7 @@ body {
     align-items: center;
     padding: 20px;
     overflow: hidden; /* prevent stretching */
+	height:290px; /* height placeholder*/
 }
 
 /* container for the new homepage layout */
@@ -147,6 +151,7 @@ body {
     gap: 20px;
     flex: 1;
     min-height: 75vh;
+	max-width: 50%;
 }
 
 /*bottom box spans full width*/
@@ -159,6 +164,38 @@ body {
     padding: 20px;
 
 }
+
+/* to display compiled survey responses */
+
+.dept-survey-box {
+    grid-column: 1 / span 2;
+    background-color: #faf5f0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: auto;
+    max-height: 300px;
+    height: 290px;
+    align-self: stretch; 
+    border-radius: 12px;
+}
+
+/* to display member survey responses */
+
+.memb-survey-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* prevent stretching */
+    width: 650px;
+    max-width: 700px;
+    min-width: 500px;
+    height: 635px;
+}
+
 
 /*this is for the nested summary box inside monthly report responses*/
 .report-summary-box {
