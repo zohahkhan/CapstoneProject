@@ -6,6 +6,15 @@ if (session_status() == PHP_SESSION_NONE)
 }
 require_once __DIR__ . '/../include/db_connect.php';
 
+// only president can add new members
+if (!in_array($_SESSION['user']['role_id'], [1]))
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
+
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 $db->exec("SET @current_user_id = " . (int)$_SESSION['user']['user_id']);
