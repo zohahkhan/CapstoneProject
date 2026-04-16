@@ -424,9 +424,9 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<div class="boxes">
-		<div class="dept-left-box">
+		<div class="dept-left-box left-split">
 
-			<div class="left-sub-box">				
+			<div class="left-sub-box top-box">				
 				<h2>Monthly Report Responses</h2>
     			<div class="scrollable-report-box">
 				<div class="report-summary-box">
@@ -439,7 +439,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<p><a href="SurveyPages/viewSummary.php">View summary</a></p>
 			</div>
 
-			<div class="left-sub-box">
+			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
 				<!-- scroll container -->
     			<div class="scrollable-report-box">
@@ -453,7 +453,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				<p><a href="SurveyPages/memberSurvey.php">Complete the Report</a></p>
 			</div>
 
-			<div class="dept-full-width">
+			<div class="dept-survey-box">
 				<h2>Compiled Monthly Report</h2>
 				<div class="scrollable-report-box">
 				<?php include("include/surveyHub.php"); ?>
@@ -513,9 +513,11 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<div class="boxes">
-		<div class="box left-box">
+		<div class="box memb-survey-box">
 			<h2>Monthly Report</h2>
-		<?php include("include/surveyHub.php"); ?>
+			<div class="scrollable-report-box">
+			<?php include("include/surveyHub.php"); ?>
+			</div>
 		</div>
 
 		<div class="right-box">
