@@ -56,7 +56,7 @@ if ($user)
         $mail->Host = 'smtp-relay.brevo.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'a851db001@smtp-brevo.com';
-        $mail->Password = 'rLbV6mDKwkWGYpBO';
+        $mail->Password = 'SMTP_PASSWORD';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
