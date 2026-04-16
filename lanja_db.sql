@@ -1608,7 +1608,7 @@ BEGIN
 		diff_json
     )
     VALUES (
-         NEW.user_id,
+         @current_user_id,
 		 @current_role_id,
 			'CREATE',
 			'User',
