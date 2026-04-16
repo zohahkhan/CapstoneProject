@@ -6,6 +6,15 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 }
 
+// restrict access to the summary report 
+if (!in_array($_SESSION['user']['role_id'], [1, 2, 4])) 
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
+
 /*
     If template_id is passed from hyperlink, use it.
     Otherwise, fall back to finding the Head Department form by title.
