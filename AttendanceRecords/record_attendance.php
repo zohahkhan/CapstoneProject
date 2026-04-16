@@ -17,8 +17,9 @@ $current_user_id = $_SESSION['user']['user_id'];
 
 if (!in_array($role_id, [1, 2, 4])) 
 {
-    echo '<p>Access denied.</p>';
-    echo '<p><a href="../index.php">Back to Home</a></p>';
+    require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
     exit();
 }
 
