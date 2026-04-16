@@ -1,7 +1,18 @@
 <!--viewUser.php only the president can view all member info -->
 <?php
 require_once __DIR__ . '/../include/db_connect.php';
-
+if (session_status() == PHP_SESSION_NONE) 
+{
+    session_start();
+}
+// only president or admin can view all members
+if (!in_array($_SESSION['user']['role_id'], [1, 4]))
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
 // Get all users
 $queryAllUsers = 'SELECT * FROM `User`
 				   ORDER BY user_id';
