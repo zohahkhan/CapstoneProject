@@ -8,6 +8,7 @@ require_once __DIR__ . '/../include/db_connect.php';
 
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+$db->exec("SET @current_user_id = " . (int)$_SESSION['user']['user_id']);
 
 // alert for if a new member is added
 if (isset($_GET['success']) && $_GET['success'] == 1) 
