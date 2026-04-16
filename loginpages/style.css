@@ -152,7 +152,7 @@ body {
 /*bottom box spans full width*/
 .dept-full-width {
     grid-column: 1 / span 2;
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
     align-self: stretch;   /* ensures full width */
     background-color: #faf5f0;
