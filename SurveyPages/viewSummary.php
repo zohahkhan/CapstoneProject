@@ -2,6 +2,15 @@
 //database connection
 require_once __DIR__ . '/../include/db_connect.php';
 
+// restrict access to the summary report 
+if (!in_array($_SESSION['user']['role_id'], [1, 2, 4])) 
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
+
 $template_id = 1; //selects the form
 //gets the questions from db, using JSON
 $stmt = $db->prepare("SELECT form_questions FROM FormTemplate WHERE template_id = :template_id");
