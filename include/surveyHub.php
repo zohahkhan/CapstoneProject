@@ -114,7 +114,8 @@ $role_id = $_SESSION['user']['role_id'];
 $formTitle = '';
 $formPage = '';
 
-/* UPDATE THIS TO THE CURRENT DIRECTORY -- whatever the folder inside your htdocs is titled */
+/* UPDATE THIS TO THE CURRENT DIRECTORY -- whatever the folder inside your htdocs is titled 
+										-- it's in error.php too */
 define('BASE_URL', '/CapstoneProject-consolidate-documents/');
 
 
