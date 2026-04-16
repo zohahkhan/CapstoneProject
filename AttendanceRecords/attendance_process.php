@@ -13,6 +13,8 @@ if (!isset($_SESSION['user']))
 
 $current_user_id = $_SESSION['user']['user_id'];
 $role_id = $_SESSION['user']['role_id'];
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
 if (!in_array($role_id, [1, 2, 4])) 
 {
@@ -102,6 +104,7 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
             $insertStmt->bindParam(':notes', $notes);
             $insertStmt->execute();
 
+            /*
             $beforeJson = json_encode([]);
             $afterJson  = json_encode(['attend_status' => $status, 'check_in_time' => $check_in_time, 'notes' => $notes]);
             $auditQuery = 'INSERT INTO auditlog (user_id, action, entity_type, entity_id, before_json, after_json, role_id)
@@ -116,6 +119,7 @@ if ($action === 'save_attendance' && $_SERVER['REQUEST_METHOD'] === 'POST')
                 ':after_json'  => $afterJson,
                 ':role_id'	   => $role_id
             ]);
+            */
         }
     }
 
