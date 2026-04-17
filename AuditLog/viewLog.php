@@ -126,6 +126,25 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
         .action-btn:hover {
             background-color: #b39578;
         }
+		.back-link
+        {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #c4a484;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+			text-shadow: 0 1px 1px rgba(0,0,0,0.40);
+        }
+        .back-link:hover
+        {
+            color: #b39578;
+        }
+		.links 
+		{
+    		display: flex;
+    		justify-content: space-between;
+		}
     </style>
 </head>
 
@@ -134,8 +153,18 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 		<h1>Audit Log</h1>
 	</header>
 <main>
-    <h2>Review AuditLog</h2>
+    <h2>Review all Logs</h2>
 	<br>
+	<div class="links">
+    	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+	</div>
+	<form method="post" action="exportLogs.php">
+		<input type="hidden" name = "role_name" value= "<?php echo $row['role_name']; ?>">
+		<div style="display: flex; justify-content: center; margin-top: -35px;">
+		<button type="submit" name="action" value="export_all_csv" >Export All Logs</button>
+		</div>
+	</form>
+	<br><br>
 	
 	<form method="POST" action="">
     <label>User ID:</label>
@@ -217,16 +246,12 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 	
 	<?php endforeach; ?>
 </table>
-	<form method="post" action="exportLogs.php">
-		<input type="hidden" name = "role_name" value= "<?php echo $row['role_name']; ?>">
-		<button type="submit" name="action" value="export_all_csv">Export All Logs</button>
-	</form>
-
 	<?php else: ?>
 		<p>No results found.</p>
 	<?php endif; ?>
 
-	<p><a href="../index.php">Back to dashboard</a></p>
+	<br><br>
+	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
 </main>
 	
 </body>
