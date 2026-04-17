@@ -43,6 +43,20 @@ $statement1->closeCursor();
 	<img src="../images/topLeft.png" alt="" class="corner-img top-left">
 	<img src="../images/bottomRight.png" alt="" class="corner-img bottom-right">
 
+<?php
+function formatPhone($phone) {
+    $phone = preg_replace('/\D/', '', $phone);
+
+    if (strlen($phone) === 10) {
+        return '(' . substr($phone, 0, 3) . ') '
+             . substr($phone, 3, 3) . '-'
+             . substr($phone, 6);
+    }
+    return $phone;
+}
+?>
+
+	
 	<div class="box">
 		<form action="updateProfile.php" method="post" id="update_profile_form" class="form-group">
 
@@ -56,7 +70,7 @@ $statement1->closeCursor();
             <input type="text" name="user_email" value="<?php echo $User["user_email"];?>"><br>
 
 			<label>Phone Number:</label>
-            <input type="text" name="user_phone" value="<?php echo $User["user_phone"];?>"><br>
+            <input type="text" name="user_phone" value="<?php echo formatPhone($User["user_phone"]);?>"><br>
 			
 			<label>Street Address:</label>
             <input type="text" name="user_address" value="<?php echo $User["user_address"];?>"><br>
