@@ -5,6 +5,14 @@ if (session_status() == PHP_SESSION_NONE)
 {
     session_start();
 }
+// Admins only
+if (!in_array($_SESSION['user']['role_id'], [4])) 
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
 
 $action = $_POST['action'] ?? '';
 
