@@ -1642,6 +1642,7 @@ BEGIN
     DECLARE new_row JSON;
 	 DECLARE changes JSON;
 	 SET new_row = JSON_OBJECT(
+		 	'user_id', NEW.user_id,
             'first_name', NEW.first_name,
             'last_name', NEW.last_name,
 			'user_email', NEW.user_email,
