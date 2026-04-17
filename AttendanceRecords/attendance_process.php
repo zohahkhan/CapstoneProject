@@ -158,6 +158,7 @@ if ($action === 'export_csv')
     $stmt->execute();
     $rows = $stmt->fetchAll();
 
+    ob_clean();
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="attendance_event_' . $event_id . '.csv"');
 
@@ -204,6 +205,7 @@ if ($action === 'export_csv_month')
 
     $monthLabel = date('F_Y', mktime(0, 0, 0, $mon, 1, $year));
 
+    ob_clean();
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="attendance_' . $monthLabel . '.csv"');
 
