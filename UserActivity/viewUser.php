@@ -94,6 +94,25 @@ $statement->closeCursor();
         .action-btn:hover {
             background-color: #b39578;
         }
+		.back-link
+        {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #c4a484;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+			text-shadow: 0 1px 1px rgba(0,0,0,0.40);
+        }
+        .back-link:hover
+        {
+            color: #b39578;
+        }
+		.links 
+		{
+    		display: flex;
+    		justify-content: space-between;
+		}
      
     </style>
 </head>
@@ -105,7 +124,12 @@ $statement->closeCursor();
 <main>
         <!-- display a table of users -->
     <h2>All Users</h2>
-	<p><a href="newUser.php">Add new member</a></p>
+	<div class="links">
+    	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+		<?php if ($_SESSION['user']['role_id'] == 1) { ?>
+		<a href="newUser.php" class="back-link"> Add New member</a>
+		<?php } ?>
+	</div>
 	<br>
 	<table>
 		<tr>
@@ -136,8 +160,6 @@ $statement->closeCursor();
 		</tr>
 		<?php endforeach; ?>
 	</table>
-	<p><a href="../index.php">Back to dashboard</a></p>
 </main>
-	
 </body>
 </html>
