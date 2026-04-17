@@ -139,7 +139,7 @@ $statement->closeCursor();
 			<th>Email</th>	
 			<th>Joined On</th>
 			<th>Activated</th>
-			<th>More</th>
+			<th>More Info</th>
 		</tr>
 		<?php foreach($users as $user): ?>
 		<tr>
@@ -154,7 +154,7 @@ $statement->closeCursor();
 					<input type="hidden" name = "user_id" 
 					value= "<?php echo $user['user_id']; ?>">
 					<br>
-					<input type="submit" name="action" value="More">
+					<input type="submit" name="action" value="View">
 				</form>
 			</td>
 		</tr>
