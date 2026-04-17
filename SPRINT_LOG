@@ -14,12 +14,12 @@ As a Admin, I want to debug the code so I have a fully functioning website.
 As an Member, Admin, Department Head, and President, I want to access the website through a server so the website can run on my local machine using a single link in the browser.   
 As an Member, Admin, Department Head, and President, I want a standardized formatted css that adheres to the organization's brand and aesthetic.
 
-| Task Description     | Assigned Owner | Priority | Status   |
-|  Reminders   |  @jjlee42134   |  Medium   | Incomplete |
-|  Design Layout       |  @zohahkhan    |  Medium  | Incomplete |
-|  Debug         |  @5h6nn0n      |  High | Incomplete |
-|  Website Server  |  @kahguan92    |  High    | Incomplete |
-| RecurringCalendarEvent  | @kahguan92     |  Medium   | Incomplete|
+| Task Description        | Assigned Owner | Priority | Status     |
+|  Reminders              |  @jjlee42134   |  Medium  | Incomplete |
+|  Design Layout          |  @zohahkhan    |  Medium  | Incomplete |
+|  Debug                  |  @5h6nn0n      |  High    | Incomplete |
+|  Website Server         |  @kahguan92    |  High    | Incomplete |
+| RecurringCalendarEvent  | @kahguan92     |  Medium  | Incomplete |
 
 
 2. Progress & Blockers
@@ -53,4 +53,60 @@ Resolution Plan:
 
 
 ## 4. Bug Tracking
+
+Identified bugs -- Shannon
+1. The event notification pop up on the homepage when not logged in. 
+    Resolution: Moved pop-op code block to the top of page.
+    Severity: low | Fix Status: Fixed
+2. The head dept summary requires ./ for the preview and ../ to open the page.
+    Resolution: Changed required_once to include __DIR__ . ‘/../include/db_connect.php’;
+    Severity: high | Fix Status: Fixed
+3. When updating my profile, my new name only appears after i log back in. The session does not refresh. 
+    Resoulution: Made the updated name = the session name. 
+    Severity: low | Fix Status: Fixed
+4. When updating my profile, the formatted number gives me an error, “phone number required”. It only works as all digits. The insert needs de-formatted and then re-format when displayed.
+    Resolution: Changed from filter_validate_int to filter_sanitize_text
+    Severity: med | Fix Status: Fixed
+5. When exporting attendance “your connection is secure” appears in A1 of the CSV. 
+    Resulution: Not needed when db message is gone. I removed the message from db_connect. ob_clean(); works too.
+    Severity: low | Fix Status: Fixed
+6. The audit log for attendance does not specify who attended or not, only who recorded the attendance. Need to fix the before and after json arrays to mention all keys. The current after should be the Diff json. 
+    Resolution: Added create trigger and update trigger for attendance. 
+    Severity: med | Fix Status: Fixed
+7. Role assign inserts into a missing table called “change log”, which prevented me from opening the page.
+    Reolution: I put it in the AuditLog table instead, since it serves the same purposed and has the same entity id.
+    Severity: med | Fix Status: Fixed
+8. The background image is not showing on admin dashboard but appears on the others. 
+    Resolution: Added style tags under the Admin role_id section to enforce the background image. 
+    Severity: low | Fix Status: Fixed
+9. Single digit phone numbers are accepted for profile update & adding a new user.
+    Resolution: Added a string length conditional that only accepts 10 digits.
+    Severity: low | Fix Status: Fixed
+10. New user lets any password length. Must be at least 8 characters for security. 
+    Resolution: Added field pattern and message enforcement. 
+    Severity: low | Fix Status: Fixed
+11. President_requests and view_requests did not work. 
+    Resolution: Changed pdo to db for the queries, blocked out require_role() function that was not recognized, added ../styles.css
+    Severity: med | Fix Status: Fixed
+12. Characters are accepted in new user page for phone number. Needs to be digits only. 
+    Resolution: Added field pattern and message enforcement.
+    Severity: low | Fix Status: Fixed
+11. Background image wouldn’t display after re-downloading from github. 
+    Resolution: background.png somehow got corrupted and had to replace it with a backup version. 
+    Severity: low | Fix Status: Fixed
+12. The responses to the surveys in survey hub were nested in the outline of boxes. It appears to be caught in a loop that also repeats the iframe.
+    Resolution: I compared different versions; restructured it by placing (submitted) section first, then check if survey has been completed as to whether or not hide the iframe box; 
+                changed ending </div> placement, which affected the index box appearance and added structure; added css to help format the index in relation to survey hub.
+    Severity: high | Fix Status: Fixed
+13. A "back" navigation button should not appear on the first page of member survey. 
+    Resolution: Added a conditional that the page step must be greater than 1. 
+    Severity: low | Fix Status: Fixed
+14. Audit log is difficult to estimate the count by looking at it.
+    Resolution: Added log_id and default to descending occurred_at so that the rows appear in chronological order. 
+    Severity: low | Fix Status: Fixed
+15. Directory folders make for easier navigation but can also pose a security risk if someone accesses a page they are aren’t permitted to. 
+                Needs an error landing page for “access denied” if the viewer does not have the expected role_id or if their session was terminated. 
+    Resolution: Created error page so that if the user is not in the correct role, they will be redirected. 
+    Severity: med | Fix Status: Fixed
+
 
