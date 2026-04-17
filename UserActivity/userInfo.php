@@ -133,6 +133,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .action-btn:hover {
             background-color: #b39578;
         }
+		.back-link
+        {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #c4a484;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+			text-shadow: 0 1px 1px rgba(0,0,0,0.40);
+        }
+        .back-link:hover
+        {
+            color: #b39578;
+        }
+		.links 
+		{
+    		display: flex;
+    		justify-content: space-between;
+		}
      
     </style>
 </head>
@@ -142,6 +161,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</header>
 	<br><br>
 <main>
+	<div class="links">
+    	<a href="viewUser.php" class="back-link">&larr; Back to all Members</a>
+		<a href="../index.php" class="back-link">Jump to dashboard</a>		
+	</div>
 <!--- view details about the selected user  --->
 	<table>
 		<form action = "" method = "post">
