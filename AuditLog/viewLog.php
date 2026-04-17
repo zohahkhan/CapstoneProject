@@ -1,5 +1,17 @@
 <?php
 require_once __DIR__ . '/../include/db_connect.php';
+if (session_status() == PHP_SESSION_NONE) 
+{
+    session_start();
+}
+// Admins only
+if (!in_array($_SESSION['user']['role_id'], [4])) 
+{
+	require_once __DIR__ . '/../include/config.php';
+	$error_page = BASE_URL.'/include/error.php';
+    header("Location: $error_page");
+    exit;
+}
 
 $user_id = isset($_POST['user_id']) && $_POST['user_id'] !== '' ? $_POST['user_id'] : null;
 $action  = isset($_POST['action'])  && $_POST['action'] !== '' ? $_POST['action'] : null;
