@@ -134,6 +134,25 @@ $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? 
         .action-btn:hover {
             background-color: #b39578;
         }
+		.back-link
+        {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #c4a484;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+			text-shadow: 0 1px 1px rgba(0,0,0,0.40);
+        }
+        .back-link:hover
+        {
+            color: #b39578;
+        }
+		.links 
+		{
+    		display: flex;
+    		justify-content: space-between;
+		}
      
     </style>
 </head>
@@ -143,6 +162,10 @@ $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? 
 	</header>
 	<br><br>
 <main>
+	<div class="links">
+    	<a href="viewLog.php" class="back-link">&larr; Back to all Logs</a>
+		<a href="../index.php" class="back-link">Jump to dashboard</a>
+	</div>
 	<table>	
 	<form action = "exportLogs.php" method = "post" style="display:inline;">
 
