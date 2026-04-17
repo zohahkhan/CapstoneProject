@@ -17,11 +17,18 @@ Username: kha27882@email.com
   Password: kha27882
   or any username/password within the database
 
-Branch Name #2: 
-User Story: 
-Usage Instructions: 
+Branch Name #2: consolidate-documents 
+User Story: As a Admin, I want to debug the code so I have a fully functioning website.
+Usage Instructions: Log in to Admin page to see updated logs for activity tracking.
 Acceptance Criteria:
+▪ Clean up the GitHub repository, delete old branches, consolidate code into develop, ensure develop branch runs smoothly. 
+▪ Update ERD to match the tables in the database script. 
+▪ Update User Stories document to match the current user stories.
+▪ Load all code and webpages with no errors, add error handling 
 Test Credentials:
+  Username: kat44977@email.com
+  Password: kat44977
+  or any Admin username/password within the database
 
 Branch Name #3: 
 User Story: 
