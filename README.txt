@@ -30,11 +30,18 @@ Test Credentials:
   Password: kat44977
   or any Admin username/password within the database
 
-Branch Name #3: 
-User Story: 
-Usage Instructions: 
+Branch Name #3: feature/announcements
+User Story: As a President and Department Head, I want to create reminders (title, body, expiry) so that members receive timely updates.
+Usage Instructions: Navigate to the President or Department Head homepage. An Announcements box displays the current count of active announcements and a preview of upcoming ones. Click "Create Announcement" to open the creation form. Fill in the title, body, and an expiry date and time, then click Publish. You will be redirected to the Manage Announcements page with a success message. From the Manage Announcements page, active announcements can be edited, closed, or deleted. Expired announcements are listed separately and can be reopened with a new expiry date or deleted. Members can view all active announcements from their homepage via the Announcements box.
 Acceptance Criteria:
+▪ Required fields: title (≤50 chars), body (≤2,000 chars), expiry (date/time)
+▪ On publish, the announcement appears in the member dashboard
+▪ Expired announcements auto-hide; status shows Active/Expired
+▪ President and Department Head can manage, edit, close, reopen, and delete 
 Test Credentials:
+  Username: gil42134@email.com
+  Password: gil42134
+  or any Admin username/password within the database
 
 Branch Name #4: 
 User Story: 
