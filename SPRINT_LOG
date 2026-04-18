@@ -62,7 +62,18 @@ Resolution Plan:
 
 ## 4. Bug Tracking
 
-Identified bugs -- Shannon
+Identified Bugs - JJ's User Story
+1. createAnnouncement.php threw a fatal PDO error on publish. The INSERT statement referenced announce_deliverytime which did not exist as a column in the Announcement table.
+    Resolutuon: Removed announce_deliverytime from the INSERT statement and used created_at and updated_at with NOW() instead to match the actual table schema.
+    Severity: High | Fix Status: Fixed
+2. index.php threw a fatal PDO error on load. The query referenced expiry instead of the correct column name announce_expiry in the Announcement table.
+    Resolution: Updated the query in index.php to use the correct column name announce_expiry along with archived = 0 to filter out archived announcements.
+    Severity: High | Fix Status: Fixed
+3. The Announcements box on the Department Head homepage was floating alone in the right panel grid instead of appearing below the Compiled Monthly Report.
+    Resolution: Moved the Announcements box into the left side grid as a full width row below the Compiled Monthly Report using a spanning class across both columns.
+    Severity: Low  | Fix Status: Fixed
+
+Identified bugs - Shannon
 1. The event notification pop up on the homepage when not logged in. 
     Resolution: Moved pop-op code block to the top of page.
     Severity: low | Fix Status: Fixed
