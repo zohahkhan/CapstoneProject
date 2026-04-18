@@ -15,10 +15,10 @@ As an Member, Admin, Department Head, and President, I want to access the websit
 As an Member, Admin, Department Head, and President, I want a standardized formatted css that adheres to the organization's brand and aesthetic.
 
 | Task Description        | Assigned Owner | Priority | Status     |
-|  Reminders              |  @jjlee42134   |  Medium  | Incomplete   |
-|  Design Layout          |  @zohahkhan    |  Medium  | Incomplete   |
+|  Reminders              |  @jjlee42134   |  Medium  | Complete   |
+|  Design Layout          |  @zohahkhan    |  Medium  | Incomplete |
 |  Debug                  |  @5h6nn0n      |  High    | Complete   |
-|  Website Server         |  @kahguan92    |  High    | Incomplete   |
+|  Website Server         |  @kahguan92    |  High    | Incomplete |
 | RecurringCalendarEvent  |  @kahguan92    |  Medium  | Incomplete |
 
 
@@ -58,7 +58,7 @@ Resolution Plan:
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
-
+| Consolidate Documents & Refactor File Structure | Manual | Passed | PR #80 — Duplicate files were removed after inspection, files were organized into proper directory folders, URL paths were updated accordingly, and unauthorized access restrictions were added across multiple pages including role based redirects, password minimum enforcement, and phone number formatting in profile update |
 
 ## 4. Bug Tracking
 
