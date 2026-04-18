@@ -1,0 +1,418 @@
+body {
+	margin: 0;
+	min-height: 100vh;
+	background-image: url("images/background.png"); 
+	font-family: 'Poppins', Arial, Helvetica, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/*the one big box, on the login page*/
+.box {
+	background-color: #faf5f0;
+	width: 80%;
+	min-height: 75vh;
+	max-width: 1400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+	text-align: center;
+}
+
+/*the container for both boxes */
+.boxes {
+	width: 95%;
+	max-width: 1400px;
+	margin-top: 40px;
+	display: flex;
+	gap: 30px; /*for the space between the two boxes */
+	align-items: stretch; /*makes left and right boxes same height*/
+	flex: 0;
+}
+
+/*left side box */
+.left-box {
+	background-color: #faf5f0;
+	flex: 1;
+	padding: 40px;
+	border-radius: 16px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	min-height: 75vh;
+}
+
+/*right box container*/
+.right-box {
+	display: grid;
+	grid-template-columns: 1fr 1fr; /*2 columns */
+	grid-template-rows: 1fr 1fr; /*2 rows, equally split */
+	gap: 20px; /*the space between sub-boxes */
+	background-color: transparent; /*so the background image shows through between the four boxes*/
+	padding: 0;
+	flex: 1;
+	min-height: 75vh; /* matches the left-box's height */
+	width: 700px; /* placeholder*/
+}
+
+/*individual right sub-boxes*/
+.right-sub-box {
+	background-color: #faf5f0;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	text-align: center;
+	height:290px; /* height placeholder*/
+}
+
+/*left box container for the department Head and President pages */
+.left-split {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+	background-color: transparent; /*so the background image shows through between the four boxes*/
+}
+
+/*The sub boxes for the department Head and President pages on the left side */
+.left-sub-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* prevent stretching */
+	height:290px; /* height placeholder*/
+}
+
+/* container for the new homepage layout */
+.homepage-boxes {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1400px;
+    margin-top: 40px;
+    gap: 30px; /*space between top row and bottom box */
+}
+
+/*top row with two boxes side by side */
+.homepage-top {
+    display: flex;
+    gap: 20px; /*the space between the two top boxes */
+}
+
+/*makes individual top boxes */
+.homepage-top-box {
+    flex: 1;
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/*makes the bottom takes up the full-width box */
+.homepage-bottom-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    min-height: 25vh; /*taller */
+    
+}
+
+/*department head left side layout*/
+.dept-left-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /*two columns*/
+    /*grid-template-rows: 1fr 1fr;*/  /*two rows*/
+    grid-template-rows: 335px 335px auto; /* top-left, top-right, bottom full-width */
+    gap: 20px;
+    flex: 1;
+    min-height: 75vh;
+	max-width: 50%;
+}
+
+/*bottom box spans full width*/
+.dept-full-width {
+    grid-column: 1 / span 2;
+    max-height: 300px;
+    overflow-y: auto;
+    align-self: stretch;   /* ensures full width */
+    background-color: #faf5f0;
+    padding: 20px;
+
+}
+
+/* to display compiled survey responses */
+
+.dept-survey-box {
+    grid-column: 1 / span 2;
+    background-color: #faf5f0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: auto;
+    max-height: 300px;
+    height: 290px;
+    align-self: stretch; 
+    border-radius: 12px;
+}
+
+/* to display member survey responses */
+
+.memb-survey-box {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* prevent stretching */
+    width: 650px;
+    max-width: 700px;
+    min-width: 500px;
+    height: auto;
+}
+
+
+/*this is for the nested summary box inside monthly report responses*/
+.report-summary-box {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #fdfaf7; /*makes it lighter than main box for contrast*/
+    border-radius: 10px;
+    border: 1px solid #e6d5c3;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+/*the content inside summary box*/
+.report-summary-content {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/*this makes the summary title left aligned*/
+.report-summary-box h3 {
+    text-align: left;
+    margin-bottom: 10px;
+    color: #6b4f3b;
+}
+
+/*make the monthly report responses box fixed height with scrolling*/
+.scrollable-report-box {
+    width: 100%;
+	height: 200px;     
+    overflow-y: auto; /*enables vertical scrolling*/
+    margin-top: 10px;
+    padding-right: 5px;
+    
+}
+
+.background {
+    	background-image: url("images/background.png"); 
+    
+}
+
+/*this is the scrollbar to make it easier to go throuh  (Chrome/Edge) */
+.scrollable-report-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-report-box::-webkit-scrollbar-thumb {
+    background-color: #c4a484;
+    border-radius: 10px;
+}
+
+/*login form*/
+.login-form {
+	width: 100%;
+	max-width: 450px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.form-group label {
+	font-size: 1.05em;
+	margin-bottom: 6px;
+	display: block;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 16px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #c4a484;
+}
+
+button {
+	margin-top: 16px;
+	padding: 14px;
+	border-radius: 12px;
+	border: none;
+	background-color: #c4a484;
+	color: white;
+	font-size: 1.05em;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #b39578;
+}
+
+/*headers*/
+h1 {
+	text-align: center;
+	font-size: 2.0em;
+	margin-bottom: 5px;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 0;
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+h3 {
+	text-align: center;
+	font-size: 1.2em;
+	margin-bottom: 5px;
+}
+
+.corner-img {
+	position: fixed; /* stays in the viewport even when scrolling */
+	width: clamp(100px, 20%, 350px); /* doubled min, scaling, and max */
+	height: auto;
+}
+
+.corner-img.top-left {
+	top: 5vh; /* 5% of viewport height */
+	left: 5vw; /* 5% of viewport width */
+}
+
+.corner-img.bottom-right {
+	bottom: 5vh;
+	right: 5vw;
+}
+
+/*this is for the summary of monthly report responses, grid container for multiple charts*/
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/*each chart wrapper*/
+.chart-wrapper {
+    background-color: #faf5f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+}
+
+/*limits the canvas height for smaller charts */
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 200px !important;
+}
+
+/*this is for reminders*/
+.reminder-list {
+    width: 100%;
+    max-width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    text-align: left;
+}
+
+.reminder-list li {
+    width: 100%;
+    padding: 6px 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/*the upcoming event announcement popup */
+.event-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 260px;
+    background: #fff8f3;
+    border-left: 5px solid #c4a484;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    z-index: 9999;
+    animation: slideIn 0.4s ease;
+}
+
+.event-popup h4 {
+    margin: 0 0 6px 0;
+    color: #3b2f2f;
+    font-size: 0.9rem;
+}
+
+.event-popup ul {
+    padding-left: 16px;
+    margin: 0;
+}
+
+.event-popup li {
+    margin-bottom: 4px;
+}
+
+.close-popup {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #7a6655;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
