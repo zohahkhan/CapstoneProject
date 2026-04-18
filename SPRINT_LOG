@@ -120,12 +120,17 @@ Identified bugs - Shannon
 13. A "back" navigation button should not appear on the first page of member survey. 
     Resolution: Added a conditional that the page step must be greater than 1. 
     Severity: low | Fix Status: Fixed
-14. Audit log is difficult to estimate the count by looking at it.
+14. New user audit log puts new user id where the current member should be.
+    Resolution: Used current_user_id session variable to update the create user trigger.
+    Severity: low | Fix Status: Fixed
+15. Audit log is difficult to estimate the count by looking at it.
     Resolution: Added log_id and default to descending occurred_at so that the rows appear in chronological order. 
     Severity: low | Fix Status: Fixed
-15. Directory folders make for easier navigation but can also pose a security risk if someone accesses a page they are aren’t permitted to. 
+16. Directory folders make for easier navigation but can also pose a security risk if someone accesses a page they are aren’t permitted to. 
                 Needs an error landing page for “access denied” if the viewer does not have the expected role_id or if their session was terminated. 
     Resolution: Created error page so that if the user is not in the correct role, they will be redirected. 
     Severity: med | Fix Status: Fixed
+17. The audit log before and after should be an array for role assign updates. It currently creates one log per role selected.
+    Severity: low | Fix Status: Open
 
 
