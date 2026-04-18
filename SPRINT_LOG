@@ -23,11 +23,15 @@ As an Member, Admin, Department Head, and President, I want a standardized forma
 
 
 2. Progress & Blockers
-User Story:
+User Story: As a President and Department Head, I want to create reminders (title, body, expiry) so that members receive timely updates.
 Completed Work: 
-Incomplete Tasks: 
-Blockers:
-Resolution Plan: 
+▪ Created createAnnouncement.php for Presidents and Department Heads to publish announcements with a title, body, and expiry date.
+▪ Created manageAnnouncements.php to view, edit, close, reopen, and delete active and expired announcements.
+▪ Created viewAnnouncements.php for members to view all active announcements.
+▪ Updated index.php to display an Announcements preview box on all role homepages.
+Incomplete Tasks: In the process of eliminating any final bugs that persists within this user story.
+Blockers: None that are currently known.
+Resolution Plan: Assess any bugs as they arise and develop an action plan accordingly.
 
 User Story: As a Admin, I want to debug the code so I have a fully functioning website.
 Completed Work: I organized the files into folders. Then, I combed through every file to find instances of loginpages/ , added ../ where needed, 
