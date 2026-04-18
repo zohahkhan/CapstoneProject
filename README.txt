@@ -43,8 +43,17 @@ Test Credentials:
   Password: gil42134
   or any Admin username/password within the database
 
-Branch Name #4: 
-User Story: 
-Usage Instructions: 
+Branch Name #4: feature/Sent-email from server
+User Story: As an Member, Admin, Department Head, and President, I want to access the website through a server so the website can run on my local machine using a single link in the browser. - High Priority, Kah
 Acceptance Criteria:
+▪ The website should be fully functionally.
+▪ Implement email notification system.
+▪ The website should load within 10 seconds.
+▪ There should an extra website as a backup.
+Usage Instructions: Search or open the URL https://test.ongkg.com/index.php or https://capstone.ongkg.com/index.php and https://db.ongkg.com/. To test the email notification, please log out and click on Forgot Password, enter email address ong92990@pennwest.edu or menon@pennwest.edu and click send reset link, the password reset link should arrive.
 Test Credentials:
+Username: ong92990@email.com
+Password: test1234
+For DB
+Username: drmenon
+Password: Drmenon@2026!
