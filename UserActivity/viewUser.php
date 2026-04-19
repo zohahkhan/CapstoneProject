@@ -17,6 +17,7 @@ if (!in_array($_SESSION['user']['role_id'], [1, 4]))
 $search = isset($_POST['search']) ? $_POST['search'] : '';
 if (!preg_match("/^[a-zA-Z\s]*$/", $search)) 
 {
+	echo '<p style="color:red;">No match</p>';
     $search = '';
 }
 if (!empty($search)) {
@@ -29,6 +30,17 @@ if (!empty($search)) {
     $stmt1->bindValue(':search', $searchByName);
     $stmt1->execute();
     $users = $stmt1->fetchAll();
+	
+	if (count($users) == 0) {
+    echo '<p style="color:red;">Name not found</p>';
+		
+	$queryAllUsers = 'SELECT * FROM `User`
+					  ORDER BY user_id';
+	$stmt2 = $db->prepare($queryAllUsers);
+	$stmt2->execute();
+	$users = $stmt2->fetchAll();
+	$stmt2->closeCursor();
+    }
 	
 } else {
 	
@@ -135,10 +147,11 @@ if (!empty($search)) {
 		}
      	.search{
 			font-size: 0.9em; 
-			padding: -10px; 
-			height: 15px; 
+			height: 50px;
+			padding: 10px;
 			margin-top: 16px; 
 			margin-right: 10px;
+			box-sizing: border-box;
 		}
     </style>
 </head>
