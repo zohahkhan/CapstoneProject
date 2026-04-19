@@ -45,7 +45,7 @@ if ($user)
     $statement->bindParam(':expires_at', $expires_at);
     $statement->execute();
 
-        $resetLink = 'https://capstone.ongkg.com/loginpages/reset_password.html?token='
+        $resetLink = 'https://test.ongkg.com/PswdRecovery/reset_password.html?token='
         . urlencode($token)
         . '&email=' . urlencode($email);
 
