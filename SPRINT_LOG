@@ -18,8 +18,8 @@ As an Member, Admin, Department Head, and President, I want a standardized forma
 |  Reminders              |  @jjlee42134   |  Medium  | Complete   |
 |  Design Layout          |  @zohahkhan    |  Medium  | Complete |
 |  Debug                  |  @5h6nn0n      |  High    | Complete   |
-|  Website Server         |  @kahguan92    |  High    | Incomplete |
-| RecurringCalendarEvent  |  @kahguan92    |  Medium  | Incomplete |
+|  Website Server         |  @kahguan92    |  High    | Complete   |
+| RecurringCalendarEvent  |  @kahguan92    |  Medium  | Complete   |
 
 
 2. Progress & Blockers
@@ -49,12 +49,18 @@ Incomplete Tasks: None
 Blockers: None
 Resolution Plan: N/A
 
-User Story:
-Completed Work: 
-Incomplete Tasks: 
-Blockers:
-Resolution Plan: 
+User Story: As an Member, Admin, Department Head, and President, I want to access the website through a server so the website can run on my local machine using a single link in the browser.
+Completed Work: The website is running on premise(home server), with 2 different URL, https://test.ongkg.com/index.php or https://capstone.ongkg.com/index.php and https://db.ongkg.com/ for the database.
+                The website should load within 10 seconds.
+Incomplete Tasks: https://test.ongkg.com/index.php has been fully updated, but https://capstone.ongkg.com/index.php needs to be updated as well.
+Blockers: None.
+Resolution Plan: Waiting for github PR to be approved for Sprint 6 to finalize and update all the files.
 
+User Story: As a user, I want to mark a calendar event as recurring (daily, weekly, monthly, yearly) so that I do not need to manually create the same event multiple times.
+Completed Work: Updated the event features to include recurring and able to delete recurrence by single or entire.
+Incomplete Tasks: None
+Blockers: None.
+Resolution Plan: Redo Sprint 4 user story based on team members existing code, and have to delete own code created separately.
 
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
@@ -133,5 +139,16 @@ Identified bugs - Shannon
     Severity: med | Fix Status: Fixed
 17. The audit log before and after should be an array for role assign updates. It currently creates one log per role selected.
     Severity: low | Fix Status: Open
-
-
+Identified bugs - Kah
+1.  Reset link pointed to the wrong path, the email/demo link was going to a URL that did not exist on the server.
+    Resolution: The reset link in has to be updated based on the new directory/folder path location. The reason is because the user story requires 2 websites, where both have different URLs and need to fix both.
+    Severity: med | Fix Status: Fixed
+2.  Hidden email field missing or not carried through consistently
+    Resolution: reset_password.html needed to preserve both token and email in hidden inputs. Without that, reset_password_process.php could not validate the request properly.
+    Severity: low | Fix Status: Fixed
+3.  Server was sometimes still using older copies of files
+    Resolution: Compare live server files with the expected fixed version
+    Severity: med | Fix Status: Fixed
+4.  Use of bindParam() caused binding issues
+    Resolution: Replace bindParam() with bindValue(). Changed PDO binding from bindParam() to bindValue() for values like: :token, :email, :user_id, :reset_id.
+    Severity: med | Fix Status: Fixed
