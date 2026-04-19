@@ -71,7 +71,7 @@ if ($success) {
 	$_SESSION['user']['last_name'] = $updated_last_name;
 
     // 2 SECOND REFRESH REQUIREMENT
-    echo "<script>setTimeout(function() {window.location='../index.php';}, 2000);</script>";
+    echo "<script>setTimeout(function() {window.location='../UserActivity/updateProfileForm.php';}, 2000);</script>";
 } else {
     echo "Update failed.";
 }
