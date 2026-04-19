@@ -500,7 +500,7 @@ JSON_ARRAY(
 	JSON_OBJECT(
 		'id', 2,
 		'question', 'Reporting Month',
-		'options', JSON_ARRAY("Feburary")
+		'options', JSON_ARRAY(CONCAT(MONTHNAME(CURRENT_DATE), ' ', YEAR(CURRENT_DATE)))
 		),
 	JSON_OBJECT(
 		'id', 3,
@@ -665,7 +665,6 @@ JSON_ARRAY(
 	JSON_OBJECT(
 		'id', 25,
 		'question', 'Which book(s) were completed?',
-		'options', JSON_ARRAY(),
 		'branch', 1,
 		'group', 3
 		),
