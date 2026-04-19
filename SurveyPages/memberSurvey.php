@@ -201,24 +201,27 @@ endif;
 <p><?= ($row['temp_desc']) ?></p>
 <?php endif; ?>
 
-	<?php foreach ($displayQuestions as $q): ?>
-	<div>
-		<p><strong><?= ($q['question']) ?></strong></p>
-	<?php foreach ($q['options'] as $i => $option): ?>
-	<label>
-		<input type="radio" 
-		
-		name="answers[<?= $q['id'] ?>]" 
-		value="<?= $option ?>"
-		
-		<?= (isset($answers[$q['id']]) && $answers[$q['id']] == $option) ? 'checked' : '' ?>
-			
-		<?php if (!isset($_POST['back'])) echo ' required'; ?>>
-			
-		<?= $option ?>
-	</label><br>
-<?php endforeach; ?>
-</div>
+<?php foreach ($displayQuestions as $q): ?>
+    <div>
+        <p><strong><?= ($q['question']) ?></strong></p>
+        <?php if ($q['id'] == 25): ?>
+            <input type="text" style="width: 400px; height: 150px;"
+                   name="answers[<?= $q['id'] ?>]"
+                   value="<?= isset($answers[$q['id']]) ? htmlspecialchars($answers[$q['id']]) : '' ?>"
+                   <?php if (!isset($_POST['back'])) echo 'required'; ?>>
+        <?php else: ?>
+            <?php foreach ($q['options'] as $i => $option): ?>
+                <label>
+                    <input type="radio" 
+                           name="answers[<?= $q['id'] ?>]" 
+                           value="<?= $option ?>"
+                           <?= (isset($answers[$q['id']]) && $answers[$q['id']] == $option) ? 'checked' : '' ?>
+                           <?php if (!isset($_POST['back'])) echo 'required'; ?>>
+                    <?= $option ?>
+                </label><br>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
 <?php endforeach; ?>
 
 <!-- Preserve answers for questions not on the current page -->
