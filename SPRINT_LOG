@@ -16,7 +16,7 @@ As an Member, Admin, Department Head, and President, I want a standardized forma
 
 | Task Description        | Assigned Owner | Priority | Status     |
 |  Reminders              |  @jjlee42134   |  Medium  | Complete   |
-|  Design Layout          |  @zohahkhan    |  Medium  | Incomplete |
+|  Design Layout          |  @zohahkhan    |  Medium  | Complete |
 |  Debug                  |  @5h6nn0n      |  High    | Complete   |
 |  Website Server         |  @kahguan92    |  High    | Incomplete |
 | RecurringCalendarEvent  |  @kahguan92    |  Medium  | Incomplete |
@@ -33,7 +33,7 @@ Incomplete Tasks: In the process of eliminating any final bugs that persists wit
 Blockers: None that are currently known.
 Resolution Plan: Assess any bugs as they arise and develop an action plan accordingly.
 
-User Story: As a Admin, I want to debug the code so I have a fully functioning website.
+User Story: As an Admin, I want to debug the code, so I have a fully functioning website.
 Completed Work: I organized the files into folders. Then, I combed through every file to find instances of loginpages/ , added ../ where needed, 
                 added folder disinations in front of the url where needed, and made sure that every clickable link works. I also enhanced error handling, 
                 especially for pages that were accessible from the folder directory in the url.  
@@ -43,11 +43,11 @@ Blockers: The most prominent blockers I've experienced were from resructuring th
 Resolution Plan: I referenced older versions of the surveyHub file and a newer version found in the features/design branch, adjusted the css (in styles.css for
                 index page and in the surveyHub page's style tags) to stabalize the form display while keeping the results view consistent.
 
-User Story:
-Completed Work: 
-Incomplete Tasks: 
-Blockers:
-Resolution Plan: 
+User Story: As an Member, Admin, Department Head, and President, I want a standardized formatted css that adheres to the organization's brand and aesthetic.
+Completed Work: I made sure the website was uniform across all pages and was formatted in a clean way with a user friendly interface. 
+Incomplete Tasks: None
+Blockers: None
+Resolution Plan: N/A
 
 User Story:
 Completed Work: 
@@ -59,6 +59,7 @@ Resolution Plan:
 3. System Test Report
 |    Test Case    | Type   | Result | Evidence/PR # |
 | Consolidate Documents & Refactor File Structure | Manual | Passed | PR #80 — Duplicate files were removed after inspection, files were organized into proper directory folders, URL paths were updated accordingly, and unauthorized access restrictions were added across multiple pages including role based redirects, password minimum enforcement, and phone number formatting in profile update |
+| Design Layout | Manual | Passed | PR #81 — Ensured flow between links and pages and a cohesive and uniform design |
 
 ## 4. Bug Tracking
 
