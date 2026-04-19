@@ -112,6 +112,7 @@ $stmtMyPending->bindParam(':user_id', $user_id);
 $stmtMyPending->execute();
 $myPendingSuggestions = $stmtMyPending->fetchColumn();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -225,6 +226,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			font-weight: 600;
 			color: #155724;
 		}
+		
 	</style>
 </head>
 
@@ -306,7 +308,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 				?>
 			</tbody>
 		</table>
-		<div class="mini-cal-hint">Click to open full calendar</div>
+		<div class="mini-cal-hint" style="color: #4b3d29;" >Click to open full calendar</div>
 	</a>
 	<?php
 	$mini_calendar_html = ob_get_clean();
@@ -319,14 +321,18 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
 				<h2>Compiled Monthly Report</h2>
-				<p>Description</p>
-				<a href="../headDepartmentSummary.php">Compiled Monthly Report Summary</a>
+				<div class="scrollable-report-box">
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php" style="color: #4b3d29; ">Compiled Monthly Report Summary</a></p>
 			</div>
 
 			<div class="left-sub-box bottom-box">
 				<h2>Monthly Report</h2>
-				<p>Description</p>
-				<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+    			<div class="scrollable-report-box">
+						<?php include("include/surveyHub.php"); ?>
+				</div> 
+				<p><a href="memberSurvey.php" style="color: #4b3d29; ">Complete the Report</a></p>
 			</div>
 		</div>
 
@@ -358,9 +364,9 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 			</div>
 
 			<div class="right-sub-box">
-				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<h2>Meeting Attendance</h2> 
+				<br><p style="color: #8b6f47; font-size: 1.6rem;">Attendance should be held for all events</p>
+				<br><a href="record_attendance.php" style="color: #4b3d29; ">Record Attendance</a>
 			</div>
 
 			<div class="right-sub-box">
@@ -369,7 +375,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
-				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+				<p><a href="../reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
@@ -394,7 +400,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					</div>
 				</div>
 				</div> 
-				<p><a href="../viewSummary.php">View summary</a></p>
+				<p><a href="viewSummary.php" style="color: #4b3d29;">View summary</a></p>
 			</div>
 
 			<div class="left-sub-box">
@@ -408,7 +414,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 					</div>	
 				</div>
 				</div> 
-				<p><a href="memberSurvey.php">Complete the Report</a></p>
+				<p><a href="memberSurvey.php" style="color: #4b3d29;">Complete the Report</a></p>
 			</div>
 
 			<div class="dept-full-width">
@@ -448,17 +454,18 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p>Description</p>
-				<p><a href="../record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+				<p style="color: #8b6f47; font-size: 1.4rem;">Attendance should be held for all events</p>
+				<br><a href="record_attendance.php" style="color: #4b3d29;">Record Attendance</a>
 			</div>
 
+		
 			<div class="right-sub-box">
 				<h2>Review Suggestions</h2>
 				<div class="suggestion-preview">
 					<p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
 					<p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
 				</div>
-				<p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+				<p><a href="../reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
 			</div>
 		</div>
 	</div>
@@ -504,16 +511,21 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 			<div class="right-sub-box">
 				<h2>Meeting Attendance</h2>
-				<p><a href="../view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
+				<p style="color: #8b6f47; font-size: 1.5rem;">Review your attendance held for all events </p>
+				<p><a href="../view_attendance.php" style="color: #4b3d29;">View My Attendance</a></p>
 			</div>
 
 			<div class="right-sub-box">
 				<h2>Suggestions</h2>
-				<div class="suggestion-preview">
-					<p>My Submissions: <strong><?= $myTotalSuggestions ?></strong></p>
-					<p>Pending: <span class="pending-count"><?= $myPendingSuggestions ?></span></p>
+				<div class="scrollable-report-box">
+				<div class="report-summary-box">
+					<textarea name="suggestion_text" id="suggestion_text" placeholder="Enter your suggestion or feedback here..." required><?= htmlspecialchars($_POST['suggestion_text'] ?? '') ?></textarea>
+						<br><br><br><br>	
+				<?#php include("memberSuggestion.php"); ?>
 				</div>
-				<p><a href="../memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Submit a Suggestion</a></p>
+				</div>
+				<p><a href="memberSuggestion.php" style="color: #4b3d29;">Submit a Suggestion</a></p>
+				
 			</div>
 		</div>
 	</div>
@@ -530,22 +542,28 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
-                <p>Description</p>
-				<p><a href="viewLog.php">Logs</a></p>
+                <div class="scrollable-report-box">
+					<?php include("viewLog.php"); ?>
+				</div>
+				<p><a href="viewLog.php" style="color: #4b3d29;">View Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
                <div class="scrollable-report-box">
 					<?php include("headDepartmentSummary.php"); ?>
 				</div>
-				<p><a href="headDepartmentSummary.php" style="color: #8b6f47;" >View Compiled Monthly Report Summary</a></p>
+				<p><a href="headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
         <div class="homepage-bottom-box">
-            <h2>Members</h2>
-            <p>Description</p>
-			<p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
-        </div>
+		<h2>Members</h2>
+			<div class="scrollable-report-box">
+			<div class="background">
+				<?php include("viewUser.php"); ?>
+			</div>
+			</div>
+		<p><a href="viewUser.php" style="color: #4b3d29;">View all members</a></p>
+		</div>
     </div>
 	<br>
     <p><a href="logout.php">Logout</a></p>
@@ -565,9 +583,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	<?php if (!empty($upcoming_events)) : ?>
 	<div class="event-popup" id="eventPopup">
 		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
-
 		<h4>Upcoming This Month</h4>
-
 		<ul>
 			<?php foreach ($upcoming_events as $event): ?>
 				<li>
