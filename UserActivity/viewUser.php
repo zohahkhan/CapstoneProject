@@ -1,4 +1,4 @@
-<!--viewUser.php only the president can view all member info -->
+<!--viewUser.php  view all member info -->
 <?php
 require_once __DIR__ . '/../include/db_connect.php';
 if (session_status() == PHP_SESSION_NONE) 
@@ -13,13 +13,33 @@ if (!in_array($_SESSION['user']['role_id'], [1, 4]))
     header("Location: $error_page");
     exit;
 }
-// Get all users
-$queryAllUsers = 'SELECT * FROM `User`
-				   ORDER BY user_id';
-$statement = $db->prepare($queryAllUsers);
-$statement->execute();
-$users= $statement->fetchAll();
-$statement->closeCursor();
+
+$search = isset($_POST['search']) ? $_POST['search'] : '';
+if (!preg_match("/^[a-zA-Z\s]*$/", $search)) 
+{
+    $search = '';
+}
+if (!empty($search)) {
+	
+	$searchByName = "%" . $search . "%";
+    $queryName = "SELECT * FROM `User` 
+				  WHERE CONCAT(first_name, ' ', last_name) 
+				  LIKE :search";
+    $stmt1 = $db->prepare($queryName);
+    $stmt1->bindValue(':search', $searchByName);
+    $stmt1->execute();
+    $users = $stmt1->fetchAll();
+	
+} else {
+	
+	$queryAllUsers = 'SELECT * FROM `User`
+					  ORDER BY user_id';
+	$stmt2 = $db->prepare($queryAllUsers);
+	$stmt2->execute();
+	$users = $stmt2->fetchAll();
+	$stmt2->closeCursor();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +133,13 @@ $statement->closeCursor();
     		display: flex;
     		justify-content: space-between;
 		}
-     
+     	.search{
+			font-size: 0.9em; 
+			padding: -10px; 
+			height: 15px; 
+			margin-top: 16px; 
+			margin-right: 10px;
+		}
     </style>
 </head>
 
@@ -122,15 +148,24 @@ $statement->closeCursor();
 		<h1>User Profiles</h1>
 	</header>
 <main>
-        <!-- display a table of users -->
-    <h2>All Users</h2>
+    <h2>Review All Users</h2>
 	<div class="links">
     	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
 		<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 		<a href="newUser.php" class="back-link"> Add New member</a>
 		<?php } ?>
 	</div>
-	<br>
+	
+	<div class="links" style="justify-content: center; margin-top: 15px; ">
+		<form method="POST" action="" class="form-group" style="display: flex; ">
+			<?php
+				$search = isset($_POST['search']) ? $_POST['search'] : '';
+			?>
+			<input type="text" name="search" class="search" placeholder="Search by name">
+			<button type="submit">Search</button>
+		</form>
+	</div>
+	 <!-- display a table of users -->
 	<table>
 		<tr>
 			<th>ID | </th>
