@@ -346,6 +346,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	
 	<!---- PRES HOMEPAGE ---->
 	<?php if ($_SESSION['user']['role_id'] == 1) { ?>
+	<style> body { background: url('images/background.png') !important; } </style>
 	<div class="boxes">
 		<div class="left-box left-split">
 			<div class="left-sub-box top-box">
@@ -423,6 +424,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 	<!---- DEPT HOMEPAGE ----->
 	<?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
+	<style> body { background: url('images/background.png') !important; } </style>
 	<div class="boxes">
 		<div class="dept-left-box left-split">
 
@@ -512,6 +514,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	
 	<!--- MEMBER HOMEPAGE --->
 	<?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
+	<style> body { background: url('images/background.png') !important; } </style>
 	<div class="boxes">
 		<div class="box memb-survey-box">
 			<h2>Monthly Report</h2>
@@ -569,10 +572,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 	
 	<!--- ADMIN HOMEPAGE ---->
 	<?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
-	<style> body { 
-	         background: url('images/background.png') !important;
-			}
-	</style>
+	<style> body { background: url('images/background.png') !important; } </style>
 	
 	<div class="homepage-boxes">
         <div class="homepage-top">
