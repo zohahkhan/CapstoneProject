@@ -113,6 +113,7 @@ $stmtAnnPreview = $db->prepare("
 $stmtAnnPreview->execute();
 $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -630,58 +631,65 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
-                <p>Description</p>
-                <p><a href="viewLog.php">Logs</a></p>
+                <div class="scrollable-report-box">
+					<?php include("viewLog.php"); ?>
+				</div>
+				<p><a href="viewLog.php" style="color: #4b3d29;">View Logs</a></p>
             </div>
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
                <div class="scrollable-report-box">
-                    <?php include("headDepartmentSummary.php"); ?>
-                </div>
-                <p><a href="headDepartmentSummary.php" style="color: #8b6f47;">View Compiled Monthly Report Summary</a></p>
+					<?php include("headDepartmentSummary.php"); ?>
+				</div>
+				<p><a href="headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
         <div class="homepage-bottom-box">
-            <h2>Members</h2>
-            <p>Description</p>
-            <p><a href="../viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
-        </div>
+		<h2>Members</h2>
+			<div class="scrollable-report-box">
+			<div class="background">
+				<?php include("viewUser.php"); ?>
+			</div>
+			</div>
+		<p><a href="viewUser.php" style="color: #4b3d29;">View all members</a></p>
+		</div>
     </div>
     <br>
     <p><a href="logout.php">Logout</a></p>
 
 
     <?php 
-    }} else {
-            echo "<h1>Welcome to Lajna Pittsburgh</h1>";
-    ?>
-    <p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
-    <a href="contact.php" style="text-decoration: none;">Join Us</a>
-    <?php } ?>
-    
-    <?php if (!empty($upcoming_events)) : ?>
-    <div class="event-popup" id="eventPopup">
-        <span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
-        <h4>Upcoming This Month</h4>
-        <ul>
-            <?php foreach ($upcoming_events as $event): ?>
-                <li>
-                    <strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
-                    <?= date("F j", strtotime($event['event_date'])) ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+	}} else {
+			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
+	?>
+	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
+	<a href="contact.php" style="text-decoration: none;">Join Us</a>
+	<?php } ?>
+	
+	<!--- display the events upcoming this month popup ---->
+	<?php if (!empty($upcoming_events)) : ?>
+	<div class="event-popup" id="eventPopup">
+		<span class="close-popup" onclick="document.getElementById('eventPopup').style.display='none'">×</span>
+		<h4>Upcoming This Month</h4>
+		<ul>
+			<?php foreach ($upcoming_events as $event): ?>
+				<li>
+					<strong><?= htmlspecialchars($event['event_title']) ?></strong><br>
+					<?= date("F j", strtotime($event['event_date'])) ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
 
-    <script>
-    setTimeout(function(){
-        var popup = document.getElementById("eventPopup");
-        if(popup){
-            popup.style.display = "none";
-        }
-    }, 5000);
-    </script>
-    <?php endif; ?>
+	<script>
+	setTimeout(function(){
+		var popup = document.getElementById("eventPopup");
+		if(popup){
+			popup.style.display = "none";
+		}
+	}, 5000);
+	</script>
+	<?php endif; ?>
 
 </body>
 </html>
