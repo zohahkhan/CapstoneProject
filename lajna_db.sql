@@ -469,6 +469,27 @@ VALUES
 (53, 33, 4),
 (54, 34, 4);
 
+-- Table structure for table `membersuggestion`
+--
+
+CREATE TABLE `membersuggestion` (
+  `suggestion_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `suggestion_text` text NOT NULL,
+  `attachment_path` varchar(255) DEFAULT NULL,
+  `status` enum('Pending','Reviewed','Resolved') NOT NULL DEFAULT 'Pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `resolved_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `membersuggestion`
+--
+
+INSERT INTO `membersuggestion` (`suggestion_id`, `user_id`, `suggestion_text`, `attachment_path`, `status`, `created_at`, `resolved_by`) VALUES
+(9, 18, 'Test', NULL, 'Pending', '2026-04-04 02:01:48', NULL),
+(10, 18, 'This is a test', NULL, 'Resolved', '2026-04-04 02:01:55', 18);
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON lanja_db.*
 TO mgs_user@localhost
