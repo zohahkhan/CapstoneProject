@@ -66,6 +66,7 @@ Resolution Plan: Redo Sprint 4 user story based on team members existing code, a
 |    Test Case    | Type   | Result | Evidence/PR # |
 | Consolidate Documents & Refactor File Structure | Manual | Passed | PR #80 — Duplicate files were removed after inspection, files were organized into proper directory folders, URL paths were updated accordingly, and unauthorized access restrictions were added across multiple pages including role based redirects, password minimum enforcement, and phone number formatting in profile update |
 | Design Layout | Manual | Passed | PR #81 — Ensured flow between links and pages and a cohesive and uniform design |
+| Send Email From Server | Manual | Passed | PR #83 — User can receive a token over email to reset their password
 
 ## 4. Bug Tracking
 
