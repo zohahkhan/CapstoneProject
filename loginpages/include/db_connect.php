@@ -1,7 +1,7 @@
 <?php
 	$dsn = 'mysql:host=localhost;dbname=lanja_db';
-    $username = 'mgs_user';
-    $password = 'pa55word';
+    $username = '';
+    $password = '';
    	
     try 
 	{
