@@ -338,7 +338,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Create a new Reminder</h2>
+				<h2>Reminders</h2>
 				<div class="scrollable-report-box">
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
@@ -427,7 +427,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Create a new Reminder</h2>
+				<h2>Reminders</h2>
 				<div class="scrollable-report-box">
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
@@ -485,7 +485,7 @@ $myPendingSuggestions = $stmtMyPending->fetchColumn();
 
 		<div class="right-box">
 			<div class="right-sub-box">
-				<h2>Important Reminders</h2>
+				<h2>Reminders</h2>
 				<div class="scrollable-report-box">
 				<div class="report-summary-box">
 				<strong>Upcoming Events:</strong>
