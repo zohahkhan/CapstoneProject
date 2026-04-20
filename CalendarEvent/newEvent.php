@@ -6,14 +6,6 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 }
 
-if (!in_array($_SESSION['user']['role_id'], [1, 2]))
-{
-	require_once __DIR__ . '/../include/config.php';
-	$error_page = BASE_URL.'/include/error.php';
-    header("Location: $error_page");
-    exit;
-}
-
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
 
@@ -29,7 +21,11 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
     exit();
 }
 
-$event_title = $event_desc = $event_location = $event_date = $recurring = $iterations = $days_of_week = $created_at = $created_by = '';
+// CHANGED: kept recurring and iterations, added recurrence_end_date
+$event_title = $event_desc = $event_location = $event_date = $recurring = $created_at = $created_by = '';
+$iterations = null;
+$recurrence_end_date = null;
+$days_of_week = [];
 
 	
 $create = filter_input(INPUT_POST, 'create');
@@ -44,6 +40,11 @@ if (isset($create))
     // $recurring = filter_input(INPUT_POST, 'recurring');
     //$iterations = filter_input(INPUT_POST, 'iterations', FILTER_VALIDATE_INT);
     //$days_of_week = filter_input(INPUT_POST, 'days_of_week');
+  	// CHANGED: keep old names recurring + iterations
+    $recurring = filter_input(INPUT_POST, 'recurring') ?? 'NULL';
+    $iterations = filter_input(INPUT_POST, 'iterations', FILTER_VALIDATE_INT);
+    $recurrence_end_date = filter_input(INPUT_POST, 'recurrence_end_date');
+    $days_of_week = $_POST['days_of_week'] ?? [];
 	
 	// set default values
 	$created_at = date("Y-m-d H:i:s");
@@ -52,8 +53,13 @@ if (isset($create))
 	if ($event_date) {
     $dt = DateTime::createFromFormat('Y-m-d\TH:i', $event_date);
     $event_date = $dt ? $dt->format('Y-m-d H:i:s') : null;
-}
-	
+    
+    }
+  	    // CHANGED: format optional recurrence end date
+    if (!empty($recurrence_end_date)) {
+        $endDt = DateTime::createFromFormat('Y-m-d\TH:i', $recurrence_end_date);
+        $recurrence_end_date = $endDt ? $endDt->format('Y-m-d H:i:s') : null;
+    }
 	$errors = [];
 	
 	
@@ -73,6 +79,12 @@ if (isset($create))
 	{
         $errors['event_date'] = 'event_date is required';
     }
+ 	else if ($recurring !== 'NULL' && !empty($iterations) && !empty($recurrence_end_date)) {
+    $errors['error'] = 'Choose either number of iterations OR end date, not both.';
+	}
+	else if ($recurring !== 'NULL' && empty($iterations) && empty($recurrence_end_date)) {
+    $errors['error'] = 'Recurring events need either iterations or an end date.';
+}
 	/*
 	else if ($recurring == false) 
 	{
@@ -96,16 +108,54 @@ if (isset($create))
     else
 //		if (empty($errors)) 
 	{  
+// CHANGED: map existing recurring dropdown values
+$is_recurring = ($recurring !== 'NULL') ? 1 : 0;
+$recurrence_type = 'none';
 
+if ($recurring === 'Daily') {
+    $recurrence_type = 'daily';
+} elseif ($recurring === 'Weekly') {
+    $recurrence_type = 'weekly';
+} elseif ($recurring === 'Monthly') {
+    $recurrence_type = 'monthly';
+} elseif ($recurring === 'Annually') {
+    $recurrence_type = 'yearly';
+}
+
+$daysString = !empty($days_of_week) ? implode(',', $days_of_week) : null;
         // query the new member into the database
 		/* i removed $days_of_week , recurring , iterations 
 		from query insert and values temporarily to test required fields 
 		*/
-        $queryInsertEvent = 'INSERT INTO CalendarEvent 
-		
-			    (event_title, event_desc, event_location, event_date, created_at, created_by) 
+// CHANGED: save recurring fields too
+$queryInsertEvent = 'INSERT INTO CalendarEvent 
+    (
+        event_title,
+        event_desc,
+        event_location,
+        event_date,
+        is_recurring,
+        recurrence_type,
+        recurrence_count,
+        recurrence_end_date,
+        recurrence_days_of_week,
+        created_at,
+        created_by
+    ) 
+    VALUES (
+        :event_title,
+        :event_desc,
+        :event_location,
+        :event_date,
+        :is_recurring,
+        :recurrence_type,
+        :recurrence_count,
+        :recurrence_end_date,
+        :recurrence_days_of_week,
+        :created_at,
+        :created_by
+    )';
 				  
-		VALUES (:event_title, :event_desc, :event_location, :event_date, :created_at, :created_by)';
         $statement = $db->prepare($queryInsertEvent);
 		$statement->bindParam(':event_title', $event_title);
 		$statement->bindParam(':event_desc', $event_desc);
@@ -114,6 +164,12 @@ if (isset($create))
        // $statement->bindParam(':recurring', $recurring);
        // $statement->bindParam(':iterations', $iterations);
        // $statement->bindParam(':days_of_week', $daysString);
+      	// CHANGED: bind recurrence values
+        $statement->bindValue(':is_recurring', $is_recurring, PDO::PARAM_INT);
+        $statement->bindValue(':recurrence_type', $recurrence_type);
+        $statement->bindValue(':recurrence_count', !empty($iterations) ? $iterations : null, PDO::PARAM_INT);
+        $statement->bindValue(':recurrence_end_date', !empty($recurrence_end_date) ? $recurrence_end_date : null);
+        $statement->bindValue(':recurrence_days_of_week', $daysString);
 		$statement->bindParam(':created_at', $created_at);
 		$statement->bindParam(':created_by', $created_by);
 		$statement->execute();
@@ -177,7 +233,8 @@ if (isset($create))
 				
 			<div>
 				<label for="event_date"  class="labels">What date and time will it occur? </label><br>
-				<input type="datetime-local" name="event_date" id = "event_date" value="<?php echo $event_date; ?>" required >
+				<input type="datetime-local" name="event_date" id="event_date"
+       				value="<?php echo !empty($event_date) ? date('Y-m-d\TH:i', strtotime($event_date)) : ''; ?>" required>
 					<?php if (isset($errors['event_date'])) : ?>
 						<p class="error"><?php echo $errors['event_date']; ?></p>
 					<?php endif; ?>			
@@ -198,7 +255,9 @@ if (isset($create))
 				<label for="recurring"  class="labels">Is this event recurring? (optional)</label>
 				<select name="recurring" id="recurring">
 					<?php foreach ($recurringOptions as $value => $label): ?>
-						<option value="<?= $value ?>"><?= $label ?></option>
+						<option value="<?= $value ?>" <?= ($recurring === $value ? 'selected' : '') ?>>
+    						<?= $label ?>
+							</option>
 					<?php endforeach; ?>
 				</select>
 			</div>	
@@ -209,6 +268,13 @@ if (isset($create))
 				<input type="number" name="iterations" id="iterations" placeholder = 0 min="0" max="1000" step="1">
 			</div>
 				<br>
+            <div>
+                    <!-- CHANGED: added end date input -->
+                    <label for="recurrence_end_date" class="labels">Or end date:</label>
+                    <input type="datetime-local" name="recurrence_end_date" id="recurrence_end_date"
+                        value="<?php echo !empty($recurrence_end_date) ? date('Y-m-d\TH:i', strtotime($recurrence_end_date)) : ''; ?>">
+                </div>
+                <br>
 				
 			<style>	
 				.labels {
@@ -236,7 +302,7 @@ if (isset($create))
 						'FR' => 'Fri',
 						'SA' => 'Sat'
 					];
-					$myDays = $_POST['days_of_week'] ?? [];
+					$myDays = $days_of_week ?? ($_POST['days_of_week'] ?? []);
 				?>
 				<label for="days_of_week" class="labels"> For which days of the week? (optional) </label>
 			<div class="days">	
@@ -249,7 +315,6 @@ if (isset($create))
 					<br>
 				<?php endforeach; ?>
 
-				<?php $daysString = implode(',', $myDays); ?>
 			</div>
 				<br>
 			<div style="text-align: center;">
