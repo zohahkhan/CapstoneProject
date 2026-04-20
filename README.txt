@@ -1,8 +1,7 @@
 This is place holder for README file REVISED
 phpadmin: https://db.ongkg.com/
-Github webpages: https://github.ongkg.com/github/loginpages/index.php
-test: https://test.ongkg.com/test/index.php
-prod: https://capstone.ongkg.com/capstone/index.php
+test: https://test.ongkg.com/index.php
+prod: https://capstone.ongkg.com/index.php
 
 CREATE USER 'shannon'@'%' IDENTIFIED BY 'Shannon@2026!';
 CREATE USER 'zoha'@'%' IDENTIFIED BY 'Zoha@2026!';
