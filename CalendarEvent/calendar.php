@@ -49,23 +49,188 @@ $next_month = $month + 1;
 $next_year  = $year;
 if ($next_month > 12) { $next_month = 1; $next_year++; }
 
+// CHANGED: helper function to generate recurring event dates for the selected month
+function generateOccurrencesForMonth($event, $month, $year)
+{
+    $occurrences = [];
+
+    $eventStart = new DateTime($event['event_date']);
+    $monthStart = new DateTime(sprintf('%04d-%02d-01 00:00:00', $year, $month));
+    $monthEnd = clone $monthStart;
+    $monthEnd->modify('last day of this month')->setTime(23, 59, 59);
+
+    // one-time event
+    if ((int)$event['is_recurring'] !== 1 || empty($event['recurrence_type']) || $event['recurrence_type'] === 'none')
+    {
+        if ($eventStart >= $monthStart && $eventStart <= $monthEnd)
+        {
+            $occurrences[] = $eventStart->format('Y-m-d H:i:s');
+        }
+        return $occurrences;
+    }
+
+    $recurrenceEnd = null;
+    if (!empty($event['recurrence_end_date']))
+    {
+        $recurrenceEnd = new DateTime($event['recurrence_end_date']);
+    }
+
+    $maxIterations = !empty($event['recurrence_count']) ? (int)$event['recurrence_count'] : 200;
+
+    // weekly events with selected weekdays
+    if ($event['recurrence_type'] === 'weekly' && !empty($event['recurrence_days_of_week']))
+    {
+        $selectedDays = array_map('trim', explode(',', $event['recurrence_days_of_week']));
+        $dayMap = [
+            'SU' => 0,
+            'MO' => 1,
+            'TU' => 2,
+            'WE' => 3,
+            'TH' => 4,
+            'FR' => 5,
+            'SA' => 6
+        ];
+
+        $cursor = clone $monthStart;
+        $safety = 0;
+
+        while ($cursor <= $monthEnd && $safety < 366)
+        {
+            if ($cursor >= $eventStart && (!$recurrenceEnd || $cursor <= $recurrenceEnd))
+            {
+                $weekdayNumber = (int)$cursor->format('w');
+
+                foreach ($selectedDays as $code)
+                {
+                    if (isset($dayMap[$code]) && $dayMap[$code] === $weekdayNumber)
+                    {
+                        $occurrence = clone $cursor;
+                        $occurrence->setTime(
+                            (int)$eventStart->format('H'),
+                            (int)$eventStart->format('i'),
+                            (int)$eventStart->format('s')
+                        );
+                        $occurrences[] = $occurrence->format('Y-m-d H:i:s');
+                        break;
+                    }
+                }
+            }
+
+            $cursor->modify('+1 day');
+            $safety++;
+        }
+
+        return $occurrences;
+    }
+
+    // daily / weekly / monthly / yearly
+    $current = clone $eventStart;
+    $count = 0;
+    $safety = 0;
+
+    while ($count < $maxIterations && $safety < 500)
+    {
+        if ($recurrenceEnd && $current > $recurrenceEnd)
+        {
+            break;
+        }
+
+        if ($current > $monthEnd)
+        {
+            break;
+        }
+
+        if ($current >= $monthStart && $current <= $monthEnd)
+        {
+            $occurrences[] = $current->format('Y-m-d H:i:s');
+        }
+
+        switch ($event['recurrence_type'])
+        {
+            case 'daily':
+                $current->modify('+1 day');
+                break;
+            case 'weekly':
+                $current->modify('+1 week');
+                break;
+            case 'monthly':
+                $current->modify('+1 month');
+                break;
+            case 'yearly':
+                $current->modify('+1 year');
+                break;
+            default:
+                break 2;
+        }
+
+        $count++;
+        $safety++;
+    }
+
+    return $occurrences;
+}
+
+// CHANGED: load all non-cancelled events including recurring fields
 $stmt = $db->prepare("
-    SELECT event_id, event_title, event_date
-    FROM calendarevent
-    WHERE YEAR(event_date) = :year AND MONTH(event_date) = :month
+    SELECT 
+        event_id,
+        event_title,
+        event_date,
+        is_recurring,
+        recurrence_type,
+        recurrence_count,
+        recurrence_end_date,
+        recurrence_days_of_week,
+        is_cancelled
+    FROM CalendarEvent
+    WHERE is_cancelled = 0
     ORDER BY event_date ASC
 ");
-$stmt->bindParam(':year',  $year,  PDO::PARAM_INT);
-$stmt->bindParam(':month', $month, PDO::PARAM_INT);
 $stmt->execute();
 $events_raw = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// CHANGED: load cancelled single occurrences from exception table
+$stmtExceptions = $db->prepare("
+    SELECT event_id, occurrence_date
+    FROM CalendarEvent_Exception
+    WHERE action_type = 'cancelled'
+");
+$stmtExceptions->execute();
+$cancelledRows = $stmtExceptions->fetchAll(PDO::FETCH_ASSOC);
+
+// CHANGED: build quick lookup array for cancelled occurrences
+$cancelledOccurrences = [];
+foreach ($cancelledRows as $row)
+{
+    $key = $row['event_id'] . '|' . date('Y-m-d H:i:s', strtotime($row['occurrence_date']));
+    $cancelledOccurrences[$key] = true;
+}
+
+// CHANGED: build events by day, including recurring occurrences
 $events_by_day = [];
 foreach ($events_raw as $event)
 {
-    $day = (int)date('j', strtotime($event['event_date']));
-    $events_by_day[$day][] = $event;
+    $occurrences = generateOccurrencesForMonth($event, $month, $year);
+
+    foreach ($occurrences as $occurrenceDate)
+    {
+        // CHANGED: skip cancelled single occurrences
+        $cancelKey = $event['event_id'] . '|' . date('Y-m-d H:i:s', strtotime($occurrenceDate));
+        if (isset($cancelledOccurrences[$cancelKey]))
+        {
+            continue;
+        }
+
+        $day = (int)date('j', strtotime($occurrenceDate));
+        $events_by_day[$day][] = [
+            'event_id' => $event['event_id'],
+            'event_title' => $event['event_title'],
+            'event_date' => $occurrenceDate,
+            'is_recurring' => $event['is_recurring']
+        ];
+    }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -393,29 +558,32 @@ foreach ($events_raw as $event)
             echo '<div class="' . $class . '">';
             echo '<div class="day-number">' . $day . '</div>';
 
-            if (isset($events_by_day[$day]))
-            {
-                foreach ($events_by_day[$day] as $ev)
-                {
-                    (int)$event_id = $ev['event_id'];
-                    echo '<span class="event-chip" onclick="openEvent(' . $event_id . ')" title="' 
-                        . htmlspecialchars($ev['event_title']) . '">'
-                        . htmlspecialchars($ev['event_title'])
-                        . '</span>';
-                }
-            }
+		if (isset($events_by_day[$day]))
+		{
+    	foreach ($events_by_day[$day] as $ev)
+    	{
+        // CHANGED: fixed event_id assignment and added recurring symbol
+        $event_id = (int)$ev['event_id'];
+        $symbol = !empty($ev['is_recurring']) ? '↻ ' : '';
+
+        echo '<span class="event-chip" onclick="openEvent(' . $event_id . ', \'' . htmlspecialchars($ev['event_date'], ENT_QUOTES) . '\')" title="' 
+            . htmlspecialchars($symbol . $ev['event_title']) . '">'
+            . htmlspecialchars($symbol . $ev['event_title'])
+            . '</span>';
+    }
+}
 
             echo '</div>';
         }
         ?>
     </div>
 
-    <div class="legend">
-        <span class="legend-today"></span> Today &nbsp;
-        <span class="legend-dot"></span> Event
-    </div>
-
+		<div class="legend">
+    <span class="legend-today"></span> Today &nbsp;
+    <span class="legend-dot"></span> Event &nbsp;
+    <span>↻ Recurring Event</span>
 </div>
+  </div>
 
 <!-----  form to edit calendar events !! --->
 
@@ -475,55 +643,33 @@ foreach ($events_raw as $event)
 				</select></td>
 		</tr>
 		
-		<tr>
-			<td><label>Time</label></td>
-				<?php 
-					$stmt5 = $db->prepare("
-									SELECT event_date 
-									FROM CalendarEvent 
-									WHERE event_id = :event_id");
-					$stmt5->bindParam(":event_id", $event_id);
-					$stmt5->execute();
-					$result = $stmt5->fetch(PDO::FETCH_ASSOC);
+<tr>
+    <td><label>Time</label></td>
+    <td>
+        <select id="edit_hour" onchange="updateDateTime()">
+        <?php
+            for ($h=1; $h<13; $h++) 
+            {
+                echo "<option value='$h'>$h</option>";
+            }
+        ?>
+        </select>
 
-					if ($result) 
-					{
-						$time = $result['event_date'];
+        <select id="edit_minute" onchange="updateDateTime()">
+        <?php
+            for ($m=0; $m<60; $m+=5) 
+            {
+                printf("<option value='%02d'>: %02d</option>", $m, $m);
+            }
+        ?>
+        </select>
 
-						$hr12 = date("g", strtotime($time));   // 1-12
-						$min = date("i", strtotime($time));    // 00-59
-						$ampm   = date("A", strtotime($time)); // AM or PM
-				?>
-<?php var_dump($event_id); ?>
-<?php var_dump($time); ?>
-<?php var_dump($hr12); ?>
-<?php var_dump($min); ?>
-<?php var_dump($ampm); ?>
-
-				<td><select id="edit_hour" onchange="updateDateTime()">
-				<?php
-					for ($h=1; $h<13; $h++) 
-					{
-						echo "<option value='$h'>$h</option>";
-					}
-				?>
-				</select>
-		
-				<?php } ?>
-				<select id="edit_minute" onchange="updateDateTime()">
-				<?php
-					for ($m=0; $m<60; $m+=5) 
-					{
-						printf("<option value='%02d'>: %02d</option>", $m, $m);
-					}
-				?>
-				</select>
-
-				<select id="edit_time" onchange="updateDateTime()">
-					<option value="AM" <?php echo ($ampm=="AM") ? "selected" : ""; ?>>AM</option>
-					<option value="PM" <?php echo ($ampm=="PM") ? "selected" : ""; ?>>PM</option>
-					</select></td>	
-		</tr>
+        <select id="edit_time" onchange="updateDateTime()">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+        </select>
+    </td>
+</tr>
 		
 		<tr>
             <td><label>Location</label></td>
@@ -544,7 +690,7 @@ foreach ($events_raw as $event)
     </div>
 
 <script>
-function openEvent(eventId)
+function openEvent(eventId, occurrenceDate)
 {
     document.getElementById("eventModal").style.display = "block";
 	document.getElementById("eventId").value = eventId;	
@@ -554,7 +700,8 @@ function openEvent(eventId)
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: "event_id=" + encodeURIComponent(eventId)
+        body: "event_id=" + encodeURIComponent(eventId) +
+              "&occurrence_date=" + encodeURIComponent(occurrenceDate)
     })
 
         .then(response => response.text())
@@ -643,9 +790,9 @@ function showEditForm()
 	// convert 0 to 12 for dropdown
     if (hours === 0) hours = 12; 
    
-	document.getElementById("edit_hour").value = "<?= (int)$hr12 ?>";
-	document.getElementById("edit_minute").value = "<?= $min ?>";
-	document.getElementById("edit_time").value = "<?= $ampm ?>";
+document.getElementById("edit_hour").value = hours;
+document.getElementById("edit_minute").value = dt.getMinutes().toString().padStart(2,'0');
+document.getElementById("edit_time").value = ampm;
 
     // fill the hidden event_date field
     updateDateTime();
@@ -656,21 +803,22 @@ function cancelEdit()
     document.getElementById("editView").style.display = "none";
     document.getElementById("eventDetails").style.display = "block";
 }
-document.getElementById("editForm").addEventListener("submit", function(e)
-{
-    //e.preventDefault(); 
-	
-    let formData = new FormData(this);
+let editForm = document.getElementById("editForm");
+if (editForm) {
+    editForm.addEventListener("submit", function(e)
+    {
+        let formData = new FormData(this);
 
-    fetch("editEvent.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("formErrors").innerHTML = data;
+        fetch("editEvent.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("formErrors").innerHTML = data;
+        });
     });
-});
+}
 </script>
     
 </body>
