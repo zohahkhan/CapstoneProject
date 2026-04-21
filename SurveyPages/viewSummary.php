@@ -2,6 +2,10 @@
 //database connection
 require_once __DIR__ . '/../include/db_connect.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // restrict access to the summary report 
 if (!in_array($_SESSION['user']['role_id'], [1, 2, 4])) 
 {
