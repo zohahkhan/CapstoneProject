@@ -31,9 +31,8 @@ body {
 	max-width: 1400px;
 	margin-top: 40px;
 	display: flex;
-	gap: 30px; /*for the space between the two boxes */
-	align-items: stretch; /*makes left and right boxes same height*/
-	flex: 0;
+	gap: 30px;
+	align-items: stretch;
 }
 
 /*left side box */
@@ -46,20 +45,19 @@ body {
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	min-height: 75vh;
+	min-height: 65vh;
 }
 
 /*right box container*/
 .right-box {
 	display: grid;
-	grid-template-columns: 1fr 1fr; /*2 columns */
-	grid-template-rows: 1fr 1fr; /*2 rows, equally split */
-	gap: 20px; /*the space between sub-boxes */
-	background-color: transparent; /*so the background image shows through between the four boxes*/
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 20px;
+	background-color: transparent;
 	padding: 0;
 	flex: 1;
-	min-height: 75vh; /* matches the left-box's height */
-	width: 700px; /* placeholder*/
+	min-height: 75vh;
 }
 
 /*individual right sub-boxes*/
@@ -72,7 +70,6 @@ body {
 	align-items: center;
 	padding: 20px;
 	text-align: center;
-	height:290px; /* height placeholder*/
 }
 
 /*left box container for the department Head and President pages */
@@ -81,7 +78,7 @@ body {
     grid-template-rows: 1fr 1fr;
     gap: 20px;
     padding: 0;
-	background-color: transparent; /*so the background image shows through between the four boxes*/
+	background-color: transparent;
 }
 
 /*The sub boxes for the department Head and President pages on the left side */
@@ -93,8 +90,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    overflow: hidden; /* prevent stretching */
-	height:290px; /* height placeholder*/
+    overflow: hidden;
 }
 
 /* container for the new homepage layout */
@@ -104,13 +100,13 @@ body {
     width: 95%;
     max-width: 1400px;
     margin-top: 40px;
-    gap: 30px; /*space between top row and bottom box */
+    gap: 30px;
 }
 
 /*top row with two boxes side by side */
 .homepage-top {
     display: flex;
-    gap: 20px; /*the space between the two top boxes */
+    gap: 20px;
 }
 
 /*makes individual top boxes */
@@ -138,71 +134,35 @@ body {
     align-items: center;
     text-align: center;
     padding: 40px;
-    min-height: 25vh; /*taller */
-    
+    min-height: 25vh;
 }
 
 /*department head left side layout*/
 .dept-left-box {
     display: grid;
-    grid-template-columns: 1fr 1fr; /*two columns*/
-    /*grid-template-rows: 1fr 1fr;*/  /*two rows*/
-    grid-template-rows: 335px 335px auto; /* top-left, top-right, bottom full-width */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 335px 335px auto;
     gap: 20px;
     flex: 1;
     min-height: 75vh;
-	max-width: 50%;
 }
 
 /*bottom box spans full width*/
 .dept-full-width {
     grid-column: 1 / span 2;
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
-    align-self: stretch;   /* ensures full width */
+    align-self: stretch;
     background-color: #faf5f0;
     padding: 20px;
-
 }
-
-/* to display compiled survey responses */
-
-.dept-survey-box {
-    grid-column: 1 / span 2;
-    background-color: #faf5f0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    padding: 20px;
-    margin-top: auto;
-    max-height: 300px;
-    height: 290px;
-    align-self: stretch; 
-    border-radius: 12px;
-}
-
-/* to display member survey responses */
-
-.memb-survey-box {
-    background-color: #faf5f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    overflow: hidden; /* prevent stretching */
-    width: 650px;
-    max-width: 700px;
-    min-width: 500px;
-    height: auto;
-}
-
 
 /*this is for the nested summary box inside monthly report responses*/
 .report-summary-box {
     width: 100%;
     margin-top: 15px;
     padding: 15px;
-    background-color: #fdfaf7; /*makes it lighter than main box for contrast*/
+    background-color: #fdfaf7;
     border-radius: 10px;
     border: 1px solid #e6d5c3;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
@@ -226,18 +186,16 @@ body {
 .scrollable-report-box {
     width: 100%;
 	height: 200px;     
-    overflow-y: auto; /*enables vertical scrolling*/
+    overflow-y: auto;
     margin-top: 10px;
     padding-right: 5px;
-    
 }
 
 .background {
-    	background-image: url("images/background.png"); 
-    
+    background-image: url("images/background.png"); 
 }
 
-/*this is the scrollbar to make it easier to go throuh  (Chrome/Edge) */
+/*this is the scrollbar to make it easier to go through (Chrome/Edge) */
 .scrollable-report-box::-webkit-scrollbar {
     width: 8px;
 }
@@ -314,14 +272,14 @@ h3 {
 }
 
 .corner-img {
-	position: fixed; /* stays in the viewport even when scrolling */
-	width: clamp(100px, 20%, 350px); /* doubled min, scaling, and max */
+	position: fixed;
+	width: clamp(100px, 20%, 350px);
 	height: auto;
 }
 
 .corner-img.top-left {
-	top: 5vh; /* 5% of viewport height */
-	left: 5vw; /* 5% of viewport width */
+	top: 5vh;
+	left: 5vw;
 }
 
 .corner-img.bottom-right {
