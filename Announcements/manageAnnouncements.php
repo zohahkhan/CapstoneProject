@@ -1,18 +1,18 @@
 <?php
-require_once __DIR__ . '/loginpages/include/db_connect.php';
+require_once __DIR__ . '../include/db_connect.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 if (!isset($_SESSION['user']['user_id'])) {
-    header("Location: loginpages/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
 $roleId = (int)$_SESSION['user']['role_id'];
 if ($roleId !== 1 && $roleId !== 2) {
-    header("Location: loginpages/index.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -90,7 +90,7 @@ $expiredList = $stmtExpired->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Manage Announcements</title>
-    <link rel="stylesheet" type="text/css" href="loginpages/style.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         .manage-wrapper {
@@ -445,7 +445,7 @@ $expiredList = $stmtExpired->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             <?php endif; ?>
 
-            <a href="loginpages/index.php" class="back-link">← Back to Home</a>
+            <a href="../index.php" class="back-link">← Back to Home</a>
         </div>
     </div>
 
