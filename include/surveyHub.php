@@ -97,6 +97,7 @@ $role_id = $_SESSION['user']['role_id'];
 
 /*
     role_id:
+	1 = President
     2 = Department Head
     3 = Member
 */
@@ -113,7 +114,7 @@ if ($role_id)
     	$formTitle = '%Compiled Monthly Report%';
     	$formPage = BASE_URL . 'SurveyPages/headdepartmentSurvey.php';
 	}
-	elseif ($role_id == 3 || 2) 
+	elseif ($role_id == 3 || 2 || 1) 
 	{
     	$formTitle = '%Monthly Members Survey%';
     	$formPage = BASE_URL . 'SurveyPages/memberSurvey.php';
