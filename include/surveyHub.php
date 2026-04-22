@@ -1,14 +1,11 @@
 <!--- preview the quiz and results -->
 <style>
-
 #quizBox {
-    width: 250px;
     border: 2px solid black;
     display: block;
     height: auto !important;
     min-height: 0 !important;
 }
-
 #quizList {
     background: #f4f4f4;
     background-color: #fdfaf7;
@@ -17,12 +14,9 @@
     overflow-y: auto;
     display: flex;          
     flex-direction: column; 
-    width: 100%;            
+	align-items: flex-start;
 }
-
 .monthly-report-box {
-    width: 100%;
-    height: 100%;
     margin-top: 5px;
     padding: 5px;
     background-color: #fdfaf7;
@@ -30,53 +24,45 @@
     border: 1px solid #e6d5c3;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
     text-align: left;
-
     display: flex;
-    flex-direction: column;
+    flex-direction: column;	
 }
-
 .scrollable-monthly-report-box {
-    width: 100%;
-    max-height: 80px;
+    max-height: 500px;
     overflow-y: auto;
 }
-
 .scrollable-monthly-report-box::-webkit-scrollbar {
     width: 8px;
 }
-
 .scrollable-monthly-report-box::-webkit-scrollbar-thumb {
     background-color: #c4a484;
     border-radius: 6px;
 }
-
 .quiz-item {
     background-color: #e8d9c8;
     padding: 10px;
     margin-bottom: 8px;
     border-radius: 5px;
     cursor: pointer;
-
-    width: 100%;
     box-sizing: border-box;
-
     display: flex;
-    justify-content: center; /* horizontal center */
-    align-items: center;     /* vertical center */
+    justify-content: center;
+    align-items: center;  
 }
-
-.quiz-item.completed {
-    background-color: #d4edda;
-    cursor: default;
-    opacity: 0.7;
-}
-
 #quizFrame {
     flex: 1;
     width: 100%;
-    height: 600px;
     border: 1px solid #ccc;
     margin-top: 15px;
+	height: 100% !important;
+	width: 650px; 
+	border-radius: 10px; 
+}
+.showFrame {
+    display: block;
+}
+.showFrame.is-hidden {
+    display: none; 
 }
 </style>
 
@@ -86,26 +72,6 @@ require_once 'db_connect.php';
 if (session_status() == PHP_SESSION_NONE) 
 {
     session_start();
-}
-
-// Check if user already submitted
-$stmt = $db->prepare("
-    SELECT 1
-    FROM FormResponse 
-    WHERE template_id = :template_id
-      AND user_id = :user_id
-    LIMIT 1
-");
-$stmt->bindParam(':template_id', $form_id);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-
-$alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($alreadyCompleted) {
-    // redirect back to hub
-    header("Location: surveyHub.php");
-    exit;
 }
 
 if (isset($_SESSION['user']['user_id'])) 
@@ -139,15 +105,18 @@ $role_id = $_SESSION['user']['role_id'];
 $formTitle = '';
 $formPage = '';
 
+/* NOTE 2 SELF: UPDATE THIS TO YOUR CURRENT HTDOCS DIRECTORY */
+define('BASE_URL', '/CapstoneProject-final-develop-integration/');
+
 if ($role_id == 2) 
 {
     $formTitle = '%Compiled Monthly Report%';
-    $formPage = 'headdepartmentSurvey.php';
+    $formPage = BASE_URL . 'SurveyPages/headdepartmentSurvey.php';
 }
-elseif ($role_id == 3 || 1) 
+elseif ($role_id == 3 || 2) 
 {
     $formTitle = '%Monthly Members Survey%';
-    $formPage = 'memberSurvey.php';
+    $formPage = BASE_URL . 'SurveyPages/memberSurvey.php';
 }
 else 
 {
@@ -171,66 +140,79 @@ $quizzes = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 $stmt3->closeCursor();
 ?>
 
-<div class="monthly-report-box">
-<div class="scrollable-monthly-report-box">
-<?php foreach ($quizzes as $quiz): ?>
-    <?php if ($quiz['form_response']): ?>
-        <?php
-        $questionsData = json_decode($quiz['form_questions'], true); // <-- FIXED (proper PHP placement)
-        $responsesData = json_decode($quiz['form_response'], true); // <-- FIXED
-        ?>
 
+<?php
+$form_id = $quizzes[0]['template_id'] ?? null;
+
+// Check if user already submitted
+$stmt = $db->prepare("
+    SELECT 1
+    FROM FormResponse 
+    WHERE template_id = :template_id
+      AND user_id = :user_id
+    LIMIT 1
+");
+$stmt->bindParam(':template_id', $form_id);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+$alreadyCompleted = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
+<iframe 
+	id="quizFrame" class="<?= $alreadyCompleted ? 'showFrame is-hidden' : 'showFrame' ?>"
+	src="<?php echo $formPage; ?>?id=<?php echo $form_id; ?>">
+</iframe>
+
+<div class="monthly-report-box scrollable-monthly-report-box">
+
+<?php 
+	foreach ($quizzes as $quiz): ?>
+
+    <?php if ($quiz['form_response']): ?>
+	
     <?php
-        $responseMap = [];
+        $questionsData = json_decode($quiz['form_questions'], true);
+        $responsesData = json_decode($quiz['form_response'], true);	
+    ?>
+		
+	<?php 
+		$responseMap = [];
     foreach ($responsesData as $resp) 
     {
         $responseMap[$resp['id']] = $resp['response'];
     }
 ?>
 	
-    <!---- this part displays after the form is complete
-				and is responsible for the box -->
-       <div class="">
-      <ol>  <strong><?php echo htmlspecialchars($quiz['temp_title']); ?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'></ol>
+	<!---- this part displays after the form is complete -->
+	<div class="">
+    <ol>  
+		<strong><?php echo htmlspecialchars($quiz['temp_title']); 
+		?> (Submitted) </strong?id=<?= $quiz['template_id'] ?>'>	
+	</ol>
 	
-
 <ol>
+<?php foreach ($questionsData as $q): ?>
 
-<?php 
-foreach ($questionsData as $q): ?>
-    <?php
+    <?php // question and answers
     if (!isset($responseMap[$q['id']])) {
         continue;
     }
-
     $questionText = $q['question'] ?? 'Unknown question';
     $questionId = $q['id'];
     $userResponse = $responseMap[$q['id']] ?? 'No response';
     ?>
-
-    <li>
+	
+<li>
 	Question: <?php echo htmlspecialchars($questionText); ?><br> Your Response: <?php echo htmlspecialchars($userResponse); ?>
-    </li>
+</li>
 
 <?php endforeach; ?>
+
 </ol>
-
-    </div>
-
-    <?php endif; ?>
-
-    <?php endforeach; ?>
-
 </div>
-<?php
-$firstQuiz = $quizzes[0]['template_id'] ?? null;
-?>
-
-<iframe 
-id="quizFrame"
-src="<?php echo $formPage; ?>?id=<?php echo $firstQuiz; ?>">
-</iframe>
-
+<?php endif; ?>
+<?php endforeach; ?>
 </div>
 
 <script>
@@ -243,6 +225,6 @@ function loadQuiz(page, event) {
     event.currentTarget.classList.add('active');
 
     // Load the selected quiz in the iframe
-    document.getElementById("quizFrame").src = page;
+    document.getElementById("quizFrame").src = page;	
 }
 </script>
