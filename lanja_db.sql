@@ -1865,6 +1865,30 @@ DO
   DELETE FROM AuditLog
   WHERE occurred_at < NOW() - INTERVAL 90 DAY;
 
+ALTER TABLE CalendarEvent
+ADD COLUMN is_recurring TINYINT(1) NOT NULL DEFAULT 0,
+ADD COLUMN recurrence_type ENUM('none','daily','weekly','monthly','yearly') NOT NULL DEFAULT 'none',
+ADD COLUMN recurrence_interval INT NOT NULL DEFAULT 1,
+ADD COLUMN recurrence_count INT NULL,
+ADD COLUMN recurrence_end_date DATETIME NULL,
+ADD COLUMN recurrence_days_of_week VARCHAR(20) NULL,
+ADD COLUMN series_id INT NULL,
+ADD COLUMN is_cancelled TINYINT(1) NOT NULL DEFAULT 0;
+
+CREATE TABLE CalendarEvent_Exception (
+    exception_id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT NOT NULL,
+    occurrence_date DATETIME NOT NULL,
+    action_type ENUM('cancelled','edited') NOT NULL,
+    new_event_date DATETIME NULL,
+    override_title VARCHAR(255) NULL,
+    override_desc TEXT NULL,
+    override_location VARCHAR(255) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by INT NULL,
+    FOREIGN KEY (event_id) REFERENCES CalendarEvent(event_id)
+);
+
 
 /* to access the database */
 FLUSH PRIVILEGES;
