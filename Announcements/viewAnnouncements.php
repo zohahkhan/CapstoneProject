@@ -14,7 +14,7 @@ $stmt = $db->prepare("
     SELECT a.announcement_id, a.announce_title, a.announce_body, a.announce_expiry, a.created_at,
            u.first_name, u.last_name
     FROM Announcement a
-    JOIN User u ON a.user_id = u.user_id
+    JOIN User u ON a.created_by = u.user_id
     WHERE a.announce_expiry > NOW() AND a.archived = 0
     ORDER BY a.created_at DESC
 ");
