@@ -501,7 +501,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 </div> 
-                <p><a href="Communucations/viewSummary.php">View summary</a></p>
+                <p><a href="SurveyPages/viewSummary.php">View summary</a></p>
             </div>
 
             <div class="left-sub-box">
@@ -513,7 +513,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     </div>	
                 </div>
                 </div> 
-                <p><a href="memberSurvey.php">Complete the Report</a></p>
+                <p><a href="SurveyPages/memberSurvey.php">Complete the Report</a></p>
             </div>
 
             <div class="dept-full-width">
