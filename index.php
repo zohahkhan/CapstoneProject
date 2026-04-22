@@ -281,6 +281,18 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
             padding: 20px;
             text-align: center;
         }
+		.select-current-role {
+			width: 200px !important;
+			height: 38px !important;
+			box-sizing: border-box;
+			display: inline-block;
+			font-size: 14px !important;
+			border-radius: 5px;
+			text-align: center;
+			background-color: #faf5f0;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+			border-color: white;
+		}
     </style>
 </head>
 
@@ -308,7 +320,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <label>Current Role: </label>
     <form method="POST">
-        <select name="role" onchange="this.form.submit()">
+        <select name="role" onchange="this.form.submit()" class="select-current-role">
             <?php foreach ($role as $r): ?>
                 <option value="<?= $r['role_id']; ?>"
                     <?= (isset($_SESSION['user']['role_id']) && 
