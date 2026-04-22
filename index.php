@@ -677,9 +677,9 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
             <div class="homepage-top-box">
                 <h2>View Compiled Monthly Report</h2>
                <div class="scrollable-report-box">
-					<?php include("Communications/headDepartmentSummary.php"); ?>
+					<?php include("SurveyPages/headDepartmentSummary.php"); ?>
 				</div>
-				<p><a href="Communications/headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
+				<p><a href="SurveyPages/headDepartmentSummary.php" style="color: #4b3d29;" >View Compiled Monthly Report Summary</a></p>
             </div>
         </div>
         <div class="homepage-bottom-box">
