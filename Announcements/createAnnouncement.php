@@ -39,11 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $messageType = 'error';
     } else {
         $stmt = $db->prepare("
-            INSERT INTO Announcement (user_id, announce_title, announce_body, announce_expiry, visibility_scope, allow_opt_out, archived, created_at, updated_at)
-            VALUES (:user_id, :title, :body, :expiry, 'Everyone', 0, 0, NOW(), NOW())
+            INSERT INTO Announcement (created_by, announce_title, announce_body, announce_expiry, visibility_scope, allow_opt_out, archived, created_at, updated_at)
+            VALUES (:created_by, :title, :body, :expiry, 'Everyone', 0, 0, NOW(), NOW())
         ");
         $stmt->execute([
-            ':user_id' => $userId,
+            ':created_by' => $userId,
             ':title'   => $title,
             ':body'    => $body,
             ':expiry'  => $expiry,
