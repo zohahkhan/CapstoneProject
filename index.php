@@ -417,12 +417,23 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="right-sub-box">
-                <h2>Review Suggestions</h2>
+                <h2>Review Suggestions & Requests </h2>
                 <div class="suggestion-preview">
                     <p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
                     <p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
                 </div>
                 <p><a href="../reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+
+				<?php $stmt = $db->prepare("SELECT COUNT(*) FROM `VisitorRequest` WHERE msg_status = :status");
+      					$stmt->execute([':status' => 'Pending']);
+      					$pendingCount = (int)$stmt->fetchColumn();
+	  					if ($pendingCount): ?>
+    				<p> You have <b><?= $pendingCount ?></b> pending request(s).<br>
+      					<a href="Communications/president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
+    				</p>
+  				<?php else: ?>
+    				<p> Visitor requests will show here.</p>
+  				<?php endif; ?>
             </div>
 
             <div class="right-sub-box" style="grid-column: 1 / span 2;">
