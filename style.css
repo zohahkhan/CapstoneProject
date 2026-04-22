@@ -153,12 +153,12 @@ body {
 /*bottom box spans full width*/
 .dept-full-width {
     grid-column: 1 / span 2;
-    max-height: 500px;
+    max-height: 800px;
     overflow-y: auto;
     align-self: stretch;
     background-color: #faf5f0;
     padding: 20px;
-	height: 427px !important;
+	height: 540px !important;
 }
 
 /*this is for the nested summary box inside monthly report responses*/

@@ -163,7 +163,6 @@ if (!empty($search)) {
 <main>
     <h2>Review All Users</h2>
 	<div class="links">
-    	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
 		<?php if ($_SESSION['user']['role_id'] == 1) { ?>
 		<a href="newUser.php" class="back-link"> Add New member</a>
 		<?php } ?>

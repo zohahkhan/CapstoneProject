@@ -402,28 +402,34 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
     $mini_calendar_html = ob_get_clean();
     ?>
 
-
+    <!---- President ---->
     <?php if ($_SESSION['user']['role_id'] == 1) { ?>
 	<style> body { background: url('images/background.png') !important; } </style>
     <div class="boxes">
         <div class="left-box left-split">
             <div class="left-sub-box top-box">
                 <h2>Compiled Monthly Report</h2>
-                <p>Description</p>
-                <a href="SurveyPages/headDepartmentSummary.php">Compiled Monthly Report Summary</a>
+                <div class="scrollable-report-box"  style="height: 300px;"> 
+					<?php include("SurveyPages/headDepartmentSummary.php"); ?>
+				</div>
+                <br><br>
+                <a href="SurveyPages/headDepartmentSummary.php" style="color: #4b3d29;">Compiled Monthly Report Summary</a>
             </div>
 
             <div class="left-sub-box bottom-box">
                 <h2>Monthly Report</h2>
-                <p>Description</p>
-                <p><a href="UserActivity/viewUser.php" style="color: #c4a484; text-decoration: none;">View all members</a></p>
+                <div class="scrollable-report-box"  style="background-image: url('images/background.png'); height: 300px;" > 
+					<?php include("SurveyPages/memberSurvey.php"); ?>
+				</div>
+                <br>
+                <p><a href="SurveyPages/memberSurvey.php" style="color: #4b3d29; ">Complete the Report</a></p>
             </div>
         </div>
 
         <div class="right-box">
             <div class="right-sub-box">
-                <h2>Create a new Reminder</h2>
-                <div class="scrollable-report-box">
+                <h2>Reminders</h2>
+                <div class="scrollable-report-box" style="height: 250px;">
                 <div class="report-summary-box">
                 <strong>Upcoming Events:</strong>
                 <?php if (!empty($upcoming_events)) : ?>
@@ -449,27 +455,27 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="right-sub-box">
                 <h2>Meeting Attendance</h2>
-                <p>Description</p>
-                <p><a href="AttendanceRecords/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+                <br><p style="color: #8b6f47; font-size: 1.6rem;">Attendance should be held for all events</p><br>
+                <p><a href="AttendanceRecords/record_attendance.php" style="color: #4b3d29;">Record Attendance</a></p>
             </div>
-
+    
             <div class="right-sub-box">
                 <h2>Review Suggestions & Requests </h2>
                 <div class="suggestion-preview">
                     <p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
                     <p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
                 </div>
-                <p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+                <p><a href="Communications/reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
 
 				<?php $stmt = $db->prepare("SELECT COUNT(*) FROM `VisitorRequest` WHERE msg_status = :status");
       					$stmt->execute([':status' => 'Pending']);
       					$pendingCount = (int)$stmt->fetchColumn();
 	  					if ($pendingCount): ?>
     				<p> You have <b><?= $pendingCount ?></b> pending request(s).<br>
-      					<a href="Communications/president_requests.php" style="color: #c4a484; text-decoration: none;">View Visitor Requests</a>
+      					<a href="Communications/president_requests.php" style="color: #4b3d29;">View Visitor Requests</a>
     				</p>
   				<?php else: ?>
-    				<p> Visitor requests will show here.</p>
+    				<p style="color: #4b3d29;"> Visitor requests will show here.</p>
   				<?php endif; ?>
             </div>
 
@@ -487,17 +493,18 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
                 </div>
                 <div class="ann-links">
-                    <a href="Announcements/createAnnouncement.php">Create Announcement</a>
-                    <a href="Announcements/manageAnnouncements.php">Manage Announcements</a>
+                    <a href="Announcements/createAnnouncement.php" style="color: #4b3d29; text-decoration: underline;">Create Announcement</a>
+                    <a href="Announcements/manageAnnouncements.php" style="color: #4b3d29; text-decoration: underline;">Manage Announcements</a>
                 </div>
             </div>
         </div>
     </div>
     </br>
-    <p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
-    <p><a href="logout.php">Logout</a></p>
+    <a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
+    <p><a href="UserActivity/viewUser.php" style="color: #4b3d29;">View all members</a></p>
+    <a href="logout.php" style="color: #4b3d29;">Logout</a>
 
-
+    <!---- Department Head ---->
     <?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
 	<style> body { background: url('images/background.png') !important; } </style>
     <div class="boxes">
@@ -509,11 +516,11 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                 <div class="report-summary-box">
                     <h3>Monthly Summary</h3>
                     <div class="report-summary-content">
-                        <p><strong>Total Reports Submitted:</strong> <?= $totalReports ?></p>
+                        <p ><strong >Total Reports Submitted:</strong> <?= $totalReports ?></p>
                     </div>
                 </div>
                 </div> 
-                <p><a href="SurveyPages/viewSummary.php">View summary</a></p>
+                <p><a href="SurveyPages/viewSummary.php" style="color: #4b3d29;">View summary</a></p>
             </div>
 
             <div class="left-sub-box">
@@ -525,21 +532,23 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     </div>	
                 </div>
                 </div> 
-                <p><a href="SurveyPages/memberSurvey.php">Complete the Report</a></p>
+                <p><a href="SurveyPages/memberSurvey.php" style="color: #4b3d29;">Complete the Report</a></p>
             </div>
 
             <div class="dept-full-width">
                 <h2>Compiled Monthly Report</h2>
-                <div class="scrollable-report-box-dept">
-                <?php include("include/surveyHub.php"); ?>
+                <div class="scrollable-report-box-dept" style="height: 450px;" >
+                    <?php include("include/surveyHub.php"); ?>
                 </div>
+                <p><a href="include/surveyHub.php" style="color: #4b3d29; ">Complete the Compiled Monthly Report</a></p>
+
             </div>
         </div>
 
         <div class="right-box">
             <div class="right-sub-box">
-                <h2>Create a new Reminder</h2>
-                <div class="scrollable-report-box">
+                <h2>Reminders</h2>
+                <div class="scrollable-report-box" style="height: 230px;">
                 <div class="report-summary-box">
                 <strong>Upcoming Events:</strong>
                 <?php if (!empty($upcoming_events)) : ?>
@@ -565,8 +574,8 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="right-sub-box">
                 <h2>Meeting Attendance</h2>
-                <p>Description</p>
-                <p><a href="AttendanceRecords/record_attendance.php" style="color: #c4a484; text-decoration: none;">Record Attendance</a></p>
+                <p style="color: #8b6f47; font-size: 1.4rem;">Attendance should be held for all events</p><br>
+                <p><a href="AttendanceRecords/record_attendance.php" style="color: #4b3d29;">Record Attendance</a></p>
             </div>
 
             <div class="right-sub-box">
@@ -575,7 +584,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <p>Pending: <span class="pending-count"><?= $pendingSuggestions ?></span></p>
                     <p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
                 </div>
-                <p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+                <p><a href="Communications/reviewSuggestions.php" style="color: #4b3d29;">Review Suggestions</a></p>
             </div>
 
 			 <div class="right-sub-box" style="grid-column: 1 / span 2;">
@@ -592,17 +601,17 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
                 </div>
                 <div class="ann-links">
-                    <a href="Announcements/createAnnouncement.php">Create Announcement</a>
-                    <a href="Announcements/manageAnnouncements.php">Manage Announcements</a>
+                    <a href="Announcements/createAnnouncement.php" style="color: #4b3d29; text-decoration: underline;">Create Announcement</a>
+                    <a href="Announcements/manageAnnouncements.php" style="color: #4b3d29; text-decoration: underline;">Manage Announcements</a>
                 </div>
             </div>
         </div>
     </div>
     </br>
-    <p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
-    <p><a href="logout.php">Logout</a></p>
+    <a href="UserActivity/updateProfileForm.php"  style="color: #4b3d29;">Update Profile</a>
+    <p><a href="logout.php"  style="color: #4b3d29;">Logout</a></p> 
 
-
+    <!---- Member ---->
     <?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
 	<style> body { background: url('images/background.png') !important; } </style>
     <div class="boxes">
@@ -612,9 +621,9 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <div class="right-box">
-            <div class="right-sub-box">
-                <h2>Important Reminders</h2>
-                <div class="scrollable-report-box">
+            <div class="right-sub-box" >
+                <h2>Reminders</h2>
+                <div class="scrollable-report-box" style="height: 230px;">
                 <div class="report-summary-box">
                 <strong>Upcoming Events:</strong>
                     <?php if (!empty($upcoming_events)) : ?>
@@ -639,7 +648,8 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="right-sub-box">
                 <h2>Meeting Attendance</h2>
-                <p><a href="AttendanceRecords/view_attendance.php" style="color: #c4a484; text-decoration: none;">View My Attendance</a></p>
+                <p style="color: #8b6f47; font-size: 1.5rem;">Review your attendance held for all events </p>
+                <p><a href="AttendanceRecords/view_attendance.php" style="color: #4b3d29;">View My Attendance</a></p>
             </div>
 
             <div class="right-sub-box">
@@ -648,7 +658,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <p>My Submissions: <strong><?= $myTotalSuggestions ?></strong></p>
                     <p>Pending: <span class="pending-count"><?= $myPendingSuggestions ?></span></p>
                 </div>
-                <p><a href="Communications/memberSuggestion.php" style="color: #c4a484; text-decoration: none;">Submit a Suggestion</a></p>
+                <p><a href="Communications/memberSuggestion.php" style="color: #4b3d29;">Submit a Suggestion</a></p>
             </div>
 
             <div class="right-sub-box" style="grid-column: 1 / span 2;">
@@ -665,23 +675,23 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
                 </div>
                 <div class="ann-links">
-                    <a href="Announcements/viewAnnouncements.php">View Announcements</a>
+                    <a href="Announcements/viewAnnouncements.php" style="color: #4b3d29; text-decoration: underline;">View Announcements</a>
                 </div>
             </div>
         </div>
     </div>
     </br>
-    <p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
-    <p><a href="logout.php">Logout</a></p>
+    <a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
+    <p><a href="logout.php" style="color: #4b3d29;">Logout</a></p>
 
-
+    <!---- Admin ---->
     <?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
     <style> body { background: url('images/background.png') !important; } </style>
     <div class="homepage-boxes">
         <div class="homepage-top">
             <div class="homepage-top-box">
                 <h2>View Logs</h2>
-                <div class="scrollable-report-box">
+                <div class="scrollable-report-box" style="background-image: url('images/background.png');">
 					<?php include("AuditLog/viewLog.php"); ?>
 				</div>
 				<p><a href="AuditLog/viewLog.php" style="color: #4b3d29;">View Logs</a></p>
@@ -696,17 +706,15 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="homepage-bottom-box">
 		<h2>Members</h2>
-			<div class="scrollable-report-box">
-			<div class="background">
+			<div class="scrollable-report-box"  style="background-image: url('images/background.png'); height: 300px;" >
 				<?php include("UserActivity/viewUser.php"); ?>
-			</div>
-			</div>
-		<p><a href="UserActivity/viewUser.php" style="color: #4b3d29;">View all members</a></p>
+			</div><br>
+		<a href="UserActivity/viewUser.php" style="color: #4b3d29;">View all members</a>
 		</div>
     </div>
     <br>
-	<p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
-    <p><a href="logout.php">Logout</a></p>
+	<a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
+    <p><a href="logout.php" style="color: #4b3d29;">Logout</a></p>
 	
     <?php 
 	}} else {

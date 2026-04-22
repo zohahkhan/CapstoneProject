@@ -155,9 +155,7 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <main>
     <h2>Review all Logs</h2>
 	<br>
-	<div class="links">
-    	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
-	</div>
+
 	<form method="post" action="exportLogs.php">
 		<div style="display: flex; justify-content: center; margin-top: -35px;">
 		<button type="submit" name="action" value="export_all_csv" >Export All Logs</button>
