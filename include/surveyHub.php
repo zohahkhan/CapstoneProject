@@ -55,7 +55,7 @@
     border: 1px solid #ccc;
     margin-top: 15px;
 	height: 100% !important;
-	width: 650px; 
+	width: 100%; 
 	border-radius: 10px; 
 }
 .showFrame {
