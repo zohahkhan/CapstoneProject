@@ -518,7 +518,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="dept-full-width">
                 <h2>Compiled Monthly Report</h2>
-                <div class="scrollable-report-box">
+                <div class="scrollable-report-box-dept">
                 <?php include("include/surveyHub.php"); ?>
                 </div>
             </div>
