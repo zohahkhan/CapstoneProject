@@ -418,8 +418,8 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="left-sub-box bottom-box">
                 <h2>Monthly Report</h2>
-                <div class="scrollable-report-box"  style="background-image: url('images/background.png'); height: 300px;" > 
-					<?php include("SurveyPages/memberSurvey.php"); ?>
+                <div class="scrollable-report-box"  style="height: 300px;" > 
+					<?php include("include/surveyHub.php"); ?>
 				</div>
                 <br>
                 <p><a href="SurveyPages/memberSurvey.php" style="color: #4b3d29; ">Complete the Report</a></p>
