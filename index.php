@@ -522,25 +522,6 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                 <?php include("include/surveyHub.php"); ?>
                 </div>
             </div>
-
-            <div class="dept-ann-full">
-                <h2>Announcements</h2>
-                <div class="announcement-preview">
-                    <p>Active: <span class="active-count"><?= $activeAnnouncements ?></span></p>
-                    <?php if (!empty($annPreview)): ?>
-                        <?php foreach ($annPreview as $ap): ?>
-                            <div class="ann-preview-item">
-                                <div class="ann-preview-title"><?= htmlspecialchars($ap['announce_title']) ?></div>
-                                <div class="ann-preview-expiry">Expires: <?= date("M j, Y g:i A", strtotime($ap['announce_expiry'])) ?></div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-                <div class="ann-links">
-                    <a href="Announcements/createAnnouncement.php">Create Announcement</a>
-                    <a href="Announcements/manageAnnouncements.php">Manage Announcements</a>
-                </div>
-            </div>
         </div>
 
         <div class="right-box">
@@ -583,6 +564,25 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                     <p>Reviewed / Resolved: <span class="completed-count"><?= $completedSuggestions ?></span></p>
                 </div>
                 <p><a href="Communications/reviewSuggestions.php" style="color: #c4a484; text-decoration: none;">Review Suggestions</a></p>
+            </div>
+
+			 <div class="right-sub-box" style="grid-column: 1 / span 2;">
+                <h2>Announcements</h2>
+                <div class="announcement-preview">
+                    <p>Active: <span class="active-count"><?= $activeAnnouncements ?></span></p>
+                    <?php if (!empty($annPreview)): ?>
+                        <?php foreach ($annPreview as $ap): ?>
+                            <div class="ann-preview-item">
+                                <div class="ann-preview-title"><?= htmlspecialchars($ap['announce_title']) ?></div>
+                                <div class="ann-preview-expiry">Expires: <?= date("M j, Y g:i A", strtotime($ap['announce_expiry'])) ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <div class="ann-links">
+                    <a href="Announcements/createAnnouncement.php">Create Announcement</a>
+                    <a href="Announcements/manageAnnouncements.php">Manage Announcements</a>
+                </div>
             </div>
         </div>
     </div>
@@ -693,9 +693,9 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 		</div>
     </div>
     <br>
+	<p><a href="UserActivity/updateProfileForm.php">Update Profile</a></p>
     <p><a href="logout.php">Logout</a></p>
-
-
+	
     <?php 
 	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
@@ -703,8 +703,6 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
 	<a href="Communications/contact.php" style="text-decoration: none;">Join Us</a>
 	<?php } ?>
-	
-	
 
 </body>
 </html>
