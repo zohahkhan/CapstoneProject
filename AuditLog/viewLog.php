@@ -159,7 +159,6 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
 	</div>
 	<form method="post" action="exportLogs.php">
-		<input type="hidden" name = "role_name" value= "<?php echo $row['role_name']; ?>">
 		<div style="display: flex; justify-content: center; margin-top: -35px;">
 		<button type="submit" name="action" value="export_all_csv" >Export All Logs</button>
 		</div>

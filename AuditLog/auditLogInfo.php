@@ -197,8 +197,6 @@ $keys = array_unique(array_merge(array_keys($json1 ?? []), array_keys($json2 ?? 
  	</form>
 	</table>	
 <br><br>	
-		<p><a href="viewLog.php">Back to all Logs</a></p>
-		<p><a href="../index.php">Back to dashboard</a></p>
 	</main>
 </body>
 </html>

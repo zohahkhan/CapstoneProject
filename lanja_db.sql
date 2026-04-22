@@ -161,7 +161,6 @@ FOREIGN KEY (dept_id) REFERENCES Department (dept_id)
 
 CREATE TABLE Announcement (
 announcement_id		INT				NOT NULL  						AUTO_INCREMENT,
-user_id				INT				NOT NULL, 
 dept_id				INT,
 visibility_scope	ENUM('Members', 'Dept Heads', 'Everyone')		NOT NULL, 
 announce_title		VARCHAR(50)		NOT NULL, 
@@ -175,9 +174,9 @@ created_by		INT					NOT NULL,
 updated_at		TIMESTAMP											ON UPDATE CURRENT_TIMESTAMP,
 updated_by		INT,
 PRIMARY KEY (announcement_id),
-INDEX user_id (user_id),
+INDEX idx_user_id (created_by),
 INDEX dept_id (dept_id),
-FOREIGN KEY (user_id) REFERENCES User (user_id),
+FOREIGN KEY (created_by) REFERENCES User (user_id),
 FOREIGN KEY (dept_id) REFERENCES Department (dept_id)
 );
 
@@ -1451,7 +1450,7 @@ BEGIN
 			diff_json
         )
         VALUES (
-            NEW.updated_by,
+            @current_user_id,
 			@current_role_id,
 			'UPDATE',
 			'CalendarEvent',
@@ -1464,7 +1463,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE */
+/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE 
 DELIMITER $$
 CREATE OR REPLACE  TRIGGER announcement_after_update
 AFTER UPDATE ON `Announcement`
@@ -1523,6 +1522,7 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+*/
 
 /* UPDATE TRIGGER FOR DOCUMENT TABLE */
 DELIMITER $$
@@ -1717,7 +1717,7 @@ END$$
 DELIMITER ;
 
 
-/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE */
+/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE 
 DELIMITER $$
 CREATE OR REPLACE TRIGGER announcement_after_insert
 AFTER INSERT ON `Announcement`
@@ -1758,6 +1758,7 @@ BEGIN
     );
 END$$
 DELIMITER ;
+*/
 
 /* INSERT TRIGGER FOR DOCUMENT TABLE */
 DELIMITER $$
