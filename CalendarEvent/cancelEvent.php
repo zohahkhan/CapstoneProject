@@ -5,6 +5,11 @@ session_start();
 $event_id = $_POST['event_id'];
 $type = $_POST['type'];
 
+// for database script to 'see' session variable
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+$db->exec("SET @current_user_id = " . (int)$_SESSION['user']['user_id']);
+
+
 if ($type === 'single') {
 
     // CHANGED: cancel ONE occurrence
