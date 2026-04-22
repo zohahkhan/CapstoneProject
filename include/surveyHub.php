@@ -104,22 +104,24 @@ $role_id = $_SESSION['user']['role_id'];
 $formTitle = '';
 $formPage = '';
 
-/* NOTE 2 SELF: UPDATE THIS TO YOUR CURRENT HTDOCS DIRECTORY */
-define('BASE_URL', '/CapstoneProject-develop/');
+if ($role_id) 
+{ 
+	require_once 'config.php';
 
-if ($role_id == 2) 
-{
-    $formTitle = '%Compiled Monthly Report%';
-    $formPage = BASE_URL . 'SurveyPages/headdepartmentSurvey.php';
-}
-elseif ($role_id == 3 || 2) 
-{
-    $formTitle = '%Monthly Members Survey%';
-    $formPage = BASE_URL . 'SurveyPages/memberSurvey.php';
-}
-else 
-{
-    die("No valid role found for surveys.");
+	if ($role_id == 2) 
+	{
+    	$formTitle = '%Compiled Monthly Report%';
+    	$formPage = BASE_URL . 'SurveyPages/headdepartmentSurvey.php';
+	}
+	elseif ($role_id == 3 || 2) 
+	{
+    	$formTitle = '%Monthly Members Survey%';
+    	$formPage = BASE_URL . 'SurveyPages/memberSurvey.php';
+	}
+	else 
+	{
+    	die("No valid role found for surveys.");
+	}
 }
 //end of code I added
 
