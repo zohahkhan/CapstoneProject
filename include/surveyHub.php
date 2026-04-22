@@ -105,7 +105,7 @@ $formTitle = '';
 $formPage = '';
 
 /* NOTE 2 SELF: UPDATE THIS TO YOUR CURRENT HTDOCS DIRECTORY */
-define('BASE_URL', '/CapstoneProject-final-develop-integration/');
+define('BASE_URL', '/CapstoneProject-develop/');
 
 if ($role_id == 2) 
 {
