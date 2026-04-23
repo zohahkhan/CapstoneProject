@@ -32,6 +32,7 @@ $responses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href= ../images/logo.png>
 	<meta charset="UTF-8">
 	<title>Responses Summary</title>
 	<link rel="stylesheet" href="../style.css">

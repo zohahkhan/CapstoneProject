@@ -88,6 +88,7 @@ $expiredList = $stmtExpired->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" href= ../images/logo.png>
     <meta charset="UTF-8">
     <title>Manage Announcements</title>
     <link rel="stylesheet" type="text/css" href="../style.css" />

@@ -88,6 +88,7 @@ $page_groups = [
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="icon" href= ../images/logo.png>
     <meta charset="UTF-8">
     <title>Head Department Responses Summary</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

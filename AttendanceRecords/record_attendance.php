@@ -66,6 +66,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
 <html>
 <head>
     <title>Record Attendance</title>
+    <link rel="icon" href= ../images/logo.png>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../style.css">

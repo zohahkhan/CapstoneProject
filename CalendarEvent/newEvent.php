@@ -182,6 +182,7 @@ $queryInsertEvent = 'INSERT INTO CalendarEvent
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="icon" href= ../images/logo.png>
 		<title>Final Project</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -118,6 +118,7 @@ if (isset($login))
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="icon" href= images/logo.png>
 	<meta charset="UTF-8">
 	<title>Login</title>
 	<link rel="stylesheet" href="style.css">

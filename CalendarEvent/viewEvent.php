@@ -46,6 +46,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
+<head>
+	<link rel="icon" href= ../images/logo.png>
+</head>
 <body>
 	<div class="container" id="eventPopup">
 	<div id="eventDetails">

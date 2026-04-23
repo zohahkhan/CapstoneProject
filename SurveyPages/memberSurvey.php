@@ -186,6 +186,7 @@ endif;
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="icon" href= ../images/logo.png>
 	<meta charset="UTF-8">
 	<title>Monthly Members Survey</title>
 	<link rel="stylesheet" href="../style.css">

@@ -118,6 +118,7 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" href= images/logo.png>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
@@ -455,8 +456,10 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="right-sub-box">
-                <h2>Calendar</h2>
-                <?= $mini_calendar_html ?>
+                <h2 >Calendar</h2>
+                <div style="font-size: 1rem; transform: scale(1.2); transform-origin: top center;">
+                    <?= $mini_calendar_html ?>
+                </div>           
             </div>
 
             <div class="right-sub-box">

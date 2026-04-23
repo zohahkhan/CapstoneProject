@@ -58,7 +58,8 @@ if (!empty($search)) {
 <html>
 
 <head>
-    <title>Final project</title>
+    <link rel="icon" href= ../images/logo.png>
+    <title>User Profiles</title>
     <link rel="stylesheet" type="text/css" href="../style.css" />
 	<style>
         body {

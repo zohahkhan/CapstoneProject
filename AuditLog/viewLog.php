@@ -58,7 +58,8 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Final project</title>
+    <link rel="icon" href= ../images/logo.png>
+    <title>Audit Logs</title>
     <link rel="stylesheet" type="text/css" href="../style.css" />
 	<style>
         body {
