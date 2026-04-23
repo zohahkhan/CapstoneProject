@@ -1,7 +1,6 @@
 <!--homepage.php the homepage / user landing page-->
 <?php
 require_once './include/db_connect.php';
-require_once './include/auth.php';
 
 
 if (isset($_GET['success']) && $_GET['success'] == 1) 
