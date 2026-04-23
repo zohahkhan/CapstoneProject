@@ -503,7 +503,7 @@ JSON_ARRAY(
 		),
 	JSON_OBJECT(
 		'id', 3,
-		'question', 'Is this your first time cmpleting this survey?',
+		'question', 'Is this your first time completing this survey?',
 		'options', JSON_ARRAY('Yes', 'No')
 		),
 	JSON_OBJECT(
