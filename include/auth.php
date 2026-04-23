@@ -1,10 +1,11 @@
 <?php
 // auth.php
 require_once "db_connect.php";
+require_once "config.php"; 
 
 $token = $_COOKIE["session"] ?? "";
 if ($token === "") {
-  header("Location: ../login.php");
+  header("Location: ". BASE_URL . "/login.php"); 
   exit;
 }
 
