@@ -250,7 +250,7 @@ if (!isset($_POST['submit_quiz'])):
 	} else 
 	{
 		echo '<button type="submit" name="back" formnovalidate>Back</button> ';
-		echo '<button type="submit" name="submit_quiz">Submit Quiz</button>';
+		echo '<button type="submit" name="submit_quiz">Submit Report</button>';
 	}
  endif; 
 ?>
