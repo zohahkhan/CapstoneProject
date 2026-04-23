@@ -162,7 +162,8 @@ $results = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 		</div>
 	</form>
 	<br><br>
-	
+	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+
 	<form method="POST" action="">
     <label>User ID:</label>
     <select name="user_id">

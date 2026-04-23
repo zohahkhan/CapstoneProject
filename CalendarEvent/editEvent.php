@@ -8,6 +8,7 @@ $user_id = $_SESSION['user']['user_id'];
 
 // for database script to 'see' session variable
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+$db->exec("SET @current_user_id = " . (int)$user_id);
 
 $eventId = filter_input(INPUT_POST, 'event_id', FILTER_VALIDATE_INT);
 $editTitle  = filter_input(INPUT_POST, 'title');

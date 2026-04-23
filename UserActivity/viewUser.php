@@ -177,6 +177,9 @@ if (!empty($search)) {
 			<button type="submit">Search</button>
 		</form>
 	</div>
+    
+    <a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+
 	 <!-- display a table of users -->
 	<table>
 		<tr>
@@ -207,6 +210,7 @@ if (!empty($search)) {
 		</tr>
 		<?php endforeach; ?>
 	</table>
+    <br><a href="../index.php" class="back-link">&larr; Back to dashboard</a>
 </main>
 </body>
 </html>
