@@ -180,7 +180,7 @@ if (!empty($search)) {
 	 <!-- display a table of users -->
 	<table>
 		<tr>
-			<th>ID | </th>
+			<th>ID  </th>
 			<th>First & </th>
 			<th>Last Name</th>
 			<th>Email</th>	
