@@ -293,6 +293,11 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 			box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 			border-color: white;
 		}
+		.profile-links {
+			color: #4b3d29;
+			text-align: center;
+			display:block;
+		}
     </style>
 </head>
 
@@ -500,9 +505,9 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     </br>
-    <a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
-    <p><a href="UserActivity/viewUser.php" style="color: #4b3d29;">View all members</a></p>
-    <a href="logout.php" style="color: #4b3d29;">Logout</a>
+    <a href="UserActivity/updateProfileForm.php" class="profile-links">Update Profile</a>
+    <p><a href="UserActivity/viewUser.php" class="profile-links">View all members</a></p>
+    <a href="logout.php" class="profile-links">Logout</a>
 
     <!---- Department Head ---->
     <?php } else if ($_SESSION['user']['role_id'] == 2) { ?>
@@ -608,8 +613,8 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     </br>
-    <a href="UserActivity/updateProfileForm.php"  style="color: #4b3d29;">Update Profile</a>
-    <p><a href="logout.php"  style="color: #4b3d29;">Logout</a></p> 
+    <a href="UserActivity/updateProfileForm.php"  class="profile-links">Update Profile</a>
+    <p><a href="logout.php"  class="profile-links">Logout</a></p> 
 
     <!---- Member ---->
     <?php } else if ($_SESSION['user']['role_id'] == 3) { ?>
@@ -681,8 +686,8 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     </br>
-    <a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
-    <p><a href="logout.php" style="color: #4b3d29;">Logout</a></p>
+    <a href="UserActivity/updateProfileForm.php" class="profile-links">Update Profile</a>
+    <p><a href="logout.php" class="profile-links">Logout</a></p>
 
     <!---- Admin ---->
     <?php } else if ($_SESSION['user']['role_id'] == 4) { ?>	
@@ -713,15 +718,15 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
 		</div>
     </div>
     <br>
-	<a href="UserActivity/updateProfileForm.php" style="color: #4b3d29;">Update Profile</a>
-    <p><a href="logout.php" style="color: #4b3d29;">Logout</a></p>
+	<a href="UserActivity/updateProfileForm.php" class="profile-links">Update Profile</a>
+    <p><a href="logout.php" class="profile-links">Logout</a></p>
 	
     <?php 
 	}} else {
 			echo "<h1>Welcome to Lajna Pittsburgh</h1>";
 	?>
-	<p><a href="login.php" style="text-decoration: none;">Login Here</a></p>
-	<a href="Communications/contact.php" style="text-decoration: none;">Join Us</a>
+	<p><a href="login.php" class="profile-links">Login Here</a></p>
+	<a href="Communications/contact.php" class="profile-links">Join Us</a>
 	<?php } ?>
 
 </body>
