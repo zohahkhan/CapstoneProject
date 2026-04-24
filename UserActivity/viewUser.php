@@ -163,11 +163,6 @@ if (!empty($search)) {
 	</header>
 <main>
     <h2>Review All Users</h2>
-	<div class="links">
-		<?php if ($_SESSION['user']['role_id'] == 1) { ?>
-		<a href="newUser.php" class="back-link"> Add New member</a>
-		<?php } ?>
-	</div>
 	
 	<div class="links" style="justify-content: center; margin-top: 15px; ">
 		<form method="POST" action="" class="form-group" style="display: flex; ">
@@ -179,7 +174,10 @@ if (!empty($search)) {
 		</form>
 	</div>
     
-    <a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+    <?php if ($_SESSION['user']['role_id'] == 1) { ?>
+		<a href="newUser.php" class="back-link" style="display: flex; 
+			justify-content: flex-end;"> Add New member</a>
+	<?php } ?>
 
 	 <!-- display a table of users -->
 	<table>
@@ -211,7 +209,10 @@ if (!empty($search)) {
 		</tr>
 		<?php endforeach; ?>
 	</table>
-    <br><a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+	<br>
+    <div class="links">
+    	<a href="../index.php" class="back-link">&larr; Back to dashboard</a>
+	</div>
 </main>
 </body>
 </html>
