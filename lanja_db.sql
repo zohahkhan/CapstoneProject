@@ -1463,7 +1463,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE 
+/* UPDATE TRIGGER FOR ANNOUNCEMENT TABLE */
 DELIMITER $$
 CREATE OR REPLACE  TRIGGER announcement_after_update
 AFTER UPDATE ON `Announcement`
@@ -1510,7 +1510,7 @@ BEGIN
 			diff_json
         )
         VALUES (
-            NEW.updated_by,
+            @current_user_id,
 			@current_role_id,
 			'UPDATE',
 			'Announcement',
@@ -1522,7 +1522,7 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
-*/
+
 
 /* UPDATE TRIGGER FOR DOCUMENT TABLE */
 DELIMITER $$
@@ -1717,7 +1717,7 @@ END$$
 DELIMITER ;
 
 
-/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE 
+/* INSERT TRIGGER FOR ANNOUNCEMENT TABLE */
 DELIMITER $$
 CREATE OR REPLACE TRIGGER announcement_after_insert
 AFTER INSERT ON `Announcement`
@@ -1747,7 +1747,7 @@ BEGIN
 		diff_json
     )
     VALUES (
-         NEW.created_by,
+          @current_user_id,
 		  @current_role_id,
 			'CREATE',
 			'Announcement',
@@ -1758,7 +1758,7 @@ BEGIN
     );
 END$$
 DELIMITER ;
-*/
+
 
 /* INSERT TRIGGER FOR DOCUMENT TABLE */
 DELIMITER $$
