@@ -29,7 +29,7 @@ $rows = $db->query("
 </head>
 <body>
   <p>
-  <a href="../index.php">← Back to Dashboard</a>
+  <a href="../index.php" style="color: #4b3d29;">← Back to Dashboard</a>
 </p>
 
 <h1>Join Requests</h1>
@@ -44,7 +44,7 @@ $rows = $db->query("
         <?= htmlspecialchars($r["created_at"]) ?> —
         <?= htmlspecialchars($r["full_name"]) ?> —
         <?= htmlspecialchars($r["contact_email"]) ?>
-        [<a href="view_request.php?id=<?= (int)$r["request_id"] ?>">View</a>]
+        [<a href="view_request.php?id=<?= (int)$r["request_id"] ?>" style="color: #4b3d29;">View</a>]
       </li>
     <?php endforeach; ?>
   </ul>
