@@ -320,7 +320,7 @@ $queryInsertEvent = 'INSERT INTO CalendarEvent
 				<br>
 			<div style="text-align: center;">
 				<button type="submit" name="create">Create</button>
-				<p><a href="calendar.php">Back to Calendar</a></p>
+				<p><a href="calendar.php" style="color: #4b3d29;">Back to Calendar</a></p>
 			</div>
 		</div>
 		</form>
