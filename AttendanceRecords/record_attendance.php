@@ -289,7 +289,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1)
 
         <?php endif; ?>
 
-        <p style="margin-top: 30px;"><a href="../index.php">Back to Home</a></p>
+        <p style="margin-top: 30px;"><a href="../index.php" style="color: #4b3d29;">Back to Home</a></p>
     </div>
 
     <script>
