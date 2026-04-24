@@ -766,7 +766,7 @@ function showEditForm()
     document.getElementById("editView").style.display = "block";
 
     document.getElementById("editTitle").value =
-        document.getElementById("eventTitle").innerText;
+        document.getElementById("eventTitle").innerText.trim();
 
     document.getElementById("editLocation").value =
         document.getElementById("eventLocation").innerText.replace("Location:", "").trim();
