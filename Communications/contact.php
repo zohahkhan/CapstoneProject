@@ -94,7 +94,7 @@ exit;
 </form>
 
 <br><br>
-<a href="../index.php">Back to home</a>
+<a href="../index.php" style="color: #4b3d29;">Back to home</a>
 </body>
 </html>
 
