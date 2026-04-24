@@ -216,7 +216,7 @@ if (isset($register))
 				<br>
 				<div style="text-align: center;">
 					<button type="submit" name="register">Submit</button>
-					<p><a href="../index.php">Back to home</a></p>
+					<p><a href="../index.php" style="color: #4b3d29;">Back to home</a></p>
 				</div>
 			</div>
 		</form>
