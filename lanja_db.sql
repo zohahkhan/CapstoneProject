@@ -1852,7 +1852,7 @@ diff_json,
 occurred_at
 )
 VALUES 
-(1, 20, 2, 'Create', 'CalendarEvent', 1, NULL, '{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "created_at": "2025-01-08 14:42:45", "created_by": 20}', NULL, '2026-01-08 14:42:45'),
+(1, 20, 2, 'Create', 'CalendarEvent', 1, NULL, '{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "created_at": "2026-01-08 14:42:45", "created_by": 20}', NULL, '2026-01-08 14:42:45'),
 (2, 20, 2, 'Update', 'CalendarEvent', 1,
 	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "Campus", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "0000-00-00 00:00:00", "updated_by": null}', 
 	'{"event_title": "First Day of Class", "event_desc": "The first day of Spring Term begins.", "event_location": "D2L", "event_date": "2026-01-20 00:00:00", "recurring": null, "iterations": null, "days_of_week": null, "updated_at": "2026-03-02 02:00:27", "updated_by": 20}', 
