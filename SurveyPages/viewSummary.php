@@ -131,7 +131,7 @@ $responses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     ?>
     </div>
 	<br><br>	
-    <a href="../index.php">Back to Homepage</a>
+    <a href="../index.php" style="color: #4b3d29;">Back to Homepage</a>
 </div>
 </body>
 </html>
