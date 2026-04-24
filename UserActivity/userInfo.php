@@ -161,10 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</header>
 	<br><br>
 <main>
-	<div class="links">
-    	<a href="viewUser.php" class="back-link">&larr; Back to all Members</a>
-		<a href="../index.php" class="back-link">Jump to dashboard</a>		
-	</div>
+	
 <!--- view details about the selected user  --->
 	<table>
 		<form action = "" method = "post">
@@ -209,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<form method="post" style="margin:0;">
 					<input type="hidden" name="user_id" value="<?= $user_id ?>">
 
-					<button type="submit" >
+					<button type="submit"  style="display: block; margin: 0 auto;">
 						<?= $user['is_active'] ? 'Deactivate this user' : 'Activate as Member' ?>
 					</button>
 				</form>			
@@ -218,8 +215,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<?php  endforeach; ?>
 	</table>		
 <br><br>	
-		<p><a href="viewUser.php">Back to all Members</a></p>
-		<p><a href="../index.php">Back to dashboard</a></p>
+	<div class="links">
+    	<a href="viewUser.php" class="back-link">&larr; Back to all Members</a>
+		<a href="../index.php" class="back-link">Jump to dashboard</a>		
+	</div>
 	</main>
 </body>
 </html>
