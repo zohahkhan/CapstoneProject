@@ -14,6 +14,17 @@ if (!in_array($_SESSION['user']['role_id'], [1, 4]))
     exit;
 }
 
+// alert for if a new member is added
+if (isset($_GET['success']) && $_GET['success'] == 1) 
+{
+    echo "<script>alert('Account successfully created!');</script>";
+
+    // redirect to same page without get query string 
+    $url = strtok($_SERVER["REQUEST_URI"], '?'); 
+    echo "<script>window.location.href='$url';</script>";
+    exit();
+}
+
 $search = isset($_POST['search']) ? $_POST['search'] : '';
 if (!preg_match("/^[a-zA-Z\s]*$/", $search)) 
 {
