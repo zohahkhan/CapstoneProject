@@ -17,6 +17,12 @@ if ($roleId !== 1 && $roleId !== 2) {
 }
 
 $userId = (int)$_SESSION['user']['user_id'];
+
+
+// for database script to 'see' session variable for trigger log activity
+$db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+$db->exec("SET @current_user_id = " . (int)$_SESSION['user']['user_id']);
+
 $message = '';
 $messageType = '';
 
