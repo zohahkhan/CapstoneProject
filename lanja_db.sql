@@ -1704,7 +1704,7 @@ BEGIN
 		diff_json
     )
     VALUES (
-         NEW.created_by,
+         @current_user_id,
 		 @current_role_id,
 			'CREATE',
 			'CalendarEvent',
