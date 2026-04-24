@@ -184,6 +184,24 @@ if (isset($register))
 		.error {
 			color:red;
 		}
+		.back-link
+        {
+            margin-bottom: 20px;
+            color: #c4a484;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+			text-shadow: 0 0px 0.5px rgba(0,0,0,0.80);
+        }
+        .back-link:hover
+        {
+            color: #b39578;	
+        }
+		.links 
+		{
+    		display: block;
+			margin: 0 auto;
+		}
 	</style>
     <main>
         <?php if (isset($errors['registration'])) : ?>
@@ -243,11 +261,15 @@ if (isset($register))
 				<br>
 				<div style="text-align: center;">
 					<button type="submit" name="register">Submit</button>
-					<p><a href="../index.php" style="color: #4b3d29;">Back to home</a></p>
 				</div>
 			</div>
 		</form>
     </main>
+	<div class="links">
+		<p><a href="viewUser.php" class="back-link" >&larr; Back to User Profiles</a></p>
+		<p><a href="../index.php" style="color: #4b3d29;  display: flex;
+					justify-content: center;" >Jump to Dashboard</a></p>
+	</div>
 </body>
 </html>
 
