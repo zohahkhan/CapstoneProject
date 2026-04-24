@@ -59,7 +59,35 @@ if (isset($register))
 	$stmt->bindValue(':email', $email);
     $stmt->execute();
     $countEmail = $stmt->fetchColumn();
+
 	
+	function formatPhone($phone) 
+	{
+    	$phone = preg_replace('/\D/', '', $phone);
+    	// Removes leading US country code
+    	if (strlen($phone) === 11 && $phone[0] === '1') 
+		{
+        	$phone = substr($phone, 1);
+    	}
+    	// Validate length
+    	if (strlen($phone) !== 10) 
+		{
+        	return false;
+    	}
+    return $phone; 
+	}
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+	{
+    	$phoneInput = $_POST['phone'];
+    	$phone = formatPhone($phoneInput);
+
+    	if ($phone === false) 
+		{
+        	$errors['phone'] = "Invalid phone number";
+    	}
+	}
+
+
     // error handling: check for empty fields
     if (empty($first_name)) 
 	{
@@ -77,9 +105,9 @@ if (isset($register))
 	{
 		$errors['email'] = "An account with this email address already exists";
 	}
-	else if (empty($phone) || strlen($phone) !== 10) 
+	else if (empty($phone)) 
 	{
-        $errors['phone'] = 'Valid phone number is required';
+        $errors['phone'] = 'Phone number is required';
     }
 	else if (empty($address)) 
 	{
@@ -190,8 +218,7 @@ if (isset($register))
 				
 				<div >
 					<label for="phone">Phone Number: </label>
-					<input type="text" name="phone" id="phone" inputmode="numeric" pattern="\d+" 
-							required title="Enter digits only" value="<?php echo $phone; ?>">
+					<input type="text" name="phone" id="phone" inputmode="numeric" value="<?php echo $phone; ?>">
 						<?php if (isset($errors['phone'])) : ?>
 							<p class="error"><?php echo $errors['phone']; ?></p>
 						<?php endif; ?>
