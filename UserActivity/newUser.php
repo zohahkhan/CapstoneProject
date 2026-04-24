@@ -158,7 +158,7 @@ if (isset($register))
 				]);
 			
             // redirect to president's profile for feedback		
-			header('Location: newUser.php?success=1');
+			header('Location: viewUser.php?success=1');
             exit();
         } else {
             // if failed, display error message
