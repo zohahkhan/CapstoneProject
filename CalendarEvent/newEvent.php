@@ -6,8 +6,9 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 }
 
-// for database script to 'see' session variable
+// for database script to 'see' session variable for trigger log activity
 $db->exec("SET @current_role_id = " . (int)$_SESSION['user']['role_id']);
+$db->exec("SET @current_user_id = " . (int)$_SESSION['user']['user_id']);
 
 
 // alert for if a new event is added
