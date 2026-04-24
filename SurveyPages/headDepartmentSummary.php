@@ -308,7 +308,7 @@ $page_groups = [
         </div>
     <?php endforeach; ?>
 
-    <a class="back-link" href="../index.php">Back to Homepage</a>
+    <a class="back-link" href="../index.php" style="color: #4b3d29;">Back to Homepage</a>
 </div>
 </body>
 </html>
