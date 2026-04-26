@@ -423,9 +423,9 @@ $annPreview = $stmtAnnPreview->fetchAll(PDO::FETCH_ASSOC);
                 <a href="SurveyPages/headDepartmentSummary.php" style="color: #4b3d29;">Compiled Monthly Report Summary</a>
             </div>
 
-            <div class="left-sub-box bottom-box" style="height: 425px !important; background-color: #faf5f0;">
+            <div class="left-sub-box bottom-box" style="height: 396px !important; max-height:400px; min-height:380px;  background-color: #faf5f0;">
                 <h2>Monthly Report</h2>
-                <div class="scrollable-report-box"  style="height: 396px !important; max-height:400px; min-height:380px; > 
+                <div class="scrollable-report-box"  style="height: 300px;"  > 
 					<?php include("include/surveyHub.php"); ?>
 				</div>
                 <br>
