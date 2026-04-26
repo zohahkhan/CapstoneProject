@@ -129,6 +129,7 @@ FOREIGN KEY (role_id) REFERENCES Role (role_id)
 CREATE TABLE Department (
 dept_id			INT					NOT NULL  						AUTO_INCREMENT,
 user_id			INT					NOT NULL, 
+role_id			INT					NOT NULL,
 dept_name		VARCHAR(50)			NOT NULL, 
 dept_desc		TEXT				NOT NULL, 
 PRIMARY KEY (dept_id),
@@ -332,11 +333,12 @@ INSERT INTO Department
 (
 dept_id,
 user_id,
+role_id,
 dept_name,
 dept_desc
 )
 VALUES
-(1, 17, 'Reporting Department', 'The Reporting Department is responsible for collecting organizing analyzing and consolidating organizational data into accurate reports');
+(1, 17, 2, 'Reporting Department', 'The Reporting Department is responsible for collecting organizing analyzing and consolidating organizational data into accurate reports');
 
 
 INSERT INTO CalendarEvent 
