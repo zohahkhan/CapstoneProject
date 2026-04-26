@@ -23,7 +23,7 @@ Resolution: added variable for @current_user_id at the top of page experiencing 
 Severity: med | Fix Status: Fixed
 
 Bug: The announcement expiry feature was not functioning accurately because the system clock was running several hours ahead of the actual local time.
-Resolution: 
+Resolution: Fixed the issue by configuring the server and PHP timezone settings (e.g., date.timezone) to match the local environment, ensuring the expiry logic uses the correct system time. date_default_timezone_set('America/New_York');
 Severity: High | Fix Status: Fixed
 
 Bug: The password reset email feature does not work on localhost.
