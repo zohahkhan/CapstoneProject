@@ -1,0 +1,34 @@
+<?php
+// auth.php
+require_once "db_connect.php";
+require_once "config.php"; 
+
+$token = $_COOKIE["session"] ?? "";
+if ($token === "") {
+  header("Location: ". BASE_URL . "/login.php"); 
+  exit;
+}
+
+$currentTime = date('Y-m-d H:i:s');
+
+$stmt = $db->prepare("
+  SELECT s.user_id
+  FROM Session s
+  WHERE s.session_id = ?
+    AND s.revoked_at IS NULL
+    AND s.expires_at > ?
+");
+$stmt->execute([$token, $currentTime]);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$row) {
+  setcookie("session", "", time() - 3600, "/");
+  header("Location: ../login.php");
+  exit;
+}
+
+// Optionally refresh session last_seen
+$db->prepare("UPDATE Session SET last_seen_at = ? WHERE session_id = ?")
+   ->execute([$currentTime, $token]);
+
+$user_id = (int)$row["user_id"];
