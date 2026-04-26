@@ -20,3 +20,4 @@ Sprint Goals:  Debugging, final touches, final production website, minor improve
 
 Bug: foreign key contraint user_id restriction. caused by trigger. 
 Resolution: added variable for @current_user_id at the top of page experiencing the error.
+Severity: med | Fix Status: Fixed
