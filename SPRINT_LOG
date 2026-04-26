@@ -26,3 +26,7 @@ Bug: The announcement expiry feature was not functioning accurately because the 
 Resolution: 
 Severity: High | Fix Status: Fixed
 
+Bug: The password reset email feature does not work on localhost.
+Resolution: Removed the email-sending code from forgot_password_process.php for localhost testing and created a separate webserver version that includes the email functionality. PR #87
+Severity: High | Fix Status: Fixed
+
