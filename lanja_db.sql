@@ -26,9 +26,6 @@ event_title		VARCHAR(50)         NOT NULL,
 event_desc		TEXT		        NOT NULL, 
 event_location	VARCHAR(250)		NOT NULL, 
 event_date		DATETIME			NOT NULL, 
-recurring		ENUM('None','Daily', 'Weekly', 'Monthly', 'Annually'), 
-iterations		INT, 
-days_of_week 	SET('SU','MO','TU','WE','TH','FR','SA'),
 created_at		TIMESTAMP			NOT NULL					DEFAULT CURRENT_TIMESTAMP, 
 created_by		INT					NOT NULL,
 updated_at		TIMESTAMP										ON UPDATE CURRENT_TIMESTAMP,
@@ -349,24 +346,21 @@ event_title,
 event_desc,
 event_location,
 event_date,
-recurring, 
-iterations,
-days_of_week,
 created_at,
 created_by
 )
 VALUES
-(1, 'First Day of Class', 'The first day of Spring Term begins', 'D2L', '2026-01-20 00:00:00', NULL, NULL,  NULL, '2026-01-08 14:42:45', 20),   
-(2, 'Team Meeting', 'Gather to discuss future developments', 'Zoom', '2026-01-23 12:30:00',  NULL,  NULL, NULL, '2026-01-08 14:48:31', 20), 
-(3, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(4, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(5, 'Eid', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(6, 'March Meeting', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(7, 'April Meeting', 'Program will start at 10 AM and continue until 2PM', 'Mosque', '2026-04-11 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(8, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-05 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(9, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-12 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(10, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-19 10:00:00', NULL, NULL, NULL, current_timestamp(), 17),
-(11, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-26 10:00:00', NULL, NULL, NULL, current_timestamp(), 17);
+(1, 'First Day of Class', 'The first day of Spring Term begins', 'D2L', '2026-01-20 00:00:00', '2026-01-08 14:42:45', 20),   
+(2, 'Team Meeting', 'Gather to discuss future developments', 'Zoom', '2026-01-23 12:30:00', '2026-01-08 14:48:31', 20), 
+(3, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-07 18:00:00', current_timestamp(), 17),
+(4, 'Iftari', 'Iftari Dinner starting at 5 PM', 'Mosque', '2026-03-14 18:00:00', current_timestamp(), 17),
+(5, 'Eid', 'Program starts at 10 AM', 'Mosque', '2026-03-20 10:00:00', current_timestamp(), 17),
+(6, 'March Meeting', 'Program will start at 11 AM', 'Mosque', '2026-03-29 10:00:00', current_timestamp(), 17),
+(7, 'April Meeting', 'Program will start at 10 AM and continue until 2PM', 'Mosque', '2026-04-11 10:00:00', current_timestamp(), 17),
+(8, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-05 10:00:00', current_timestamp(), 17),
+(9, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-12 10:00:00', current_timestamp(), 17),
+(10, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-19 10:00:00', current_timestamp(), 17),
+(11, 'Sunday School', 'Classes will start at 12PM', 'Mosque', '2026-04-26 10:00:00', current_timestamp(), 17);
 
 INSERT INTO Permission 
 (
@@ -1359,7 +1353,6 @@ BEGIN
 			'user_email', OLD.user_email,
             'user_phone', OLD.user_phone,
 			'user_address', OLD.user_address,
-			'password_hashed', OLD.password_hashed,
             'is_active', OLD.is_active,
 			'last_updated', OLD.last_updated,
 			'updated_by', OLD.updated_by
@@ -1370,7 +1363,6 @@ BEGIN
 			'user_email', NEW.user_email,
             'user_phone', NEW.user_phone,
 			'user_address', NEW.user_address,
-			'password_hashed', NEW.password_hashed,
             'is_active', NEW.is_active,
 			'last_updated', NEW.last_updated,
 			'updated_by', NEW.updated_by
@@ -1418,9 +1410,6 @@ BEGIN
             'event_desc', OLD.event_desc,
 			'event_location', OLD.event_location,
             'event_date', OLD.event_date,
-			'recurring', OLD.recurring,
-			'iterations', OLD.iterations,
-            'days_of_week', OLD.days_of_week,
 			'updated_at', OLD.updated_at,
 			'updated_by', OLD.updated_by
         );
@@ -1429,9 +1418,6 @@ BEGIN
             'event_desc', NEW.event_desc,
 			'event_location', NEW.event_location,
             'event_date', NEW.event_date,
-			'recurring', NEW.recurring,
-			'iterations', NEW.iterations,
-            'days_of_week', NEW.days_of_week,
 			'updated_at', NEW.updated_at,
 			'updated_by', NEW.updated_by
         );
@@ -1647,7 +1633,6 @@ BEGIN
 			'user_email', NEW.user_email,
             'user_phone', NEW.user_phone,
 			'user_address', NEW.user_address,
-			'password_hashed', NEW.password_hashed,
             'is_active', NEW.is_active,
 			'joined_on', NEW.joined_on
         );
@@ -1687,9 +1672,6 @@ BEGIN
             'event_desc', NEW.event_desc,
 			'event_location', NEW.event_location,
             'event_date', NEW.event_date,
-			'recurring', NEW.recurring,
-			'iterations', NEW.iterations,
-            'days_of_week', NEW.days_of_week,
 			'created_at', NEW.created_at,
 			'created_by', NEW.created_by
         );
