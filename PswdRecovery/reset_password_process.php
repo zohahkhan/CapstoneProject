@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . '/../include/db_connect.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_SESSION['user'])) 
 {
@@ -10,26 +12,17 @@ if (isset($_SESSION['user']))
 }
 
 $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $password = filter_input(INPUT_POST, 'password');
 $confirm_password = filter_input(INPUT_POST, 'confirm_password');
-
-if (!$token || !$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: reset_password.html?error=invalid_request');
-    exit();
-}
-
 
 $queryCheckToken = 'SELECT prt.reset_id, prt.user_id, prt.expires_at, u.user_email 
                     FROM PasswordResetToken prt
                     JOIN `User` u ON prt.user_id = u.user_id
                     WHERE prt.token = :token 
-                    AND u.user_email = :email
                     AND prt.reset_success = 0
                     AND prt.expires_at > NOW()';
 $statement = $db->prepare($queryCheckToken);
 $statement->bindParam(':token', $token);
-$statement->bindParam(':email', $email);
 $statement->execute();
 $reset_data = $statement->fetch();
 
@@ -41,13 +34,13 @@ if (!$reset_data)
 
 if (strlen($password) < 8) 
 {
-    header('Location: reset_password.html?token=' . urlencode($token) . '&email=' . urlencode($email) . '&error=short_password');
+    header('Location: reset_password.html?token=' . $token . '&error=short_password');
     exit();
 }
 
 if ($password !== $confirm_password) 
 {
-    header('Location: reset_password.html?token=' . urlencode($token) . '&email=' . urlencode($email) . '&error=no_match');
+    header('Location: reset_password.html?token=' . $token . '&error=no_match');
     exit();
 }
 
