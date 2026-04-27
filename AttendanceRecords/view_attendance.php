@@ -110,7 +110,7 @@ $records = $stmt->fetchAll();
             </tbody>
         </table>
         <?php endif; ?>
-        <p style="margin-top: 30px;"><a href="../index.php">Back to Home</a></p>
+        <p style="margin-top: 30px;"><a href="../index.php" style="color: #4b3d29;">Back to Home</a></p>
     </div>
 </body>
 </html>
