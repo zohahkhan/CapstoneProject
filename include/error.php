@@ -13,7 +13,7 @@
 	
 	<p>You do not have permissions to view this page</p>
 	<br><br>
-	<p><a href="../index.php">Back to Home</a></p>
+	<p><a href="../index.php" style="color: #4b3d29;">Back to Home</a></p>
 	
 </body>
 </html>
